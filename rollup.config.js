@@ -40,5 +40,6 @@ export default [
       resolve(),
       commonjs(),
     ],
+    external: ['@hebcal/core'],
   },
 ];
