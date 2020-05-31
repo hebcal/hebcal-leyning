@@ -1,7 +1,19 @@
-export {
+import {
   getLeyningForHoliday,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
   formatAliyahWithBook,
 } from './leyning';
-export {getTriennial, Triennial} from './triennial';
+import {getTriennial, Triennial} from './triennial';
+
+/** Main interface to hebcal/leyning */
+const leyning = {
+  Triennial,
+  getTriennial,
+  getLeyningForHoliday,
+  getLeyningForParshaHaShavua,
+  getLeyningKeyForEvent,
+  formatAliyahWithBook,
+};
+
+export default leyning;
