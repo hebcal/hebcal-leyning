@@ -1,15 +1,20 @@
 # hebcal-leyning
 Javascript Torah Reading API for Parashat HaShavua and holidays
 
-## Synopsis
+## Installation
+```bash
+$ npm install @hebcal/leyning
 ```
-import {hebrewCalendar} from '@hebcal/core';
-import {getLeyningForParshaHaShavua} from '@hebcal/leyning';
 
-const options = {year: 1981, month: 7, isHebrewYear: false, sedrot: true, noHolidays: true};
-const events = hebrewCalendar(options);
+## Synopsis
+```javascript
+import {hebcal, HDate, Event} from '@hebcal/core';
+import leyning from '@hebcal/leyning';
+
+const options = {sedrot: true, noHolidays: true};
+const events = hebcal.hebrewCalendar(options);
 const ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
-const aliyot = getLeyningForParshaHaShavua(ev);
+const aliyot = leyning.getLeyningForParshaHaShavua(ev);
 ```
 
 ## Classes
