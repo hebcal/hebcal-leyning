@@ -27,6 +27,7 @@
     "build:cp-json": "mkdir -p ./dist && cp ./src/*.json ./dist",
     "build": "npm run build:cp-json && npm run build:rollup",
     "prepublish": "npm run build",
+    "readme": "npx jsdoc2md dist/index.js",
     "pretest": "npm run build",
     "test": "ava"
   },
@@ -59,6 +60,8 @@
     "ava": "^3.8.2",
     "eslint": "^7.1.0",
     "eslint-config-google": "^0.14.0",
+    "jsdoc": "^3.6.4",
+    "jsdoc-to-markdown": "^5.0.3",
     "rollup": "^1.29.0",
     "rollup-plugin-terser": "^6.1.0"
   }
