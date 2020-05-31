@@ -19,7 +19,7 @@
     "url": "https://github.com/hebcal/hebcal-leyning/issues"
   },
   "dependencies": {
-    "@hebcal/core": "^1.0.0",
+    "@hebcal/core": "^1.0.1",
     "core-js": "^2.6.11"
   },
   "scripts": {

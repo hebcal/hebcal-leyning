@@ -1,5 +1,4 @@
-import {HDate} from './hdate';
-import {Sedra, parshiot} from './sedra';
+import {HDate, Sedra, parshiot} from '@hebcal/core';
 
 const doubled = [
   21, // Vayakhel-Pekudei

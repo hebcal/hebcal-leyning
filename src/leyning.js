@@ -1,6 +1,4 @@
-import {getHolidaysOnDate} from './holidays';
-import {flags} from './event';
-import common from './common';
+import {getHolidaysOnDate, flags, hebMonths} from '@hebcal/core';
 
 const festivals = require('./holiday-readings.json');
 const parshiyotObj = require('./aliyot.json');
@@ -39,7 +37,7 @@ export function getLeyningKeyForEvent(e, il=false) {
   const isShabbat = (dow == 6);
   const isRoshChodesh = (day == 1 || day == 30);
 
-  if (day == 1 && hd.getMonth() == common.months.TISHREI) {
+  if (day == 1 && hd.getMonth() == hebMonths.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
   } else if (attrs && attrs.cholHaMoedDay) {
     // Sukkot or Pesach
@@ -243,7 +241,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   const hd = e.getDate();
   if (name == 'Pinchas') {
     const month = hd.getMonth();
-    if (month > common.months.TAMUZ || (month == common.months.TAMUZ && hd.getDate() > 17)) {
+    if (month > hebMonths.TAMUZ || (month == hebMonths.TAMUZ && hd.getDate() > 17)) {
       haftara = 'Jeremiah 1:1 - 2:3';
       reason.haftara = 'Pinchas occurring after 17 Tammuz';
     }
