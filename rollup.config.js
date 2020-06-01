@@ -9,13 +9,21 @@ export default [
   {
     input: 'src/index.js',
     output: [
-      {file: pkg.browser, format: 'umd', name: 'hebcal-leyning'},
-      {file: pkg.main, format: 'cjs'},
-      {file: pkg.module, format: 'es'},
+      {
+        file: pkg.main,
+        format: 'umd',
+        name: 'hebcalLeyning',
+        globals: {
+          '@hebcal/core': 'hebcalCore',
+        },
+      },
       {
         file: 'dist/bundle.min.js',
         format: 'umd',
-        name: 'hebcal-leyning',
+        name: 'hebcalLeyning',
+        globals: {
+          '@hebcal/core': 'hebcalCore',
+        },
         plugins: [terser()],
       },
     ],
@@ -23,19 +31,6 @@ export default [
       babel({
         babelHelpers: 'bundled',
         exclude: ['node_modules/**'],
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              corejs: 2,
-              modules: false,
-              useBuiltIns: 'usage',
-              targets: {
-                ie: '11',
-              },
-            },
-          ],
-        ],
       }),
       resolve(),
       commonjs(),
