@@ -140,7 +140,7 @@ export class Triennial {
   }
 
   /**
-   * Builds a lookup table readings["Bereshit"][1], readings["Matot-Masei"][3]
+   * Builds a lookup table readings["Bereshit"][0], readings["Matot-Masei"][2]
    * @param {Object} cycleOption
    * @return {Map<string,Object[]>}
    */
@@ -153,7 +153,7 @@ export class Triennial {
       const parsha = getDoubledName(id);
       readings.set(parsha, []);
     }
-    for (const yr of [1, 2, 3]) {
+    for (const yr of [0, 1, 2]) {
       this.cycleReadingsForYear(cycleOption, readings, yr);
     }
     return readings;
@@ -165,8 +165,8 @@ export class Triennial {
     * @param {number} yr
     */
   cycleReadingsForYear(option, readings, yr) {
-    const startIdx = this.bereshit[yr - 1];
-    const endIdx = this.bereshit[yr];
+    const startIdx = this.bereshit[yr];
+    const endIdx = this.bereshit[yr + 1];
     const sedraArray = this.sedraArray.slice(startIdx, endIdx);
     for (const id of sedraArray) {
       if (typeof id !== 'number') {
@@ -174,7 +174,7 @@ export class Triennial {
       }
       const h = (id < 0) ? getDoubledName(-id) : parshiot[id];
       const variationKey = isSometimesDoubled[id] ? option[h] : 'Y';
-      const variation = variationKey + '.' + yr;
+      const variation = variationKey + '.' + (yr + 1);
       const a = triennialAliyot[h][variation];
       if (!a) {
         throw new Error(`can't find ${h} year ${yr} (variation ${variation})`);
@@ -270,7 +270,6 @@ export function getTriennial(year) {
   __cache.set(cycleStartYear, tri);
   return tri;
 }
-
 
 export default {
   getTriennial,

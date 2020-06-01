@@ -5,13 +5,12 @@ import pkg from './package.json';
 import {terser} from 'rollup-plugin-terser';
 
 export default [
-  // browser-friendly UMD build
   {
     input: 'src/index.js',
     output: [
       {
         file: pkg.main,
-        format: 'umd',
+        format: 'cjs',
         name: 'hebcalLeyning',
         globals: {
           '@hebcal/core': 'hebcalCore',
