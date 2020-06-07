@@ -1,3 +1,7 @@
+/// <reference types="node"/>
+
+import {Event} from '@hebcal/core';
+
 declare module '@hebcal/leyning' {
     /**
      * Represents an aliyah
@@ -50,13 +54,32 @@ declare module '@hebcal/leyning' {
      * @param [il] - in Israel
      * @returns map of aliyot
      */
-    export function getLeyningForParshaHaShavua(e: Event, il?: booleam): Leyning;
+    export function getLeyningForParshaHaShavua(e: Event, il?: boolean): Leyning;
 
     /**
      * Formats an aliyah object like "Numbers 28:9 - 28:15"
      * @param a - aliyah
      */
     export function formatAliyahWithBook(a: Aliyah): string;
+
+    /**
+     * Triennial Torah readings
+     */
+    export class Triennial {
+        constructor(hebrewYear: number, aliyot: any);
+        getReadings(): any;
+        getStartYear(): number;
+        /**
+         * Returns triennial year 1, 2 or 3 based on this Hebrew year
+         * @param year Hebrew year
+         */
+        static getYearNumber(year: number): number;
+        /**
+         * Returns Hebrew year that this 3-year triennial cycle began
+         * @param year Hebrew year
+         */
+        static getCycleStartYear(year: number): number;
+    }
 
     /**
      * Calculates the 3-year readings for a given year

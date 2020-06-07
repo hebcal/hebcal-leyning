@@ -217,7 +217,7 @@ function getHolidayEvents(hd, il) {
 /**
  * Looks up leyning for a regular Shabbat parsha.
  * @param {Event} e the Hebcal event associated with this leyning
- * @param {booleam} [il] in Israel
+ * @param {boolean} [il] in Israel
  * @return {Leyning} map of aliyot
  */
 export function getLeyningForParshaHaShavua(e, il=false) {
