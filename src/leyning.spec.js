@@ -201,3 +201,20 @@ test('sukkot-shabbat-chm', (t) => {
   t.is(a2.haftara, 'Ezekiel 38:18 - 39:16');
   t.is(formatAliyah(a2, 'M'), 'Numbers 29:20 - 29:25');
 });
+
+test('sephardic', (t) => {
+  const options = {year: 2021, isHebrewYear: false, sedrot: true, noHolidays: true};
+  const events = hebcal.hebrewCalendar(options);
+  const bereshit = events.find((ev) => ev.getDesc() == 'Parashat Bereshit');
+  const a = leyning.getLeyningForParshaHaShavua(bereshit);
+  t.is(a.haftara, 'Isaiah 42:5 - 43:10');
+  t.is(a.sephardic, 'Isaiah 42:5 - 42:21');
+});
+
+test('no-leyning-on-holiday', (t) => {
+  const options = {year: 5757, isHebrewYear: true, il: true};
+  const events = hebcal.hebrewCalendar(options);
+  const tuBiShvat = events.find((e) => e.getDesc() == 'Tu BiShvat');
+  const a = leyning.getLeyningForHoliday(tuBiShvat);
+  t.is(a, undefined);
+});

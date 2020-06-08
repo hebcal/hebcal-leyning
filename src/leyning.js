@@ -1,4 +1,4 @@
-import {holidays, flags, common} from '@hebcal/core';
+import {holidays, flags, common, Event} from '@hebcal/core';
 
 const festivals = require('./holiday-readings.json');
 const parshiyotObj = require('./aliyot.json');
@@ -18,6 +18,7 @@ const parshiyotObj = require('./aliyot.json');
  * @typedef {Object} Leyning
  * @property {string} summary
  * @property {string} haftara - Haftarah
+ * @property {string} sephardic - Haftarah for Sephardic
  * @property {Map<string,Aliyah>} fullkriyah
  * @property {Object} [reason]
  */
@@ -107,8 +108,16 @@ export function getLeyningKeyForEvent(e, il=false) {
  * @return {Leyning} map of aliyot
  */
 export function getLeyningForHoliday(e, il=false) {
+  if (!e instanceof Event) {
+    throw new TypeError(`Bad event argument: ${e}`);
+  } else if (e.getFlags() & flags.PARSHA_HASHAVUA) {
+    throw new TypeError(`Event should be a holiday: ${e.getDesc()}`);
+  }
   const key = getLeyningKeyForEvent(e, il);
   const src = festivals[key];
+  if (typeof src === 'undefined') {
+    return src;
+  }
   const leyning = {};
   if (src.haftara) {
     leyning.haftara = src.haftara;
@@ -221,8 +230,10 @@ function getHolidayEvents(hd, il) {
  * @return {Leyning} map of aliyot
  */
 export function getLeyningForParshaHaShavua(e, il=false) {
-  if (e.getFlags() != flags.PARSHA_HASHAVUA) {
-    throw new TypeError(`Bad event argument ${e.getDesc()}`);
+  if (!e instanceof Event) {
+    throw new TypeError(`Bad event argument: ${e}`);
+  } else if (e.getFlags() != flags.PARSHA_HASHAVUA) {
+    throw new TypeError(`Event must be parsha hashavua: ${e.getDesc()}`);
   }
   // first, collect the default aliyot and haftara
   const parsha = e.getAttrs().parsha;
@@ -283,6 +294,9 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   };
   if (Object.keys(reason).length) {
     result.reason = reason;
+  }
+  if (raw.sephardic) {
+    result.sephardic = raw.sephardic;
   }
   return result;
 }
