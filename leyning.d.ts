@@ -22,10 +22,12 @@ declare module '@hebcal/leyning' {
     /**
      * Leyning for a parsha hashavua or holiday
      * @property haftara - Haftarah
+     * @property sephardic - Haftarah for Sephardic
      */
     export type Leyning = {
         summary: string;
         haftara: string;
+        sephardic?: string;
         fullkriyah: Map<string, Aliyah>;
         reason?: any;
     };
