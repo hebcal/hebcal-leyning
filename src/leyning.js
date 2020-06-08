@@ -124,6 +124,11 @@ export function getLeyningForHoliday(e, il=false) {
   }
   if (src.fullkriyah) {
     leyning.fullkriyah = Object.assign({}, src.fullkriyah);
+    const beginAliyah = leyning.fullkriyah['1'];
+    const nums = Object.keys(leyning.fullkriyah).filter((x) => Number(x) > 0).sort();
+    const end = nums[nums.length - 1];
+    const endAliyah = leyning.fullkriyah[end];
+    leyning.summary = `${beginAliyah.k} ${beginAliyah.b}-${endAliyah.e}`;
   }
   if (key == 'Sukkot Shabbat Chol ha-Moed') {
     const attrs = e.getAttrs();

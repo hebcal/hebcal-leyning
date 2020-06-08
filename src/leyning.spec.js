@@ -161,7 +161,9 @@ test('getLeyningForHoliday', (t) => {
   const events = hebcal.hebrewCalendar(options);
 
   const sukkot1 = events.find((e) => e.getDesc() == 'Sukkot I');
-  t.is(leyning.getLeyningForHoliday(sukkot1).fullkriyah['7'].p, 31);
+  const sukkot1a = leyning.getLeyningForHoliday(sukkot1);
+  t.is(sukkot1a.fullkriyah['7'].p, 31);
+  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44');
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
   t.is(leyning.getLeyningForHoliday(sukkot2).fullkriyah['4'].p, 41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
@@ -176,6 +178,10 @@ test('getLeyningForHoliday', (t) => {
   t.is(leyning.getLeyningForHoliday(shavuot).fullkriyah['4'].p, 17);
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
   t.is(leyning.getLeyningForHoliday(av9).haftara, 'Jeremiah 8:13 - 9:23');
+  const nachamu = events.find((e) => e.getDesc() == 'Shabbat Nachamu');
+  t.is(leyning.getLeyningForHoliday(nachamu).haftara, 'Isaiah 40:1 - 40:26');
+  t.is(leyning.getLeyningForHoliday(nachamu).fullkriyah, undefined);
+  t.is(leyning.getLeyningForHoliday(nachamu).summary, undefined);
 });
 
 test('shmini-atzeret', (t) => {
