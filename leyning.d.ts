@@ -68,7 +68,7 @@ declare module '@hebcal/leyning' {
      * Triennial Torah readings
      */
     export class Triennial {
-        constructor(hebrewYear: number, aliyot: any);
+        constructor(hebrewYear: number);
         getReadings(): any;
         getStartYear(): number;
         /**

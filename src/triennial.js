@@ -1,4 +1,5 @@
 import {HDate, Sedra, parshiot} from '@hebcal/core';
+import parshiyotObj from './aliyot.json';
 
 const doubled = [
   21, // Vayakhel-Pekudei
@@ -27,8 +28,6 @@ function getDoubledName(id) {
   return name;
 }
 
-const ALIYOT_JSON_NAME = './aliyot.json';
-let parshiyotObj;
 let triennialAliyot;
 
 /** Triennial Torah readings */
@@ -36,15 +35,9 @@ export class Triennial {
   /**
    * Builds a Triennial object
    * @param {number} [hebrewYear] Hebrew Year (default current year)
-   * @param {Object} [aliyot] aliyot.json object
    */
-  constructor(hebrewYear, aliyot) {
-    if (typeof aliyot == 'object' && typeof aliyot.Bereshit == 'object') {
-      parshiyotObj = aliyot;
-      triennialAliyot = Triennial.getTriennialAliyot();
-    } else if (!parshiyotObj) {
-      console.debug(`Loading ${ALIYOT_JSON_NAME}...`);
-      parshiyotObj = require(ALIYOT_JSON_NAME);
+  constructor(hebrewYear) {
+    if (!triennialAliyot) {
       triennialAliyot = Triennial.getTriennialAliyot();
     }
 

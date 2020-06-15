@@ -1,7 +1,7 @@
 import {holidays, flags, common, Event} from '@hebcal/core';
 
-const festivals = require('./holiday-readings.json');
-const parshiyotObj = require('./aliyot.json');
+import festivals from './holiday-readings.json';
+import parshiyotObj from './aliyot.json';
 
 /**
  * Represents an aliyah

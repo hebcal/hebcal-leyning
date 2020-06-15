@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "torah",
@@ -24,12 +24,11 @@
     "leyning.d.ts"
   ],
   "dependencies": {
-    "@hebcal/core": "^1.0.17"
+    "@hebcal/core": "^1.1.0",
+    "@rollup/plugin-json": "^4.1.0"
   },
   "scripts": {
-    "build:rollup": "rollup -c",
-    "build:cp-json": "mkdir -p ./dist && cp ./src/*.json ./dist",
-    "build": "npm run build:cp-json && npm run build:rollup",
+    "build": "rollup -c",
     "prepublish": "npm run build",
     "readme": "npx jsdoc2md dist/index.js",
     "pretest": "npm run build",
@@ -58,12 +57,12 @@
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/register": "^7.10.1",
-    "@rollup/plugin-babel": "^5.0.2",
+    "@rollup/plugin-babel": "^5.0.3",
     "@rollup/plugin-commonjs": "^12.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.0",
-    "ava": "^3.8.2",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "ava": "^3.9.0",
     "core-js": "^3.6.5",
-    "eslint": "^7.1.0",
+    "eslint": "^7.2.0",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^3.6.4",
     "jsdoc-to-markdown": "^5.0.3",
