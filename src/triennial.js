@@ -1,4 +1,5 @@
-import {HDate, Sedra, parshiot} from '@hebcal/core';
+import {Event, HDate, Sedra, parshiot, flags} from '@hebcal/core';
+import {parshaToString} from './leyning';
 import parshiyotObj from './aliyot.json';
 
 const doubled = [
@@ -61,7 +62,7 @@ export class Triennial {
   }
 
   /**
-   * @return {Object}
+   * @return {Object<string,Object<string,Aliyah>[]>}
    */
   getReadings() {
     return this.readings;
@@ -224,9 +225,9 @@ export class Triennial {
       if (typeof aliyot === 'object') {
         const dest = {};
         for (const [num, src] of Object.entries(aliyot)) {
-          const reading = {book: book, begin: src.b, end: src.e};
+          const reading = {k: book, b: src.b, e: src.e};
           if (src.v) {
-            reading.numverses = src.v;
+            reading.v = src.v;
           }
           dest[num] = reading;
         }
@@ -264,7 +265,22 @@ export function getTriennial(year) {
   return tri;
 }
 
-export default {
-  getTriennial,
-  Triennial,
-};
+/**
+ * Looks up the triennial leyning for this Parashat HaShavua
+ * @param {Event} ev
+ * @return {Object<string,Aliyah>}
+ */
+export function getTriennialForParshaHaShavua(ev) {
+  if (!ev instanceof Event) {
+    throw new TypeError(`Bad event argument: ${ev}`);
+  } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
+    throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
+  }
+  const hyear = ev.getDate().getFullYear();
+  const triennial = getTriennial(hyear);
+  const startYear = triennial.getStartYear();
+  const parsha = ev.getAttrs().parsha;
+  const name = parshaToString(parsha); // untranslated
+  const reading = triennial.getReadings().get(name);
+  return reading[hyear - startYear];
+}

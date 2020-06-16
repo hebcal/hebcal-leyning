@@ -19,6 +19,10 @@ declare module '@hebcal/leyning' {
         p?: number;
     };
 
+    export type AliyotMap = {
+        [key: string]: Aliyah;
+    }
+
     /**
      * Leyning for a parsha hashavua or holiday
      * @property haftara - Haftarah
@@ -28,7 +32,7 @@ declare module '@hebcal/leyning' {
         summary: string;
         haftara: string;
         sephardic?: string;
-        fullkriyah: Map<string, Aliyah>;
+        fullkriyah: AliyotMap;
         reason?: any;
     };
 
@@ -88,4 +92,11 @@ declare module '@hebcal/leyning' {
      * @param year - Hebrew year
      */
     export function getTriennial(year: number): Triennial;
+
+    /**
+     * Looks up triennial leyning for a regular Shabbat parsha.
+     * @param e - the Hebcal event associated with this parsha
+     * @returns map of aliyot
+     */
+    export function getTriennialForParshaHaShavua(e: Event): AliyotMap;
 }

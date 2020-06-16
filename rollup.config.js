@@ -11,7 +11,7 @@ export default [
     output: [
       {file: pkg.main, format: 'cjs', name: pkg.name},
       {
-        file: 'dist/bundle.min.js',
+        file: pkg.browser,
         format: 'umd',
         name: 'hebcal__leyning',
         globals: {

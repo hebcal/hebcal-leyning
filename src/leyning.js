@@ -19,7 +19,7 @@ import parshiyotObj from './aliyot.json';
  * @property {string} summary
  * @property {string} haftara - Haftarah
  * @property {string} sephardic - Haftarah for Sephardic
- * @property {Map<string,Aliyah>} fullkriyah
+ * @property {Object<string,Aliyah>} fullkriyah
  * @property {Object} [reason]
  */
 
@@ -145,7 +145,7 @@ export function getLeyningForHoliday(e, il=false) {
  * @param {string[]} parsha
  * @return {string}
  */
-function parshaToString(parsha) {
+export function parshaToString(parsha) {
   let s = parsha[0];
   if (parsha.length == 2) {
     s += '-' + parsha[1];
@@ -314,10 +314,3 @@ export function getLeyningForParshaHaShavua(e, il=false) {
 export function formatAliyahWithBook(a) {
   return `${a.k} ${a.b} - ${a.e}`;
 }
-
-export default {
-  getLeyningForHoliday,
-  getLeyningForParshaHaShavua,
-  getLeyningKeyForEvent,
-  formatAliyahWithBook,
-};

@@ -13,8 +13,24 @@ import leyning from '@hebcal/leyning';
 
 const options = {sedrot: true, noHolidays: true};
 const events = hebcal.hebrewCalendar(options);
-const ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
-const aliyot = leyning.getLeyningForParshaHaShavua(ev);
+const ev = events.find((ev) => ev.getDesc() == 'Parashat Pinchas');
+const reading = leyning.getLeyningForParshaHaShavua(ev);
+console.log(`${ev.getDesc()}: ${reading.summary}`);
+console.log(`Haftara: ${reading.haftara}`);
+for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
+  const number = num == 'M' ? 'maftir' : `aliyah ${num}`;
+  let str = leyning.formatAliyahWithBook(aliyah);
+  if (reading.reason[num]) {
+      str += ' | ' + reading.reason[num];
+  }
+  console.log(`${number}: ${str}`);
+}
+const triReading = triennial.getTriennialForParshaHaShavua(ev);
+for (const [num, aliyah] of Object.entries(triReading)) {
+  const number = num == 'M' ? 'maftir' : `aliyah ${num}`;
+  const str = leyning.formatAliyahWithBook(aliyah);
+  console.log(`Triennial ${number}: ${str}`);
+}
 ```
 
 ## Classes
@@ -22,6 +38,14 @@ const aliyot = leyning.getLeyningForParshaHaShavua(ev);
 <dl>
 <dt><a href="#Triennial">Triennial</a></dt>
 <dd><p>Triennial Torah readings</p>
+</dd>
+</dl>
+
+## Constants
+
+<dl>
+<dt><a href="#leyning">leyning</a></dt>
+<dd><p>Main interface to hebcal/leyning</p>
 </dd>
 </dl>
 
@@ -81,10 +105,11 @@ Triennial Torah readings
 **Kind**: global class  
 
 * [Triennial](#Triennial)
-    * [new Triennial([hebrewYear], [aliyot])](#new_Triennial_new)
+    * [new Triennial([hebrewYear])](#new_Triennial_new)
     * _instance_
         * [.getReadings()](#Triennial+getReadings) ⇒ <code>Object</code>
         * [.getStartYear()](#Triennial+getStartYear) ⇒ <code>number</code>
+        * [.getLeyningForParshaHaShavua(ev)](#Triennial+getLeyningForParshaHaShavua) ⇒ [<code>Aliyah</code>](#Aliyah)
         * [.getThreeYearPattern(id)](#Triennial+getThreeYearPattern) ⇒ <code>string</code>
         * [.cycleReadings(cycleOption)](#Triennial+cycleReadings) ⇒ <code>Map.&lt;string, Array.&lt;Object&gt;&gt;</code>
         * [.cycleReadingsForYear(option, readings, yr)](#Triennial+cycleReadingsForYear)
@@ -96,14 +121,13 @@ Triennial Torah readings
 
 <a name="new_Triennial_new"></a>
 
-### new Triennial([hebrewYear], [aliyot])
+### new Triennial([hebrewYear])
 Builds a Triennial object
 
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [hebrewYear] | <code>number</code> | Hebrew Year (default current year) |
-| [aliyot] | <code>Object</code> | aliyot.json object |
 
 <a name="Triennial+getReadings"></a>
 
@@ -113,6 +137,17 @@ Builds a Triennial object
 
 ### triennial.getStartYear() ⇒ <code>number</code>
 **Kind**: instance method of [<code>Triennial</code>](#Triennial)  
+<a name="Triennial+getLeyningForParshaHaShavua"></a>
+
+### triennial.getLeyningForParshaHaShavua(ev) ⇒ [<code>Aliyah</code>](#Aliyah)
+Looks up the leyning for this Parashat HaShavua
+
+**Kind**: instance method of [<code>Triennial</code>](#Triennial)  
+
+| Param | Type |
+| --- | --- |
+| ev | <code>Event</code> | 
+
 <a name="Triennial+getThreeYearPattern"></a>
 
 ### triennial.getThreeYearPattern(id) ⇒ <code>string</code>
@@ -128,7 +163,7 @@ in each of the 3 years. Yields a pattern like 'SSS', 'STS', 'TTT', 'TTS'.
 <a name="Triennial+cycleReadings"></a>
 
 ### triennial.cycleReadings(cycleOption) ⇒ <code>Map.&lt;string, Array.&lt;Object&gt;&gt;</code>
-Builds a lookup table readings["Bereshit"][1], readings["Matot-Masei"][3]
+Builds a lookup table readings["Bereshit"][0], readings["Matot-Masei"][2]
 
 **Kind**: instance method of [<code>Triennial</code>](#Triennial)  
 
@@ -189,6 +224,12 @@ actual aliyot objects for a given variation/year
 | book | <code>string</code> | 
 | triennial | <code>Object</code> | 
 
+<a name="leyning"></a>
+
+## leyning
+Main interface to hebcal/leyning
+
+**Kind**: global constant  
 <a name="getLeyningKeyForEvent"></a>
 
 ## getLeyningKeyForEvent(e, [il]) ⇒ <code>string</code>
@@ -273,7 +314,7 @@ Looks up leyning for a regular Shabbat parsha.
 | Param | Type | Description |
 | --- | --- | --- |
 | e | <code>Event</code> | the Hebcal event associated with this leyning |
-| [il] | <code>booleam</code> | in Israel |
+| [il] | <code>boolean</code> | in Israel |
 
 <a name="formatAliyahWithBook"></a>
 
@@ -336,6 +377,7 @@ Leyning for a parsha hashavua or holiday
 | --- | --- | --- |
 | summary | <code>string</code> |  |
 | haftara | <code>string</code> | Haftarah |
-| fullkriyah | <code>Map.&lt;string, Aliyah&gt;</code> |  |
+| sephardic | <code>string</code> | Haftarah for Sephardic |
+| fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> |  |
 | [reason] | <code>Object</code> |  |
 
