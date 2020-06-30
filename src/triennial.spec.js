@@ -1,5 +1,5 @@
 import test from 'ava';
-import {hebcal} from '@hebcal/core';
+import {HebrewCalendar} from '@hebcal/core';
 import {Triennial, getTriennialForParshaHaShavua} from './triennial';
 import {formatAliyahWithBook} from './leyning';
 
@@ -23,7 +23,7 @@ test('getTriennialForParshaHaShavua', (t) => {
     sedrot: true,
     noHolidays: true,
   };
-  let events = hebcal.hebrewCalendar(options);
+  let events = new HebrewCalendar(options).events();
   let ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot-Kedoshim');
   let reading = getTriennialForParshaHaShavua(ev);
@@ -38,7 +38,7 @@ test('getTriennialForParshaHaShavua', (t) => {
 
   options.start = new Date(2022, 3, 29);
   options.end = new Date(2022, 4, 15);
-  events = hebcal.hebrewCalendar(options);
+  events = new HebrewCalendar(options).events();
   ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot');
   reading = getTriennialForParshaHaShavua(ev);

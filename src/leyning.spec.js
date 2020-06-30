@@ -1,5 +1,5 @@
 import test from 'ava';
-import {hebcal} from '@hebcal/core';
+import {HebrewCalendar} from '@hebcal/core';
 import {
   getLeyningForHoliday,
   getLeyningForParshaHaShavua,
@@ -10,7 +10,8 @@ import {
 test('getLeyningKeyForEvent', (t) => {
 //    const options = { year: 1997, noHolidays: true, sedrot: true, il: false };
   const options = {year: 5757, isHebrewYear: true};
-  const events = hebcal.hebrewCalendar(options);
+  const cal = new HebrewCalendar(options);
+  const events = cal.events();
   for (const e of events) {
     const str = getLeyningKeyForEvent(e);
     //        console.log(e.getDate().greg().toLocaleDateString(), str, e.getDesc(), e.getDate().toString());
@@ -57,14 +58,16 @@ test('getLeyningKeyForEvent', (t) => {
 */
 test('pinchas17Tamuz', (t) => {
   const options = {year: 1981, month: 7, isHebrewYear: false, sedrot: true, noHolidays: true};
-  let events = hebcal.hebrewCalendar(options);
+  let cal = new HebrewCalendar(options);
+  let events = cal.events();
   let ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   let a = getLeyningForParshaHaShavua(ev);
   t.is(a.reason, undefined);
   t.is(a.haftara, 'I Kings 18:46 - 19:21');
 
   options.year = 1982;
-  events = hebcal.hebrewCalendar(options);
+  cal = new HebrewCalendar(options);
+  events = cal.events();
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   a = getLeyningForParshaHaShavua(ev);
   t.is(a.haftara, 'Jeremiah 1:1 - 2:3');
@@ -78,7 +81,8 @@ function formatAliyah(aliyot, num) {
 
 test('getLeyningForParshaHaShavua', (t) => {
   const options = {year: 2026, isHebrewYear: false, sedrot: true, noHolidays: true};
-  const events = hebcal.hebrewCalendar(options);
+  let cal = new HebrewCalendar(options);
+  const events = cal.events();
   for (const ev of events) {
     const a = getLeyningForParshaHaShavua(ev);
     switch (ev.getDesc()) {
@@ -131,7 +135,8 @@ test('getLeyningForParshaHaShavua', (t) => {
 
   options.year = 2020;
   options.month = 12;
-  const vayeshev = hebcal.hebrewCalendar(options).find((e) => e.getDesc() == 'Parashat Vayeshev');
+  cal = new HebrewCalendar(options);
+  const vayeshev = cal.events().find((e) => e.getDesc() == 'Parashat Vayeshev');
   let a = getLeyningForParshaHaShavua(vayeshev);
   t.is(a.reason.haftara, 'Shabbat Chanukah');
   t.is(a.reason['M'], 'Chanukah (Day 2)');
@@ -140,7 +145,8 @@ test('getLeyningForParshaHaShavua', (t) => {
 
   options.year = 2021;
   options.month = 12;
-  const miketz = hebcal.hebrewCalendar(options).find((e) => e.getDesc() == 'Parashat Miketz');
+  cal = new HebrewCalendar(options);
+  const miketz = cal.events().find((e) => e.getDesc() == 'Parashat Miketz');
   a = getLeyningForParshaHaShavua(miketz);
   t.is(a.reason.haftara, 'Shabbat Rosh Chodesh Chanukah');
   t.is(a.reason['M'], 'Shabbat Rosh Chodesh Chanukah');
@@ -151,7 +157,8 @@ test('getLeyningForParshaHaShavua', (t) => {
 
   options.year = 2019;
   options.month = 4;
-  const tazria = hebcal.hebrewCalendar(options).find((e) => e.getDesc() == 'Parashat Tazria');
+  cal = new HebrewCalendar(options);
+  const tazria = cal.events().find((e) => e.getDesc() == 'Parashat Tazria');
   a = getLeyningForParshaHaShavua(tazria);
   t.is(a.reason.haftara, 'Shabbat HaChodesh (on Rosh Chodesh)');
   t.is(a.reason['7'], 'Shabbat HaChodesh (on Rosh Chodesh)');
@@ -163,7 +170,7 @@ test('getLeyningForParshaHaShavua', (t) => {
 
 test('getLeyningForHoliday', (t) => {
   const options = {year: 5757, isHebrewYear: true, il: true};
-  const events = hebcal.hebrewCalendar(options);
+  const events = new HebrewCalendar(options).events();
 
   const sukkot1 = events.find((e) => e.getDesc() == 'Sukkot I');
   const sukkot1a = getLeyningForHoliday(sukkot1);
@@ -190,23 +197,23 @@ test('getLeyningForHoliday', (t) => {
 });
 
 test('shmini-atzeret', (t) => {
-  const diaspora = hebcal.hebrewCalendar({year: 2019, month: 10, il: false});
+  const diaspora = new HebrewCalendar({year: 2019, month: 10, il: false}).events();
   const shminiDiaspora = diaspora.find((e) => e.getDesc() == 'Shmini Atzeret');
   t.is(getLeyningForHoliday(shminiDiaspora, false).haftara, 'I Kings 8:54 - 8:66');
 
-  const israel = hebcal.hebrewCalendar({year: 2019, month: 10, il: true});
+  const israel = new HebrewCalendar({year: 2019, month: 10, il: true}).events();
   const shminiIsrael = israel.find((e) => e.getDesc() == 'Shmini Atzeret');
   t.is(getLeyningForHoliday(shminiIsrael, true).haftara, 'Joshua 1:1 - 1:18');
 });
 
 test('sukkot-shabbat-chm', (t) => {
-  const diaspora = hebcal.hebrewCalendar({year: 2019, month: 10, il: false});
+  const diaspora = new HebrewCalendar({year: 2019, month: 10, il: false}).events();
   const sukkotShabbatD = diaspora.find((e) => e.getDesc() == 'Sukkot VI (CH\'\'M)');
   const a1 = getLeyningForHoliday(sukkotShabbatD);
   t.is(a1.haftara, 'Ezekiel 38:18 - 39:16');
   t.is(formatAliyah(a1, 'M'), 'Numbers 29:26 - 29:31');
 
-  const israel = hebcal.hebrewCalendar({year: 2017, month: 10, il: true});
+  const israel = new HebrewCalendar({year: 2017, month: 10, il: true}).events();
   const sukkotShabbatIL = israel.find((e) => e.getDesc() == 'Sukkot III (CH\'\'M)');
   const a2 = getLeyningForHoliday(sukkotShabbatIL);
   t.is(a2.haftara, 'Ezekiel 38:18 - 39:16');
@@ -215,7 +222,7 @@ test('sukkot-shabbat-chm', (t) => {
 
 test('sephardic', (t) => {
   const options = {year: 2021, isHebrewYear: false, sedrot: true, noHolidays: true};
-  const events = hebcal.hebrewCalendar(options);
+  const events = new HebrewCalendar(options).events();
   const bereshit = events.find((ev) => ev.getDesc() == 'Parashat Bereshit');
   const a = getLeyningForParshaHaShavua(bereshit);
   t.is(a.haftara, 'Isaiah 42:5 - 43:10');
@@ -224,7 +231,7 @@ test('sephardic', (t) => {
 
 test('no-leyning-on-holiday', (t) => {
   const options = {year: 5757, isHebrewYear: true, il: true};
-  const events = hebcal.hebrewCalendar(options);
+  const events = new HebrewCalendar(options).events();
   const tuBiShvat = events.find((e) => e.getDesc() == 'Tu BiShvat');
   const a = getLeyningForHoliday(tuBiShvat);
   t.is(a, undefined);
