@@ -23,7 +23,7 @@ test('getTriennialForParshaHaShavua', (t) => {
     sedrot: true,
     noHolidays: true,
   };
-  let events = new HebrewCalendar(options).events();
+  let events = HebrewCalendar.calendar(options);
   let ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot-Kedoshim');
   let reading = getTriennialForParshaHaShavua(ev);
@@ -38,7 +38,7 @@ test('getTriennialForParshaHaShavua', (t) => {
 
   options.start = new Date(2022, 3, 29);
   options.end = new Date(2022, 4, 15);
-  events = new HebrewCalendar(options).events();
+  events = HebrewCalendar.calendar(options);
   ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot');
   reading = getTriennialForParshaHaShavua(ev);

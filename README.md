@@ -8,11 +8,11 @@ $ npm install @hebcal/leyning
 
 ## Synopsis
 ```javascript
-import {hebcal, HDate, Event} from '@hebcal/core';
+import {HebrewCalendar, HDate, Event} from '@hebcal/core';
 import leyning from '@hebcal/leyning';
 
 const options = {sedrot: true, noHolidays: true};
-const events = hebcal.hebrewCalendar(options);
+const events = HebrewCalendar.calendar(options);
 const ev = events.find((ev) => ev.getDesc() == 'Parashat Pinchas');
 const reading = leyning.getLeyningForParshaHaShavua(ev);
 console.log(`${ev.getDesc()}: ${reading.summary}`);
