@@ -57,7 +57,6 @@ export default [
         presets: [
           ['@babel/env', {
             modules: false,
-            debug: true,
             exclude: ['es.array.sort'],
             targets: {
               edge: '17',

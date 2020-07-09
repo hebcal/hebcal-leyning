@@ -123,7 +123,7 @@ export function getLeyningForHoliday(e, il=false) {
     leyning.haftara = src.haftara;
   }
   if (src.fullkriyah) {
-    leyning.fullkriyah = Object.assign({}, src.fullkriyah);
+    leyning.fullkriyah = shallowCopy({}, src.fullkriyah);
     const nums = Object.keys(src.fullkriyah).filter((x) => Number(x) > 0).sort();
     if (nums.length && nums[0] == '1') {
       const beginAliyah = leyning.fullkriyah['1'];
@@ -172,7 +172,7 @@ function getHaftaraKey(parsha) {
 function aliyotCombine67(aliyot) {
   const a6 = aliyot['6'];
   const a7 = aliyot['7'];
-  const result = Object.assign({}, aliyot);
+  const result = shallowCopy({}, aliyot);
   delete result['7'];
   result['6'] = {
     k: a6.k,
@@ -186,15 +186,21 @@ function aliyotCombine67(aliyot) {
 }
 
 // eslint-disable-next-line require-jsdoc
+function shallowCopy(target, source) {
+  Object.keys(source).forEach((k) => target[k] = source[k]);
+  return target;
+}
+
+// eslint-disable-next-line require-jsdoc
 function mergeAliyotWithSpecial(aliyot, special) {
   let result;
   if (special['7']) {
     result = aliyotCombine67(aliyot);
   } else {
-    result = Object.assign({}, aliyot);
+    result = shallowCopy({}, aliyot);
   }
   // copies 7, 8, M to the result
-  return Object.assign(result, special);
+  return shallowCopy(result, special);
 }
 
 /**
@@ -279,7 +285,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
         haftara = festivals[shabbatChanukah].haftara;
         reason.haftara = shabbatChanukah;
         // Aliyot 1-3 from regular daily reading becomes Maftir
-        fullkriyah['M'] = Object.assign({}, special.fullkriyah['1']);
+        fullkriyah['M'] = shallowCopy({}, special.fullkriyah['1']);
         fullkriyah['M'].e = special.fullkriyah['3'].e;
         reason.M = key;
       } else {
