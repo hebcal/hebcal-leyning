@@ -6,7 +6,7 @@ import {formatAliyahWithBook} from './leyning';
 test('triennial', (t) => {
   const tri = new Triennial(5777);
   const readings = tri.getReadings();
-  const parsha = readings.get('Vayakhel-Pekudei');
+  const parsha = readings['Vayakhel-Pekudei'];
   t.is(parsha.length, 2);
   t.is(parsha[0]['7'].k, 'Exodus');
   t.is(parsha[0]['7'].b, '37:1');

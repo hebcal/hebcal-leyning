@@ -79,7 +79,7 @@ export function getLeyningKeyForEvent(e, il=false) {
     return 'Simchat Torah';
   }
 
-  if (isShabbat && !desc.startsWith('Shabbat')) {
+  if (isShabbat && 'Shabbat' != desc.substring(0, 7)) {
     const desc2 = desc + ' (on Shabbat)';
     if (festivals[desc2]) {
       return desc2;
@@ -134,7 +134,7 @@ export function getLeyningForHoliday(e, il=false) {
   if (key == 'Sukkot Shabbat Chol ha-Moed') {
     const attrs = e.getAttrs();
     leyning.fullkriyah['M'] = src.fullkriyah[`M-day${attrs.cholHaMoedDay}`];
-    for (const day of [1, 2, 3, 4]) {
+    for (let day = 1; day <= 4; day++) {
       delete leyning.fullkriyah[`M-day${day}`];
     }
   }
@@ -247,13 +247,14 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   const raw = parshiyotObj[name];
   let haftara = parshiyotObj[getHaftaraKey(parsha)].haftara;
   let fullkriyah = {};
-  for (const [num, src] of Object.entries(raw.fullkriyah)) {
+  Object.keys(raw.fullkriyah).forEach((num) => {
+    const src = raw.fullkriyah[num];
     const reading = {k: raw.book, b: src.b, e: src.e};
     if (src.v) {
       reading.v = src.v;
     }
     fullkriyah[num] = reading;
-  }
+  });
   const reason = {};
   const hd = e.getDate();
   if (name == 'Pinchas') {
@@ -265,7 +266,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   }
   // Now, check for special maftir or haftara on same date
   const events = getHolidayEvents(hd, il);
-  for (const ev of events) {
+  events.forEach((ev) => {
     const key = getLeyningKeyForEvent(ev, il);
     //            console.log(hd.greg().toLocaleDateString(), name, ev.getDesc(), key);
     const special = festivals[key];
@@ -292,7 +293,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
         }
       }
     }
-  }
+  });
   const result = {
     summary: `${raw.book} ${raw.verses}`,
     haftara: haftara,

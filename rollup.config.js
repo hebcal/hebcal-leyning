@@ -58,6 +58,7 @@ export default [
           ['@babel/env', {
             modules: false,
             debug: true,
+            exclude: ['es.array.sort'],
             targets: {
               edge: '17',
               firefox: '60',
