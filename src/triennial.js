@@ -11,7 +11,7 @@ const doubled = [
   41, // Matot-Masei
   50, // Nitzavim-Vayeilech
 ];
-const isSometimesDoubled = {};
+const isSometimesDoubled = Object.create(null);
 doubled.forEach((id) => {
   isSometimesDoubled[id] = true;
   isSometimesDoubled[id + 1] = true;
@@ -114,7 +114,7 @@ export class Triennial {
 
   // eslint-disable-next-line require-jsdoc
   calcVariationOptions() {
-    const option = {};
+    const option = Object.create(null);
     doubled.forEach((id) => {
       const pattern = this.getThreeYearPattern(id);
       const name = getDoubledName(id);
@@ -139,7 +139,7 @@ export class Triennial {
    * @return {Map<string,Object[]>}
    */
   cycleReadings(cycleOption) {
-    const readings = {};
+    const readings = Object.create(null);
     parshiot.forEach((parsha) => {
       readings[parsha] = [];
     });
@@ -187,8 +187,8 @@ export class Triennial {
    * @return {Object}
    */
   static getTriennialAliyot() {
-    const triennialAliyot = {};
-    const triennialAliyotAlt = {};
+    const triennialAliyot = Object.create(null);
+    const triennialAliyotAlt = Object.create(null);
     // build a lookup table so we don't have to follow num/variation/sameas
     Object.keys(parshiyotObj).forEach((parsha) => {
       const value = parshiyotObj[parsha];
@@ -217,11 +217,11 @@ export class Triennial {
       throw new Error(`Parashat ${parsha} has no years or variations`);
     }
     // first pass, copy only alyiot definitions from parshiyotObj into lookup table
-    const lookup = {};
+    const lookup = Object.create(null);
     Object.keys(variations).forEach((variation) => {
       const aliyot = variations[variation];
       if (typeof aliyot === 'object') {
-        const dest = {};
+        const dest = Object.create(null);
         Object.keys(aliyot).forEach((num) => {
           const src = aliyot[num];
           const reading = {k: book, b: src.b, e: src.e};
@@ -247,7 +247,7 @@ export class Triennial {
   }
 }
 
-const __cache = {};
+const __cache = Object.create(null);
 
 /**
  * Calculates the 3-year readings for a given year

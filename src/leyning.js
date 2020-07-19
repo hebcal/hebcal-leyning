@@ -118,18 +118,15 @@ export function getLeyningForHoliday(e, il=false) {
   if (typeof src === 'undefined') {
     return src;
   }
-  const leyning = {};
-  if (src.haftara) {
-    leyning.haftara = src.haftara;
-  }
+  const leyning = Object.create(null);
   if (src.fullkriyah) {
-    leyning.fullkriyah = shallowCopy({}, src.fullkriyah);
     const nums = Object.keys(src.fullkriyah).filter((x) => Number(x) > 0).sort();
     if (nums.length && nums[0] == '1') {
-      const beginAliyah = leyning.fullkriyah['1'];
-      const endAliyah = leyning.fullkriyah[nums[nums.length - 1]];
+      const beginAliyah = src.fullkriyah['1'];
+      const endAliyah = src.fullkriyah[nums[nums.length - 1]];
       leyning.summary = `${beginAliyah.k} ${beginAliyah.b}-${endAliyah.e}`;
     }
+    leyning.fullkriyah = shallowCopy(Object.create(null), src.fullkriyah);
   }
   if (key == 'Sukkot Shabbat Chol ha-Moed') {
     const attrs = e.getAttrs();
@@ -137,6 +134,9 @@ export function getLeyningForHoliday(e, il=false) {
     for (let day = 1; day <= 4; day++) {
       delete leyning.fullkriyah[`M-day${day}`];
     }
+  }
+  if (src.haftara) {
+    leyning.haftara = src.haftara;
   }
   return leyning;
 }
@@ -172,7 +172,7 @@ function getHaftaraKey(parsha) {
 function aliyotCombine67(aliyot) {
   const a6 = aliyot['6'];
   const a7 = aliyot['7'];
-  const result = shallowCopy({}, aliyot);
+  const result = shallowCopy(Object.create(null), aliyot);
   delete result['7'];
   result['6'] = {
     k: a6.k,
@@ -197,7 +197,7 @@ function mergeAliyotWithSpecial(aliyot, special) {
   if (special['7']) {
     result = aliyotCombine67(aliyot);
   } else {
-    result = shallowCopy({}, aliyot);
+    result = shallowCopy(Object.create(null), aliyot);
   }
   // copies 7, 8, M to the result
   return shallowCopy(result, special);
@@ -252,7 +252,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   const name = parshaToString(parsha); // untranslated
   const raw = parshiyotObj[name];
   let haftara = parshiyotObj[getHaftaraKey(parsha)].haftara;
-  let fullkriyah = {};
+  let fullkriyah = Object.create(null);
   Object.keys(raw.fullkriyah).forEach((num) => {
     const src = raw.fullkriyah[num];
     const reading = {k: raw.book, b: src.b, e: src.e};
@@ -261,7 +261,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
     }
     fullkriyah[num] = reading;
   });
-  const reason = {};
+  const reason = Object.create(null);
   const hd = e.getDate();
   if (name == 'Pinchas') {
     const month = hd.getMonth();
@@ -285,7 +285,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
         haftara = festivals[shabbatChanukah].haftara;
         reason.haftara = shabbatChanukah;
         // Aliyot 1-3 from regular daily reading becomes Maftir
-        fullkriyah['M'] = shallowCopy({}, special.fullkriyah['1']);
+        fullkriyah['M'] = shallowCopy(Object.create(null), special.fullkriyah['1']);
         fullkriyah['M'].e = special.fullkriyah['3'].e;
         reason.M = key;
       } else {
@@ -302,14 +302,14 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   });
   const result = {
     summary: `${raw.book} ${raw.verses}`,
-    haftara: haftara,
     fullkriyah: fullkriyah,
+    haftara: haftara,
   };
-  if (Object.keys(reason).length) {
-    result.reason = reason;
-  }
   if (raw.sephardic) {
     result.sephardic = raw.sephardic;
+  }
+  if (Object.keys(reason).length) {
+    result.reason = reason;
   }
   return result;
 }
