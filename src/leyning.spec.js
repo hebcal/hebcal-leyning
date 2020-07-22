@@ -121,10 +121,25 @@ test('getLeyningForParshaHaShavua', (t) => {
         t.is(formatAliyah(a, 'M'), 'Numbers 7:1 - 7:17');
         break;
       case 'Parashat Miketz':
-        t.is(a.reason.haftara, 'Shabbat Chanukah II');
-        t.is(a.reason.M, 'Chanukah (Day 8)');
-        t.is(a.haftara, 'I Kings 7:40-50');
-        t.is(formatAliyah(a, 'M'), 'Numbers 7:54 - 8:4');
+        const expected = {
+          summary: 'Genesis 41:1-44:17',
+          fullkriyah: {
+            '1': {k: 'Genesis', b: '41:1', e: '41:14', v: 14},
+            '2': {k: 'Genesis', b: '41:15', e: '41:38', v: 24},
+            '3': {k: 'Genesis', b: '41:39', e: '41:52', v: 14},
+            '4': {k: 'Genesis', b: '41:53', e: '42:18', v: 23},
+            '5': {k: 'Genesis', b: '42:19', e: '43:15', v: 35},
+            '6': {k: 'Genesis', b: '43:16', e: '43:29', v: 14},
+            '7': {k: 'Genesis', b: '43:30', e: '44:17', v: 22},
+            'M': {p: 35, k: 'Numbers', b: '7:54', e: '8:4'},
+          },
+          haftara: 'I Kings 7:40-50',
+          reason: {
+            haftara: 'Shabbat Chanukah II',
+            M: 'Chanukah (Day 8)',
+          },
+        };
+        t.deepEqual(a, expected, 'Shabbat Chanukah II');
         break;
     }
   }
@@ -143,13 +158,27 @@ test('getLeyningForParshaHaShavua', (t) => {
   options.month = 12;
   events2 = HebrewCalendar.calendar(options);
   const miketz = events2.find((e) => e.getDesc() == 'Parashat Miketz');
+  const expected = {
+    summary: 'Genesis 41:1-44:17',
+    fullkriyah: {
+      '1': {k: 'Genesis', b: '41:1', e: '41:14', v: 14},
+      '2': {k: 'Genesis', b: '41:15', e: '41:38', v: 24},
+      '3': {k: 'Genesis', b: '41:39', e: '41:52', v: 14},
+      '4': {k: 'Genesis', b: '41:53', e: '42:18', v: 23},
+      '5': {k: 'Genesis', b: '42:19', e: '43:15', v: 35},
+      '6': {k: 'Genesis', b: '43:16', e: '44:17', v: 36},
+      '7': {p: 41, k: 'Numbers', b: '28:9', e: '28:15'},
+      'M': {p: 35, k: 'Numbers', b: '7:42', e: '7:47'},
+    },
+    haftara: 'Zechariah 2:14-4:7',
+    reason: {
+      '7': 'Shabbat Rosh Chodesh Chanukah',
+      'haftara': 'Shabbat Rosh Chodesh Chanukah',
+      'M': 'Shabbat Rosh Chodesh Chanukah',
+    },
+  };
   a = getLeyningForParshaHaShavua(miketz);
-  t.is(a.reason.haftara, 'Shabbat Rosh Chodesh Chanukah');
-  t.is(a.reason['M'], 'Shabbat Rosh Chodesh Chanukah');
-  t.is(a.reason['8'], 'Shabbat Rosh Chodesh Chanukah');
-  t.is(a.haftara, 'Zechariah 2:14-4:7');
-  t.is(formatAliyah(a, '8'), 'Numbers 28:9 - 28:15');
-  t.is(formatAliyah(a, 'M'), 'Numbers 7:42 - 7:47');
+  t.deepEqual(a, expected, 'Shabbat Rosh Chodesh Chanukah');
 
   options.year = 2019;
   options.month = 4;
