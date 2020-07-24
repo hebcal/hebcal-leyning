@@ -8,7 +8,7 @@ import {terser} from 'rollup-plugin-terser';
 export default [
   {
     input: 'src/index.js',
-    output: {file: pkg.main, format: 'cjs', name: pkg.name},
+    output: {file: pkg.main, format: 'cjs', name: pkg.name, exports: 'default'},
     plugins: [
       json({compact: true}),
       babel({

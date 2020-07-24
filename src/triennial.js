@@ -123,7 +123,7 @@ export class Triennial {
       const variation = (pattern === 'TTT') ?
                 'Y' : parshiyotObj[name].triennial.patterns[pattern];
       if (typeof variation === 'undefined') {
-        throw new Error(`Can't find pattern ${pattern} for ${name}`);
+        throw new Error(`Can't find pattern ${pattern} for ${name}, startYear=${this.startYear}`);
       }
       const p1 = parshiot[id];
       const p2 = parshiot[id + 1];

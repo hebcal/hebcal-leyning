@@ -57,3 +57,12 @@ test('getTriennialForParshaHaShavua', (t) => {
   t.is(formatAliyahWithBook(reading['1']), 'Leviticus 23:23 - 23:25');
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 24:21 - 24:23');
 });
+
+test('multi', (t) => {
+  for (let year = 5745; year <= 5830; year += 3) {
+    const tri = new Triennial(year);
+    const readings = tri.getReadings();
+    const parsha = readings['Vayakhel-Pekudei'];
+  }
+  t.pass('message');
+});
