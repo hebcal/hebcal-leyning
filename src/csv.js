@@ -82,7 +82,13 @@ function writeTriennialEvent(stream, ev) {
   const date = fmtDate(dt);
   const parsha = isParsha ? ev.basename() : ev.render();
   const lines = getFullKriyahLines(reading);
-  lines.forEach((s) => stream.write(`${date},"${parsha}","${s[0]}","${s[1]}"\r\n`));
+  lines.forEach((s) => {
+    const code = s[0].charCodeAt(0);
+    if (code < 48 || code > 57) {
+      s[0] = `"${s[0]}"`;
+    }
+    stream.write(`${date},"${parsha}",${s[0]},"${s[1]}",${s[2]}\r\n`);
+  });
   stream.write('\r\n');
 }
 
