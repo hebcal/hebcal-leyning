@@ -1,18 +1,35 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-// const {writeFullKriyahCsv} = require('@hebcal/leyning');
-const {writeFullKriyahCsv} = require('../dist/index');
+const {HDate} = require('@hebcal/core');
+const {writeFullKriyahCsv, writeTriennialCsv} = require('../dist/index');
 
-if (process.argv.length != 3) {
-  console.error(`Usage: leyning-csv fullkriyah.csv`);
-  process.exit(1);
+const today = new HDate();
+const hyear = today.getFullYear();
+const numYears = 13;
+
+for (let i = hyear - 1; i < hyear + numYears; i++) {
+  let filename = `fullkriyah-${i}.csv`;
+  console.log(`Creating ${filename}`);
+  let stream = fs.createWriteStream(filename, {flags: 'w'});
+  writeFullKriyahCsv(stream, i, false);
+  stream.end();
+
+  filename = `fullkriyah-${i}-il.csv`;
+  console.log(`Creating ${filename}`);
+  stream = fs.createWriteStream(filename, {flags: 'w'});
+  writeFullKriyahCsv(stream, i, true);
+  stream.end();
 }
 
-const [filename] = process.argv.slice(2);
+const numTriennialCycles = 5;
+const yearNum = ((hyear - 5756) % 3) + 1;
 
-const hyear = 5780;
-const il = false;
-const stream = fs.createWriteStream(filename, {flags: 'w'});
-
-writeFullKriyahCsv(stream, hyear, il);
+for (let i = 0; i < numTriennialCycles; i++) {
+  const yearOffset = (i - 1) * 3;
+  const cycleStartYear = hyear - (yearNum - 1) + yearOffset;
+  const filename = `triennial-${cycleStartYear}-${cycleStartYear+2}.csv`;
+  const stream = fs.createWriteStream(filename, {flags: 'w'});
+  writeTriennialCsv(stream, cycleStartYear);
+  stream.end();
+}

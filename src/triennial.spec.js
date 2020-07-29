@@ -58,6 +58,74 @@ test('getTriennialForParshaHaShavua', (t) => {
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 24:21 - 24:23');
 });
 
+test('specialReading1', (t) => {
+  const options = {
+    start: new Date(2016, 11, 31),
+    end: new Date(2017, 0, 1),
+    sedrot: true,
+    noHolidays: true,
+  };
+  const events = HebrewCalendar.calendar(options);
+  const ev = events[0];
+  t.is(ev.getDesc(), 'Parashat Miketz');
+  const reading = getTriennialForParshaHaShavua(ev);
+  const expected = {
+    '1': {k: 'Genesis', b: '41:1', e: '41:4'},
+    '2': {k: 'Genesis', b: '41:5', e: '41:7'},
+    '3': {k: 'Genesis', b: '41:8', e: '41:14'},
+    '4': {k: 'Genesis', b: '41:15', e: '41:24'},
+    '5': {k: 'Genesis', b: '41:25', e: '41:38'},
+    '6': {k: 'Genesis', b: '41:39', e: '41:43'},
+    '7': {k: 'Genesis', b: '41:44', e: '41:52'},
+    'M': {
+      p: 35,
+      k: 'Numbers',
+      b: '7:48',
+      e: '7:59',
+      reason: 'Chanukah (Day 7)',
+    },
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('specialReading2', (t) => {
+  const options = {
+    start: new Date(2021, 1, 13),
+    end: new Date(2021, 1, 13),
+    sedrot: true,
+    noHolidays: true,
+  };
+  const events = HebrewCalendar.calendar(options);
+  const ev = events[0];
+  t.is(ev.getDesc(), 'Parashat Mishpatim');
+  const reading = getTriennialForParshaHaShavua(ev);
+  const expected = {
+    '1': {k: 'Exodus', b: '22:4', e: '22:8'},
+    '2': {k: 'Exodus', b: '22:9', e: '22:12'},
+    '3': {k: 'Exodus', b: '22:13', e: '22:18'},
+    '4': {k: 'Exodus', b: '22:19', e: '22:26'},
+    '5': {k: 'Exodus', b: '22:27', e: '23:5'},
+    '6': {k: 'Exodus', b: '23:6', e: '23:19'},
+    '7': {
+      p: 41,
+      k: 'Numbers',
+      b: '28:9',
+      e: '28:15',
+      v: 7,
+      reason: 'Shabbat Shekalim (on Rosh Chodesh)',
+    },
+    'M': {
+      p: 21,
+      k: 'Exodus',
+      b: '30:11',
+      e: '30:16',
+      v: 6,
+      reason: 'Shabbat Shekalim (on Rosh Chodesh)',
+    },
+  };
+  t.deepEqual(reading, expected);
+});
+
 test('multi', (t) => {
   for (let year = 5745; year <= 5830; year += 3) {
     const tri = new Triennial(year);

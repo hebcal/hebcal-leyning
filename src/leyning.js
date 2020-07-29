@@ -169,21 +169,22 @@ function getHaftaraKey(parsha) {
   }
 }
 
-// eslint-disable-next-line require-jsdoc
+/**
+ * @private
+ * @param {Object<string,Aliyah>} aliyot
+ */
 function aliyotCombine67(aliyot) {
-  const a6 = aliyot['6'];
-  const a7 = aliyot['7'];
-  const result = shallowCopy(Object.create(null), aliyot);
-  delete result['7'];
-  result['6'] = {
+  const a6 = shallowCopy(Object.create(null), aliyot['6']);
+  const a7 = shallowCopy(Object.create(null), aliyot['7']);
+  delete aliyot['7'];
+  aliyot['6'] = {
     k: a6.k,
     b: a6.b,
     e: a7.e,
   };
   if (a6.v && a7.v) {
-    result['6'].v = a6.v + a7.v;
+    aliyot['6'].v = a6.v + a7.v;
   }
-  return result;
 }
 
 // eslint-disable-next-line require-jsdoc
@@ -192,16 +193,19 @@ function shallowCopy(target, source) {
   return target;
 }
 
-// eslint-disable-next-line require-jsdoc
+/**
+ * @private
+ * @param {Object<string,Aliyah>} aliyot
+ * @param {Object<string,Aliyah>} special
+ */
 function mergeAliyotWithSpecial(aliyot, special) {
-  let result;
   if (special['7']) {
-    result = aliyotCombine67(aliyot);
-  } else {
-    result = shallowCopy(Object.create(null), aliyot);
+    aliyotCombine67(aliyot);
+    aliyot['7'] = shallowCopy(Object.create(null), special['7']);
   }
-  // copies 7, 8, M to the result
-  return shallowCopy(result, special);
+  if (special['M']) {
+    aliyot['M'] = shallowCopy(Object.create(null), special['M']);
+  }
 }
 
 /**
@@ -253,7 +257,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   const name = parshaToString(parsha); // untranslated
   const raw = parshiyotObj[name];
   let haftara = parshiyotObj[getHaftaraKey(parsha)].haftara;
-  let fullkriyah = Object.create(null);
+  const fullkriyah = Object.create(null);
   Object.keys(raw.fullkriyah).forEach((num) => {
     const src = raw.fullkriyah[num];
     const reading = {k: raw.book, b: src.b, e: src.e};
@@ -272,7 +276,35 @@ export function getLeyningForParshaHaShavua(e, il=false) {
     }
   }
   // Now, check for special maftir or haftara on same date
+  const specialHaftara = specialReadings(hd, il, fullkriyah, reason);
+  if (specialHaftara) {
+    haftara = specialHaftara;
+  }
+  const result = {
+    summary: `${raw.book} ${raw.verses}`,
+    fullkriyah: fullkriyah,
+    haftara: haftara,
+  };
+  if (raw.sephardic) {
+    result.sephardic = raw.sephardic;
+  }
+  if (Object.keys(reason).length) {
+    result.reason = reason;
+  }
+  return result;
+}
+
+/**
+ * @private
+ * @param {HDate} hd
+ * @param {boolean} il
+ * @param {Object<string,Aliyah>} aliyot
+ * @param {Object<string,string>} reason
+ * @return {string}
+ */
+export function specialReadings(hd, il, aliyot, reason) {
   const events = getHolidayEvents(hd, il);
+  let haftara;
   events.forEach((ev) => {
     const key = getLeyningKeyForEvent(ev, il);
     //            console.log(hd.greg().toLocaleDateString(), name, ev.getDesc(), key);
@@ -286,8 +318,8 @@ export function getLeyningForParshaHaShavua(e, il=false) {
         haftara = festivals[shabbatChanukah].haftara;
         reason.haftara = shabbatChanukah;
         // Aliyot 1-3 from regular daily reading becomes Maftir
-        fullkriyah['M'] = shallowCopy(Object.create(null), special.fullkriyah['1']);
-        fullkriyah['M'].e = special.fullkriyah['3'].e;
+        aliyot['M'] = shallowCopy(Object.create(null), special.fullkriyah['1']);
+        aliyot['M'].e = special.fullkriyah['3'].e;
         reason.M = key;
       } else {
         if (special.haftara && !reason.haftara) {
@@ -295,24 +327,13 @@ export function getLeyningForParshaHaShavua(e, il=false) {
           reason.haftara = key;
         }
         if (special.fullkriyah) {
-          fullkriyah = mergeAliyotWithSpecial(fullkriyah, special.fullkriyah);
+          mergeAliyotWithSpecial(aliyot, special.fullkriyah);
           Object.keys(special.fullkriyah).map((k) => reason[k] = key);
         }
       }
     }
   });
-  const result = {
-    summary: `${raw.book} ${raw.verses}`,
-    fullkriyah: fullkriyah,
-    haftara: haftara,
-  };
-  if (raw.sephardic) {
-    result.sephardic = raw.sephardic;
-  }
-  if (Object.keys(reason).length) {
-    result.reason = reason;
-  }
-  return result;
+  return haftara;
 }
 
 /**

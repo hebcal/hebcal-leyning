@@ -1,5 +1,5 @@
 import {Event, HDate, Sedra, parshiot, flags} from '@hebcal/core';
-import {parshaToString} from './leyning';
+import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
 
 const doubled = [
@@ -276,11 +276,21 @@ export function getTriennialForParshaHaShavua(ev) {
   } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
   }
-  const hyear = ev.getDate().getFullYear();
+  const hd = ev.getDate();
+  const hyear = hd.getFullYear();
   const triennial = getTriennial(hyear);
   const startYear = triennial.getStartYear();
   const parsha = ev.getAttrs().parsha;
   const name = parshaToString(parsha); // untranslated
   const reading = triennial.getReadings()[name];
-  return reading[hyear - startYear];
+  const aliyotMap = reading[hyear - startYear];
+  // possibly replace 7th aliyah and/or maftir
+  const reason = Object.create(null);
+  specialReadings(hd, false, aliyotMap, reason);
+  Object.keys(reason).forEach((num) => {
+    if (aliyotMap[num]) {
+      aliyotMap[num].reason = reason[num];
+    }
+  });
+  return aliyotMap;
 }
