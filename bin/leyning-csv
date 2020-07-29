@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+// const {writeFullKriyahCsv} = require('@hebcal/leyning');
+const {writeFullKriyahCsv} = require('../dist/index');
+
+if (process.argv.length != 3) {
+  console.error(`Usage: leyning-csv fullkriyah.csv`);
+  process.exit(1);
+}
+
+const [filename] = process.argv.slice(2);
+
+const hyear = 5780;
+const il = false;
+const stream = fs.createWriteStream(filename, {flags: 'w'});
+
+writeFullKriyahCsv(stream, hyear, il);
