@@ -20,8 +20,12 @@
   "typings": "leyning.d.ts",
   "files": [
     "dist",
+    "bin",
     "leyning.d.ts"
   ],
+  "bin": {
+    "leyning-csv": "bin/leyning-csv"
+  },
   "dependencies": {
     "@hebcal/core": "^2.2.3"
   },

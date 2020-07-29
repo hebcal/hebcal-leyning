@@ -5,6 +5,7 @@ import {
   formatAliyahWithBook,
 } from './leyning';
 import {getTriennialForParshaHaShavua, getTriennial, Triennial} from './triennial';
+import {writeFullKriyahCsv} from './csv';
 
 /** Main interface to hebcal/leyning */
 const leyning = {
@@ -15,6 +16,7 @@ const leyning = {
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
   formatAliyahWithBook,
+  writeFullKriyahCsv,
 };
 
 export default leyning;
