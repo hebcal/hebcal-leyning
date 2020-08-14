@@ -15,7 +15,7 @@ for (let i = hyear - 1; i < hyear + numYears; i++) {
   writeFullKriyahCsv(stream, i, false);
   stream.end();
 
-  filename = `fullkriyah-${i}-il.csv`;
+  filename = `fullkriyah-il-${i}.csv`;
   console.log(`Creating ${filename}`);
   stream = fs.createWriteStream(filename, {flags: 'w'});
   writeFullKriyahCsv(stream, i, true);
