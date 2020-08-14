@@ -56,6 +56,24 @@ test('getTriennialForParshaHaShavua', (t) => {
   reading = getTriennialForParshaHaShavua(ev);
   t.is(formatAliyahWithBook(reading['1']), 'Leviticus 23:23 - 23:25');
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 24:21 - 24:23');
+
+  options.start = new Date(2022, 9, 1);
+  options.end = new Date(2022, 9, 1);
+  events = HebrewCalendar.calendar(options);
+  ev = events[0];
+  t.is(ev.getDesc(), 'Parashat Vayeilech');
+  reading = getTriennialForParshaHaShavua(ev);
+  const expected = {
+    '1': {k: 'Deuteronomy', b: '31:1', e: '31:3', v: 3},
+    '2': {k: 'Deuteronomy', b: '31:4', e: '31:6', v: 3},
+    '3': {k: 'Deuteronomy', b: '31:7', e: '31:9', v: 3},
+    '4': {k: 'Deuteronomy', b: '31:10', e: '31:13', v: 4},
+    '5': {k: 'Deuteronomy', b: '31:14', e: '31:19', v: 6},
+    '6': {k: 'Deuteronomy', b: '31:20', e: '31:24', v: 5},
+    '7': {k: 'Deuteronomy', b: '31:25', e: '31:30', v: 6},
+    'M': {k: 'Deuteronomy', b: '31:28', e: '31:30', v: 3},
+  };
+  t.deepEqual(reading, expected, 'Vayeilech');
 });
 
 test('specialReading1', (t) => {
@@ -131,6 +149,6 @@ test('multi', (t) => {
     const tri = new Triennial(year);
     const readings = tri.getReadings();
     const parsha = readings['Vayakhel-Pekudei'];
+    t.is(parsha.length >= 1 && parsha.length <= 3, true);
   }
-  t.pass('message');
 });

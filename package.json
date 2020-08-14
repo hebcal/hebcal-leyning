@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "torah",
@@ -27,7 +27,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^2.2.3"
+    "@hebcal/core": "^2.2.4"
   },
   "scripts": {
     "build": "rollup -c",
@@ -56,20 +56,20 @@
   },
   "devDependencies": {
     "@ava/babel": "^1.0.1",
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.3",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
     "@babel/register": "^7.10.5",
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-babel": "^5.2.0",
+    "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "ava": "^3.10.1",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "ava": "^3.11.1",
     "core-js": "^3.6.5",
-    "eslint": "^7.5.0",
+    "eslint": "^7.7.0",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^3.6.5",
     "jsdoc-to-markdown": "^5.0.3",
-    "rollup": "^2.23.0",
-    "rollup-plugin-terser": "^6.1.0"
+    "rollup": "^2.25.0",
+    "rollup-plugin-terser": "^7.0.0"
   }
 }

@@ -1,4 +1,4 @@
-import {Event, HDate, Sedra, parshiot, flags} from '@hebcal/core';
+import {Event, HDate, Sedra, parshiot, flags, months} from '@hebcal/core';
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
 
@@ -277,10 +277,14 @@ export function getTriennialForParshaHaShavua(ev) {
     throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
   }
   const hd = ev.getDate();
-  const hyear = hd.getFullYear();
+  const hyear0 = hd.getFullYear();
+  const parsha = ev.getAttrs().parsha;
+  // When Nitzavim & Vayeilech are not combined, they should each be read in their entirety.
+  // Vayeilech can occur immediately after RH, so back up one year to pick up
+  // the tail end of previous 3-year cycle.
+  const hyear = (parsha[0] === 'Vayeilech' && hd.getMonth() === months.TISHREI) ? hyear0 - 1 : hyear0;
   const triennial = getTriennial(hyear);
   const startYear = triennial.getStartYear();
-  const parsha = ev.getAttrs().parsha;
   const name = parshaToString(parsha); // untranslated
   const reading = triennial.getReadings()[name];
   const aliyotMap = reading[hyear - startYear];
