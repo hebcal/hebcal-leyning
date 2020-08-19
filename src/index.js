@@ -6,6 +6,8 @@ import {
 } from './leyning';
 import {getTriennialForParshaHaShavua, getTriennial, Triennial} from './triennial';
 import {writeFullKriyahCsv, writeTriennialCsv} from './csv';
+import parshiyotObj from './aliyot.json';
+import festivals from './holiday-readings.json';
 
 /** Main interface to hebcal/leyning */
 const leyning = {
@@ -18,6 +20,8 @@ const leyning = {
   formatAliyahWithBook,
   writeFullKriyahCsv,
   writeTriennialCsv,
+  parshiyot: parshiyotObj,
+  holidayReadings: festivals,
 };
 
 export default leyning;
