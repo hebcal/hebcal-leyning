@@ -99,4 +99,7 @@ declare module '@hebcal/leyning' {
      * @returns map of aliyot
      */
     export function getTriennialForParshaHaShavua(e: Event): AliyotMap;
+
+    export const parshiyot: any;
+    export const holidayReadings: any;
 }
