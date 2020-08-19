@@ -100,8 +100,7 @@ export function getLeyningKeyForEvent(e, il=false) {
 }
 
 /**
- * Looks up leyning for a given holiday name. Name should be an
- * (untranslated) string used in holiday-readons.json. Returns some
+ * Looks up leyning for a given holiday. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
  * @param {Event} e the Hebcal event associated with this leyning
  * @param {boolean} [il] true if Israel holiday scheme
@@ -114,6 +113,26 @@ export function getLeyningForHoliday(e, il=false) {
     throw new TypeError(`Event should be a holiday: ${e.getDesc()}`);
   }
   const key = getLeyningKeyForEvent(e, il);
+  const leyning = getLeyningForHolidayKey(key);
+  if (key === 'Sukkot Shabbat Chol ha-Moed') {
+    const attrs = e.getAttrs();
+    /** @todo handle M-day5 for Sukkot VI (CH''M) in Israel */
+    leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${attrs.cholHaMoedDay}`];
+    for (let day = 1; day <= 4; day++) {
+      delete leyning.fullkriyah[`M-day${day}`];
+    }
+  }
+  return leyning;
+}
+
+/**
+ * Looks up leyning for a given holiday key. Key should be an
+ * (untranslated) string used in holiday-readings.json. Returns some
+ * of full kriyah aliyot, special Maftir, special Haftarah
+ * @param {string} key name from `holiday-readings.json` to find
+ * @return {Leyning} map of aliyot
+ */
+export function getLeyningForHolidayKey(key) {
   const src = festivals[key];
   if (typeof src === 'undefined') {
     return src;
@@ -127,14 +146,6 @@ export function getLeyningForHoliday(e, il=false) {
       leyning.summary = `${beginAliyah.k} ${beginAliyah.b}-${endAliyah.e}`;
     }
     leyning.fullkriyah = shallowCopy(Object.create(null), src.fullkriyah);
-  }
-  if (key == 'Sukkot Shabbat Chol ha-Moed') {
-    const attrs = e.getAttrs();
-    /** @todo handle M-day5 for Sukkot VI (CH''M) in Israel */
-    leyning.fullkriyah['M'] = src.fullkriyah[`M-day${attrs.cholHaMoedDay}`];
-    for (let day = 1; day <= 4; day++) {
-      delete leyning.fullkriyah[`M-day${day}`];
-    }
   }
   if (src.haftara) {
     leyning.haftara = src.haftara;

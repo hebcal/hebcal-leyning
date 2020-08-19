@@ -1,5 +1,6 @@
 import {
   getLeyningForHoliday,
+  getLeyningForHolidayKey,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
   formatAliyahWithBook,
@@ -15,6 +16,7 @@ const leyning = {
   getTriennial,
   getTriennialForParshaHaShavua,
   getLeyningForHoliday,
+  getLeyningForHolidayKey,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
   formatAliyahWithBook,
