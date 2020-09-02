@@ -141,10 +141,10 @@ export class Triennial {
   cycleReadings(cycleOption) {
     const readings = Object.create(null);
     parshiot.forEach((parsha) => {
-      readings[parsha] = [];
+      readings[parsha] = Array(3);
     });
     doubled.map(getDoubledName).forEach((parsha) => {
-      readings[parsha] = [];
+      readings[parsha] = Array(3);
     });
     for (let yr = 0; yr <= 2; yr ++) {
       this.cycleReadingsForYear(cycleOption, readings, yr);

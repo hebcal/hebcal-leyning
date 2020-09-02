@@ -7,13 +7,30 @@ test('triennial', (t) => {
   const tri = new Triennial(5777);
   const readings = tri.getReadings();
   const parsha = readings['Vayakhel-Pekudei'];
-  t.is(parsha.length, 2);
-  t.is(parsha[0]['7'].k, 'Exodus');
-  t.is(parsha[0]['7'].b, '37:1');
-  t.is(parsha[0]['7'].e, '37:16');
-  t.is(parsha[1]['7'].k, 'Exodus');
-  t.is(parsha[1]['7'].b, '39:8');
-  t.is(parsha[1]['7'].e, '39:21');
+  const expected = [
+    {
+      '1': {k: 'Exodus', b: '35:1', e: '35:10'},
+      '2': {k: 'Exodus', b: '35:11', e: '35:20'},
+      '3': {k: 'Exodus', b: '35:21', e: '35:29'},
+      '4': {k: 'Exodus', b: '35:30', e: '36:7'},
+      '5': {k: 'Exodus', b: '36:8', e: '36:19'},
+      '6': {k: 'Exodus', b: '36:20', e: '36:38'},
+      '7': {k: 'Exodus', b: '37:1', e: '37:16'},
+      'M': {k: 'Exodus', b: '37:10', e: '37:16'},
+    },
+    {
+      '1': {k: 'Exodus', b: '37:17', e: '37:24'},
+      '2': {k: 'Exodus', b: '37:25', e: '37:29'},
+      '3': {k: 'Exodus', b: '38:1', e: '38:8'},
+      '4': {k: 'Exodus', b: '38:9', e: '38:20'},
+      '5': {k: 'Exodus', b: '38:21', e: '39:1'},
+      '6': {k: 'Exodus', b: '39:2', e: '39:7'},
+      '7': {k: 'Exodus', b: '39:8', e: '39:21'},
+      'M': {k: 'Exodus', b: '39:19', e: '39:21'},
+    },
+    undefined,
+  ];
+  t.deepEqual(parsha, expected);
 });
 
 test('getTriennialForParshaHaShavua', (t) => {
