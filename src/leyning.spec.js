@@ -8,45 +8,92 @@ import {
 } from './leyning';
 
 test('getLeyningKeyForEvent', (t) => {
-//    const options = { year: 1997, noHolidays: true, sedrot: true, il: false };
   const options = {year: 5757, isHebrewYear: true};
   const events = HebrewCalendar.calendar(options);
-  for (const e of events) {
-    const str = getLeyningKeyForEvent(e);
-    //        console.log(e.getDate().greg().toLocaleDateString(), str, e.getDesc(), e.getDate().toString());
-    switch (e.getDesc()) {
-      case 'Chanukah: 2 Candles':
-        t.is(str, 'Chanukah (Day 1)');
-        break;
-      case 'Chanukah: 8th Day':
-        t.is(str, 'Chanukah (Day 8)');
-        break;
-      case 'Rosh Hashana 5757':
-        t.is(str, 'Rosh Hashana I (on Shabbat)');
-        break;
-      case 'Sukkot III (CH\'\'M)':
-        t.is(str, 'Sukkot Chol ha-Moed Day 1');
-        break;
-      case 'Sukkot VII (Hoshana Raba)':
-        t.is(str, 'Sukkot Final Day (Hoshana Raba)');
-        break;
-      case 'Pesach III (CH\'\'M)':
-        t.is(str, 'Pesach Chol ha-Moed Day 1');
-        break;
-      case 'Pesach IV (CH\'\'M)':
-        t.is(str, 'Pesach Chol ha-Moed Day 2');
-        break;
-      case 'Pesach V (CH\'\'M)':
-        t.is(str, 'Pesach Shabbat Chol ha-Moed');
-        break;
-      case 'Pesach VI (CH\'\'M)':
-        t.is(str, 'Pesach Chol ha-Moed Day 3');
-        break;
-      default:
-    }
+  const keys = {};
+  for (const ev of events) {
+    keys[ev.getDesc()] = getLeyningKeyForEvent(ev);
   }
+  const expected = {
+    'Erev Rosh Hashana': undefined,
+    'Rosh Hashana 5757': 'Rosh Hashana I (on Shabbat)',
+    'Rosh Hashana II': 'Rosh Hashana II',
+    'Tzom Gedaliah': 'Tzom Gedaliah',
+    'Shabbat Shuva': 'Shabbat Shuva',
+    'Erev Yom Kippur': undefined,
+    'Yom Kippur': 'Yom Kippur',
+    'Erev Sukkot': undefined,
+    'Sukkot I': 'Sukkot I (on Shabbat)',
+    'Sukkot II': 'Sukkot II',
+    'Sukkot III (CH\'\'M)': 'Sukkot Chol ha-Moed Day 1',
+    'Sukkot IV (CH\'\'M)': 'Sukkot Chol ha-Moed Day 2',
+    'Sukkot V (CH\'\'M)': 'Sukkot Chol ha-Moed Day 3',
+    'Sukkot VI (CH\'\'M)': 'Sukkot Chol ha-Moed Day 4',
+    'Sukkot VII (Hoshana Raba)': 'Sukkot Final Day (Hoshana Raba)',
+    'Shmini Atzeret': 'Shmini Atzeret (on Shabbat)',
+    'Simchat Torah': 'Simchat Torah',
+    'Rosh Chodesh Cheshvan': undefined,
+    'Rosh Chodesh Kislev': undefined,
+    'Chanukah: 1 Candle': undefined,
+    'Chanukah: 2 Candles': 'Chanukah (Day 1)',
+    'Chanukah: 3 Candles': 'Chanukah (Day 2)',
+    'Chanukah: 4 Candles': 'Chanukah (Day 3)',
+    'Chanukah: 5 Candles': 'Chanukah (Day 4)',
+    'Chanukah: 6 Candles': 'Chanukah (Day 5)',
+    'Chanukah: 7 Candles': 'Chanukah (Day 6)',
+    'Rosh Chodesh Tevet': undefined,
+    'Chanukah: 8 Candles': 'Chanukah (Day 7)',
+    'Chanukah: 8th Day': 'Chanukah (Day 8)',
+    'Asara B\'Tevet': 'Asara B\'Tevet',
+    'Rosh Chodesh Sh\'vat': undefined,
+    'Tu BiShvat': undefined,
+    'Rosh Chodesh Adar I': 'Shabbat Rosh Chodesh',
+    'Purim Katan': undefined,
+    'Shabbat Shekalim': 'Shabbat Shekalim',
+    'Rosh Chodesh Adar II': undefined,
+    'Ta\'anit Esther': 'Ta\'anit Esther',
+    'Shabbat Zachor': 'Shabbat Zachor',
+    'Erev Purim': undefined,
+    'Purim': 'Purim',
+    'Shushan Purim': 'Shushan Purim',
+    'Shabbat Parah': 'Shabbat Parah',
+    'Shabbat HaChodesh': 'Shabbat HaChodesh',
+    'Rosh Chodesh Nisan': undefined,
+    'Shabbat HaGadol': 'Shabbat HaGadol',
+    'Ta\'anit Bechorot': 'Ta\'anit Bechorot',
+    'Erev Pesach': undefined,
+    'Pesach I': 'Pesach I',
+    'Pesach II': 'Pesach II',
+    'Pesach III (CH\'\'M)': 'Pesach Chol ha-Moed Day 1',
+    'Pesach IV (CH\'\'M)': 'Pesach Chol ha-Moed Day 2',
+    'Pesach V (CH\'\'M)': 'Pesach Shabbat Chol ha-Moed',
+    'Pesach VI (CH\'\'M)': 'Pesach Chol ha-Moed Day 3',
+    'Pesach VII': 'Pesach VII',
+    'Pesach VIII': 'Pesach VIII',
+    'Yom HaShoah': undefined,
+    'Rosh Chodesh Iyyar': undefined,
+    'Yom HaZikaron': undefined,
+    'Yom HaAtzma\'ut': undefined,
+    'Pesach Sheni': undefined,
+    'Lag BaOmer': undefined,
+    'Yom Yerushalayim': undefined,
+    'Rosh Chodesh Sivan': undefined,
+    'Erev Shavuot': undefined,
+    'Shavuot I': 'Shavuot I',
+    'Shavuot II': 'Shavuot II',
+    'Rosh Chodesh Tamuz': undefined,
+    'Tzom Tammuz': 'Tzom Tammuz',
+    'Rosh Chodesh Av': undefined,
+    'Shabbat Chazon': undefined,
+    'Erev Tish\'a B\'Av': undefined,
+    'Tish\'a B\'Av': 'Tish\'a B\'Av',
+    'Shabbat Nachamu': 'Shabbat Nachamu',
+    'Tu B\'Av': undefined,
+    'Rosh Chodesh Elul': undefined,
+    'Leil Selichot': undefined,
+  };
+  t.deepEqual(keys, expected);
 });
-
 
 /*
 7/18/1981 16th of Tamuz, 5741
@@ -260,4 +307,20 @@ test('no-leyning-on-holiday', (t) => {
   const tuBiShvat = events.find((e) => e.getDesc() == 'Tu BiShvat');
   const a = getLeyningForHoliday(tuBiShvat);
   t.is(a, undefined);
+});
+
+test('israel-getLeyningForParshaHaShavua', (t) => {
+  const june6 = new Date(2020, 5, 6);
+  const diaspora = HebrewCalendar.calendar({
+    il: false, sedrot: true, noHolidays: true, start: june6, end: june6,
+  });
+  t.is(diaspora[0].getDesc(), 'Parashat Nasso');
+  const nassoDiaspora = getLeyningForParshaHaShavua(diaspora[0], false);
+  const may30 = new Date(2020, 4, 30);
+  const israel = HebrewCalendar.calendar({
+    il: true, sedrot: true, noHolidays: true, start: may30, end: may30,
+  });
+  t.is(israel[0].getDesc(), 'Parashat Nasso');
+  const nassoIL = getLeyningForParshaHaShavua(israel[0], true);
+  t.deepEqual(nassoDiaspora, nassoIL);
 });
