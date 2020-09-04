@@ -1,36 +1,42 @@
 import test from 'ava';
-import {HebrewCalendar} from '@hebcal/core';
+import {HebrewCalendar, HDate} from '@hebcal/core';
 import {Triennial, getTriennialForParshaHaShavua} from './triennial';
 import {formatAliyahWithBook} from './leyning';
 
 test('triennial', (t) => {
   const tri = new Triennial(5777);
-  const readings = tri.getReadings();
-  const parsha = readings['Vayakhel-Pekudei'];
   const expected = [
     {
-      '1': {k: 'Exodus', b: '35:1', e: '35:10'},
-      '2': {k: 'Exodus', b: '35:11', e: '35:20'},
-      '3': {k: 'Exodus', b: '35:21', e: '35:29'},
-      '4': {k: 'Exodus', b: '35:30', e: '36:7'},
-      '5': {k: 'Exodus', b: '36:8', e: '36:19'},
-      '6': {k: 'Exodus', b: '36:20', e: '36:38'},
-      '7': {k: 'Exodus', b: '37:1', e: '37:16'},
-      'M': {k: 'Exodus', b: '37:10', e: '37:16'},
+      aliyot: {
+        '1': {k: 'Exodus', b: '35:1', e: '35:10'},
+        '2': {k: 'Exodus', b: '35:11', e: '35:20'},
+        '3': {k: 'Exodus', b: '35:21', e: '35:29'},
+        '4': {k: 'Exodus', b: '35:30', e: '36:7'},
+        '5': {k: 'Exodus', b: '36:8', e: '36:19'},
+        '6': {k: 'Exodus', b: '36:20', e: '36:38'},
+        '7': {k: 'Exodus', b: '37:1', e: '37:16'},
+        'M': {k: 'Exodus', b: '37:10', e: '37:16'},
+      },
+      date: new HDate(736413),
     },
     {
-      '1': {k: 'Exodus', b: '37:17', e: '37:24'},
-      '2': {k: 'Exodus', b: '37:25', e: '37:29'},
-      '3': {k: 'Exodus', b: '38:1', e: '38:8'},
-      '4': {k: 'Exodus', b: '38:9', e: '38:20'},
-      '5': {k: 'Exodus', b: '38:21', e: '39:1'},
-      '6': {k: 'Exodus', b: '39:2', e: '39:7'},
-      '7': {k: 'Exodus', b: '39:8', e: '39:21'},
-      'M': {k: 'Exodus', b: '39:19', e: '39:21'},
+      aliyot: {
+        '1': {k: 'Exodus', b: '37:17', e: '37:24'},
+        '2': {k: 'Exodus', b: '37:25', e: '37:29'},
+        '3': {k: 'Exodus', b: '38:1', e: '38:8'},
+        '4': {k: 'Exodus', b: '38:9', e: '38:20'},
+        '5': {k: 'Exodus', b: '38:21', e: '39:1'},
+        '6': {k: 'Exodus', b: '39:2', e: '39:7'},
+        '7': {k: 'Exodus', b: '39:8', e: '39:21'},
+        'M': {k: 'Exodus', b: '39:19', e: '39:21'},
+      },
+      date: new HDate(736763),
     },
     undefined,
   ];
-  t.deepEqual(parsha, expected);
+  for (let i = 0; i < 3; i++) {
+    t.deepEqual(tri.getReading('Vayakhel-Pekudei', i), expected[i]);
+  }
 });
 
 test('getTriennialForParshaHaShavua', (t) => {
@@ -164,8 +170,7 @@ test('specialReading2', (t) => {
 test('multi', (t) => {
   for (let year = 5745; year <= 5830; year += 3) {
     const tri = new Triennial(year);
-    const readings = tri.getReadings();
-    const parsha = readings['Vayakhel-Pekudei'];
-    t.is(parsha.length >= 1 && parsha.length <= 3, true);
+    tri.getReading('Vayakhel-Pekudei', 2);
   }
+  t.pass('5745-5830 passed');
 });

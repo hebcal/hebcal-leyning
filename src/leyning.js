@@ -1,5 +1,5 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
-
+import {shallowCopy} from './common';
 import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
@@ -196,12 +196,6 @@ function aliyotCombine67(aliyot) {
   if (a6.v && a7.v) {
     aliyot['6'].v = a6.v + a7.v;
   }
-}
-
-// eslint-disable-next-line require-jsdoc
-function shallowCopy(target, source) {
-  Object.keys(source).forEach((k) => target[k] = source[k]);
-  return target;
 }
 
 /**

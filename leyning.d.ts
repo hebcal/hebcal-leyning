@@ -81,7 +81,7 @@ declare module '@hebcal/leyning' {
      */
     export class Triennial {
         constructor(hebrewYear: number);
-        getReadings(): any;
+        getReading(name: string, yearNum: number): any;
         getStartYear(): number;
         /**
          * Returns triennial year 1, 2 or 3 based on this Hebrew year

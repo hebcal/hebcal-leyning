@@ -1,6 +1,7 @@
 import {Event, HDate, Sedra, parshiot, flags, months} from '@hebcal/core';
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
+import {shallowCopy} from './common';
 
 const doubled = [
   21, // Vayakhel-Pekudei
@@ -48,24 +49,29 @@ export class Triennial {
 
     this.startYear = Triennial.getCycleStartYear(hyear);
     console.debug(`Hebrew year ${hyear} is year ${yearNum}; triennial cycle started year ${this.startYear}`);
-    const sedra0 = new Sedra(this.startYear, false).getSedraArray();
-    this.bereshit = [0];
-    this.sedraArray = sedra0.slice(sedra0.indexOf(0));
-    for (let yr = 1; yr < 4; yr++) {
+    this.sedraArray = [];
+    this.bereshit = Array(4);
+    for (let yr = 0; yr < 4; yr++) {
       const sedra = new Sedra(this.startYear + yr, false);
       const arr = sedra.getSedraArray();
       this.bereshit[yr] = this.sedraArray.length + arr.indexOf(0);
       this.sedraArray = this.sedraArray.concat(arr);
     }
+    // find the first Saturday on or after Rosh Hashana
+    const rh = new HDate(1, months.TISHREI, this.startYear);
+    const firstSaturday = rh.onOrAfter(6);
+    this.firstSaturday = firstSaturday.abs();
     const cycleOption = this.calcVariationOptions();
     this.readings = this.cycleReadings(cycleOption);
   }
 
   /**
+   * @param {string} parsha parsha name ("Bereshit" or "Achrei Mot-Kedoshim")
+   * @param {number} yearNum 0 through 2 for which year of Triennial cycle
    * @return {Object<string,Object<string,Aliyah>[]>}
    */
-  getReadings() {
-    return this.readings;
+  getReading(parsha, yearNum) {
+    return this.readings[parsha][yearNum];
   }
 
   /**
@@ -160,8 +166,11 @@ export class Triennial {
   cycleReadingsForYear(option, readings, yr) {
     const startIdx = this.bereshit[yr];
     const endIdx = this.bereshit[yr + 1];
-    const sedraArray = this.sedraArray.slice(startIdx, endIdx).filter((id) => typeof id === 'number');
-    sedraArray.forEach((id) => {
+    for (let i = startIdx; i < endIdx; i++) {
+      const id = this.sedraArray[i];
+      if (typeof id !== 'number') {
+        continue;
+      }
       const h = (id < 0) ? getDoubledName(-id) : parshiot[id];
       const variationKey = isSometimesDoubled[id] ? option[h] : 'Y';
       const variation = variationKey + '.' + (yr + 1);
@@ -169,8 +178,11 @@ export class Triennial {
       if (!a) {
         throw new Error(`can't find ${h} year ${yr} (variation ${variation})`);
       }
-      readings[h][yr] = a;
-    });
+      readings[h][yr] = {
+        aliyot: shallowCopy({}, a),
+        date: new HDate(this.firstSaturday + (i * 7)),
+      };
+    }
     // create links for doubled
     doubled.forEach((id) => {
       const h = getDoubledName(id);
@@ -286,8 +298,8 @@ export function getTriennialForParshaHaShavua(ev) {
   const triennial = getTriennial(hyear);
   const startYear = triennial.getStartYear();
   const name = parshaToString(parsha); // untranslated
-  const reading = triennial.getReadings()[name];
-  const aliyotMap = reading[hyear - startYear];
+  const reading = triennial.getReading(name, hyear - startYear);
+  const aliyotMap = reading.aliyot;
   // possibly replace 7th aliyah and/or maftir
   const reason = Object.create(null);
   specialReadings(hd, false, aliyotMap, reason);
