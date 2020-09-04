@@ -187,10 +187,16 @@ export class Triennial {
     doubled.forEach((id) => {
       const h = getDoubledName(id);
       const combined = readings[h][yr];
+      const p1 = parshiot[id];
+      const p2 = parshiot[id + 1];
       if (combined) {
-        const p1 = parshiot[id];
-        const p2 = parshiot[id + 1];
         readings[p1][yr] = readings[p2][yr] = {readTogether: h, date: combined.date};
+      } else {
+        readings[h][yr] = {
+          readSeparately: true,
+          date1: readings[p1][yr].date,
+          date2: readings[p2][yr].date,
+        };
       }
     });
   }

@@ -32,7 +32,11 @@ test('triennial', (t) => {
       },
       date: new HDate(736763),
     },
-    undefined,
+    {
+      readSeparately: true,
+      date1: new HDate(737120),
+      date2: new HDate(737127),
+    },
   ];
   for (let i = 0; i < 3; i++) {
     t.deepEqual(tri.getReading('Vayakhel-Pekudei', i), expected[i]);
@@ -170,9 +174,8 @@ test('specialReading2', (t) => {
 test('multi', (t) => {
   for (let year = 5745; year <= 5830; year += 3) {
     const tri = new Triennial(year);
-    tri.getReading('Vayakhel-Pekudei', 2);
+    t.is(typeof tri.getReading('Nitzavim-Vayeilech', 2), 'object');
   }
-  t.pass('5745-5830 passed');
 });
 
 test('readTogether', (t) => {
@@ -184,5 +187,14 @@ test('readTogether', (t) => {
   t.deepEqual(tri.getReading('Tazria', 1), {
     readTogether: 'Tazria-Metzora',
     date: new HDate(737897),
+  });
+});
+
+test('readSeparately', (t) => {
+  const tri = new Triennial(5780);
+  t.deepEqual(tri.getReading('Tazria-Metzora', 2), {
+    readSeparately: true,
+    date1: new HDate(738247),
+    date2: new HDate(738254),
   });
 });
