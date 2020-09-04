@@ -186,10 +186,11 @@ export class Triennial {
     // create links for doubled
     doubled.forEach((id) => {
       const h = getDoubledName(id);
-      if (readings[h][yr]) {
+      const combined = readings[h][yr];
+      if (combined) {
         const p1 = parshiot[id];
         const p2 = parshiot[id + 1];
-        readings[p1][yr] = readings[p2][yr] = {readTogether: h};
+        readings[p1][yr] = readings[p2][yr] = {readTogether: h, date: combined.date};
       }
     });
   }

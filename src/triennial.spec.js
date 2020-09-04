@@ -174,3 +174,15 @@ test('multi', (t) => {
   }
   t.pass('5745-5830 passed');
 });
+
+test('readTogether', (t) => {
+  const tri = new Triennial(5780);
+  t.deepEqual(tri.getReading('Tazria', 0), {
+    readTogether: 'Tazria-Metzora',
+    date: new HDate(737540),
+  });
+  t.deepEqual(tri.getReading('Tazria', 1), {
+    readTogether: 'Tazria-Metzora',
+    date: new HDate(737897),
+  });
+});
