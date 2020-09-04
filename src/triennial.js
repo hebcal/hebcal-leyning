@@ -291,7 +291,7 @@ export function getTriennialForParshaHaShavua(ev) {
   }
   const hd = ev.getDate();
   const hyear0 = hd.getFullYear();
-  const parsha = ev.getAttrs().parsha;
+  const parsha = ev.parsha;
   // When Nitzavim & Vayeilech are not combined, they should each be read in their entirety.
   // Vayeilech can occur immediately after RH, so back up one year to pick up
   // the tail end of previous 3-year cycle.

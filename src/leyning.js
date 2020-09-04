@@ -33,14 +33,13 @@ export function getLeyningKeyForEvent(e, il=false) {
   const hd = e.getDate();
   const day = hd.getDate();
   const desc = e.getDesc();
-  const attrs = e.getAttrs();
   const dow = hd.abs() % 7;
   const isShabbat = (dow == 6);
   const isRoshChodesh = (day == 1 || day == 30);
 
   if (day == 1 && hd.getMonth() == months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
-  } else if (attrs && attrs.cholHaMoedDay) {
+  } else if (e && e.cholHaMoedDay) {
     // Sukkot or Pesach
     const holiday = desc.substring(0, desc.indexOf(' '));
     if (isShabbat) {
@@ -50,7 +49,7 @@ export function getLeyningKeyForEvent(e, il=false) {
     }
     // If Shabbat falls on the third day of Chol ha-Moed Pesach,
     // the readings for the third, fourth, and fifth days are moved ahead
-    let cholHaMoedDay = attrs.cholHaMoedDay;
+    let cholHaMoedDay = e.cholHaMoedDay;
     if (holiday == 'Pesach' && cholHaMoedDay >= 3) {
       if (dow == 0 && cholHaMoedDay == 4) {
         cholHaMoedDay = 3;
@@ -59,13 +58,13 @@ export function getLeyningKeyForEvent(e, il=false) {
       }
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
-  } else if (attrs && attrs.chanukahDay) {
+  } else if (e && e.chanukahDay) {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
-    } else if (isRoshChodesh && attrs.chanukahDay == 7) {
+    } else if (isRoshChodesh && e.chanukahDay == 7) {
       return `Chanukah (Day 7 on Rosh Chodesh)`;
     } else {
-      return `Chanukah (Day ${attrs.chanukahDay})`;
+      return `Chanukah (Day ${e.chanukahDay})`;
     }
   }
 
@@ -115,9 +114,8 @@ export function getLeyningForHoliday(e, il=false) {
   const key = getLeyningKeyForEvent(e, il);
   const leyning = getLeyningForHolidayKey(key);
   if (key === 'Sukkot Shabbat Chol ha-Moed') {
-    const attrs = e.getAttrs();
     /** @todo handle M-day5 for Sukkot VI (CH''M) in Israel */
-    leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${attrs.cholHaMoedDay}`];
+    leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${e.cholHaMoedDay}`];
     for (let day = 1; day <= 4; day++) {
       delete leyning.fullkriyah[`M-day${day}`];
     }
@@ -222,9 +220,8 @@ function getChanukahShabbatKey(e, key) {
   if (key == 'Shabbat Rosh Chodesh Chanukah') {
     return undefined;
   }
-  const attrs = e.getAttrs();
-  if (attrs && attrs.chanukahDay) {
-    return (attrs.chanukahDay == 8) ? 'Shabbat Chanukah II' : 'Shabbat Chanukah';
+  if (e && e.chanukahDay) {
+    return (e.chanukahDay == 8) ? 'Shabbat Chanukah II' : 'Shabbat Chanukah';
   }
   return undefined;
 }
@@ -258,7 +255,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
     throw new TypeError(`Event must be parsha hashavua: ${e.getDesc()}`);
   }
   // first, collect the default aliyot and haftara
-  const parsha = e.getAttrs().parsha;
+  const parsha = e.parsha;
   const name = parshaToString(parsha); // untranslated
   const raw = parshiyotObj[name];
   let haftara = parshiyotObj[getHaftaraKey(parsha)].haftara;
