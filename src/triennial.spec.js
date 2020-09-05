@@ -198,3 +198,27 @@ test('readSeparately', (t) => {
     date2: new HDate(738254),
   });
 });
+
+test('vayeilech-elul', (t) => {
+  const options = {
+    sedrot: true,
+    noHolidays: true,
+  };
+  options.start = options.end = new Date(2020, 8, 12);
+  const event1 = HebrewCalendar.calendar(options)[0];
+  t.is(event1.getDesc(), 'Parashat Nitzavim-Vayeilech');
+  const reading1 = getTriennialForParshaHaShavua(event1, true);
+  t.is(reading1.yearNum, 0);
+
+  options.start = options.end = new Date(2021, 8, 11);
+  const event2 = HebrewCalendar.calendar(options)[0];
+  t.is(event2.getDesc(), 'Parashat Vayeilech');
+  const reading2 = getTriennialForParshaHaShavua(event2, true);
+  t.is(reading2.yearNum, 1);
+
+  options.start = options.end = new Date(2022, 9, 1);
+  const event3 = HebrewCalendar.calendar(options)[0];
+  t.is(event3.getDesc(), 'Parashat Vayeilech');
+  const reading3 = getTriennialForParshaHaShavua(event3, true);
+  t.is(reading3.yearNum, 2);
+});

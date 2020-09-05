@@ -287,9 +287,10 @@ export function getTriennial(year) {
 /**
  * Looks up the triennial leyning for this Parashat HaShavua
  * @param {Event} ev
+ * @param {boolean} [context=false]
  * @return {Object<string,Aliyah>}
  */
-export function getTriennialForParshaHaShavua(ev) {
+export function getTriennialForParshaHaShavua(ev, context=false) {
   if (!ev instanceof Event) {
     throw new TypeError(`Bad event argument: ${ev}`);
   } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
@@ -304,8 +305,9 @@ export function getTriennialForParshaHaShavua(ev) {
   const hyear = (parsha[0] === 'Vayeilech' && hd.getMonth() === months.TISHREI) ? hyear0 - 1 : hyear0;
   const triennial = getTriennial(hyear);
   const startYear = triennial.getStartYear();
+  const yearNum = hyear - startYear;
   const name = parshaToString(parsha); // untranslated
-  const reading = triennial.getReading(name, hyear - startYear);
+  const reading = triennial.getReading(name, yearNum);
   const aliyotMap = reading.aliyot;
   // possibly replace 7th aliyah and/or maftir
   const reason = Object.create(null);
@@ -315,5 +317,6 @@ export function getTriennialForParshaHaShavua(ev) {
       aliyotMap[num].reason = reason[num];
     }
   });
-  return aliyotMap;
+  reading.yearNum = yearNum;
+  return context ? reading : aliyotMap;
 }
