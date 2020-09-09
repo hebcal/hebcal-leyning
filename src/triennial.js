@@ -39,6 +39,9 @@ export class Triennial {
    * @param {number} [hebrewYear] Hebrew Year (default current year)
    */
   constructor(hebrewYear) {
+    if (hebrewYear < 5744) {
+      throw new RangeError(`Invalid Triennial year ${hebrewYear}`);
+    }
     if (!triennialAliyot) {
       triennialAliyot = Triennial.getTriennialAliyot();
     }
@@ -87,7 +90,10 @@ export class Triennial {
    * @return {number}
    */
   static getYearNumber(year) {
-    return Math.abs((year - 5756) % 3) + 1;
+    if (year < 5744) {
+      throw new RangeError(`Invalid Triennial year ${year}`);
+    }
+    return ((year - 5744) % 3) + 1;
   }
 
   /**
@@ -308,6 +314,9 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   const yearNum = hyear - startYear;
   const name = parshaToString(parsha); // untranslated
   const reading = triennial.getReading(name, yearNum);
+  if (typeof reading !== 'object') {
+    throw new ReferenceError(`Can't load reading for ${name} in ${hyear} (year number ${yearNum})`);
+  }
   const aliyotMap = reading.aliyot;
   // possibly replace 7th aliyah and/or maftir
   const reason = Object.create(null);

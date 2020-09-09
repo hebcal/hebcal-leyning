@@ -222,3 +222,30 @@ test('vayeilech-elul', (t) => {
   const reading3 = getTriennialForParshaHaShavua(event3, true);
   t.is(reading3.yearNum, 2);
 });
+
+test('emor-5746', (t) => {
+  const options = {
+    sedrot: true,
+    noHolidays: true,
+  };
+  // 17 May 1986 (8 Iyyar 5746)
+  options.start = options.end = new Date(1986, 4, 17);
+  const ev = HebrewCalendar.calendar(options)[0];
+  t.is(ev.getDesc(), 'Parashat Emor');
+  const reading = getTriennialForParshaHaShavua(ev, true);
+  const expected = {
+    aliyot: {
+      '1': {k: 'Leviticus', b: '23:23', e: '23:25'},
+      '2': {k: 'Leviticus', b: '23:26', e: '23:32'},
+      '3': {k: 'Leviticus', b: '23:33', e: '23:44'},
+      '4': {k: 'Leviticus', b: '24:1', e: '24:4'},
+      '5': {k: 'Leviticus', b: '24:5', e: '24:9'},
+      '6': {k: 'Leviticus', b: '24:10', e: '24:12'},
+      '7': {k: 'Leviticus', b: '24:13', e: '24:23'},
+      'M': {k: 'Leviticus', b: '24:21', e: '24:23'},
+    },
+    date: new HDate(725143),
+    yearNum: 2,
+  };
+  t.deepEqual(reading, expected);
+});
