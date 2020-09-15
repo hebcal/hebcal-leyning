@@ -114,9 +114,8 @@ export function getLeyningForHoliday(e, il=false) {
   const key = getLeyningKeyForEvent(e, il);
   const leyning = getLeyningForHolidayKey(key);
   if (key === 'Sukkot Shabbat Chol ha-Moed') {
-    /** @todo handle M-day5 for Sukkot VI (CH''M) in Israel */
     leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${e.cholHaMoedDay}`];
-    for (let day = 1; day <= 4; day++) {
+    for (let day = 1; day <= 5; day++) {
       delete leyning.fullkriyah[`M-day${day}`];
     }
   }
