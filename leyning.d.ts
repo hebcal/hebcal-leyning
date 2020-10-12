@@ -1,6 +1,7 @@
 /// <reference types="node"/>
 
 import {Event} from '@hebcal/core';
+import {WriteStream} from 'fs';
 
 declare module '@hebcal/leyning' {
     /**
@@ -110,4 +111,7 @@ declare module '@hebcal/leyning' {
 
     export const parshiyot: any;
     export const holidayReadings: any;
+
+    export function writeTriennialCsv(stream: WriteStream, hyear: number): void;
+    export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean): void;
 }

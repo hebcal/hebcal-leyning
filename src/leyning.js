@@ -98,6 +98,9 @@ export function getLeyningKeyForEvent(e, il=false) {
   return undefined;
 }
 
+const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_MEVARCHIM |
+  flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE;
+
 /**
  * Looks up leyning for a given holiday. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
@@ -110,6 +113,8 @@ export function getLeyningForHoliday(e, il=false) {
     throw new TypeError(`Bad event argument: ${e}`);
   } else if (e.getFlags() & flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event should be a holiday: ${e.getDesc()}`);
+  } else if (e.getFlags() & HOLIDAY_IGNORE_MASK) {
+    return undefined;
   }
   const key = getLeyningKeyForEvent(e, il);
   const leyning = getLeyningForHolidayKey(key);

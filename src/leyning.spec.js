@@ -1,5 +1,5 @@
 import test from 'ava';
-import {HebrewCalendar} from '@hebcal/core';
+import {HDate, HebrewCalendar, Event, months, flags} from '@hebcal/core';
 import {
   getLeyningForHoliday,
   getLeyningForParshaHaShavua,
@@ -323,4 +323,10 @@ test('israel-getLeyningForParshaHaShavua', (t) => {
   t.is(israel[0].getDesc(), 'Parashat Nasso');
   const nassoIL = getLeyningForParshaHaShavua(israel[0], true);
   t.deepEqual(nassoDiaspora, nassoIL);
+});
+
+test('ignoreUserEvent-getLeyningForHoliday', (t) => {
+  const ev = new Event(new HDate(20, months.TISHREI, 5780), 'Birthday', flags.USER_EVENT);
+  const a = getLeyningForHoliday(ev);
+  t.is(a, undefined);
 });
