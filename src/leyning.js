@@ -141,11 +141,26 @@ export function getLeyningForHolidayKey(key) {
   }
   const leyning = Object.create(null);
   if (src.fullkriyah) {
-    const nums = Object.keys(src.fullkriyah).filter((x) => Number(x) > 0).sort();
-    if (nums.length && nums[0] == '1') {
+    if (typeof src.fullkriyah['1'] === 'object') {
       const beginAliyah = src.fullkriyah['1'];
-      const endAliyah = src.fullkriyah[nums[nums.length - 1]];
-      leyning.summary = `${beginAliyah.k} ${beginAliyah.b}-${endAliyah.e}`;
+      let endChapVerse = beginAliyah.e.split(':').map((x) => +x);
+      const aliyot2plus = Object.keys(src.fullkriyah).filter((x) => parseInt(x, 10) > 1).sort();
+      aliyot2plus.forEach((num) => {
+        const aliyah = src.fullkriyah[num];
+        const chapVerse = aliyah.e.split(':').map((x) => +x);
+        if (aliyah.k === beginAliyah.k && (chapVerse[0]*100 + chapVerse[1]) > (endChapVerse[0]*100 + endChapVerse[1])) {
+          endChapVerse = chapVerse;
+        }
+      });
+      leyning.summary = `${beginAliyah.k} ${beginAliyah.b}-${endChapVerse[0]}:${endChapVerse[1]}`;
+      if (typeof src.fullkriyah['M'] === 'object') {
+        leyning.summary += '; ';
+        const maftir = src.fullkriyah['M'];
+        if (maftir.k !== beginAliyah.k) {
+          leyning.summary += maftir.k + ' ';
+        }
+        leyning.summary += `${maftir.b}-${maftir.e}`;
+      }
     }
     leyning.fullkriyah = shallowCopy(Object.create(null), src.fullkriyah);
   }

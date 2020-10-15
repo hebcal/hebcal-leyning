@@ -247,7 +247,7 @@ test('getLeyningForHoliday', (t) => {
   const sukkot1 = events.find((e) => e.getDesc() == 'Sukkot I');
   const sukkot1a = getLeyningForHoliday(sukkot1);
   t.is(sukkot1a.fullkriyah['7'].p, 31);
-  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44');
+  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44; Numbers 29:12-29:16');
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
   t.is(getLeyningForHoliday(sukkot2).fullkriyah['4'].p, 41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
@@ -329,4 +329,22 @@ test('ignoreUserEvent-getLeyningForHoliday', (t) => {
   const ev = new Event(new HDate(20, months.TISHREI, 5780), 'Birthday', flags.USER_EVENT);
   const a = getLeyningForHoliday(ev);
   t.is(a, undefined);
+});
+
+test('israel-sukkot-chm-day5', (t) => {
+  const october8 = new Date(2020, 9, 8);
+  const israel = HebrewCalendar.calendar({
+    il: true, start: october8, end: october8,
+  });
+  t.is(israel[0].getDesc(), 'Sukkot VI (CH\'\'M)');
+  const sukkotChmDay5 = getLeyningForHoliday(israel[0], true);
+  t.deepEqual(sukkotChmDay5, {
+    summary: 'Numbers 29:29-29:37',
+    fullkriyah: {
+      '1': {p: 41, k: 'Numbers', b: '29:29', e: '29:31'},
+      '2': {p: 41, k: 'Numbers', b: '29:32', e: '29:34'},
+      '3': {p: 41, k: 'Numbers', b: '29:35', e: '29:37'},
+      '4': {p: 41, k: 'Numbers', b: '29:29', e: '29:34'},
+    },
+  });
 });
