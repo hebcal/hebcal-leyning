@@ -52,12 +52,20 @@ for (const [num, aliyah] of Object.entries(triReading)) {
 ## Functions
 
 <dl>
+<dt><a href="#addSefariaLinksToLeyning">addSefariaLinksToLeyning(aliyot, showBook)</a></dt>
+<dd><p>Makes Sefaria links by adding <code>href</code>, <code>verses</code> and <code>num</code> attributes to each aliyah.
+CAUTION: Modifies the <code>aliyot</code> parameter instead of making a copy.</p>
+</dd>
 <dt><a href="#getLeyningKeyForEvent">getLeyningKeyForEvent(e, [il])</a> ⇒ <code>string</code></dt>
 <dd><p>Based on the event date, type and title, finds the relevant leyning key</p>
 </dd>
 <dt><a href="#getLeyningForHoliday">getLeyningForHoliday(e, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
-<dd><p>Looks up leyning for a given holiday name. Name should be an
-(untranslated) string used in holiday-readons.json. Returns some
+<dd><p>Looks up leyning for a given holiday. Returns some
+of full kriyah aliyot, special Maftir, special Haftarah</p>
+</dd>
+<dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
+<dd><p>Looks up leyning for a given holiday key. Key should be an
+(untranslated) string used in holiday-readings.json. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
 </dd>
 <dt><a href="#parshaToString">parshaToString(parsha)</a> ⇒ <code>string</code></dt>
@@ -84,6 +92,9 @@ except for Nitzavim-Vayelech</p>
 <dt><a href="#getTriennial">getTriennial(year)</a> ⇒ <code><a href="#Triennial">Triennial</a></code></dt>
 <dd><p>Calculates the 3-year readings for a given year</p>
 </dd>
+<dt><a href="#getTriennialForParshaHaShavua">getTriennialForParshaHaShavua(ev, [context])</a> ⇒ <code><a href="#TriennialAliyot">TriennialAliyot</a></code> | <code>Object.&lt;string, Aliyah&gt;</code></dt>
+<dd><p>Looks up the triennial leyning for this Parashat HaShavua</p>
+</dd>
 </dl>
 
 ## Typedefs
@@ -94,6 +105,9 @@ except for Nitzavim-Vayelech</p>
 </dd>
 <dt><a href="#Leyning">Leyning</a> : <code>Object</code></dt>
 <dd><p>Leyning for a parsha hashavua or holiday</p>
+</dd>
+<dt><a href="#TriennialAliyot">TriennialAliyot</a> : <code>Object</code></dt>
+<dd><p>Represents triennial aliyot for a given date</p>
 </dd>
 </dl>
 
@@ -107,9 +121,8 @@ Triennial Torah readings
 * [Triennial](#Triennial)
     * [new Triennial([hebrewYear])](#new_Triennial_new)
     * _instance_
-        * [.getReadings()](#Triennial+getReadings) ⇒ <code>Object</code>
+        * [.getReading(parsha, yearNum)](#Triennial+getReading) ⇒ <code>Object.&lt;string, Aliyah&gt;</code>
         * [.getStartYear()](#Triennial+getStartYear) ⇒ <code>number</code>
-        * [.getLeyningForParshaHaShavua(ev)](#Triennial+getLeyningForParshaHaShavua) ⇒ [<code>Aliyah</code>](#Aliyah)
         * [.getThreeYearPattern(id)](#Triennial+getThreeYearPattern) ⇒ <code>string</code>
         * [.cycleReadings(cycleOption)](#Triennial+cycleReadings) ⇒ <code>Map.&lt;string, Array.&lt;Object&gt;&gt;</code>
         * [.cycleReadingsForYear(option, readings, yr)](#Triennial+cycleReadingsForYear)
@@ -129,25 +142,21 @@ Builds a Triennial object
 | --- | --- | --- |
 | [hebrewYear] | <code>number</code> | Hebrew Year (default current year) |
 
-<a name="Triennial+getReadings"></a>
+<a name="Triennial+getReading"></a>
 
-### triennial.getReadings() ⇒ <code>Object</code>
+### triennial.getReading(parsha, yearNum) ⇒ <code>Object.&lt;string, Aliyah&gt;</code>
 **Kind**: instance method of [<code>Triennial</code>](#Triennial)  
+**Returns**: <code>Object.&lt;string, Aliyah&gt;</code> - a map of aliyot 1-7 plus "M"  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> | parsha name ("Bereshit" or "Achrei Mot-Kedoshim") |
+| yearNum | <code>number</code> | 0 through 2 for which year of Triennial cycle |
+
 <a name="Triennial+getStartYear"></a>
 
 ### triennial.getStartYear() ⇒ <code>number</code>
 **Kind**: instance method of [<code>Triennial</code>](#Triennial)  
-<a name="Triennial+getLeyningForParshaHaShavua"></a>
-
-### triennial.getLeyningForParshaHaShavua(ev) ⇒ [<code>Aliyah</code>](#Aliyah)
-Looks up the leyning for this Parashat HaShavua
-
-**Kind**: instance method of [<code>Triennial</code>](#Triennial)  
-
-| Param | Type |
-| --- | --- |
-| ev | <code>Event</code> | 
-
 <a name="Triennial+getThreeYearPattern"></a>
 
 ### triennial.getThreeYearPattern(id) ⇒ <code>string</code>
@@ -230,6 +239,19 @@ actual aliyot objects for a given variation/year
 Main interface to hebcal/leyning
 
 **Kind**: global constant  
+<a name="addSefariaLinksToLeyning"></a>
+
+## addSefariaLinksToLeyning(aliyot, showBook)
+Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
+CAUTION: Modifies the `aliyot` parameter instead of making a copy.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | aliyah map to decorate |
+| showBook | <code>boolean</code> | display the book name in the `verses` field (e.g. for special Maftir) |
+
 <a name="getLeyningKeyForEvent"></a>
 
 ## getLeyningKeyForEvent(e, [il]) ⇒ <code>string</code>
@@ -238,16 +260,30 @@ Based on the event date, type and title, finds the relevant leyning key
 **Kind**: global function  
 **Returns**: <code>string</code> - key to look up in holiday-reading.json  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | event |
-| [il] | <code>boolean</code> | true if Israel holiday scheme |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| e | <code>Event</code> |  | event |
+| [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
 
 <a name="getLeyningForHoliday"></a>
 
 ## getLeyningForHoliday(e, [il]) ⇒ [<code>Leyning</code>](#Leyning)
-Looks up leyning for a given holiday name. Name should be an
-(untranslated) string used in holiday-readons.json. Returns some
+Looks up leyning for a given holiday. Returns some
+of full kriyah aliyot, special Maftir, special Haftarah
+
+**Kind**: global function  
+**Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| e | <code>Event</code> |  | the Hebcal event associated with this leyning |
+| [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
+
+<a name="getLeyningForHolidayKey"></a>
+
+## getLeyningForHolidayKey(key) ⇒ [<code>Leyning</code>](#Leyning)
+Looks up leyning for a given holiday key. Key should be an
+(untranslated) string used in holiday-readings.json. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah
 
 **Kind**: global function  
@@ -255,8 +291,7 @@ of full kriyah aliyot, special Maftir, special Haftarah
 
 | Param | Type | Description |
 | --- | --- | --- |
-| e | <code>Event</code> | the Hebcal event associated with this leyning |
-| [il] | <code>boolean</code> | true if Israel holiday scheme |
+| key | <code>string</code> | name from `holiday-readings.json` to find |
 
 <a name="parshaToString"></a>
 
@@ -311,10 +346,10 @@ Looks up leyning for a regular Shabbat parsha.
 **Kind**: global function  
 **Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| e | <code>Event</code> | the Hebcal event associated with this leyning |
-| [il] | <code>boolean</code> | in Israel |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| e | <code>Event</code> |  | the Hebcal event associated with this leyning |
+| [il] | <code>boolean</code> | <code>false</code> | in Israel |
 
 <a name="formatAliyahWithBook"></a>
 
@@ -349,6 +384,19 @@ Calculates the 3-year readings for a given year
 | --- | --- | --- |
 | year | <code>number</code> | Hebrew year |
 
+<a name="getTriennialForParshaHaShavua"></a>
+
+## getTriennialForParshaHaShavua(ev, [context]) ⇒ [<code>TriennialAliyot</code>](#TriennialAliyot) \| <code>Object.&lt;string, Aliyah&gt;</code>
+Looks up the triennial leyning for this Parashat HaShavua
+
+**Kind**: global function  
+**Returns**: [<code>TriennialAliyot</code>](#TriennialAliyot) \| <code>Object.&lt;string, Aliyah&gt;</code> - a map of aliyot 1-7 plus "M"  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| ev | <code>Event</code> |  |  |
+| [context] | <code>boolean</code> | <code>false</code> | returns a reading wrapper object which includes `date`, `yearNum` and `aliyot` |
+
 <a name="Aliyah"></a>
 
 ## Aliyah : <code>Object</code>
@@ -381,3 +429,19 @@ Leyning for a parsha hashavua or holiday
 | fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> |  |
 | [reason] | <code>Object</code> |  |
 
+<a name="TriennialAliyot"></a>
+
+## TriennialAliyot : <code>Object</code>
+Represents triennial aliyot for a given date
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | a map of aliyot 1-7 plus "M" |
+| yearNum | <code>number</code> | year number, 0-2 |
+| date | <code>Date</code> | Shabbat date for when this parsha is read in this 3-year cycle |
+| [readSeparately] | <code>boolean</code> | true if a double parsha is read separately in year `yearNum` |
+| [date1] | <code>Date</code> | Shabbat date of the first part of a read-separately aliyah pair |
+| [date2] | <code>Date</code> | Shabbat date of the second part of a read-separately aliyah pair |

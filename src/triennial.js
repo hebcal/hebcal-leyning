@@ -3,6 +3,17 @@ import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
 import {shallowCopy} from './common';
 
+/**
+ * Represents triennial aliyot for a given date
+ * @typedef {Object} TriennialAliyot
+ * @property {Object<string,Aliyah>} aliyot - a map of aliyot 1-7 plus "M"
+ * @property {number} yearNum - year number, 0-2
+ * @property {Date} date - Shabbat date for when this parsha is read in this 3-year cycle
+ * @property {boolean} [readSeparately] - true if a double parsha is read separately in year `yearNum`
+ * @property {Date} [date1] - Shabbat date of the first part of a read-separately aliyah pair
+ * @property {Date} [date2] - Shabbat date of the second part of a read-separately aliyah pair
+ */
+
 const doubled = [
   21, // Vayakhel-Pekudei
   26, // Tazria-Metzora
@@ -71,7 +82,7 @@ export class Triennial {
   /**
    * @param {string} parsha parsha name ("Bereshit" or "Achrei Mot-Kedoshim")
    * @param {number} yearNum 0 through 2 for which year of Triennial cycle
-   * @return {Object<string,Object<string,Aliyah>[]>}
+   * @return {Object<string,Aliyah>} a map of aliyot 1-7 plus "M"
    */
   getReading(parsha, yearNum) {
     return shallowCopy({}, this.readings[parsha][yearNum]);
@@ -293,8 +304,8 @@ export function getTriennial(year) {
 /**
  * Looks up the triennial leyning for this Parashat HaShavua
  * @param {Event} ev
- * @param {boolean} [context=false]
- * @return {Object<string,Aliyah>}
+ * @param {boolean} [context=false] returns a reading wrapper object which includes `date`, `yearNum` and `aliyot`
+ * @return {TriennialAliyot|Object<string,Aliyah>} a map of aliyot 1-7 plus "M"
  */
 export function getTriennialForParshaHaShavua(ev, context=false) {
   if (!ev instanceof Event) {

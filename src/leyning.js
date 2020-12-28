@@ -4,16 +4,6 @@ import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
 /**
- * Represents an aliyah
- * @typedef {Object} Aliyah
- * @property {string} k - Book (e.g. "Numbers")
- * @property {string} b - beginning verse (e.g. "28:9")
- * @property {string} e - ending verse (e.g. "28:15")
- * @property {number} [v] - number of verses
- * @property {number} [p] - parsha number (1=Bereshit, 54=Vezot HaBracha)
- */
-
-/**
  * Leyning for a parsha hashavua or holiday
  * @typedef {Object} Leyning
  * @property {string} summary

@@ -34,7 +34,27 @@ declare module '@hebcal/leyning' {
         haftara: string;
         sephardic?: string;
         fullkriyah: AliyotMap;
-        reason?: any;
+        reason?: {
+            [key: string]: string;
+        };
+    };
+
+    /**
+     * Represents triennial aliyot for a given date
+     * @property aliyot - a map of aliyot 1-7 plus "M"
+     * @property yearNum - year number, 0-2
+     * @property date - Shabbat date for when this parsha is read in this 3-year cycle
+     * @property [readSeparately] - true if a double parsha is read separately in year `yearNum`
+     * @property [date1] - Shabbat date of the first part of a read-separately aliyah pair
+     * @property [date2] - Shabbat date of the second part of a read-separately aliyah pair
+     */
+    export type TriennialAliyot = {
+        aliyot: AliyotMap;
+        yearNum: number;
+        date: Date;
+        readSeparately?: boolean;
+        date1?: Date;
+        date2?: Date;
     };
 
     /**
@@ -82,7 +102,7 @@ declare module '@hebcal/leyning' {
      */
     export class Triennial {
         constructor(hebrewYear: number);
-        getReading(name: string, yearNum: number): any;
+        getReading(parsha: string, yearNum: number): TriennialAliyot;
         getStartYear(): number;
         /**
          * Returns triennial year 1, 2 or 3 based on this Hebrew year
@@ -104,14 +124,23 @@ declare module '@hebcal/leyning' {
 
     /**
      * Looks up triennial leyning for a regular Shabbat parsha.
-     * @param e - the Hebcal event associated with this parsha
-     * @returns map of aliyot
+     * @param ev - the Hebcal event associated with this parsha
+     * @param [context] returns a reading wrapper object which includes `date`, `yearNum` and `aliyot`
+     * @returns a map of aliyot 1-7 plus "M"
      */
-    export function getTriennialForParshaHaShavua(e: Event): AliyotMap;
+    export function getTriennialForParshaHaShavua(ev: Event, context?: boolean): AliyotMap|TriennialAliyot;
 
     export const parshiyot: any;
     export const holidayReadings: any;
 
     export function writeTriennialCsv(stream: WriteStream, hyear: number): void;
     export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean): void;
+
+    /**
+     * Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
+     * CAUTION: Modifies the `aliyot` parameter instead of making a copy.
+     * @param aliyot - aliyah map to decorate
+     * @param showBook - display the book name in the `verses` field (e.g. for special Maftir)
+     */
+    export function addSefariaLinksToLeyning(aliyot: AliyotMap, showBook: boolean): void;
 }

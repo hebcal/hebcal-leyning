@@ -7,6 +7,7 @@ import {
 } from './leyning';
 import {getTriennialForParshaHaShavua, getTriennial, Triennial} from './triennial';
 import {writeFullKriyahCsv, writeTriennialCsv} from './csv';
+import {addSefariaLinksToLeyning} from './common';
 import parshiyotObj from './aliyot.json';
 import festivals from './holiday-readings.json';
 
@@ -22,6 +23,7 @@ const leyning = {
   formatAliyahWithBook,
   writeFullKriyahCsv,
   writeTriennialCsv,
+  addSefariaLinksToLeyning,
   parshiyot: parshiyotObj,
   holidayReadings: festivals,
 };
