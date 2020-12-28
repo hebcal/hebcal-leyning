@@ -9,7 +9,7 @@ export default [
   {
     input: 'src/index.js',
     output: {
-      file: pkg.main, format: 'cjs', name: pkg.name, exports: 'default',
+      file: pkg.main, format: 'cjs', name: pkg.name,
       banner: '/*! ' + pkg.name + ' v' + pkg.version + ' */',
     },
     external: ['@hebcal/core'],

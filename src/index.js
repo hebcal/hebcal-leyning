@@ -1,31 +1,14 @@
-import {
+export {
   getLeyningForHoliday,
   getLeyningForHolidayKey,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
   formatAliyahWithBook,
 } from './leyning';
-import {getTriennialForParshaHaShavua, getTriennial, Triennial} from './triennial';
-import {writeFullKriyahCsv, writeTriennialCsv} from './csv';
-import {addSefariaLinksToLeyning} from './common';
+export {getTriennialForParshaHaShavua, getTriennial, Triennial} from './triennial';
+export {writeFullKriyahCsv, writeTriennialCsv} from './csv';
+export {addSefariaLinksToLeyning} from './common';
 import parshiyotObj from './aliyot.json';
 import festivals from './holiday-readings.json';
-
-/** Main interface to hebcal/leyning */
-const leyning = {
-  Triennial,
-  getTriennial,
-  getTriennialForParshaHaShavua,
-  getLeyningForHoliday,
-  getLeyningForHolidayKey,
-  getLeyningForParshaHaShavua,
-  getLeyningKeyForEvent,
-  formatAliyahWithBook,
-  writeFullKriyahCsv,
-  writeTriennialCsv,
-  addSefariaLinksToLeyning,
-  parshiyot: parshiyotObj,
-  holidayReadings: festivals,
-};
-
-export default leyning;
+export {parshiyotObj as parshiyot};
+export {festivals as holidayReadings};
