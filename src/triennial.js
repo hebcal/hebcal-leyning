@@ -74,7 +74,7 @@ export class Triennial {
    * @return {Object<string,Object<string,Aliyah>[]>}
    */
   getReading(parsha, yearNum) {
-    return this.readings[parsha][yearNum];
+    return shallowCopy({}, this.readings[parsha][yearNum]);
   }
 
   /**
@@ -317,7 +317,7 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   if (typeof reading !== 'object') {
     throw new ReferenceError(`Can't load reading for ${name} in ${hyear} (year number ${yearNum})`);
   }
-  const aliyotMap = reading.aliyot;
+  const aliyotMap = shallowCopy({}, reading.aliyot);
   // possibly replace 7th aliyah and/or maftir
   const reason = Object.create(null);
   specialReadings(hd, false, aliyotMap, reason);
@@ -326,6 +326,10 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
       aliyotMap[num].reason = reason[num];
     }
   });
-  reading.yearNum = yearNum;
-  return context ? reading : aliyotMap;
+  if (context) {
+    reading.yearNum = yearNum;
+    reading.aliyot = aliyotMap;
+    return reading;
+  }
+  return aliyotMap;
 }

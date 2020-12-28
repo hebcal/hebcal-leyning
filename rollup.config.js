@@ -1,4 +1,4 @@
-import resolve from '@rollup/plugin-node-resolve';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
@@ -8,13 +8,17 @@ import {terser} from 'rollup-plugin-terser';
 export default [
   {
     input: 'src/index.js',
-    output: {file: pkg.main, format: 'cjs', name: pkg.name, exports: 'default'},
+    output: {
+      file: pkg.main, format: 'cjs', name: pkg.name, exports: 'default',
+      banner: '/*! ' + pkg.name + ' v' + pkg.version + ' */',
+    },
+    external: ['@hebcal/core'],
     plugins: [
       json({compact: true}),
       babel({
         babelHelpers: 'bundled',
         presets: [
-          ['@babel/env', {
+          ['@babel/preset-env', {
             modules: false,
             targets: {
               node: '10.21.0',
@@ -23,39 +27,66 @@ export default [
         ],
         exclude: ['node_modules/**'],
       }),
-      resolve(),
+      nodeResolve(),
       commonjs(),
     ],
-    external: ['@hebcal/core'],
   },
   {
     input: 'src/index.js',
-    output: [
-      {
-        file: 'dist/bundle.js',
-        format: 'umd',
-        name: 'hebcal__leyning',
-        globals: {
-          '@hebcal/core': 'hebcal__core',
-        },
-        indent: false,
-      },
-      {
-        file: 'dist/bundle.min.js',
-        format: 'umd',
-        name: 'hebcal__leyning',
-        globals: {
-          '@hebcal/core': 'hebcal__core',
-        },
-        plugins: [terser()],
-      },
-    ],
+    output: {
+      file: pkg.module, format: 'es', name: pkg.name,
+      banner: '/*! ' + pkg.name + ' v' + pkg.version + ' */',
+    },
+    external: ['@hebcal/core'],
     plugins: [
       json({compact: true}),
       babel({
         babelHelpers: 'bundled',
         presets: [
-          ['@babel/env', {
+          ['@babel/preset-env', {
+            modules: false,
+            targets: {
+              node: '10.21.0',
+            },
+          }],
+        ],
+        exclude: ['node_modules/**'],
+      }),
+      nodeResolve(),
+      commonjs(),
+    ],
+  },
+  {
+    input: 'src/index.js',
+    output: [
+      {
+        file: pkg.browser,
+        format: 'iife',
+        name: 'hebcal__leyning',
+        globals: {
+          '@hebcal/core': 'hebcal',
+        },
+        indent: false,
+        banner: '/*! ' + pkg.name + ' v' + pkg.version + ' */',
+      },
+      {
+        file: 'dist/bundle.min.js',
+        format: 'iife',
+        name: 'hebcal__leyning',
+        globals: {
+          '@hebcal/core': 'hebcal',
+        },
+        plugins: [terser()],
+        banner: '/*! ' + pkg.name + ' v' + pkg.version + ' */',
+      },
+    ],
+    external: ['@hebcal/core'],
+    plugins: [
+      json({compact: true}),
+      babel({
+        babelHelpers: 'bundled',
+        presets: [
+          ['@babel/preset-env', {
             modules: false,
             exclude: ['es.array.sort'],
             targets: {
@@ -70,9 +101,8 @@ export default [
         ],
         exclude: ['node_modules/**'],
       }),
-      resolve(),
+      nodeResolve(),
       commonjs(),
     ],
-    external: ['@hebcal/core'],
   },
 ];
