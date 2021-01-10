@@ -214,8 +214,8 @@ test('getLeyningForParshaHaShavua', (t) => {
       '4': {k: 'Genesis', b: '41:53', e: '42:18', v: 23},
       '5': {k: 'Genesis', b: '42:19', e: '43:15', v: 35},
       '6': {k: 'Genesis', b: '43:16', e: '44:17', v: 36},
-      '7': {p: 41, k: 'Numbers', b: '28:9', e: '28:15'},
-      'M': {p: 35, k: 'Numbers', b: '7:42', e: '7:47'},
+      '7': {p: 41, k: 'Numbers', b: '28:9', e: '28:15', v: 7},
+      'M': {p: 35, k: 'Numbers', b: '7:42', e: '7:47', v: 6},
     },
     haftara: 'Zechariah 2:14-4:7',
     reason: {

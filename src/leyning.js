@@ -1,5 +1,5 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
-import {shallowCopy} from './common';
+import {calculateNumVerses, clone} from './common';
 import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
@@ -152,7 +152,7 @@ export function getLeyningForHolidayKey(key) {
         leyning.summary += `${maftir.b}-${maftir.e}`;
       }
     }
-    leyning.fullkriyah = shallowCopy(Object.create(null), src.fullkriyah);
+    leyning.fullkriyah = clone(src.fullkriyah);
   }
   if (src.haftara) {
     leyning.haftara = src.haftara;
@@ -192,8 +192,8 @@ function getHaftaraKey(parsha) {
  * @param {Object<string,Aliyah>} aliyot
  */
 function aliyotCombine67(aliyot) {
-  const a6 = shallowCopy(Object.create(null), aliyot['6']);
-  const a7 = shallowCopy(Object.create(null), aliyot['7']);
+  const a6 = clone(aliyot['6']);
+  const a7 = aliyot['7'];
   delete aliyot['7'];
   aliyot['6'] = {
     k: a6.k,
@@ -213,10 +213,12 @@ function aliyotCombine67(aliyot) {
 function mergeAliyotWithSpecial(aliyot, special) {
   if (special['7']) {
     aliyotCombine67(aliyot);
-    aliyot['7'] = shallowCopy(Object.create(null), special['7']);
+    aliyot['7'] = clone(special['7']);
+    calculateNumVerses(aliyot['7']);
   }
   if (special['M']) {
-    aliyot['M'] = shallowCopy(Object.create(null), special['M']);
+    aliyot['M'] = clone(special['M']);
+    calculateNumVerses(aliyot['M']);
   }
 }
 
@@ -329,8 +331,9 @@ export function specialReadings(hd, il, aliyot, reason) {
         haftara = festivals[shabbatChanukah].haftara;
         reason.haftara = shabbatChanukah;
         // Aliyot 1-3 from regular daily reading becomes Maftir
-        aliyot['M'] = shallowCopy(Object.create(null), special.fullkriyah['1']);
-        aliyot['M'].e = special.fullkriyah['3'].e;
+        const maftir = aliyot['M'] = clone(special.fullkriyah['1']);
+        maftir.e = special.fullkriyah['3'].e;
+        calculateNumVerses(maftir);
         reason.M = key;
       } else {
         if (special.haftara && !reason.haftara) {

@@ -8,27 +8,27 @@ test('triennial', (t) => {
   const expected = [
     {
       aliyot: {
-        '1': {k: 'Exodus', b: '35:1', e: '35:10'},
-        '2': {k: 'Exodus', b: '35:11', e: '35:20'},
-        '3': {k: 'Exodus', b: '35:21', e: '35:29'},
+        '1': {k: 'Exodus', b: '35:1', e: '35:10', v: 10},
+        '2': {k: 'Exodus', b: '35:11', e: '35:20', v: 10},
+        '3': {k: 'Exodus', b: '35:21', e: '35:29', v: 9},
         '4': {k: 'Exodus', b: '35:30', e: '36:7'},
-        '5': {k: 'Exodus', b: '36:8', e: '36:19'},
-        '6': {k: 'Exodus', b: '36:20', e: '36:38'},
-        '7': {k: 'Exodus', b: '37:1', e: '37:16'},
-        'M': {k: 'Exodus', b: '37:10', e: '37:16'},
+        '5': {k: 'Exodus', b: '36:8', e: '36:19', v: 12},
+        '6': {k: 'Exodus', b: '36:20', e: '36:38', v: 19},
+        '7': {k: 'Exodus', b: '37:1', e: '37:16', v: 16},
+        'M': {k: 'Exodus', b: '37:10', e: '37:16', v: 7},
       },
       date: new HDate(736413),
     },
     {
       aliyot: {
-        '1': {k: 'Exodus', b: '37:17', e: '37:24'},
-        '2': {k: 'Exodus', b: '37:25', e: '37:29'},
-        '3': {k: 'Exodus', b: '38:1', e: '38:8'},
-        '4': {k: 'Exodus', b: '38:9', e: '38:20'},
+        '1': {k: 'Exodus', b: '37:17', e: '37:24', v: 8},
+        '2': {k: 'Exodus', b: '37:25', e: '37:29', v: 5},
+        '3': {k: 'Exodus', b: '38:1', e: '38:8', v: 8},
+        '4': {k: 'Exodus', b: '38:9', e: '38:20', v: 12},
         '5': {k: 'Exodus', b: '38:21', e: '39:1'},
-        '6': {k: 'Exodus', b: '39:2', e: '39:7'},
-        '7': {k: 'Exodus', b: '39:8', e: '39:21'},
-        'M': {k: 'Exodus', b: '39:19', e: '39:21'},
+        '6': {k: 'Exodus', b: '39:2', e: '39:7', v: 6},
+        '7': {k: 'Exodus', b: '39:8', e: '39:21', v: 14},
+        'M': {k: 'Exodus', b: '39:19', e: '39:21', v: 3},
       },
       date: new HDate(736763),
     },
@@ -115,19 +115,20 @@ test('specialReading1', (t) => {
   t.is(ev.getDesc(), 'Parashat Miketz');
   const reading = getTriennialForParshaHaShavua(ev);
   const expected = {
-    '1': {k: 'Genesis', b: '41:1', e: '41:4'},
-    '2': {k: 'Genesis', b: '41:5', e: '41:7'},
-    '3': {k: 'Genesis', b: '41:8', e: '41:14'},
-    '4': {k: 'Genesis', b: '41:15', e: '41:24'},
-    '5': {k: 'Genesis', b: '41:25', e: '41:38'},
-    '6': {k: 'Genesis', b: '41:39', e: '41:43'},
-    '7': {k: 'Genesis', b: '41:44', e: '41:52'},
+    '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
+    '2': {k: 'Genesis', b: '41:5', e: '41:7', v: 3},
+    '3': {k: 'Genesis', b: '41:8', e: '41:14', v: 7},
+    '4': {k: 'Genesis', b: '41:15', e: '41:24', v: 10},
+    '5': {k: 'Genesis', b: '41:25', e: '41:38', v: 14},
+    '6': {k: 'Genesis', b: '41:39', e: '41:43', v: 5},
+    '7': {k: 'Genesis', b: '41:44', e: '41:52', v: 9},
     'M': {
       p: 35,
       k: 'Numbers',
       b: '7:48',
       e: '7:59',
       reason: 'Chanukah (Day 7)',
+      v: 12,
     },
   };
   t.deepEqual(reading, expected);
@@ -145,12 +146,12 @@ test('specialReading2', (t) => {
   t.is(ev.getDesc(), 'Parashat Mishpatim');
   const reading = getTriennialForParshaHaShavua(ev);
   const expected = {
-    '1': {k: 'Exodus', b: '22:4', e: '22:8'},
-    '2': {k: 'Exodus', b: '22:9', e: '22:12'},
-    '3': {k: 'Exodus', b: '22:13', e: '22:18'},
-    '4': {k: 'Exodus', b: '22:19', e: '22:26'},
+    '1': {k: 'Exodus', b: '22:4', e: '22:8', v: 5},
+    '2': {k: 'Exodus', b: '22:9', e: '22:12', v: 4},
+    '3': {k: 'Exodus', b: '22:13', e: '22:18', v: 6},
+    '4': {k: 'Exodus', b: '22:19', e: '22:26', v: 8},
     '5': {k: 'Exodus', b: '22:27', e: '23:5'},
-    '6': {k: 'Exodus', b: '23:6', e: '23:19'},
+    '6': {k: 'Exodus', b: '23:6', e: '23:19', v: 14},
     '7': {
       p: 41,
       k: 'Numbers',
@@ -235,14 +236,14 @@ test('emor-5746', (t) => {
   const reading = getTriennialForParshaHaShavua(ev, true);
   const expected = {
     aliyot: {
-      '1': {k: 'Leviticus', b: '23:23', e: '23:25'},
-      '2': {k: 'Leviticus', b: '23:26', e: '23:32'},
-      '3': {k: 'Leviticus', b: '23:33', e: '23:44'},
-      '4': {k: 'Leviticus', b: '24:1', e: '24:4'},
-      '5': {k: 'Leviticus', b: '24:5', e: '24:9'},
-      '6': {k: 'Leviticus', b: '24:10', e: '24:12'},
-      '7': {k: 'Leviticus', b: '24:13', e: '24:23'},
-      'M': {k: 'Leviticus', b: '24:21', e: '24:23'},
+      '1': {k: 'Leviticus', b: '23:23', e: '23:25', v: 3},
+      '2': {k: 'Leviticus', b: '23:26', e: '23:32', v: 7},
+      '3': {k: 'Leviticus', b: '23:33', e: '23:44', v: 12},
+      '4': {k: 'Leviticus', b: '24:1', e: '24:4', v: 4},
+      '5': {k: 'Leviticus', b: '24:5', e: '24:9', v: 5},
+      '6': {k: 'Leviticus', b: '24:10', e: '24:12', v: 3},
+      '7': {k: 'Leviticus', b: '24:13', e: '24:23', v: 11},
+      'M': {k: 'Leviticus', b: '24:21', e: '24:23', v: 3},
     },
     date: new HDate(725143),
     yearNum: 2,

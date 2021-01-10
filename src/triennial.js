@@ -1,7 +1,7 @@
 import {Event, HDate, Sedra, parshiot, flags, months} from '@hebcal/core';
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
-import {shallowCopy} from './common';
+import {calculateNumVerses, clone, shallowCopy} from './common';
 
 /**
  * Represents triennial aliyot for a given date
@@ -195,8 +195,11 @@ export class Triennial {
       if (!a) {
         throw new Error(`can't find ${h} year ${yr} (variation ${variation})`);
       }
+      const aliyot = clone(a);
+      // calculate numVerses for the subset of aliyot that don't cross chapter boundaries
+      Object.keys(aliyot).forEach((num) => calculateNumVerses(aliyot[num]));
       readings[h][yr] = {
-        aliyot: shallowCopy({}, a),
+        aliyot,
         date: new HDate(this.firstSaturday + (i * 7)),
       };
     }
