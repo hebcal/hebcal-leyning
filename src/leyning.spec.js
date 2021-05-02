@@ -50,6 +50,7 @@ test('getLeyningKeyForEvent', (t) => {
     'Rosh Chodesh Adar I': 'Shabbat Rosh Chodesh',
     'Purim Katan': undefined,
     'Shabbat Shekalim': 'Shabbat Shekalim',
+    'Shabbat Shirah': undefined,
     'Rosh Chodesh Adar II': undefined,
     'Ta\'anit Esther': 'Ta\'anit Esther',
     'Shabbat Zachor': 'Shabbat Zachor',

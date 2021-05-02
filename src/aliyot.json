@@ -2091,6 +2091,10 @@
    "7":{"b":"34:1","e":"34:12","v":12}}},
 "Vayakhel-Pekudei":{
  "num":101,"combined":true,
+ "p1":"Vayakhel",
+ "p2":"Pekudei",
+ "num1":22,
+ "num2":23,
  "book":"Exodus","verses":"35:1-40:38",
  "fullkriyah":{
    "1":{"b":"35:1","e":"35:29","v":29},
@@ -2131,6 +2135,10 @@
   "patterns":{"TTS":"A","TST":"B","TSS":"C","SST":"D","STS":"E","STT":"F"}}},
 "Tazria-Metzora":{
  "num":102,"combined":true,
+ "p1":"Tazria",
+ "p2":"Metzora",
+ "num1":27,
+ "num2":28,
  "book":"Leviticus","verses":"12:1-15:33",
  "fullkriyah":{
    "1":{"b":"12:1","e":"13:23","v":31},
@@ -2171,6 +2179,10 @@
   "patterns":{"TTS":"A","TST":"B","STT":"C","STS":"D"}}},
 "Achrei Mot-Kedoshim":{
  "num":103,"combined":true,
+ "p1":"Achrei Mot",
+ "p2":"Kedoshim",
+ "num1":29,
+ "num2":30,
  "book":"Leviticus","verses":"16:1-20:27",
  "fullkriyah":{
    "1":{"b":"16:1","e":"16:24","v":24},
@@ -2211,6 +2223,10 @@
   "patterns":{"TTS":"A","TST":"B","STT":"C","STS":"D"}}},
 "Behar-Bechukotai":{
  "num":104,"combined":true,
+ "p1":"Behar",
+ "p2":"Bechukotai",
+ "num1":32,
+ "num2":33,
  "book":"Leviticus","verses":"25:1-27:34",
  "fullkriyah":{
    "1":{"b":"25:1","e":"25:18","v":18},
@@ -2251,6 +2267,10 @@
   "patterns":{"TTS":"A","TST":"B","STT":"C","STS":"D"}}},
 "Chukat-Balak":{
  "num":105,"combined":true,
+ "p1":"Chukat",
+ "p2":"Balak",
+ "num1":39,
+ "num2":40,
  "book":"Numbers","verses":"19:1-25:9",
  "fullkriyah":{
    "1":{"b":"19:1","e":"20:6","v":28},
@@ -2291,6 +2311,10 @@
   "patterns":{"TTS":"A","TST":"B","TSS":"C","SST":"D","STS":"E","STT":"F","SSS":"G"}}},
 "Matot-Masei":{
  "num":106,"combined":true,
+ "p1":"Matot",
+ "p2":"Masei",
+ "num1":42,
+ "num2":43,
  "book":"Numbers","verses":"30:2-36:13",
  "fullkriyah":{
    "1":{"b":"30:2","e":"31:12","v":28},
@@ -2331,6 +2355,10 @@
   "patterns":{"TTS":"A","TST":"B","STT":"C"}}},
 "Nitzavim-Vayeilech":{
  "num":107,"combined":true,
+ "p1":"Nitzavim",
+ "p2":"Vayeilech",
+ "num1":51,
+ "num2":52,
  "book":"Deuteronomy","verses":"29:9-31:30",
  "fullkriyah":{
    "1":{"b":"29:9","e":"29:28","v":20},
