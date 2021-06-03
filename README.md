@@ -1,4 +1,4 @@
-# hebcal-leyning
+# @hebcal/leyning
 Javascript Torah Reading API for Parashat HaShavua and holidays
 
 ## Installation
@@ -9,17 +9,17 @@ $ npm install @hebcal/leyning
 ## Synopsis
 ```javascript
 import {HebrewCalendar, HDate, Event} from '@hebcal/core';
-import leyning from '@hebcal/leyning';
+import {getLeyningForParshaHaShavua, formatAliyahWithBook} from '@hebcal/leyning';
 
 const options = {sedrot: true, noHolidays: true};
 const events = HebrewCalendar.calendar(options);
 const ev = events.find((ev) => ev.getDesc() == 'Parashat Pinchas');
-const reading = leyning.getLeyningForParshaHaShavua(ev);
+const reading = getLeyningForParshaHaShavua(ev);
 console.log(`${ev.getDesc()}: ${reading.summary}`);
 console.log(`Haftara: ${reading.haftara}`);
 for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
   const number = num == 'M' ? 'maftir' : `aliyah ${num}`;
-  let str = leyning.formatAliyahWithBook(aliyah);
+  let str = formatAliyahWithBook(aliyah);
   if (reading.reason[num]) {
       str += ' | ' + reading.reason[num];
   }
@@ -28,7 +28,7 @@ for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
 const triReading = triennial.getTriennialForParshaHaShavua(ev);
 for (const [num, aliyah] of Object.entries(triReading)) {
   const number = num == 'M' ? 'maftir' : `aliyah ${num}`;
-  const str = leyning.formatAliyahWithBook(aliyah);
+  const str = formatAliyahWithBook(aliyah);
   console.log(`Triennial ${number}: ${str}`);
 }
 ```
@@ -38,14 +38,6 @@ for (const [num, aliyah] of Object.entries(triReading)) {
 <dl>
 <dt><a href="#Triennial">Triennial</a></dt>
 <dd><p>Triennial Torah readings</p>
-</dd>
-</dl>
-
-## Constants
-
-<dl>
-<dt><a href="#leyning">leyning</a></dt>
-<dd><p>Main interface to hebcal/leyning</p>
 </dd>
 </dl>
 
@@ -233,12 +225,6 @@ actual aliyot objects for a given variation/year
 | book | <code>string</code> | 
 | triennial | <code>Object</code> | 
 
-<a name="leyning"></a>
-
-## leyning
-Main interface to hebcal/leyning
-
-**Kind**: global constant  
 <a name="addSefariaLinksToLeyning"></a>
 
 ## addSefariaLinksToLeyning(aliyot, showBook)
