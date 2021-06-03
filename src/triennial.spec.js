@@ -250,3 +250,21 @@ test('emor-5746', (t) => {
   };
   t.deepEqual(reading, expected);
 });
+
+test('Vezot Haberakhah', (t) => {
+  const tri = new Triennial(5780);
+  const reading = tri.getReading('Vezot Haberakhah', 0);
+  const expected = {
+    aliyot: {
+      '1': {k: 'Deuteronomy', b: '33:1', e: '33:7', v: 7},
+      '2': {k: 'Deuteronomy', b: '33:8', e: '33:12', v: 5},
+      '3': {k: 'Deuteronomy', b: '33:13', e: '33:17', v: 5},
+      '4': {k: 'Deuteronomy', b: '33:18', e: '33:21', v: 4},
+      '5': {k: 'Deuteronomy', b: '33:22', e: '33:26', v: 5},
+      '6': {k: 'Deuteronomy', b: '33:27', e: '33:29', v: 3},
+      '7': {k: 'Deuteronomy', b: '34:1', e: '34:12', v: 12},
+    },
+    date: new HDate(23, 7, 5780),
+  };
+  t.deepEqual(reading, expected);
+});

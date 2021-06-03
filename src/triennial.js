@@ -14,6 +14,7 @@ import {calculateNumVerses, clone, shallowCopy} from './common';
  * @property {Date} [date2] - Shabbat date of the second part of a read-separately aliyah pair
  */
 
+const VEZOT_HABERAKHAH = 'Vezot Haberakhah';
 const doubled = [
   21, // Vayakhel-Pekudei
   26, // Tazria-Metzora
@@ -166,6 +167,7 @@ export class Triennial {
     parshiot.forEach((parsha) => {
       readings[parsha] = Array(3);
     });
+    readings[VEZOT_HABERAKHAH] = Array(3);
     doubled.map(getDoubledName).forEach((parsha) => {
       readings[parsha] = Array(3);
     });
@@ -219,6 +221,11 @@ export class Triennial {
         };
       }
     });
+    const vezotAliyot = triennialAliyot[VEZOT_HABERAKHAH]['Y.1'];
+    readings[VEZOT_HABERAKHAH][yr] = {
+      aliyot: vezotAliyot,
+      date: new HDate(23, months.TISHREI, this.startYear + yr),
+    };
   }
 
   /**
