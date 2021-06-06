@@ -179,9 +179,10 @@ test('getLeyningForParshaHaShavua', (t) => {
             '5': {k: 'Genesis', b: '42:19', e: '43:15', v: 35},
             '6': {k: 'Genesis', b: '43:16', e: '43:29', v: 14},
             '7': {k: 'Genesis', b: '43:30', e: '44:17', v: 22},
-            'M': {p: 35, k: 'Numbers', b: '7:54', e: '8:4'},
+            'M': {p: 35, k: 'Numbers', b: '7:54', e: '8:4', v: 40},
           },
-          haftara: 'I Kings 7:40-50',
+          haftara: 'I Kings 7:40-7:50',
+          haftaraNumV: 11,
           reason: {
             haftara: 'Shabbat Chanukah II',
             M: 'Chanukah (Day 8)',
@@ -219,6 +220,7 @@ test('getLeyningForParshaHaShavua', (t) => {
       'M': {p: 35, k: 'Numbers', b: '7:42', e: '7:47', v: 6},
     },
     haftara: 'Zechariah 2:14-4:7',
+    haftaraNumV: 21,
     reason: {
       '7': 'Shabbat Rosh Chodesh Chanukah',
       'haftara': 'Shabbat Rosh Chodesh Chanukah',
@@ -342,10 +344,48 @@ test('israel-sukkot-chm-day5', (t) => {
   t.deepEqual(sukkotChmDay5, {
     summary: 'Numbers 29:29-29:37',
     fullkriyah: {
-      '1': {p: 41, k: 'Numbers', b: '29:29', e: '29:31'},
-      '2': {p: 41, k: 'Numbers', b: '29:32', e: '29:34'},
-      '3': {p: 41, k: 'Numbers', b: '29:35', e: '29:37'},
-      '4': {p: 41, k: 'Numbers', b: '29:29', e: '29:34'},
+      '1': {p: 41, k: 'Numbers', b: '29:29', e: '29:31', v: 3},
+      '2': {p: 41, k: 'Numbers', b: '29:32', e: '29:34', v: 3},
+      '3': {p: 41, k: 'Numbers', b: '29:35', e: '29:37', v: 3},
+      '4': {p: 41, k: 'Numbers', b: '29:29', e: '29:34', v: 6},
     },
   });
+});
+
+test('longest-regular-haftarah', (t) => {
+  const events = HebrewCalendar.calendar({
+    year: 2023, numYears: 19, isHebrewYear: false,
+    sedrot: true, noHolidays: true,
+  });
+  let numverses = 0;
+  let parsha = '';
+  for (const ev of events) {
+    const reading = getLeyningForParshaHaShavua(ev);
+    if (reading.haftaraNumV > numverses) {
+      numverses = reading.haftaraNumV;
+      parsha = ev.getDesc();
+    }
+  }
+  t.is(numverses, 52);
+  t.is(parsha, 'Parashat Beshalach');
+});
+
+test('longest-holiday-haftarah', (t) => {
+  const events = HebrewCalendar.calendar({
+    year: 2023,
+    numYears: 19,
+    isHebrewYear: false,
+    sedrot: false,
+  });
+  let numverses = 0;
+  let holiday = '';
+  for (const ev of events) {
+    const reading = getLeyningForHoliday(ev);
+    if (reading && reading.haftaraNumV > numverses) {
+      numverses = reading.haftaraNumV;
+      holiday = ev.getDesc();
+    }
+  }
+  t.is(numverses, 51);
+  t.is(holiday, 'Pesach VII');
 });

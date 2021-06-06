@@ -54,9 +54,8 @@ export function writeTriennialCsv(stream, hyear) {
  * @private
  * @param {fs.WriteStream} stream
  * @param {Event} ev
- * @param {boolean} il
  */
-function writeTriennialEvent(stream, ev) {
+export function writeTriennialEvent(stream, ev) {
   const mask = ev.getFlags();
   const dt = ev.getDate().greg();
   if (ignore(mask, dt)) {
@@ -72,7 +71,9 @@ function writeTriennialEvent(stream, ev) {
     const fk = getLeyningForParshaHaShavua(ev, false);
     reading = {
       haftara: fk.haftara,
+      haftaraNumV: fk.haftaraNumV,
       sephardic: fk.sephardic,
+      sephardicNumV: fk.sephardicNumV,
       reason: fk.reason,
       fullkriyah: reading0,
     };
@@ -114,7 +115,7 @@ function ignore(mask, dt) {
  * @param {Event} ev
  * @param {boolean} il
  */
-function writeFullKriyahEvent(stream, ev, il) {
+export function writeFullKriyahEvent(stream, ev, il) {
   const mask = ev.getFlags();
   const dt = ev.getDate().greg();
   if (ignore(mask, dt)) {
@@ -165,10 +166,10 @@ function getFullKriyahLines(reading) {
       specialHaftara = true;
       aliyah += ' | ' + reading.reason.haftara;
     }
-    lines.push(['Haftara', aliyah, '']);
+    lines.push(['Haftara', aliyah, reading.haftaraNumV || '']);
   }
   if (reading.sephardic && !specialHaftara) {
-    lines.push(['Haftara for Sephardim', reading.sephardic, '']);
+    lines.push(['Haftara for Sephardim', reading.sephardic, reading.sephardicNumV || '']);
   }
   return lines;
 }

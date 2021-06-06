@@ -1,3 +1,7 @@
+import numverses from './numverses.json';
+
+export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
+
 /**
  * Represents an aliyah
  * @typedef {Object} Aliyah
@@ -56,13 +60,31 @@ export function addSefariaLinksToLeyning(aliyot, showBook) {
 /**
  * @private
  * @param {any} aliyah
+ * @return {number}
  */
 export function calculateNumVerses(aliyah) {
-  if (!aliyah.v) {
-    const chapVerseBegin = aliyah.b.split(':');
-    const chapVerseEnd = aliyah.e.split(':');
-    if (chapVerseBegin[0] === chapVerseEnd[0]) {
-      aliyah.v = (+chapVerseEnd[1] - +chapVerseBegin[1]) + 1;
-    }
+  if (aliyah.v) {
+    return aliyah.v;
   }
+  const chapVerseBegin = aliyah.b.split(':');
+  const chapVerseEnd = aliyah.e.split(':');
+  const c1 = +chapVerseBegin[0];
+  const c2 = +chapVerseEnd[0];
+  const v1 = +chapVerseBegin[1];
+  const v2 = +chapVerseEnd[1];
+  if (c1 === c2) {
+    aliyah.v = v2 - v1 + 1;
+  } else if (typeof aliyah.k === 'string') {
+    const numv = numverses[aliyah.k];
+    if (typeof numv !== 'object' || !numv.length) {
+      throw new ReferenceError(`Can't find numverses for ${aliyah.k}`);
+    }
+    let total = numv[c1] - v1 + 1;
+    for (let chap = c1 + 1; chap < c2; chap++) {
+      total += numv[chap];
+    }
+    total += v2;
+    aliyah.v = total;
+  }
+  return aliyah.v;
 }

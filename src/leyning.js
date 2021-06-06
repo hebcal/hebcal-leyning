@@ -1,5 +1,5 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
-import {calculateNumVerses, clone} from './common';
+import {BOOK, calculateNumVerses, clone} from './common';
 import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
@@ -153,9 +153,14 @@ export function getLeyningForHolidayKey(key) {
       }
     }
     leyning.fullkriyah = clone(src.fullkriyah);
+    Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   }
   if (src.haftara) {
     leyning.haftara = src.haftara;
+    const numv = calculateHaftarahNumVerses(leyning.haftara);
+    if (numv) {
+      leyning.haftaraNumV = numv;
+    }
   }
   return leyning;
 }
@@ -271,12 +276,10 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   const raw = parshiyotObj[name];
   let haftara = parshiyotObj[getHaftaraKey(parsha)].haftara;
   const fullkriyah = Object.create(null);
+  const book = BOOK[raw.book];
   Object.keys(raw.fullkriyah).forEach((num) => {
     const src = raw.fullkriyah[num];
-    const reading = {k: raw.book, b: src.b, e: src.e};
-    if (src.v) {
-      reading.v = src.v;
-    }
+    const reading = {k: book, b: src.b, e: src.e};
     fullkriyah[num] = reading;
   });
   const reason = Object.create(null);
@@ -293,18 +296,50 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   if (specialHaftara) {
     haftara = specialHaftara;
   }
+  Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   const result = {
-    summary: `${raw.book} ${raw.verses}`,
+    summary: `${book} ${raw.verses}`,
     fullkriyah: fullkriyah,
     haftara: haftara,
   };
+  if (haftara) {
+    const numv = calculateHaftarahNumVerses(haftara);
+    if (numv) {
+      result.haftaraNumV = numv;
+    }
+  }
   if (raw.sephardic) {
     result.sephardic = raw.sephardic;
+    const numv = calculateHaftarahNumVerses(raw.sephardic);
+    if (numv) {
+      result.sephardicNumV = numv;
+    }
   }
   if (Object.keys(reason).length) {
     result.reason = reason;
   }
   return result;
+}
+
+/**
+ * @private
+ * @param {any} haftara
+ * @return {number}
+ */
+function calculateHaftarahNumVerses(haftara) {
+  const matches = haftara.match(/^([^\d]+)\s+(\d.+)$/);
+  if (matches !== null) {
+    const hbook = matches[1].trim();
+    const hverses = matches[2].replace(/;.+$/, '').trim();
+    const cv = hverses.match(/^(\d+:\d+)\s*-\s*(\d+:\d+)$/);
+    if (cv) {
+      const haft = {k: hbook, b: cv[1], e: cv[2]};
+      return calculateNumVerses(haft);
+    } else {
+      throw new RangeError(hverses);
+    }
+  }
+  return undefined;
 }
 
 /**

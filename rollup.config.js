@@ -65,7 +65,8 @@ export default [
         presets: [
           ['@babel/preset-env', {
             modules: false,
-            exclude: ['es.array.sort'],
+            exclude: ['es.array.sort', 'es.string.replace', 'es.string.split', 'es.string.match',
+              'es.string.trim'],
             targets: {
               edge: '17',
               firefox: '60',

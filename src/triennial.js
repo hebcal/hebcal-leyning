@@ -1,7 +1,7 @@
 import {Event, HDate, Sedra, parshiot, flags, months} from '@hebcal/core';
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
-import {calculateNumVerses, clone, shallowCopy} from './common';
+import {BOOK, calculateNumVerses, clone, shallowCopy} from './common';
 
 /**
  * Represents triennial aliyot for a given date
@@ -86,7 +86,11 @@ export class Triennial {
    * @return {Object<string,Aliyah>} a map of aliyot 1-7 plus "M"
    */
   getReading(parsha, yearNum) {
-    return shallowCopy({}, this.readings[parsha][yearNum]);
+    const reading = shallowCopy({}, this.readings[parsha][yearNum]);
+    if (reading.aliyot) {
+      Object.values(reading.aliyot).map((aliyah) => calculateNumVerses(aliyah));
+    }
+    return reading;
   }
 
   /**
@@ -238,10 +242,11 @@ export class Triennial {
     // build a lookup table so we don't have to follow num/variation/sameas
     Object.keys(parshiyotObj).forEach((parsha) => {
       const value = parshiyotObj[parsha];
+      const book = BOOK[value.book];
       if (value.triennial) { // Vezot Haberakhah has no triennial
-        triennialAliyot[parsha] = Triennial.resolveSameAs(parsha, value.book, value.triennial);
+        triennialAliyot[parsha] = Triennial.resolveSameAs(parsha, book, value.triennial);
         if (value.triennial.alt) {
-          triennialAliyotAlt[parsha] = Triennial.resolveSameAs(parsha, value.book, value.triennial.alt);
+          triennialAliyotAlt[parsha] = Triennial.resolveSameAs(parsha, book, value.triennial.alt);
         }
       }
     });
