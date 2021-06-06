@@ -44,10 +44,10 @@ test('writeFullKriyahEvent-holiday', (t) => {
   writeFullKriyahEvent(stream, ev, false);
   const lines = stream.toString().split('\r\n');
   const expected = [
-    `20-Apr-2003,"Pesach IV (CH''M)",1,"Exodus 22:24 - 22:26",3`,
-    `20-Apr-2003,"Pesach IV (CH''M)",2,"Exodus 22:27 - 23:5",9`,
-    `20-Apr-2003,"Pesach IV (CH''M)",3,"Exodus 23:6 - 23:19",14`,
-    `20-Apr-2003,"Pesach IV (CH''M)",4,"Numbers 28:19 - 28:25",7`,
+    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",1,"Exodus 22:24 - 22:26",3',
+    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",2,"Exodus 22:27 - 23:5",9',
+    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",3,"Exodus 23:6 - 23:19",14',
+    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",4,"Numbers 28:19 - 28:25",7',
     '', ''];
   t.deepEqual(lines, expected);
 });

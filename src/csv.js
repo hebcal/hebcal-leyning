@@ -1,5 +1,6 @@
 import {HebrewCalendar, flags} from '@hebcal/core';
-import {getLeyningForParshaHaShavua, getLeyningForHoliday, formatAliyahWithBook} from './leyning';
+import {getLeyningForParshaHaShavua, getLeyningForHoliday,
+  formatAliyahWithBook, getLeyningKeyForEvent} from './leyning';
 import {getTriennialForParshaHaShavua} from './triennial';
 
 const fmt = new Intl.DateTimeFormat('en-US', {
@@ -46,7 +47,7 @@ export function writeTriennialCsv(stream, hyear) {
     sedrot: true,
     il: false,
   });
-  stream.write('"Date","Parashah","Aliyah","Triennial Reading"\r\n');
+  stream.write('"Date","Parashah","Aliyah","Triennial Reading","Verses"\r\n');
   events.forEach((ev) => writeTriennialEvent(stream, ev));
 }
 
@@ -56,12 +57,10 @@ export function writeTriennialCsv(stream, hyear) {
  * @param {Event} ev
  */
 export function writeTriennialEvent(stream, ev) {
-  const mask = ev.getFlags();
-  const dt = ev.getDate().greg();
-  if (ignore(mask, dt)) {
+  if (ignore(ev)) {
     return;
   }
-  const isParsha = mask === flags.PARSHA_HASHAVUA;
+  const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
   const reading0 = isParsha ? getTriennialForParshaHaShavua(ev) : getLeyningForHoliday(ev, false);
   if (!reading0) {
     return;
@@ -80,33 +79,23 @@ export function writeTriennialEvent(stream, ev) {
   } else {
     reading = reading0;
   }
-  const date = fmtDate(dt);
-  const parsha = isParsha ? ev.basename() : ev.render();
-  const lines = getFullKriyahLines(reading);
-  lines.forEach((s) => {
-    const code = s[0].charCodeAt(0);
-    if (code < 48 || code > 57) {
-      s[0] = `"${s[0]}"`;
-    }
-    stream.write(`${date},"${parsha}",${s[0]},"${s[1]}",${s[2]}\r\n`);
-  });
-  stream.write('\r\n');
+  writeCsvLines(stream, ev, reading, false);
 }
 
 /**
  * @private
- * @param {number} mask
- * @param {Date} dt
+ * @param {Event} ev
  * @return {boolean}
  */
-function ignore(mask, dt) {
+function ignore(ev) {
+  const mask = ev.getFlags();
   if (mask === flags.SPECIAL_SHABBAT) {
     return true;
   }
-  if (mask === flags.ROSH_CHODESH && dt.getDay() === 6) {
-    return true;
+  if (mask !== flags.ROSH_CHODESH) {
+    return false;
   }
-  return false;
+  return ev.getDate().getDay() === 6;
 }
 
 /**
@@ -116,18 +105,28 @@ function ignore(mask, dt) {
  * @param {boolean} il
  */
 export function writeFullKriyahEvent(stream, ev, il) {
-  const mask = ev.getFlags();
-  const dt = ev.getDate().greg();
-  if (ignore(mask, dt)) {
+  if (ignore(ev)) {
     return;
   }
-  const isParsha = mask === flags.PARSHA_HASHAVUA;
+  const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
   const reading = isParsha ? getLeyningForParshaHaShavua(ev, il) : getLeyningForHoliday(ev, il);
   if (!reading) {
     return;
   }
-  const date = fmtDate(dt);
-  const parsha = isParsha ? ev.basename() : ev.render();
+  writeCsvLines(stream, ev, reading, il);
+}
+
+/**
+ * @private
+ * @param {fs.WriteStream} stream
+ * @param {Event} ev
+ * @param {Leyning} reading
+ * @param {boolean} il
+ */
+function writeCsvLines(stream, ev, reading, il) {
+  const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
+  const parsha = isParsha ? ev.basename() : getLeyningKeyForEvent(ev, il) || ev.render();
+  const date = fmtDate(ev.getDate().greg());
   const lines = getFullKriyahLines(reading);
   lines.forEach((s) => {
     const code = s[0].charCodeAt(0);
