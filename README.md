@@ -9,10 +9,10 @@ $ npm install @hebcal/leyning
 ## Synopsis
 ```javascript
 import {HebrewCalendar, HDate, Event} from '@hebcal/core';
-import {getLeyningForParshaHaShavua, formatAliyahWithBook} from '@hebcal/leyning';
+import {getLeyningForParshaHaShavua, getTriennialForParshaHaShavua,
+ formatAliyahWithBook} from '@hebcal/leyning';
 
-const options = {sedrot: true, noHolidays: true};
-const events = HebrewCalendar.calendar(options);
+const events = HebrewCalendar.calendar({sedrot: true, noHolidays: true});
 const ev = events.find((ev) => ev.getDesc() == 'Parashat Pinchas');
 const reading = getLeyningForParshaHaShavua(ev);
 console.log(`${ev.getDesc()}: ${reading.summary}`);
@@ -23,9 +23,10 @@ for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
   if (reading.reason[num]) {
       str += ' | ' + reading.reason[num];
   }
+  str += ` (${aliyah.v} verses)`;
   console.log(`${number}: ${str}`);
 }
-const triReading = triennial.getTriennialForParshaHaShavua(ev);
+const triReading = getTriennialForParshaHaShavua(ev);
 for (const [num, aliyah] of Object.entries(triReading)) {
   const number = num == 'M' ? 'maftir' : `aliyah ${num}`;
   const str = formatAliyahWithBook(aliyah);
