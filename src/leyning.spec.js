@@ -92,6 +92,7 @@ test('getLeyningKeyForEvent', (t) => {
     'Tu B\'Av': undefined,
     'Rosh Chodesh Elul': undefined,
     'Leil Selichot': undefined,
+    'Rosh Hashana LaBehemot': undefined,
   };
   t.deepEqual(keys, expected);
 });

@@ -1,6 +1,8 @@
 # @hebcal/leyning
 Javascript Torah Reading API for Parashat HaShavua and holidays
 
+[![Build Status](https://circleci.com/gh/hebcal/hebcal-leyning.svg?style=svg)](https://circleci.com/gh/hebcal/hebcal-leyning)
+
 ## Installation
 ```bash
 $ npm install @hebcal/leyning

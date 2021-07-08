@@ -173,9 +173,13 @@ test('specialReading2', (t) => {
 });
 
 test('multi', (t) => {
-  for (let year = 5745; year <= 5830; year += 3) {
-    const tri = new Triennial(year);
-    t.is(typeof tri.getReading('Nitzavim-Vayeilech', 2), 'object');
+  for (let year = 5744; year <= 6000; year += 3) {
+    try {
+      const tri = new Triennial(year);
+      t.is(typeof tri.getReading('Nitzavim-Vayeilech', 2), 'object');
+    } catch (error) {
+      t.is(error.message, `Can't find pattern SSS for Vayakhel-Pekudei, startYear=${year}`);
+    }
   }
 });
 
