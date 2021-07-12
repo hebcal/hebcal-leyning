@@ -259,6 +259,38 @@ function getHolidayEvents(hd, il) {
 }
 
 /**
+ * @private
+ * @param {Event} ev the Hebcal event associated with this leyning
+ * @return {any}
+ */
+function getSpecialHaftara(ev) {
+  if (!ev instanceof Event) {
+    throw new TypeError(`Bad event argument: ${ev}`);
+  } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
+    throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
+  }
+  const parsha = ev.parsha;
+  const name = parshaToString(parsha); // untranslated
+  const hd = ev.getDate();
+  const day = hd.getDate();
+  if (name === 'Pinchas') {
+    const month = hd.getMonth();
+    if (month > months.TAMUZ || (month === months.TAMUZ && day > 17)) {
+      return {
+        haftara: 'Jeremiah 1:1 - 2:3',
+        reason: 'Pinchas occurring after 17 Tammuz',
+      };
+    }
+  } else if ((day === 30 || day === 1) && (name === 'Masei' || name === 'Matot-Masei')) {
+    return {
+      haftara: 'Jeremiah 2:4 - 2:28; Jeremiah 3:4; Isaiah 66:1; Isaiah 66:23',
+      reason: `${name} on Shabbat Rosh Chodesh`,
+    };
+  }
+  return false;
+}
+
+/**
  * Looks up leyning for a regular Shabbat parsha.
  * @param {Event} e the Hebcal event associated with this leyning
  * @param {boolean} [il] in Israel
@@ -284,17 +316,15 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   });
   const reason = Object.create(null);
   const hd = e.getDate();
-  if (name == 'Pinchas') {
-    const month = hd.getMonth();
-    if (month > months.TAMUZ || (month == months.TAMUZ && hd.getDate() > 17)) {
-      haftara = 'Jeremiah 1:1 - 2:3';
-      reason.haftara = 'Pinchas occurring after 17 Tammuz';
-    }
-  }
   // Now, check for special maftir or haftara on same date
   const specialHaftara = specialReadings(hd, il, fullkriyah, reason);
   if (specialHaftara) {
     haftara = specialHaftara;
+  }
+  const specialHaftara2 = getSpecialHaftara(e);
+  if (specialHaftara2) {
+    haftara = specialHaftara2.haftara;
+    reason.haftara = specialHaftara2.reason;
   }
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   const result = {

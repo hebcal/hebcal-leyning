@@ -1,5 +1,5 @@
 import test from 'ava';
-import {HDate, HebrewCalendar, Event, months, flags} from '@hebcal/core';
+import {HDate, HebrewCalendar, Event, months, flags, ParshaEvent} from '@hebcal/core';
 import {
   getLeyningForHoliday,
   getLeyningForParshaHaShavua,
@@ -389,4 +389,16 @@ test('longest-holiday-haftarah', (t) => {
   }
   t.is(numverses, 51);
   t.is(holiday, 'Pesach VII');
+});
+
+test('masei-rosh-chodesh', (t) => {
+  const ev1 = new ParshaEvent(new HDate(1, 'Av', 5781), ['Matot', 'Masei'], false);
+  const obj1 = getLeyningForParshaHaShavua(ev1);
+  t.is(obj1.haftara, 'Jeremiah 2:4 - 2:28; Jeremiah 3:4; Isaiah 66:1; Isaiah 66:23');
+  t.is(obj1.reason.haftara, 'Matot-Masei on Shabbat Rosh Chodesh');
+
+  const ev2 = new ParshaEvent(new HDate(2, 'Av', 5782), ['Matot', 'Masei'], false);
+  const obj2 = getLeyningForParshaHaShavua(ev2);
+  t.is(obj2.haftara, 'Jeremiah 2:4 - 2:28; 3:4');
+  t.is(obj2.reason, undefined);
 });
