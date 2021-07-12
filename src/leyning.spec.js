@@ -401,4 +401,14 @@ test('masei-rosh-chodesh', (t) => {
   const obj2 = getLeyningForParshaHaShavua(ev2);
   t.is(obj2.haftara, 'Jeremiah 2:4 - 2:28; 3:4');
   t.is(obj2.reason, undefined);
+
+  const ev3 = new ParshaEvent(new HDate(1, 'Av', 5812), ['Masei'], false);
+  const obj3 = getLeyningForParshaHaShavua(ev3);
+  t.is(obj3.haftara, 'Jeremiah 2:4 - 2:28; Jeremiah 3:4; Isaiah 66:1; Isaiah 66:23');
+  t.is(obj3.reason.haftara, 'Masei on Shabbat Rosh Chodesh');
+
+  const ev4 = new ParshaEvent(new HDate(28, 'Tamuz', 5822), ['Masei'], false);
+  const obj4 = getLeyningForParshaHaShavua(ev4);
+  t.is(obj4.haftara, 'Jeremiah 2:4 - 2:28; 3:4');
+  t.is(obj4.reason, undefined);
 });
