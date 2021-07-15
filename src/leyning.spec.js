@@ -251,7 +251,7 @@ test('getLeyningForHoliday', (t) => {
   const sukkot1 = events.find((e) => e.getDesc() == 'Sukkot I');
   const sukkot1a = getLeyningForHoliday(sukkot1);
   t.is(sukkot1a.fullkriyah['7'].p, 31);
-  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44; Numbers 29:12-29:16');
+  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44; Numbers 29:12-16');
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
   t.is(getLeyningForHoliday(sukkot2).fullkriyah['4'].p, 41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
@@ -335,6 +335,32 @@ test('ignoreUserEvent-getLeyningForHoliday', (t) => {
   t.is(a, undefined);
 });
 
+test('sukkot-chm', (t) => {
+  const april20 = new Date(2022, 3, 20);
+  const april21 = new Date(2022, 3, 21);
+  const events = HebrewCalendar.calendar({start: april20, end: april21});
+  const result = events.map((ev) => getLeyningForHoliday(ev, false));
+  const expected = [{
+    summary: 'Exodus 34:1-26; Numbers 28:19-25',
+    fullkriyah: {
+      '1': {p: 21, k: 'Exodus', b: '34:1', e: '34:10', v: 10},
+      '2': {p: 21, k: 'Exodus', b: '34:11', e: '34:17', v: 7},
+      '3': {p: 21, k: 'Exodus', b: '34:18', e: '34:26', v: 9},
+      '4': {p: 41, k: 'Numbers', b: '28:19', e: '28:25', v: 7},
+    },
+  },
+  {
+    summary: 'Numbers 9:1-14, 28:19-25',
+    fullkriyah: {
+      '1': {p: 36, k: 'Numbers', b: '9:1', e: '9:5', v: 5},
+      '2': {p: 36, k: 'Numbers', b: '9:6', e: '9:8', v: 3},
+      '3': {p: 36, k: 'Numbers', b: '9:9', e: '9:14', v: 6},
+      '4': {p: 41, k: 'Numbers', b: '28:19', e: '28:25', v: 7},
+    },
+  }];
+  t.deepEqual(result, expected);
+});
+
 test('israel-sukkot-chm-day5', (t) => {
   const october8 = new Date(2020, 9, 8);
   const israel = HebrewCalendar.calendar({
@@ -343,7 +369,7 @@ test('israel-sukkot-chm-day5', (t) => {
   t.is(israel[0].getDesc(), 'Sukkot VI (CH\'\'M)');
   const sukkotChmDay5 = getLeyningForHoliday(israel[0], true);
   t.deepEqual(sukkotChmDay5, {
-    summary: 'Numbers 29:29-29:37',
+    summary: 'Numbers 29:29-37',
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '29:29', e: '29:31', v: 3},
       '2': {p: 41, k: 'Numbers', b: '29:32', e: '29:34', v: 3},

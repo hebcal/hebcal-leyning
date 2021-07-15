@@ -129,29 +129,56 @@ export function getLeyningForHoliday(e, il=false) {
 }
 
 /**
+ * @private
+ * @param {string} a
+ * @param {string} b
+ * @return {boolean}
+ */
+function isChapVerseLater(a, b) {
+  const cv1 = a.split(':').map((x) => +x);
+  const cv2 = b.split(':').map((x) => +x);
+  return (cv1[0]*100 + cv1[1]) > (cv2[0]*100 + cv2[1]);
+}
+
+/**
  * @param {Object<string,Aliyah>} aliyot
  * @return {string}
  */
 export function makeLeyningSummary(aliyot) {
-  const beginAliyah = aliyot['1'];
-  let endChapVerse = beginAliyah.e.split(':').map((x) => +x);
-  const aliyot2plus = Object.keys(aliyot).filter((x) => parseInt(x, 10) > 1).sort();
-  aliyot2plus.forEach((num) => {
+  const parts = [];
+  let book = null;
+  let begin;
+  let end;
+  let chap;
+  Object.keys(aliyot).forEach((num) => {
     const aliyah = aliyot[num];
-    const chapVerse = aliyah.e.split(':').map((x) => +x);
-    if (aliyah.k === beginAliyah.k && (chapVerse[0]*100 + chapVerse[1]) > (endChapVerse[0]*100 + endChapVerse[1])) {
-      endChapVerse = chapVerse;
+    const cv = aliyah.e.split(':').map((x) => +x);
+    const sameOrNextChap = cv[0] === chap || cv[0] === chap + 1;
+    if (aliyah.k !== book || !sameOrNextChap) {
+      if (book !== null) {
+        parts.push({k: book, b: begin, e: end});
+      }
+      book = aliyah.k;
+      begin = aliyah.b;
+      end = aliyah.e;
+      chap = cv[0];
+    }
+    if (aliyah.k === book && isChapVerseLater(aliyah.e, end)) {
+      end = aliyah.e;
     }
   });
-  let summary = `${beginAliyah.k} ${beginAliyah.b}-${endChapVerse[0]}:${endChapVerse[1]}`;
-  if (typeof aliyot['M'] === 'object') {
-    summary += '; ';
-    const maftir = aliyot['M'];
-    if (maftir.k !== beginAliyah.k) {
-      summary += maftir.k + ' ';
+  parts.push({k: book, b: begin, e: end});
+  let prev = parts.shift();
+  let summary = formatAliyahShort(prev, true);
+  parts.forEach((part) => {
+    if (part.k === prev.k) {
+      summary += ', ';
+    } else {
+      summary += `; ${part.k} `;
     }
-    summary += `${maftir.b}-${maftir.e}`;
-  }
+    summary += formatAliyahShort(part, false);
+    prev = part;
+  });
   return summary;
 }
 
@@ -442,4 +469,18 @@ export function specialReadings(hd, il, aliyot, reason) {
  */
 export function formatAliyahWithBook(a) {
   return `${a.k} ${a.b} - ${a.e}`;
+}
+
+/**
+ * Formats an aliyah object like "Numbers 28:9-15"
+ * @param {Aliyah} aliyah
+ * @param {boolean} showBook
+ * @return {string}
+ */
+export function formatAliyahShort(aliyah, showBook) {
+  const cv1 = aliyah.b.split(':');
+  const cv2 = aliyah.e.split(':');
+  const end = cv1[0] === cv2[0] ? cv2[1] : aliyah.e;
+  const prefix = showBook ? aliyah.k + ' ' : '';
+  return `${prefix}${aliyah.b}-${end}`;
 }
