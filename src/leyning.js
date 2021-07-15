@@ -4,6 +4,17 @@ import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
 /**
+ * Represents an aliyah
+ * @private
+ * @typedef {Object} Aliyah
+ * @property {string} k - Book (e.g. "Numbers")
+ * @property {string} b - beginning verse (e.g. "28:9")
+ * @property {string} e - ending verse (e.g. "28:15")
+ * @property {number} [v] - number of verses
+ * @property {number} [p] - parsha number (1=Bereshit, 54=Vezot HaBracha)
+ */
+
+/**
  * Leyning for a parsha hashavua or holiday
  * @typedef {Object} Leyning
  * @property {string} summary
@@ -118,6 +129,33 @@ export function getLeyningForHoliday(e, il=false) {
 }
 
 /**
+ * @param {Object<string,Aliyah>} aliyot
+ * @return {string}
+ */
+export function makeLeyningSummary(aliyot) {
+  const beginAliyah = aliyot['1'];
+  let endChapVerse = beginAliyah.e.split(':').map((x) => +x);
+  const aliyot2plus = Object.keys(aliyot).filter((x) => parseInt(x, 10) > 1).sort();
+  aliyot2plus.forEach((num) => {
+    const aliyah = aliyot[num];
+    const chapVerse = aliyah.e.split(':').map((x) => +x);
+    if (aliyah.k === beginAliyah.k && (chapVerse[0]*100 + chapVerse[1]) > (endChapVerse[0]*100 + endChapVerse[1])) {
+      endChapVerse = chapVerse;
+    }
+  });
+  let summary = `${beginAliyah.k} ${beginAliyah.b}-${endChapVerse[0]}:${endChapVerse[1]}`;
+  if (typeof aliyot['M'] === 'object') {
+    summary += '; ';
+    const maftir = aliyot['M'];
+    if (maftir.k !== beginAliyah.k) {
+      summary += maftir.k + ' ';
+    }
+    summary += `${maftir.b}-${maftir.e}`;
+  }
+  return summary;
+}
+
+/**
  * Looks up leyning for a given holiday key. Key should be an
  * (untranslated) string used in holiday-readings.json. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
@@ -132,25 +170,7 @@ export function getLeyningForHolidayKey(key) {
   const leyning = Object.create(null);
   if (src.fullkriyah) {
     if (typeof src.fullkriyah['1'] === 'object') {
-      const beginAliyah = src.fullkriyah['1'];
-      let endChapVerse = beginAliyah.e.split(':').map((x) => +x);
-      const aliyot2plus = Object.keys(src.fullkriyah).filter((x) => parseInt(x, 10) > 1).sort();
-      aliyot2plus.forEach((num) => {
-        const aliyah = src.fullkriyah[num];
-        const chapVerse = aliyah.e.split(':').map((x) => +x);
-        if (aliyah.k === beginAliyah.k && (chapVerse[0]*100 + chapVerse[1]) > (endChapVerse[0]*100 + endChapVerse[1])) {
-          endChapVerse = chapVerse;
-        }
-      });
-      leyning.summary = `${beginAliyah.k} ${beginAliyah.b}-${endChapVerse[0]}:${endChapVerse[1]}`;
-      if (typeof src.fullkriyah['M'] === 'object') {
-        leyning.summary += '; ';
-        const maftir = src.fullkriyah['M'];
-        if (maftir.k !== beginAliyah.k) {
-          leyning.summary += maftir.k + ' ';
-        }
-        leyning.summary += `${maftir.b}-${maftir.e}`;
-      }
+      leyning.summary = makeLeyningSummary(src.fullkriyah);
     }
     leyning.fullkriyah = clone(src.fullkriyah);
     Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
