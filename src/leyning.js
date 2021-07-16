@@ -165,6 +165,7 @@ export function makeLeyningSummary(aliyot) {
     }
     if (aliyah.k === book && isChapVerseLater(aliyah.e, end)) {
       end = aliyah.e;
+      chap = cv[0];
     }
   });
   parts.push({k: book, b: begin, e: end});
@@ -375,7 +376,7 @@ export function getLeyningForParshaHaShavua(e, il=false) {
   }
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   const result = {
-    summary: `${book} ${raw.verses}`,
+    summary: makeLeyningSummary(fullkriyah),
     fullkriyah: fullkriyah,
     haftara: haftara,
   };

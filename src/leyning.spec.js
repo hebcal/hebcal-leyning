@@ -171,7 +171,7 @@ test('getLeyningForParshaHaShavua', (t) => {
         break;
       case 'Parashat Miketz':
         const expected = {
-          summary: 'Genesis 41:1-44:17',
+          summary: 'Genesis 41:1-44:17; Numbers 7:54-8:4',
           fullkriyah: {
             '1': {k: 'Genesis', b: '41:1', e: '41:14', v: 14},
             '2': {k: 'Genesis', b: '41:15', e: '41:38', v: 24},
@@ -209,7 +209,7 @@ test('getLeyningForParshaHaShavua', (t) => {
   events2 = HebrewCalendar.calendar(options);
   const miketz = events2.find((e) => e.getDesc() == 'Parashat Miketz');
   const expected = {
-    summary: 'Genesis 41:1-44:17',
+    summary: 'Genesis 41:1-44:17; Numbers 28:9-15, 7:42-47',
     fullkriyah: {
       '1': {k: 'Genesis', b: '41:1', e: '41:14', v: 14},
       '2': {k: 'Genesis', b: '41:15', e: '41:38', v: 24},
@@ -335,10 +335,10 @@ test('ignoreUserEvent-getLeyningForHoliday', (t) => {
   t.is(a, undefined);
 });
 
-test('sukkot-chm', (t) => {
+test('pesach-days-567', (t) => {
   const april20 = new Date(2022, 3, 20);
-  const april21 = new Date(2022, 3, 21);
-  const events = HebrewCalendar.calendar({start: april20, end: april21});
+  const april22 = new Date(2022, 3, 22);
+  const events = HebrewCalendar.calendar({start: april20, end: april22});
   const result = events.map((ev) => getLeyningForHoliday(ev, false));
   const expected = [{
     summary: 'Exodus 34:1-26; Numbers 28:19-25',
@@ -357,6 +357,19 @@ test('sukkot-chm', (t) => {
       '3': {p: 36, k: 'Numbers', b: '9:9', e: '9:14', v: 6},
       '4': {p: 41, k: 'Numbers', b: '28:19', e: '28:25', v: 7},
     },
+  },
+  {
+    summary: 'Exodus 13:17-15:26; Numbers 28:19-25',
+    fullkriyah: {
+      '1': {p: 16, k: 'Exodus', b: '13:17', e: '13:22', v: 6},
+      '2': {p: 16, k: 'Exodus', b: '14:1', e: '14:8', v: 8},
+      '3': {p: 16, k: 'Exodus', b: '14:9', e: '14:14', v: 6},
+      '4': {p: 16, k: 'Exodus', b: '14:15', e: '14:25', v: 11},
+      '5': {p: 16, k: 'Exodus', b: '14:26', e: '15:26', v: 32},
+      'M': {p: 41, k: 'Numbers', b: '28:19', e: '28:25', v: 7},
+    },
+    haftara: 'II Samuel 22:1 - 22:51',
+    haftaraNumV: 51,
   }];
   t.deepEqual(result, expected);
 });
