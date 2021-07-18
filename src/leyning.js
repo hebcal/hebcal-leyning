@@ -215,6 +215,7 @@ export function getLeyningForHolidayKey(key) {
 
 /**
  * Formats parsha as a string
+ * @private
  * @param {string[]} parsha
  * @return {string}
  */
@@ -339,22 +340,18 @@ function getSpecialHaftara(ev) {
 }
 
 /**
- * Looks up leyning for a regular Shabbat parsha.
- * @param {Event} e the Hebcal event associated with this leyning
- * @param {boolean} [il] in Israel
+ * Looks up regular leyning for a weekly parsha with no special readings
+ * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  * @return {Leyning} map of aliyot
  */
-export function getLeyningForParshaHaShavua(e, il=false) {
-  if (!e instanceof Event) {
-    throw new TypeError(`Bad event argument: ${e}`);
-  } else if (e.getFlags() != flags.PARSHA_HASHAVUA) {
-    throw new TypeError(`Event must be parsha hashavua: ${e.getDesc()}`);
+export function getLeyningForParsha(parsha) {
+  const isParshaString = typeof parsha === 'string';
+  if (!isParshaString &&
+      (!Array.isArray(parsha) || (parsha.length !== 1 && parsha.length !== 2))) {
+    throw new TypeError(`Bad parsha argument: ${parsha}`);
   }
-  // first, collect the default aliyot and haftara
-  const parsha = e.parsha;
-  const name = parshaToString(parsha); // untranslated
+  const name = isParshaString ? parsha : parshaToString(parsha);
   const raw = parshiyotObj[name];
-  let haftara = parshiyotObj[getHaftaraKey(parsha)].haftara;
   const fullkriyah = Object.create(null);
   const book = BOOK[raw.book];
   Object.keys(raw.fullkriyah).forEach((num) => {
@@ -362,19 +359,10 @@ export function getLeyningForParshaHaShavua(e, il=false) {
     const reading = {k: book, b: src.b, e: src.e};
     fullkriyah[num] = reading;
   });
-  const reason = Object.create(null);
-  const hd = e.getDate();
-  // Now, check for special maftir or haftara on same date
-  const specialHaftara = specialReadings(hd, il, fullkriyah, reason);
-  if (specialHaftara) {
-    haftara = specialHaftara;
-  }
-  const specialHaftara2 = getSpecialHaftara(e);
-  if (specialHaftara2) {
-    haftara = specialHaftara2.haftara;
-    reason.haftara = specialHaftara2.reason;
-  }
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
+  const parshaNameArray = isParshaString ? raw.combined ? [raw.p1, raw.p2] : [parsha] : parsha;
+  const hkey = getHaftaraKey(parshaNameArray);
+  const haftara = parshiyotObj[hkey].haftara;
   const result = {
     summary: makeLeyningSummary(fullkriyah),
     fullkriyah: fullkriyah,
@@ -393,6 +381,46 @@ export function getLeyningForParshaHaShavua(e, il=false) {
       result.sephardicNumV = numv;
     }
   }
+  return result;
+}
+
+/**
+ * Looks up leyning for a regular Shabbat parsha.
+ * @param {Event} ev the Hebcal event associated with this leyning
+ * @param {boolean} [il] in Israel
+ * @return {Leyning} map of aliyot
+ */
+export function getLeyningForParshaHaShavua(ev, il=false) {
+  if (!ev instanceof Event) {
+    throw new TypeError(`Bad event argument: ${ev}`);
+  } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
+    throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
+  }
+  // first, collect the default aliyot and haftara
+  const parsha = ev.parsha;
+  const result = getLeyningForParsha(parsha);
+  const reason = Object.create(null);
+  const hd = ev.getDate();
+  // Now, check for special maftir or haftara on same date
+  const origHaftara = result.haftara;
+  const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason);
+  if (specialHaftara) {
+    result.haftara = specialHaftara;
+  }
+  if (reason['7'] || reason['M']) {
+    result.summary = makeLeyningSummary(result.fullkriyah);
+  }
+  const specialHaftara2 = getSpecialHaftara(ev);
+  if (specialHaftara2) {
+    result.haftara = specialHaftara2.haftara;
+    reason.haftara = specialHaftara2.reason;
+  }
+  if (origHaftara !== result.haftara) {
+    const numv = calculateHaftarahNumVerses(result.haftara);
+    if (numv) {
+      result.haftaraNumV = numv;
+    }
+  }
   if (Object.keys(reason).length) {
     result.reason = reason;
   }
@@ -405,19 +433,23 @@ export function getLeyningForParshaHaShavua(e, il=false) {
  * @return {number}
  */
 function calculateHaftarahNumVerses(haftara) {
-  const matches = haftara.match(/^([^\d]+)\s+(\d.+)$/);
-  if (matches !== null) {
-    const hbook = matches[1].trim();
-    const hverses = matches[2].replace(/;.+$/, '').trim();
-    const cv = hverses.match(/^(\d+:\d+)\s*-\s*(\d+:\d+)$/);
-    if (cv) {
-      const haft = {k: hbook, b: cv[1], e: cv[2]};
-      return calculateNumVerses(haft);
-    } else {
-      throw new RangeError(hverses);
+  const sections = haftara.split(/[;,]/);
+  let total = 0;
+  sections.forEach((haft) => {
+    const matches = haft.match(/^([^\d]+)\s+(\d.+)$/);
+    if (matches !== null) {
+      const hbook = matches[1].trim();
+      const hverses = matches[2].trim();
+      const cv = hverses.match(/^(\d+:\d+)\s*-\s*(\d+:\d+)$/);
+      if (cv) {
+        const haft = {k: hbook, b: cv[1], e: cv[2]};
+        total += calculateNumVerses(haft);
+      } else {
+        total++; // Something like "Jeremiah 3:4" is 1 verse
+      }
     }
-  }
-  return undefined;
+  });
+  return total || undefined;
 }
 
 /**

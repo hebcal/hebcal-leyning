@@ -1,5 +1,8 @@
 import numverses from './numverses.json';
 
+/**
+ * Names of the books of the Torah. BOOK[1] === 'Genesis'
+ */
 export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
 
 /**

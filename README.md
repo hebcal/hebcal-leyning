@@ -58,6 +58,8 @@ CAUTION: Modifies the <code>aliyot</code> parameter instead of making a copy.</p
 <dd><p>Looks up leyning for a given holiday. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
 </dd>
+<dt><a href="#makeLeyningSummary">makeLeyningSummary(aliyot)</a> ⇒ <code>string</code></dt>
+<dd></dd>
 <dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday key. Key should be an
 (untranslated) string used in holiday-readings.json. Returns some
@@ -75,11 +77,17 @@ except for Nitzavim-Vayelech</p>
 <dt><a href="#getHolidayEvents">getHolidayEvents(hd, il)</a> ⇒ <code>Array.&lt;Event&gt;</code></dt>
 <dd><p>Filters out Rosh Chodesh and events that don&#39;t occur in this location</p>
 </dd>
+<dt><a href="#getLeyningForParsha">getLeyningForParsha(parsha)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
+<dd><p>Looks up leyning for a regular Shabbat parsha.</p>
+</dd>
 <dt><a href="#getLeyningForParshaHaShavua">getLeyningForParshaHaShavua(e, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a regular Shabbat parsha.</p>
 </dd>
 <dt><a href="#formatAliyahWithBook">formatAliyahWithBook(a)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats an aliyah object like &quot;Numbers 28:9 - 28:15&quot;</p>
+</dd>
+<dt><a href="#formatAliyahShort">formatAliyahShort(aliyah, showBook)</a> ⇒ <code>string</code></dt>
+<dd><p>Formats an aliyah object like &quot;Numbers 28:9-15&quot;</p>
 </dd>
 <dt><a href="#getDoubledName">getDoubledName(id)</a> ⇒ <code>string</code></dt>
 <dd><p>takes a 0-based (Bereshit=0) parsha ID</p>
@@ -268,6 +276,15 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | e | <code>Event</code> |  | the Hebcal event associated with this leyning |
 | [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
 
+<a name="makeLeyningSummary"></a>
+
+## makeLeyningSummary(aliyot) ⇒ <code>string</code>
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
+
 <a name="getLeyningForHolidayKey"></a>
 
 ## getLeyningForHolidayKey(key) ⇒ [<code>Leyning</code>](#Leyning)
@@ -327,6 +344,18 @@ Filters out Rosh Chodesh and events that don't occur in this location
 | hd | <code>HDate</code> | Hebrew date |
 | il | <code>boolean</code> | in Israel |
 
+<a name="getLeyningForParsha"></a>
+
+## getLeyningForParsha(parsha) ⇒ [<code>Leyning</code>](#Leyning)
+Looks up leyning for a regular Shabbat parsha.
+
+**Kind**: global function  
+**Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
+
 <a name="getLeyningForParshaHaShavua"></a>
 
 ## getLeyningForParshaHaShavua(e, [il]) ⇒ [<code>Leyning</code>](#Leyning)
@@ -350,6 +379,18 @@ Formats an aliyah object like "Numbers 28:9 - 28:15"
 | Param | Type | Description |
 | --- | --- | --- |
 | a | [<code>Aliyah</code>](#Aliyah) | aliyah |
+
+<a name="formatAliyahShort"></a>
+
+## formatAliyahShort(aliyah, showBook) ⇒ <code>string</code>
+Formats an aliyah object like "Numbers 28:9-15"
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| aliyah | [<code>Aliyah</code>](#Aliyah) | 
+| showBook | <code>boolean</code> | 
 
 <a name="getDoubledName"></a>
 

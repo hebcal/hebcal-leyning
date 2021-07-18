@@ -92,10 +92,21 @@ declare module '@hebcal/leyning' {
     export function getLeyningForParshaHaShavua(e: Event, il?: boolean): Leyning;
 
     /**
-     * Formats an aliyah object like "Numbers 28:9 - 28:15"
-     * @param a - aliyah
+     * Looks up regular leyning for a weekly parsha with no special readings
+     * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+     * @returns map of aliyot
      */
-    export function formatAliyahWithBook(a: Aliyah): string;
+     export function getLeyningForParsha(parsha: string|string[]): Leyning;
+
+    /**
+     * Formats an aliyah object like "Numbers 28:9 - 28:15"
+     */
+    export function formatAliyahWithBook(aliyah: Aliyah): string;
+
+    /**
+     * Formats an aliyah object like "Numbers 28:9-15"
+     */
+    export function formatAliyahShort(aliyah: Aliyah, showBook: boolean): string;
 
     /**
      * Triennial Torah readings
