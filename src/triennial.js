@@ -51,6 +51,7 @@ export class Triennial {
    * @param {number} [hebrewYear] Hebrew Year (default current year)
    */
   constructor(hebrewYear) {
+    hebrewYear = hebrewYear || new HDate().getFullYear();
     if (hebrewYear < 5744) {
       throw new RangeError(`Invalid Triennial year ${hebrewYear}`);
     }
@@ -58,12 +59,7 @@ export class Triennial {
       triennialAliyot = Triennial.getTriennialAliyot();
     }
 
-    // year I in triennial cycle was 5756
-    const hyear = hebrewYear || new HDate().getFullYear();
-    const yearNum = Triennial.getYearNumber(hyear);
-
-    this.startYear = Triennial.getCycleStartYear(hyear);
-    console.debug(`Hebrew year ${hyear} is year ${yearNum}; triennial cycle started year ${this.startYear}`);
+    this.startYear = Triennial.getCycleStartYear(hebrewYear);
     this.sedraArray = [];
     this.bereshit = Array(4);
     for (let yr = 0; yr < 4; yr++) {
@@ -76,8 +72,8 @@ export class Triennial {
     const rh = new HDate(1, months.TISHREI, this.startYear);
     const firstSaturday = rh.onOrAfter(6);
     this.firstSaturday = firstSaturday.abs();
-    const cycleOption = this.calcVariationOptions();
-    this.readings = this.cycleReadings(cycleOption);
+    this.calcVariationOptions();
+    this.readings = this.cycleReadings(this.variationOptions);
   }
 
   /**
@@ -143,10 +139,9 @@ export class Triennial {
 
   /**
    * @private
-   * @return {any}
    */
   calcVariationOptions() {
-    const option = Object.create(null);
+    const option = this.variationOptions = Object.create(null);
     doubled.forEach((id) => {
       const pattern = this.getThreeYearPattern(id);
       const name = getDoubledName(id);
@@ -160,9 +155,21 @@ export class Triennial {
       const p1 = parshiot[id];
       const p2 = parshiot[id + 1];
       option[name] = option[p1] = option[p2] = variation;
-      console.debug(`  ${name} ${pattern} (${option[name]})`);
     });
-    return option;
+  }
+
+  /**
+   * @return {string}
+   */
+  debug() {
+    let str = `Triennial cycle started year ${this.startYear}`;
+    doubled.forEach((id) => {
+      const pattern = this.getThreeYearPattern(id);
+      const name = getDoubledName(id);
+      const variation = this.variationOptions[name];
+      str += `  ${name} ${pattern} (${variation})`;
+    });
+    return str;
   }
 
   /**

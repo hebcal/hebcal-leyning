@@ -84,7 +84,7 @@ test('writeTriennialEvent-holiday', (t) => {
     '31-May-2017,"Shavuot I",4,"Exodus 19:20 - 20:14",20',
     '31-May-2017,"Shavuot I",5,"Exodus 20:15 - 20:23",9',
     '31-May-2017,"Shavuot I","maf","Numbers 28:26 - 28:31",6',
-    '31-May-2017,"Shavuot I","Haftara","Ezekiel 1:1 - 1:28; 3:12",28',
+    '31-May-2017,"Shavuot I","Haftara","Ezekiel 1:1 - 1:28; 3:12",29',
     '', ''];
   t.deepEqual(lines, expected);
 });

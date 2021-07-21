@@ -115,6 +115,7 @@ declare module '@hebcal/leyning' {
         constructor(hebrewYear: number);
         getReading(parsha: string, yearNum: number): TriennialAliyot;
         getStartYear(): number;
+        debug(): string;
         /**
          * Returns triennial year 1, 2 or 3 based on this Hebrew year
          * @param year Hebrew year

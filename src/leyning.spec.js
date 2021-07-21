@@ -451,7 +451,7 @@ test('masei-rosh-chodesh', (t) => {
   const ev4 = new ParshaEvent(new HDate(28, 'Tamuz', 5822), ['Masei'], false);
   const obj4 = getLeyningForParshaHaShavua(ev4);
   t.is(obj4.haftara, 'Jeremiah 2:4 - 2:28; 3:4');
-  t.is(obj4.haftaraNumV, 25);
+  t.is(obj4.haftaraNumV, 26);
   t.is(obj4.reason, undefined);
 });
 
@@ -488,7 +488,7 @@ test('getLeyningForParsha', (t) => {
       'M': {k: 'Numbers', b: '36:11', e: '36:13', v: 3},
     },
     haftara: 'Jeremiah 2:4 - 2:28; 3:4',
-    haftaraNumV: 25,
+    haftaraNumV: 26,
   };
   t.deepEqual(reading2, expected2);
 
@@ -509,9 +509,9 @@ test('getLeyningForParsha', (t) => {
       'M': {k: 'Numbers', b: '36:11', e: '36:13', v: 3},
     },
     haftara: 'Jeremiah 2:4 - 2:28; 3:4',
-    haftaraNumV: 25,
+    haftaraNumV: 26,
     sephardic: 'Jeremiah 2:4 - 2:28; 4:1 - 4:2',
-    sephardicNumV: 25,
+    sephardicNumV: 27,
   };
   t.deepEqual(reading3, expected3);
 });
