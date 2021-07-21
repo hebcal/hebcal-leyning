@@ -113,20 +113,21 @@ export class Triennial {
   }
 
   /**
-     * Returns Hebrew year that this 3-year triennial cycle began
-     * @param {number} year Hebrew year
-     * @return {number}
-     */
+   * Returns Hebrew year that this 3-year triennial cycle began
+   * @param {number} year Hebrew year
+   * @return {number}
+   */
   static getCycleStartYear(year) {
     return year - (this.getYearNumber(year) - 1);
   }
 
   /**
-     * First, determine if a doubled parsha is read [T]ogether or [S]eparately
-     * in each of the 3 years. Yields a pattern like 'SSS', 'STS', 'TTT', 'TTS'.
-     * @param {number} id
-     * @return {string}
-     */
+   * First, determine if a doubled parsha is read [T]ogether or [S]eparately
+   * in each of the 3 years. Yields a pattern like 'SSS', 'STS', 'TTT', 'TTS'.
+   * @private
+   * @param {number} id
+   * @return {string}
+   */
   getThreeYearPattern(id) {
     let pattern = '';
     for (let yr = 0; yr <= 2; yr ++) {
@@ -140,7 +141,10 @@ export class Triennial {
     return pattern;
   }
 
-  // eslint-disable-next-line require-jsdoc
+  /**
+   * @private
+   * @return {any}
+   */
   calcVariationOptions() {
     const option = Object.create(null);
     doubled.forEach((id) => {
@@ -163,6 +167,7 @@ export class Triennial {
 
   /**
    * Builds a lookup table readings["Bereshit"][0], readings["Matot-Masei"][2]
+   * @private
    * @param {Object} cycleOption
    * @return {Map<string,Object[]>}
    */
@@ -182,10 +187,11 @@ export class Triennial {
   }
 
   /**
-    * @param {string} option
-    * @param {Map<string,Object[]>} readings
-    * @param {number} yr
-    */
+   * @private
+   * @param {string} option
+   * @param {Map<string,Object[]>} readings
+   * @param {number} yr
+  */
   cycleReadingsForYear(option, readings, yr) {
     const startIdx = this.bereshit[yr];
     const endIdx = this.bereshit[yr + 1];
@@ -234,6 +240,7 @@ export class Triennial {
 
   /**
    * Walks parshiyotObj and builds lookup table for triennial aliyot
+   * @private
    * @return {Object}
    */
   static getTriennialAliyot() {
@@ -257,6 +264,7 @@ export class Triennial {
   /**
    * Transforms input JSON with sameAs shortcuts like "D.2":"A.3" to
    * actual aliyot objects for a given variation/year
+   * @private
    * @param {string} parsha
    * @param {string} book
    * @param {Object} triennial
