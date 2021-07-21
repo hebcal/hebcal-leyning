@@ -272,3 +272,34 @@ test('Vezot Haberakhah', (t) => {
   };
   t.deepEqual(reading, expected);
 });
+
+test('Triennial.debug', (t) => {
+  const tri = new Triennial(5781);
+  const lines = tri.debug().split('\n');
+  const expected = [
+    'Triennial cycle started year 5780',
+    '  Vayakhel-Pekudei TTS (A)',
+    '  Tazria-Metzora TTS (A)',
+    '  Achrei Mot-Kedoshim TTS (A)',
+    '  Behar-Bechukotai TTS (A)',
+    '  Chukat-Balak TSS (C)',
+    '  Matot-Masei TTT (Y)',
+    '  Nitzavim-Vayeilech TSS (Y)',
+    '',
+  ];
+  t.deepEqual(lines, expected);
+  const tri2 = new Triennial(5797);
+  const lines2 = tri2.debug().split('\n');
+  const expected2 = [
+    'Triennial cycle started year 5795',
+    '  Vayakhel-Pekudei STT (F)',
+    '  Tazria-Metzora STT (C)',
+    '  Achrei Mot-Kedoshim STT (C)',
+    '  Behar-Bechukotai STT (C)',
+    '  Chukat-Balak SSS (G)',
+    '  Matot-Masei STT (C)',
+    '  Nitzavim-Vayeilech TST (Y)',
+    '',
+  ];
+  t.deepEqual(lines2, expected2);
+});
