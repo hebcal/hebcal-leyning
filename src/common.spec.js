@@ -1,6 +1,6 @@
 import {HDate, ParshaEvent} from '@hebcal/core';
 import test from 'ava';
-import {addSefariaLinksToLeyning, calculateNumVerses} from './common';
+import {addSefariaLinksToLeyning, calculateNumVerses, calculateHaftarahNumVerses} from './common';
 import {getLeyningForHolidayKey} from './leyning';
 import {getTriennialForParshaHaShavua} from './triennial';
 
@@ -188,4 +188,18 @@ test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Ezekiel', b: '45:16', e: '46:18'}), 28);
   t.is(calculateNumVerses({k: 'Isaiah', b: '54:11', e: '55:5'}), 12);
   t.is(calculateNumVerses({k: 'Zechariah', b: '2:14', e: '4:7'}), 21);
+  t.is(calculateNumVerses({k: 'Ezekiel', b: '1:1', e: '1:28'}), 28);
+});
+
+test('calculateHaftarahNumVerses', (t) => {
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28'), 28);
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1-1:28'), 28);
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1-28'), 28);
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28, 3:12'), 29);
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28; 3:12'), 29);
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1-28, 3:12'), 29);
+  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28; Ezekiel 3:12'), 29);
+  t.is(calculateHaftarahNumVerses('Joshua 5:2-6:1'), 15);
+  t.is(calculateHaftarahNumVerses('II Kings 23:1 - 23:9; 23:21 - 23:25'), 14);
+  t.is(calculateHaftarahNumVerses('II Kings 23:1-9; 23:21-25'), 14);
 });

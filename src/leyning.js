@@ -1,5 +1,5 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
-import {BOOK, calculateNumVerses, clone} from './common';
+import {BOOK, calculateNumVerses, calculateHaftarahNumVerses, clone} from './common';
 import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
@@ -425,31 +425,6 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
     result.reason = reason;
   }
   return result;
-}
-
-/**
- * @private
- * @param {any} haftara
- * @return {number}
- */
-function calculateHaftarahNumVerses(haftara) {
-  const sections = haftara.split(/[;,]/);
-  let total = 0;
-  sections.forEach((haft) => {
-    const matches = haft.match(/^([^\d]+)\s+(\d.+)$/);
-    if (matches !== null) {
-      const hbook = matches[1].trim();
-      const hverses = matches[2].trim();
-      const cv = hverses.match(/^(\d+:\d+)\s*-\s*(\d+:\d+)$/);
-      if (cv) {
-        const haft = {k: hbook, b: cv[1], e: cv[2]};
-        total += calculateNumVerses(haft);
-      } else {
-        total++; // Something like "Jeremiah 3:4" is 1 verse
-      }
-    }
-  });
-  return total || undefined;
 }
 
 /**
