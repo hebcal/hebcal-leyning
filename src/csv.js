@@ -19,6 +19,20 @@ function fmtDate(dt) {
 
 /**
  * @private
+ * @param {Event[]} events
+ * @return {Object<string,boolean>}
+ */
+function getParshaDates(events) {
+  const parshaEvents = events.filter((ev) => ev.getFlags() === flags.PARSHA_HASHAVUA);
+  const parshaDates = parshaEvents.reduce((set, ev) => {
+    set[ev.getDate().toString()] = true;
+    return set;
+  }, {});
+  return parshaDates;
+}
+
+/**
+ * @private
  * @param {fs.WriteStream} stream
  * @param {number} hyear
  * @param {boolean} il
@@ -30,8 +44,13 @@ export function writeFullKriyahCsv(stream, hyear, il) {
     sedrot: true,
     il: il,
   });
+  const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
-  events.forEach((ev) => writeFullKriyahEvent(stream, ev, il));
+  events.forEach((ev) => {
+    if (ev.getFlags() === flags.PARSHA_HASHAVUA || !parshaDates[ev.getDate().toString()]) {
+      writeFullKriyahEvent(stream, ev, il);
+    }
+  });
 }
 
 /**
@@ -47,8 +66,13 @@ export function writeTriennialCsv(stream, hyear) {
     sedrot: true,
     il: false,
   });
+  const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Triennial Reading","Verses"\r\n');
-  events.forEach((ev) => writeTriennialEvent(stream, ev));
+  events.forEach((ev) => {
+    if (ev.getFlags() === flags.PARSHA_HASHAVUA || !parshaDates[ev.getDate().toString()]) {
+      writeTriennialEvent(stream, ev);
+    }
+  });
 }
 
 /**
