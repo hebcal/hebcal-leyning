@@ -185,6 +185,11 @@ test('getLeyningForParshaHaShavua', (t) => {
           },
           haftara: 'I Kings 7:40-7:50',
           haftaraNumV: 11,
+          weekday: {
+            '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
+            '2': {k: 'Genesis', b: '41:5', e: '41:7', v: 3},
+            '3': {k: 'Genesis', b: '41:8', e: '41:14', v: 7},
+          },
           reason: {
             haftara: 'Shabbat Chanukah II',
             M: 'Chanukah (Day 8)',
@@ -223,6 +228,11 @@ test('getLeyningForParshaHaShavua', (t) => {
     },
     haftara: 'Zechariah 2:14-4:7',
     haftaraNumV: 21,
+    weekday: {
+      '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
+      '2': {k: 'Genesis', b: '41:5', e: '41:7', v: 3},
+      '3': {k: 'Genesis', b: '41:8', e: '41:14', v: 7},
+    },
     reason: {
       '7': 'Shabbat Rosh Chodesh Chanukah',
       'haftara': 'Shabbat Rosh Chodesh Chanukah',
@@ -471,6 +481,11 @@ test('getLeyningForParsha', (t) => {
     },
     haftara: 'I Kings 18:46 - 19:21',
     haftaraNumV: 22,
+    weekday: {
+      '1': {k: 'Numbers', b: '25:10', e: '25:12', v: 3},
+      '2': {k: 'Numbers', b: '25:13', e: '25:15', v: 3},
+      '3': {k: 'Numbers', b: '25:16', e: '26:4', v: 8},
+    },
   };
   t.deepEqual(reading, expected);
 
@@ -512,6 +527,11 @@ test('getLeyningForParsha', (t) => {
     haftaraNumV: 26,
     sephardic: 'Jeremiah 2:4 - 2:28; 4:1 - 4:2',
     sephardicNumV: 27,
+    weekday: {
+      '1': {k: 'Numbers', b: '33:1', e: '33:3', v: 3},
+      '2': {k: 'Numbers', b: '33:4', e: '33:6', v: 3},
+      '3': {k: 'Numbers', b: '33:7', e: '33:10', v: 4},
+    },
   };
   t.deepEqual(reading3, expected3);
 });
