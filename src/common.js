@@ -40,6 +40,7 @@ export function clone(src) {
 /**
  * Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
  * CAUTION: Modifies the `aliyot` parameter instead of making a copy.
+ * @deprecated
  * @param {Object<string,Aliyah>} aliyot aliyah map to decorate
  * @param {boolean} showBook display the book name in the `verses` field (e.g. for special Maftir)
  */

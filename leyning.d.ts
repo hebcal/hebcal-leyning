@@ -151,6 +151,7 @@ declare module '@hebcal/leyning' {
     /**
      * Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
      * CAUTION: Modifies the `aliyot` parameter instead of making a copy.
+     * @deprecated
      * @param aliyot - aliyah map to decorate
      * @param showBook - display the book name in the `verses` field (e.g. for special Maftir)
      */
