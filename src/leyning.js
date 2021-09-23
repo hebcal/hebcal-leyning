@@ -381,10 +381,11 @@ export function getLeyningForParsha(parsha) {
       result.sephardicNumV = numv;
     }
   }
-  if (raw.weekday) {
+  const weekdaySrc = raw.weekday || parshiyotObj[parshaNameArray[0]].weekday;
+  if (weekdaySrc) {
     const weekday = result.weekday = Object.create(null);
     ['1', '2', '3'].forEach((num) => {
-      const src = raw.weekday[num];
+      const src = weekdaySrc[num];
       const aliyah = {k: book, b: src.b, e: src.e};
       calculateNumVerses(aliyah);
       weekday[num] = aliyah;

@@ -465,7 +465,7 @@ test('masei-rosh-chodesh', (t) => {
   t.is(obj4.reason, undefined);
 });
 
-test('getLeyningForParsha', (t) => {
+test('getLeyningForParsha-1', (t) => {
   const reading = getLeyningForParsha('Pinchas');
   const expected = {
     summary: 'Numbers 25:10-30:1',
@@ -488,7 +488,9 @@ test('getLeyningForParsha', (t) => {
     },
   };
   t.deepEqual(reading, expected);
+});
 
+test('getLeyningForParsha-2', (t) => {
   const reading2 = getLeyningForParsha(['Matot', 'Masei']);
   const expected2 = {
     summary: 'Numbers 30:2-36:13',
@@ -504,12 +506,19 @@ test('getLeyningForParsha', (t) => {
     },
     haftara: 'Jeremiah 2:4 - 2:28; 3:4',
     haftaraNumV: 26,
+    weekday: {
+      '1': {k: 'Numbers', b: '30:2', e: '30:9', v: 8},
+      '2': {k: 'Numbers', b: '30:10', e: '30:13', v: 4},
+      '3': {k: 'Numbers', b: '30:14', e: '30:17', v: 4},
+    },
   };
   t.deepEqual(reading2, expected2);
 
   const reading2b = getLeyningForParsha('Matot-Masei');
   t.deepEqual(reading2, reading2b);
+});
 
+test('getLeyningForParsha-3', (t) => {
   const reading3 = getLeyningForParsha(['Masei']);
   const expected3 = {
     summary: 'Numbers 33:1-36:13',
