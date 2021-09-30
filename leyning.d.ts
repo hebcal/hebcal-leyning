@@ -6,17 +6,17 @@ import {WriteStream} from 'fs';
 declare module '@hebcal/leyning' {
     /**
      * Represents an aliyah
-     * @property k - Book (e.g. "Numbers")
-     * @property b - beginning verse (e.g. "28:9")
-     * @property e - ending verse (e.g. "28:15")
-     * @property [v] - number of verses
-     * @property [p] - parsha number (1=Bereshit, 54=Vezot HaBracha)
      */
     export type Aliyah = {
+        /** Book (e.g. "Numbers") */
         k: string;
+        /** beginning verse (e.g. "28:9") */
         b: string;
+        /** ending verse (e.g. "28:15") */
         e: string;
+        /** number of verses */
         v?: number;
+        /** parsha number (1=Bereshit, 54=Vezot HaBracha) */
         p?: number;
     };
 
@@ -26,14 +26,19 @@ declare module '@hebcal/leyning' {
 
     /**
      * Leyning for a parsha hashavua or holiday
-     * @property haftara - Haftarah
-     * @property sephardic - Haftarah for Sephardic
      */
     export type Leyning = {
+        /** Such as `Genesis 1:1 - 6:8` */
         summary: string;
+        /** Haftarah, such as `Isaiah 42:5 – 43:11` */
         haftara: string;
+        /** Haftarah for Sephardic, such as `Isaiah 42:5 - 42:21` */
         sephardic?: string;
+        /** Map of aliyot `1` through `7` plus `M` for maftir */
         fullkriyah: AliyotMap;
+        /** Optional map of weekday Torah Readings aliyot `1` through `3` for Monday and Thursday */
+        weekday?: AliyotMap;
+        /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `H` for Haftarah */
         reason?: {
             [key: string]: string;
         };
@@ -41,19 +46,19 @@ declare module '@hebcal/leyning' {
 
     /**
      * Represents triennial aliyot for a given date
-     * @property aliyot - a map of aliyot 1-7 plus "M"
-     * @property yearNum - year number, 0-2
-     * @property date - Shabbat date for when this parsha is read in this 3-year cycle
-     * @property [readSeparately] - true if a double parsha is read separately in year `yearNum`
-     * @property [date1] - Shabbat date of the first part of a read-separately aliyah pair
-     * @property [date2] - Shabbat date of the second part of a read-separately aliyah pair
      */
     export type TriennialAliyot = {
+        /** Map of aliyot `1` through `7` plus `M` for maftir */
         aliyot: AliyotMap;
+        /** year number, 0-2 */
         yearNum: number;
+        /** Shabbat date for when this parsha is read in this 3-year cycle */
         date: Date;
+        /** true if a double parsha is read separately in year `yearNum` */
         readSeparately?: boolean;
+        /** Shabbat date of the first part of a read-separately aliyah pair */
         date1?: Date;
+        /** Shabbat date of the second part of a read-separately aliyah pair */
         date2?: Date;
     };
 

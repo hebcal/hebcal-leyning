@@ -19,8 +19,9 @@ import parshiyotObj from './aliyot.json';
  * @typedef {Object} Leyning
  * @property {string} summary
  * @property {string} haftara - Haftarah
- * @property {string} sephardic - Haftarah for Sephardic
+ * @property {string} [sephardic] - Haftarah for Sephardic
  * @property {Object<string,Aliyah>} fullkriyah
+ * @property {Object<string,Aliyah>} [weekday]
  * @property {Object} [reason]
  */
 
