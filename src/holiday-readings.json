@@ -458,6 +458,12 @@
  "haftara":"I Samuel 15:2 - 15:34",
  "fullkriyah":
   {"M":{"p":49,"k":"Deuteronomy","b":"25:17","e":"25:19"}}},
+"Rosh Chodesh":{
+ "fullkriyah":
+  {"1":{"p":41,"k":"Numbers","b":"28:1","e":"28:3"},
+  "2":{"p":41,"k":"Numbers","b":"28:3","e":"28:5"},
+  "3":{"p":41,"k":"Numbers","b":"28:6","e":"28:10"},
+  "4":{"p":41,"k":"Numbers","b":"28:11","e":"28:15"}}},   
 "Shabbat Rosh Chodesh":{
  "haftara":"Isaiah 66:1 - 66:24",
  "fullkriyah":

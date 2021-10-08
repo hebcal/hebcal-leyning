@@ -32,8 +32,12 @@ declare module '@hebcal/leyning' {
         summary: string;
         /** Haftarah, such as `Isaiah 42:5 – 43:11` */
         haftara: string;
-        /** Haftarah for Sephardic, such as `Isaiah 42:5 - 42:21` */
+        /** Number of verses in the Haftarah */
+        haftaraNumV?: number;
+        /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */
         sephardic?: string;
+        /** Number of verses in the Haftarah for Sephardim */
+        sephardicNumV?: number;
         /** Map of aliyot `1` through `7` plus `M` for maftir */
         fullkriyah: AliyotMap;
         /** Optional map of weekday Torah Readings aliyot `1` through `3` for Monday and Thursday */

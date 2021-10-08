@@ -33,8 +33,8 @@ test('getLeyningKeyForEvent', (t) => {
     'Sukkot VII (Hoshana Raba)': 'Sukkot Final Day (Hoshana Raba)',
     'Shmini Atzeret': 'Shmini Atzeret (on Shabbat)',
     'Simchat Torah': 'Simchat Torah',
-    'Rosh Chodesh Cheshvan': undefined,
-    'Rosh Chodesh Kislev': undefined,
+    'Rosh Chodesh Cheshvan': 'Rosh Chodesh Cheshvan',
+    'Rosh Chodesh Kislev': 'Rosh Chodesh Kislev',
     'Chanukah: 1 Candle': undefined,
     'Chanukah: 2 Candles': 'Chanukah (Day 1)',
     'Chanukah: 3 Candles': 'Chanukah (Day 2)',
@@ -42,17 +42,17 @@ test('getLeyningKeyForEvent', (t) => {
     'Chanukah: 5 Candles': 'Chanukah (Day 4)',
     'Chanukah: 6 Candles': 'Chanukah (Day 5)',
     'Chanukah: 7 Candles': 'Chanukah (Day 6)',
-    'Rosh Chodesh Tevet': undefined,
+    'Rosh Chodesh Tevet': undefined, // to avoid duplicate with Chanukah
     'Chanukah: 8 Candles': 'Chanukah (Day 7)',
     'Chanukah: 8th Day': 'Chanukah (Day 8)',
     'Asara B\'Tevet': 'Asara B\'Tevet',
-    'Rosh Chodesh Sh\'vat': undefined,
+    'Rosh Chodesh Sh\'vat': 'Rosh Chodesh Sh\'vat',
     'Tu BiShvat': undefined,
     'Rosh Chodesh Adar I': 'Shabbat Rosh Chodesh',
     'Purim Katan': undefined,
     'Shabbat Shekalim': 'Shabbat Shekalim',
     'Shabbat Shirah': undefined,
-    'Rosh Chodesh Adar II': undefined,
+    'Rosh Chodesh Adar II': 'Rosh Chodesh Adar II',
     'Ta\'anit Esther': 'Ta\'anit Esther',
     'Shabbat Zachor': 'Shabbat Zachor',
     'Erev Purim': undefined,
@@ -60,7 +60,7 @@ test('getLeyningKeyForEvent', (t) => {
     'Shushan Purim': 'Shushan Purim',
     'Shabbat Parah': 'Shabbat Parah',
     'Shabbat HaChodesh': 'Shabbat HaChodesh',
-    'Rosh Chodesh Nisan': undefined,
+    'Rosh Chodesh Nisan': 'Rosh Chodesh Nisan',
     'Shabbat HaGadol': 'Shabbat HaGadol',
     'Ta\'anit Bechorot': 'Ta\'anit Bechorot',
     'Erev Pesach': undefined,
@@ -73,25 +73,25 @@ test('getLeyningKeyForEvent', (t) => {
     'Pesach VII': 'Pesach VII',
     'Pesach VIII': 'Pesach VIII',
     'Yom HaShoah': undefined,
-    'Rosh Chodesh Iyyar': undefined,
+    'Rosh Chodesh Iyyar': 'Rosh Chodesh Iyyar',
     'Yom HaZikaron': undefined,
     'Yom HaAtzma\'ut': undefined,
     'Pesach Sheni': undefined,
     'Lag BaOmer': undefined,
     'Yom Yerushalayim': undefined,
-    'Rosh Chodesh Sivan': undefined,
+    'Rosh Chodesh Sivan': 'Rosh Chodesh Sivan',
     'Erev Shavuot': undefined,
     'Shavuot I': 'Shavuot I',
     'Shavuot II': 'Shavuot II',
-    'Rosh Chodesh Tamuz': undefined,
+    'Rosh Chodesh Tamuz': 'Rosh Chodesh Tamuz',
     'Tzom Tammuz': 'Tzom Tammuz',
-    'Rosh Chodesh Av': undefined,
+    'Rosh Chodesh Av': 'Rosh Chodesh Av',
     'Shabbat Chazon': undefined,
     'Erev Tish\'a B\'Av': undefined,
     'Tish\'a B\'Av': 'Tish\'a B\'Av',
     'Shabbat Nachamu': 'Shabbat Nachamu',
     'Tu B\'Av': undefined,
-    'Rosh Chodesh Elul': undefined,
+    'Rosh Chodesh Elul': 'Rosh Chodesh Elul',
     'Leil Selichot': undefined,
     'Rosh Hashana LaBehemot': undefined,
   };
@@ -127,6 +127,7 @@ function formatAliyah(aliyot, num) {
 }
 
 test('getLeyningForParshaHaShavua', (t) => {
+  /** @type {HebrewCalendar.Options} */
   const options = {year: 2026, isHebrewYear: false, sedrot: true, noHolidays: true};
   const events = HebrewCalendar.calendar(options);
   for (const ev of events) {
@@ -281,6 +282,39 @@ test('getLeyningForHoliday', (t) => {
   t.is(getLeyningForHoliday(nachamu).haftara, 'Isaiah 40:1 - 40:26');
   t.is(getLeyningForHoliday(nachamu).fullkriyah, undefined);
   t.is(getLeyningForHoliday(nachamu).summary, undefined);
+});
+
+test('getLeyningForHoliday-RoshChodesh', (t) => {
+  const ev = new Event(new HDate(1, months.SIVAN, 5782),
+      'Rosh Chodesh Sivan', flags.ROSH_CHODESH);
+  const expected = {
+    summary: 'Numbers 28:1-15',
+    fullkriyah: {
+      '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:3', v: 3},
+      '2': {p: 41, k: 'Numbers', b: '28:3', e: '28:5', v: 3},
+      '3': {p: 41, k: 'Numbers', b: '28:6', e: '28:10', v: 5},
+      '4': {p: 41, k: 'Numbers', b: '28:11', e: '28:15', v: 5},
+    },
+  };
+  const actual = getLeyningForHoliday(ev);
+  t.deepEqual(actual, expected);
+});
+
+test('getLeyningForHoliday-9av-obvs', (t) => {
+  const ev = new Event(new HDate(10, months.AV, 5782),
+      'Tish\'a B\'Av (observed)', flags.MAJOR_FAST, {observed: true});
+  const expected = {
+    summary: 'Deuteronomy 4:25-40',
+    fullkriyah: {
+      '1': {p: 45, k: 'Deuteronomy', b: '4:25', e: '4:29', v: 5},
+      '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
+      '3': {p: 45, k: 'Deuteronomy', b: '4:36', e: '4:40', v: 5},
+    },
+    haftara: 'Jeremiah 8:13 - 9:23',
+    haftaraNumV: 34,
+  };
+  const actual = getLeyningForHoliday(ev);
+  t.deepEqual(actual, expected);
 });
 
 test('shmini-atzeret', (t) => {

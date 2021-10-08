@@ -52,6 +52,21 @@ test('writeFullKriyahEvent-holiday', (t) => {
   t.deepEqual(lines, expected);
 });
 
+test('writeFullKriyahEvent-RoshChodesh', (t) => {
+  const ev = new Event(new HDate(1, months.SIVAN, 5782),
+      'Rosh Chodesh Sivan', flags.ROSH_CHODESH);
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, false);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    '31-May-2022,"Rosh Chodesh Sivan",1,"Numbers 28:1 - 28:3",3',
+    '31-May-2022,"Rosh Chodesh Sivan",2,"Numbers 28:3 - 28:5",3',
+    '31-May-2022,"Rosh Chodesh Sivan",3,"Numbers 28:6 - 28:10",5',
+    '31-May-2022,"Rosh Chodesh Sivan",4,"Numbers 28:11 - 28:15",5',
+    '', ''];
+  t.deepEqual(lines, expected);
+});
+
 test('writeTriennialEvent-parsha', (t) => {
   const ev = new ParshaEvent(new HDate(new Date(2022, 3, 30)), ['Achrei Mot']);
   const stream = new StringWritable();
