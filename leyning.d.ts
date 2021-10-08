@@ -67,6 +67,11 @@ declare module '@hebcal/leyning' {
     };
 
     /**
+     * Makes a summary of the leyning, like "Genesis 6:9-11:32"
+     */
+    export function makeLeyningSummary(aliyot: AliyotMap): string;
+
+    /**
      * Based on the event date, type and title, finds the relevant leyning key
      * @param e - event
      * @param [il] - true if Israel holiday scheme
@@ -153,6 +158,7 @@ declare module '@hebcal/leyning' {
 
     export const parshiyot: any;
     export const holidayReadings: any;
+    export const BOOK: string[];
 
     export function writeTriennialCsv(stream: WriteStream, hyear: number): void;
     export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean): void;

@@ -168,6 +168,7 @@ function isChapVerseLater(a, b) {
 }
 
 /**
+ * Makes a summary of the leyning, like "Genesis 6:9-11:32"
  * @param {Object<string,Aliyah>} aliyot
  * @return {string}
  */
@@ -263,6 +264,7 @@ export function parshaToString(parsha) {
 /**
  * on doubled parshiot, read only the second Haftarah
  * except for Nitzavim-Vayelech
+ * @private
  * @param {string[]} parsha
  * @return {string}
  */
@@ -313,6 +315,7 @@ function mergeAliyotWithSpecial(aliyot, special) {
 }
 
 /**
+ * @private
  * @param {Event} e
  * @param {string} key
  * @return {string}

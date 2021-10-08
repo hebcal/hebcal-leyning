@@ -32,6 +32,7 @@ doubled.forEach((id) => {
 
 /**
  * takes a 0-based (Bereshit=0) parsha ID
+ * @private
  * @param {number} id
  * @return {string}
  */

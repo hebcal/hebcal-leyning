@@ -55,7 +55,7 @@ for (const [num, aliyah] of Object.entries(triReading)) {
 ## Functions
 
 <dl>
-<dt><a href="#addSefariaLinksToLeyning">addSefariaLinksToLeyning(aliyot, showBook)</a></dt>
+<dt><del><a href="#addSefariaLinksToLeyning">addSefariaLinksToLeyning(aliyot, showBook)</a></del></dt>
 <dd><p>Makes Sefaria links by adding <code>href</code>, <code>verses</code> and <code>num</code> attributes to each aliyah.
 CAUTION: Modifies the <code>aliyot</code> parameter instead of making a copy.</p>
 </dd>
@@ -67,20 +67,12 @@ CAUTION: Modifies the <code>aliyot</code> parameter instead of making a copy.</p
 of full kriyah aliyot, special Maftir, special Haftarah</p>
 </dd>
 <dt><a href="#makeLeyningSummary">makeLeyningSummary(aliyot)</a> ⇒ <code>string</code></dt>
-<dd></dd>
+<dd><p>Makes a summary of the leyning, like &quot;Genesis 6:9-11:32&quot;</p>
+</dd>
 <dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday key. Key should be an
 (untranslated) string used in holiday-readings.json. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
-</dd>
-<dt><a href="#getHaftaraKey">getHaftaraKey(parsha)</a> ⇒ <code>string</code></dt>
-<dd><p>on doubled parshiot, read only the second Haftarah
-except for Nitzavim-Vayelech</p>
-</dd>
-<dt><a href="#getChanukahShabbatKey">getChanukahShabbatKey(e, key)</a> ⇒ <code>string</code></dt>
-<dd></dd>
-<dt><a href="#getHolidayEvents">getHolidayEvents(hd, il)</a> ⇒ <code>Array.&lt;Event&gt;</code></dt>
-<dd><p>Filters out Rosh Chodesh and events that don&#39;t occur in this location</p>
 </dd>
 <dt><a href="#getLeyningForParsha">getLeyningForParsha(parsha)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up regular leyning for a weekly parsha with no special readings</p>
@@ -93,9 +85,6 @@ except for Nitzavim-Vayelech</p>
 </dd>
 <dt><a href="#formatAliyahShort">formatAliyahShort(aliyah, showBook)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats an aliyah object like &quot;Numbers 28:9-15&quot;</p>
-</dd>
-<dt><a href="#getDoubledName">getDoubledName(id)</a> ⇒ <code>string</code></dt>
-<dd><p>takes a 0-based (Bereshit=0) parsha ID</p>
 </dd>
 <dt><a href="#getTriennial">getTriennial(year)</a> ⇒ <code><a href="#Triennial">Triennial</a></code></dt>
 <dd><p>Calculates the 3-year readings for a given year</p>
@@ -131,6 +120,7 @@ Triennial Torah readings
     * _instance_
         * [.getReading(parsha, yearNum)](#Triennial+getReading) ⇒ <code>Object.&lt;string, Aliyah&gt;</code>
         * [.getStartYear()](#Triennial+getStartYear) ⇒ <code>number</code>
+        * [.debug()](#Triennial+debug) ⇒ <code>string</code>
     * _static_
         * [.getYearNumber(year)](#Triennial.getYearNumber) ⇒ <code>number</code>
         * [.getCycleStartYear(year)](#Triennial.getCycleStartYear) ⇒ <code>number</code>
@@ -159,6 +149,10 @@ Builds a Triennial object
 <a name="Triennial+getStartYear"></a>
 
 ### triennial.getStartYear() ⇒ <code>number</code>
+**Kind**: instance method of [<code>Triennial</code>](#Triennial)  
+<a name="Triennial+debug"></a>
+
+### triennial.debug() ⇒ <code>string</code>
 **Kind**: instance method of [<code>Triennial</code>](#Triennial)  
 <a name="Triennial.getYearNumber"></a>
 
@@ -190,7 +184,9 @@ Names of the books of the Torah. BOOK[1] === 'Genesis'
 **Kind**: global constant  
 <a name="addSefariaLinksToLeyning"></a>
 
-## addSefariaLinksToLeyning(aliyot, showBook)
+## ~~addSefariaLinksToLeyning(aliyot, showBook)~~
+***Deprecated***
+
 Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
 CAUTION: Modifies the `aliyot` parameter instead of making a copy.
 
@@ -231,6 +227,8 @@ of full kriyah aliyot, special Maftir, special Haftarah
 <a name="makeLeyningSummary"></a>
 
 ## makeLeyningSummary(aliyot) ⇒ <code>string</code>
+Makes a summary of the leyning, like "Genesis 6:9-11:32"
+
 **Kind**: global function  
 
 | Param | Type |
@@ -251,40 +249,6 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | --- | --- | --- |
 | key | <code>string</code> | name from `holiday-readings.json` to find |
 
-<a name="getHaftaraKey"></a>
-
-## getHaftaraKey(parsha) ⇒ <code>string</code>
-on doubled parshiot, read only the second Haftarah
-except for Nitzavim-Vayelech
-
-**Kind**: global function  
-
-| Param | Type |
-| --- | --- |
-| parsha | <code>Array.&lt;string&gt;</code> | 
-
-<a name="getChanukahShabbatKey"></a>
-
-## getChanukahShabbatKey(e, key) ⇒ <code>string</code>
-**Kind**: global function  
-
-| Param | Type |
-| --- | --- |
-| e | <code>Event</code> | 
-| key | <code>string</code> | 
-
-<a name="getHolidayEvents"></a>
-
-## getHolidayEvents(hd, il) ⇒ <code>Array.&lt;Event&gt;</code>
-Filters out Rosh Chodesh and events that don't occur in this location
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| hd | <code>HDate</code> | Hebrew date |
-| il | <code>boolean</code> | in Israel |
-
 <a name="getLeyningForParsha"></a>
 
 ## getLeyningForParsha(parsha) ⇒ [<code>Leyning</code>](#Leyning)
@@ -297,6 +261,10 @@ Looks up regular leyning for a weekly parsha with no special readings
 | --- | --- | --- |
 | parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
 
+<a name="getLeyningForParsha..result"></a>
+
+### getLeyningForParsha~result : [<code>Leyning</code>](#Leyning)
+**Kind**: inner constant of [<code>getLeyningForParsha</code>](#getLeyningForParsha)  
 <a name="getLeyningForParshaHaShavua"></a>
 
 ## getLeyningForParshaHaShavua(ev, [il]) ⇒ [<code>Leyning</code>](#Leyning)
@@ -332,17 +300,6 @@ Formats an aliyah object like "Numbers 28:9-15"
 | --- | --- |
 | aliyah | [<code>Aliyah</code>](#Aliyah) | 
 | showBook | <code>boolean</code> | 
-
-<a name="getDoubledName"></a>
-
-## getDoubledName(id) ⇒ <code>string</code>
-takes a 0-based (Bereshit=0) parsha ID
-
-**Kind**: global function  
-
-| Param | Type |
-| --- | --- |
-| id | <code>number</code> | 
 
 <a name="getTriennial"></a>
 
@@ -396,8 +353,11 @@ Leyning for a parsha hashavua or holiday
 | --- | --- | --- |
 | summary | <code>string</code> |  |
 | haftara | <code>string</code> | Haftarah |
-| sephardic | <code>string</code> | Haftarah for Sephardic |
+| [haftaraNumV] | <code>number</code> |  |
+| [sephardic] | <code>string</code> | Haftarah for Sephardic |
+| [sephardicNumV] | <code>number</code> |  |
 | fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> |  |
+| [weekday] | <code>Object.&lt;string, Aliyah&gt;</code> |  |
 | [reason] | <code>Object</code> |  |
 
 <a name="TriennialAliyot"></a>
