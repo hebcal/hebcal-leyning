@@ -1,7 +1,8 @@
 import {Event, HDate, Sedra, parshiot, flags, months} from '@hebcal/core';
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
-import {BOOK, calculateNumVerses, clone, shallowCopy} from './common';
+import {BOOK, calculateNumVerses, clone, shallowCopy,
+  doubled, getDoubledName} from './common';
 
 /**
  * Represents triennial aliyot for a given date
@@ -15,33 +16,11 @@ import {BOOK, calculateNumVerses, clone, shallowCopy} from './common';
  */
 
 const VEZOT_HABERAKHAH = 'Vezot Haberakhah';
-const doubled = [
-  21, // Vayakhel-Pekudei
-  26, // Tazria-Metzora
-  28, // Achrei Mot-Kedoshim
-  31, // Behar-Bechukotai
-  38, // Chukat-Balak
-  41, // Matot-Masei
-  50, // Nitzavim-Vayeilech
-];
 const isSometimesDoubled = Object.create(null);
 doubled.forEach((id) => {
   isSometimesDoubled[id] = true;
   isSometimesDoubled[id + 1] = true;
 });
-
-/**
- * takes a 0-based (Bereshit=0) parsha ID
- * @private
- * @param {number} id
- * @return {string}
- */
-function getDoubledName(id) {
-  const p1 = parshiot[id];
-  const p2 = parshiot[id + 1];
-  const name = p1 + '-' + p2;
-  return name;
-}
 
 let triennialAliyot;
 

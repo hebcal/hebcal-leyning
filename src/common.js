@@ -1,9 +1,33 @@
+import {parshiot} from '@hebcal/core';
 import numverses from './numverses.json';
 
 /**
  * Names of the books of the Torah. BOOK[1] === 'Genesis'
  */
 export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
+
+export const doubled = [
+  21, // Vayakhel-Pekudei
+  26, // Tazria-Metzora
+  28, // Achrei Mot-Kedoshim
+  31, // Behar-Bechukotai
+  38, // Chukat-Balak
+  41, // Matot-Masei
+  50, // Nitzavim-Vayeilech
+];
+
+/**
+ * takes a 0-based (Bereshit=0) parsha ID
+ * @private
+ * @param {number} id
+ * @return {string}
+ */
+export function getDoubledName(id) {
+  const p1 = parshiot[id];
+  const p2 = parshiot[id + 1];
+  const name = p1 + '-' + p2;
+  return name;
+}
 
 /**
  * Represents an aliyah

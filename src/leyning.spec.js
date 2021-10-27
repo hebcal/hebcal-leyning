@@ -1,5 +1,5 @@
 import test from 'ava';
-import {HDate, HebrewCalendar, Event, months, flags, ParshaEvent} from '@hebcal/core';
+import {HDate, HebrewCalendar, Event, months, flags, ParshaEvent, parshiot} from '@hebcal/core';
 import {
   getLeyningForHoliday,
   getLeyningForParsha,
@@ -7,6 +7,7 @@ import {
   getLeyningKeyForEvent,
   formatAliyahWithBook,
 } from './leyning';
+import {doubled, getDoubledName} from './common';
 
 test('getLeyningKeyForEvent', (t) => {
   const options = {year: 5757, isHebrewYear: true};
@@ -577,4 +578,19 @@ test('getLeyningForParsha-3', (t) => {
     },
   };
   t.deepEqual(reading3, expected3);
+});
+
+test('no-aliyot-lessthan-three', (t) => {
+  const toTest = [].concat(parshiot, doubled.map(getDoubledName));
+  for (const parsha of toTest) {
+    const reading = getLeyningForParsha(parsha);
+    for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
+      t.is(aliyah.v >= 3, true,
+          `${parsha} fullkriyah ${num}: ${aliyah.b}-${aliyah.e} is < 3 verses`);
+    }
+    for (const [num, aliyah] of Object.entries(reading.weekday)) {
+      t.is(aliyah.v >= 3, true,
+          `${parsha} weekday ${num}: ${aliyah.b}-${aliyah.e} is < 3 verses`);
+    }
+  }
 });
