@@ -659,3 +659,13 @@ test('makeLeyningSummary Shabbat Shekalim', (t) => {
   const summary = makeLeyningSummary(fullkriyah, true);
   t.is(summary, 'Exodus 30:11-16');
 });
+
+test('makeLeyningSummary Tzom Gedaliah', (t) => {
+  const fullkriyah = {
+    '1': {'p': 21, 'k': 'Exodus', 'b': '32:11', 'e': '32:14'},
+    '2': {'p': 21, 'k': 'Exodus', 'b': '34:1', 'e': '34:3'},
+    '3': {'p': 21, 'k': 'Exodus', 'b': '34:4', 'e': '34:10'},
+  };
+  const summary = makeLeyningSummary(fullkriyah, true);
+  t.is(summary, 'Exodus 32:11-14, 34:1-10');
+});
