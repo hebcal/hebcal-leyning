@@ -161,10 +161,10 @@ export function getLeyningForHoliday(e, il=false) {
  * @param {string} b
  * @return {boolean}
  */
-function isChapVerseLater(a, b) {
+function isChapVerseBefore(a, b) {
   const cv1 = a.split(':').map((x) => +x);
   const cv2 = b.split(':').map((x) => +x);
-  return (cv1[0]*100 + cv1[1]) > (cv2[0]*100 + cv2[1]);
+  return (cv1[0]*100 + cv1[1]) < (cv2[0]*100 + cv2[1]);
 }
 
 /**
@@ -173,30 +173,7 @@ function isChapVerseLater(a, b) {
  * @return {string}
  */
 export function makeLeyningSummary(aliyot) {
-  const parts = [];
-  let book = null;
-  let begin;
-  let end;
-  let chap;
-  Object.keys(aliyot).forEach((num) => {
-    const aliyah = aliyot[num];
-    const cv = aliyah.e.split(':').map((x) => +x);
-    const sameOrNextChap = cv[0] === chap || cv[0] === chap + 1;
-    if (aliyah.k !== book || !sameOrNextChap) {
-      if (book !== null) {
-        parts.push({k: book, b: begin, e: end});
-      }
-      book = aliyah.k;
-      begin = aliyah.b;
-      end = aliyah.e;
-      chap = cv[0];
-    }
-    if (aliyah.k === book && isChapVerseLater(aliyah.e, end)) {
-      end = aliyah.e;
-      chap = cv[0];
-    }
-  });
-  parts.push({k: book, b: begin, e: end});
+  const parts = makeLeyningParts(aliyot);
   let prev = parts.shift();
   let summary = formatAliyahShort(prev, true);
   parts.forEach((part) => {
@@ -209,6 +186,37 @@ export function makeLeyningSummary(aliyot) {
     prev = part;
   });
   return summary;
+}
+
+/**
+ * @private
+ * @param {Object<string,Aliyah>} aliyot
+ * @return {Aliyah[]}
+ */
+function makeLeyningParts(aliyot) {
+  const nums = Object.keys(aliyot);
+  let start = aliyot[nums[0]];
+  let end = start;
+  const parts = [];
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    const aliyah = aliyot[num];
+    if ((i === nums.length - 1) && (aliyah.k === end.k) && (aliyah.e === end.e)) {
+      // short-circuit when final aliyah is within the previous (e.g. M inside of 7)
+      continue;
+    }
+    const prevEndChap = +(end.e.split(':')[0]);
+    const curStartChap = +(aliyah.b.split(':')[0]);
+    const sameOrNextChap = curStartChap === prevEndChap || curStartChap === prevEndChap + 1;
+    if ((i !== 0) &&
+      (aliyah.k !== start.k || isChapVerseBefore(aliyah.b, start.e) || !sameOrNextChap)) {
+      parts.push({k: start.k, b: start.b, e: end.e});
+      start = aliyah;
+    }
+    end = aliyah;
+  }
+  parts.push({k: start.k, b: start.b, e: end.e});
+  return parts;
 }
 
 /**
