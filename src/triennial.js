@@ -1,4 +1,4 @@
-import {Event, HDate, Sedra, parshiot, flags, months} from '@hebcal/core';
+import {Event, HDate, HebrewCalendar, parshiot, flags, months} from '@hebcal/core';
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
 import {BOOK, calculateNumVerses, clone, shallowCopy,
@@ -43,7 +43,7 @@ export class Triennial {
     this.sedraArray = [];
     this.bereshit = Array(4);
     for (let yr = 0; yr < 4; yr++) {
-      const sedra = new Sedra(this.startYear + yr, false);
+      const sedra = HebrewCalendar.getSedra(this.startYear + yr, false);
       const arr = sedra.getSedraArray();
       this.bereshit[yr] = this.sedraArray.length + arr.indexOf(0);
       this.sedraArray = this.sedraArray.concat(arr);
