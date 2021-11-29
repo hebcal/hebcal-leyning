@@ -29,8 +29,6 @@ export default [
         ],
         exclude: ['node_modules/**'],
       }),
-      nodeResolve(),
-      commonjs(),
     ],
   },
   {
@@ -60,6 +58,8 @@ export default [
     external: ['@hebcal/core'],
     plugins: [
       json({compact: true}),
+      nodeResolve(),
+      commonjs(),
       babel({
         babelHelpers: 'bundled',
         presets: [
@@ -68,19 +68,15 @@ export default [
             exclude: ['es.array.sort', 'es.string.replace', 'es.string.split', 'es.string.match',
               'es.string.trim'],
             targets: {
-              edge: '17',
-              firefox: '60',
-              chrome: '67',
-              safari: '11.1',
+              'chrome': '58',
+              'ie': '11',
             },
             useBuiltIns: 'usage',
             corejs: 3,
           }],
         ],
-        exclude: ['node_modules/**'],
+        exclude: ['node_modules/core-js/**'],
       }),
-      nodeResolve(),
-      commonjs(),
     ],
   },
 ];
