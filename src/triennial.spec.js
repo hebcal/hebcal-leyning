@@ -127,7 +127,7 @@ test('specialReading1', (t) => {
       k: 'Numbers',
       b: '7:48',
       e: '7:59',
-      reason: 'Chanukah (Day 7)',
+      reason: 'Chanukah Day 7',
       v: 12,
     },
   };

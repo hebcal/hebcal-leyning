@@ -38,15 +38,15 @@ test('getLeyningKeyForEvent', (t) => {
     'Rosh Chodesh Cheshvan': 'Rosh Chodesh Cheshvan',
     'Rosh Chodesh Kislev': 'Rosh Chodesh Kislev',
     'Chanukah: 1 Candle': undefined,
-    'Chanukah: 2 Candles': 'Chanukah (Day 1)',
-    'Chanukah: 3 Candles': 'Chanukah (Day 2)',
-    'Chanukah: 4 Candles': 'Chanukah (Day 3)',
-    'Chanukah: 5 Candles': 'Chanukah (Day 4)',
-    'Chanukah: 6 Candles': 'Chanukah (Day 5)',
-    'Chanukah: 7 Candles': 'Chanukah (Day 6)',
+    'Chanukah: 2 Candles': 'Chanukah Day 1',
+    'Chanukah: 3 Candles': 'Chanukah Day 2',
+    'Chanukah: 4 Candles': 'Chanukah Day 3',
+    'Chanukah: 5 Candles': 'Chanukah Day 4',
+    'Chanukah: 6 Candles': 'Chanukah Day 5',
+    'Chanukah: 7 Candles': 'Chanukah Day 6',
     'Rosh Chodesh Tevet': undefined, // to avoid duplicate with Chanukah
-    'Chanukah: 8 Candles': 'Chanukah (Day 7)',
-    'Chanukah: 8th Day': 'Chanukah (Day 8)',
+    'Chanukah: 8 Candles': 'Chanukah Day 7',
+    'Chanukah: 8th Day': 'Chanukah Day 8',
     'Asara B\'Tevet': 'Asara B\'Tevet',
     'Rosh Chodesh Sh\'vat': 'Rosh Chodesh Sh\'vat',
     'Tu BiShvat': undefined,
@@ -169,7 +169,7 @@ test('getLeyningForParshaHaShavua', (t) => {
         break;
       case 'Parashat Vayeshev':
         t.is(a.reason.haftara, 'Shabbat Chanukah');
-        t.is(a.reason.M, 'Chanukah (Day 1)');
+        t.is(a.reason.M, 'Chanukah Day 1');
         t.is(a.haftara, 'Zechariah 2:14-4:7');
         t.is(formatAliyah(a, 'M'), 'Numbers 7:1 - 7:17');
         break;
@@ -195,7 +195,7 @@ test('getLeyningForParshaHaShavua', (t) => {
           },
           reason: {
             haftara: 'Shabbat Chanukah II',
-            M: 'Chanukah (Day 8)',
+            M: 'Chanukah Day 8',
           },
         };
         t.deepEqual(a, expected, 'Shabbat Chanukah II');
@@ -209,7 +209,7 @@ test('getLeyningForParshaHaShavua', (t) => {
   const vayeshev = events2.find((e) => e.getDesc() == 'Parashat Vayeshev');
   let a = getLeyningForParshaHaShavua(vayeshev);
   t.is(a.reason.haftara, 'Shabbat Chanukah');
-  t.is(a.reason['M'], 'Chanukah (Day 2)');
+  t.is(a.reason['M'], 'Chanukah Day 2');
   t.is(a.haftara, 'Zechariah 2:14-4:7');
   t.is(formatAliyah(a, 'M'), 'Numbers 7:18 - 7:29');
 
@@ -641,7 +641,7 @@ test('makeLeyningSummary Shmini Atzeret (on Shabbat)', (t) => {
   t.is(summary, 'Deuteronomy 14:22-16:17; Numbers 29:35-30:1');
 });
 
-test('makeLeyningSummary Chanukah (Day 6)', (t) => {
+test('makeLeyningSummary Chanukah Day 6', (t) => {
   const fullkriyah = {
     '1': {'p': 41, 'k': 'Numbers', 'b': '28:1', 'e': '28:5'},
     '2': {'p': 41, 'k': 'Numbers', 'b': '28:6', 'e': '28:10'},

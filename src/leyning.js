@@ -70,9 +70,9 @@ export function getLeyningKeyForEvent(e, il=false) {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
     } else if (isRoshChodesh && e.chanukahDay == 7) {
-      return `Chanukah (Day 7 on Rosh Chodesh)`;
+      return `Chanukah Day 7 (on Rosh Chodesh)`;
     } else {
-      return `Chanukah (Day ${e.chanukahDay})`;
+      return `Chanukah Day ${e.chanukahDay}`;
     }
   }
 
