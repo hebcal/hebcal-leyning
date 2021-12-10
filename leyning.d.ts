@@ -30,10 +30,14 @@ declare module '@hebcal/leyning' {
     export type Leyning = {
         /** Such as `Genesis 1:1 - 6:8` */
         summary: string;
+        /** Haftarah object */
+        haft: Aliyah | Aliyah[];
         /** Haftarah, such as `Isaiah 42:5 – 43:11` */
         haftara: string;
         /** Number of verses in the Haftarah */
         haftaraNumV?: number;
+        /** Haftarah object */
+        seph?: Aliyah | Aliyah[];
         /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */
         sephardic?: string;
         /** Number of verses in the Haftarah for Sephardim */

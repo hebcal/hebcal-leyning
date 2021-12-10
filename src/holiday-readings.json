@@ -1,5 +1,5 @@
 {"Pesach I":{
- "haftara":"Joshua 5:2 - 6:1",
+ "haft":{"k":"Joshua","b":"5:2","e":"6:1"},
  "fullkriyah":
   {"1":{"p":15,"k":"Exodus","b":"12:21","e":"12:24"},
   "2":{"p":15,"k":"Exodus","b":"12:25","e":"12:28"},
@@ -8,7 +8,7 @@
   "5":{"p":15,"k":"Exodus","b":"12:43","e":"12:51"},
   "M":{"p":41,"k":"Numbers","b":"28:16","e":"28:25"}}},
 "Pesach I (on Shabbat)":{
- "haftara":"Joshua 5:2 - 6:1",
+ "haft":{"k":"Joshua","b":"5:2","e":"6:1"},
  "fullkriyah":
   {"1":{"p":15,"k":"Exodus","b":"12:21","e":"12:24"},
   "2":{"p":15,"k":"Exodus","b":"12:25","e":"12:28"},
@@ -19,7 +19,8 @@
   "7":{"p":15,"k":"Exodus","b":"12:48","e":"12:51"},
   "M":{"p":41,"k":"Numbers","b":"28:16","e":"28:25"}}},
 "Pesach II":{
- "haftara":"II Kings 23:1 - 23:9; 23:21 - 23:25",
+ "haft":[{"k":"II Kings","b":"23:1","e":"23:9"},
+  {"k":"II Kings","b":"23:21","e":"23:25"}],
  "fullkriyah":
   {"1":{"p":31,"k":"Leviticus","b":"22:26","e":"23:3"},
   "2":{"p":31,"k":"Leviticus","b":"23:4","e":"23:14"},
@@ -52,7 +53,7 @@
   "3":{"p":36,"k":"Numbers","b":"9:9","e":"9:14"},
   "4":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Pesach Shabbat Chol ha-Moed":{
- "haftara":"Ezekiel 37:1 - 37:14",
+ "haft":{"k":"Ezekiel","b":"37:1","e":"37:14"},
  "fullkriyah":
   {"1":{"p":21,"k":"Exodus","b":"33:12","e":"33:16"},
   "2":{"p":21,"k":"Exodus","b":"33:17","e":"33:19"},
@@ -63,7 +64,7 @@
   "7":{"p":21,"k":"Exodus","b":"34:18","e":"34:26"},
   "M":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Pesach VII":{
- "haftara":"II Samuel 22:1 - 22:51",
+ "haft":{"k":"II Samuel","b":"22:1","e":"22:51"},
  "fullkriyah":
   {"1":{"p":16,"k":"Exodus","b":"13:17","e":"13:22"},
   "2":{"p":16,"k":"Exodus","b":"14:1","e":"14:8"},
@@ -72,7 +73,7 @@
   "5":{"p":16,"k":"Exodus","b":"14:26","e":"15:26"},
   "M":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Pesach VII (on Shabbat)":{
- "haftara":"II Samuel 22:1 - 22:51",
+ "haft":{"k":"II Samuel","b":"22:1","e":"22:51"},
  "fullkriyah":
   {"1":{"p":16,"k":"Exodus","b":"13:17","e":"13:19"},
   "2":{"p":16,"k":"Exodus","b":"13:20","e":"13:22"},
@@ -83,7 +84,7 @@
   "7":{"p":16,"k":"Exodus","b":"14:26","e":"15:26"},
   "M":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Pesach VIII":{
- "haftara":"Isaiah 10:32 - 12:6",
+ "haft":{"k":"Isaiah","b":"10:32","e":"12:6"},
  "fullkriyah":
   {"1":{"p":47,"k":"Deuteronomy","b":"15:19","e":"15:23"},
   "2":{"p":47,"k":"Deuteronomy","b":"16:1","e":"16:3"},
@@ -92,7 +93,7 @@
   "5":{"p":47,"k":"Deuteronomy","b":"16:13","e":"16:17"},
   "M":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Pesach VIII (on Shabbat)":{
- "haftara":"Isaiah 10:32 - 12:6",
+ "haft":{"k":"Isaiah","b":"10:32","e":"12:6"},
  "fullkriyah":
   {"1":{"p":47,"k":"Deuteronomy","b":"14:22","e":"14:29"},
   "2":{"p":47,"k":"Deuteronomy","b":"15:1","e":"15:18"},
@@ -103,7 +104,8 @@
   "7":{"p":47,"k":"Deuteronomy","b":"16:13","e":"16:17"},
   "M":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Shavuot I":{
- "haftara":"Ezekiel 1:1 - 1:28; 3:12",
+ "haft":[{"k":"Ezekiel","b":"1:1","e":"1:28"},
+  {"k":"Ezekiel","b":"3:12","e":"3:12"}],
  "fullkriyah":
   {"1":{"p":17,"k":"Exodus","b":"19:1","e":"19:6"},
   "2":{"p":17,"k":"Exodus","b":"19:7","e":"19:13"},
@@ -112,7 +114,7 @@
   "5":{"p":17,"k":"Exodus","b":"20:15","e":"20:23"},
   "M":{"p":41,"k":"Numbers","b":"28:26","e":"28:31"}}},
 "Shavuot II":{
- "haftara":"Habakkuk 3:1 - 3:19",
+ "haft":{"k":"Habakkuk","b":"3:1","e":"3:19"},
  "fullkriyah":
   {"1":{"p":47,"k":"Deuteronomy","b":"15:19","e":"15:23"},
   "2":{"p":47,"k":"Deuteronomy","b":"16:1","e":"16:3"},
@@ -121,7 +123,7 @@
   "5":{"p":47,"k":"Deuteronomy","b":"16:13","e":"16:17"},
   "M":{"p":41,"k":"Numbers","b":"28:26","e":"28:31"}}},
 "Shavuot II (on Shabbat)":{
- "haftara":"Habakkuk 3:1 - 3:19",
+ "haft":{"k":"Habakkuk","b":"3:1","e":"3:19"},
  "fullkriyah":
   {"1":{"p":47,"k":"Deuteronomy","b":"14:22","e":"14:29"},
   "2":{"p":47,"k":"Deuteronomy","b":"15:1","e":"15:18"},
@@ -157,13 +159,13 @@
   "2":{"p":21,"k":"Exodus","b":"34:1","e":"34:3"},
   "3":{"p":21,"k":"Exodus","b":"34:4","e":"34:10"}}},
 "Tish'a B'Av":{
- "haftara":"Jeremiah 8:13 - 9:23",
+ "haft":{"k":"Jeremiah","b":"8:13","e":"9:23"},
  "fullkriyah":
   {"1":{"p":45,"k":"Deuteronomy","b":"4:25","e":"4:29"},
   "2":{"p":45,"k":"Deuteronomy","b":"4:30","e":"4:35"},
   "3":{"p":45,"k":"Deuteronomy","b":"4:36","e":"4:40"}}},
 "Rosh Hashana I":{
- "haftara":"I Samuel 1:1 - 2:10",
+ "haft":{"k":"I Samuel","b":"1:1","e":"2:10"},
  "fullkriyah":
   {"1":{"p":4,"k":"Genesis","b":"21:1","e":"21:4"},
   "2":{"p":4,"k":"Genesis","b":"21:5","e":"21:12"},
@@ -172,7 +174,7 @@
   "5":{"p":4,"k":"Genesis","b":"21:28","e":"21:34"},
   "M":{"p":41,"k":"Numbers","b":"29:1","e":"29:6"}}},
 "Rosh Hashana I (on Shabbat)":{
- "haftara":"I Samuel 1:1 - 2:10",
+ "haft":{"k":"I Samuel","b":"1:1","e":"2:10"},
  "fullkriyah":
   {"1":{"p":4,"k":"Genesis","b":"21:1","e":"21:4"},
   "2":{"p":4,"k":"Genesis","b":"21:5","e":"21:8"},
@@ -183,7 +185,7 @@
   "7":{"p":4,"k":"Genesis","b":"21:28","e":"21:34"},
   "M":{"p":41,"k":"Numbers","b":"29:1","e":"29:6"}}},
 "Rosh Hashana II":{
- "haftara":"Jeremiah 31:1 - 31:19",
+ "haft":{"k":"Jeremiah","b":"31:1","e":"31:19"},
  "fullkriyah":
   {"1":{"p":4,"k":"Genesis","b":"22:1","e":"22:3"},
   "2":{"p":4,"k":"Genesis","b":"22:4","e":"22:8"},
@@ -192,7 +194,7 @@
   "5":{"p":4,"k":"Genesis","b":"22:20","e":"22:24"},
   "M":{"p":41,"k":"Numbers","b":"29:1","e":"29:6"}}},
 "Yom Kippur":{
- "haftara":"Isaiah 57:14 - 58:14",
+ "haft":{"k":"Isaiah","b":"57:14","e":"58:14"},
  "fullkriyah":
   {"1":{"p":29,"k":"Leviticus","b":"16:1","e":"16:6"},
   "2":{"p":29,"k":"Leviticus","b":"16:7","e":"16:11"},
@@ -202,7 +204,7 @@
   "6":{"p":29,"k":"Leviticus","b":"16:31","e":"16:34"},
   "M":{"p":41,"k":"Numbers","b":"29:7","e":"29:11"}}},
 "Yom Kippur (on Shabbat)":{
- "haftara":"Isaiah 57:14 - 58:14",
+ "haft":{"k":"Isaiah","b":"57:14","e":"58:14"},
  "fullkriyah":
   {"1":{"p":29,"k":"Leviticus","b":"16:1","e":"16:3"},
   "2":{"p":29,"k":"Leviticus","b":"16:4","e":"16:6"},
@@ -213,19 +215,21 @@
   "7":{"p":29,"k":"Leviticus","b":"16:31","e":"16:34"},
   "M":{"p":41,"k":"Numbers","b":"29:7","e":"29:11"}}},
 "Yom Kippur (Mincha, Traditional)":{
- "haftara":"Jonah 1:1-4:11; Micah 7:18-20",
+ "haft":[{"k":"Jonah","b":"1:1","e":"4:11"},
+  {"k":"Micah","b":"7:18","e":"7:20"}],
  "fullkriyah":
   {"1":{"p":29,"k":"Leviticus","b":"18:1","e":"18:5"},
   "2":{"p":29,"k":"Leviticus","b":"18:6","e":"18:21"},
   "3":{"p":29,"k":"Leviticus","b":"18:22","e":"18:30"}}},
 "Yom Kippur (Mincha, Alternate)":{
- "haftara":"Jonah 1:1-4:11; Micah 7:18-20",
+ "haft":[{"k":"Jonah","b":"1:1","e":"4:11"},
+  {"k":"Micah","b":"7:18","e":"7:20"}],
  "fullkriyah":
   {"1":{"p":30,"k":"Leviticus","b":"19:1","e":"19:4"},
   "2":{"p":30,"k":"Leviticus","b":"19:5","e":"19:10"},
   "3":{"p":30,"k":"Leviticus","b":"19:11","e":"19:18"}}},
 "Sukkot I":{
- "haftara":"Zechariah 14:1 - 14:21",
+ "haft":{"k":"Zechariah","b":"14:1","e":"14:21"},
  "fullkriyah":
   {"1":{"p":31,"k":"Leviticus","b":"22:26","e":"23:3"},
   "2":{"p":31,"k":"Leviticus","b":"23:4","e":"23:14"},
@@ -234,7 +238,7 @@
   "5":{"p":31,"k":"Leviticus","b":"23:33","e":"23:44"},
   "M":{"p":41,"k":"Numbers","b":"29:12","e":"29:16"}}},
 "Sukkot I (on Shabbat)":{
- "haftara":"Zechariah 14:1 - 14:21",
+ "haft":{"k":"Zechariah","b":"14:1","e":"14:21"},
  "fullkriyah":
   {"1":{"p":31,"k":"Leviticus","b":"22:26","e":"22:33"},
   "2":{"p":31,"k":"Leviticus","b":"23:1","e":"23:3"},
@@ -245,7 +249,7 @@
   "7":{"p":31,"k":"Leviticus","b":"23:33","e":"23:44"},
   "M":{"p":41,"k":"Numbers","b":"29:12","e":"29:16"}}},
 "Sukkot II":{
- "haftara":"I Kings 8:2 - 8:21",
+ "haft":{"k":"I Kings","b":"8:2","e":"8:21"},
  "fullkriyah":
   {"1":{"p":31,"k":"Leviticus","b":"22:26","e":"23:3"},
   "2":{"p":31,"k":"Leviticus","b":"23:4","e":"23:14"},
@@ -284,7 +288,7 @@
   "3":{"p":41,"k":"Numbers","b":"29:35","e":"29:37"},
   "4":{"p":41,"k":"Numbers","b":"29:29","e":"29:34"}}},
 "Sukkot Shabbat Chol ha-Moed":{
- "haftara":"Ezekiel 38:18 - 39:16",
+ "haft":{"k":"Ezekiel","b":"38:18","e":"39:16"},
  "fullkriyah":
   {"1":{"p":21,"k":"Exodus","b":"33:12","e":"33:16"},
   "2":{"p":21,"k":"Exodus","b":"33:17","e":"33:19"},
@@ -305,7 +309,7 @@
   "3":{"p":41,"k":"Numbers","b":"29:32","e":"29:34"},
   "4":{"p":41,"k":"Numbers","b":"29:29","e":"29:34"}}},
 "Shmini Atzeret":{
- "haftara":"I Kings 8:54 - 8:66",
+ "haft":{"k":"I Kings","b":"8:54","e":"8:66"},
  "fullkriyah":
   {"1":{"p":47,"k":"Deuteronomy","b":"14:22","e":"14:29"},
   "2":{"p":47,"k":"Deuteronomy","b":"15:1","e":"15:18"},
@@ -314,7 +318,7 @@
   "5":{"p":47,"k":"Deuteronomy","b":"16:9","e":"16:17"},
   "M":{"p":41,"k":"Numbers","b":"29:35","e":"30:1"}}},
 "Shmini Atzeret (on Shabbat)":{
- "haftara":"I Kings 8:54 - 8:66",
+ "haft":{"k":"I Kings","b":"8:54","e":"8:66"},
  "fullkriyah":
   {"1":{"p":47,"k":"Deuteronomy","b":"14:22","e":"14:29"},
   "2":{"p":47,"k":"Deuteronomy","b":"15:1","e":"15:18"},
@@ -332,7 +336,7 @@
   "4":{"p":54,"k":"Deuteronomy","b":"33:18","e":"33:21"},
   "5":{"p":54,"k":"Deuteronomy","b":"33:22","e":"33:26"}}},
 "Simchat Torah":{
- "haftara":"Joshua 1:1 - 1:18",
+ "haft":{"k":"Joshua","b":"1:1","e":"1:18"},
  "fullkriyah":
   {"1":{"p":54,"k":"Deuteronomy","b":"33:1","e":"33:7"},
   "2":{"p":54,"k":"Deuteronomy","b":"33:8","e":"33:12"},
@@ -343,11 +347,11 @@
   "7":{"p":1,"k":"Genesis","b":"1:1","e":"2:3"},
   "M":{"p":41,"k":"Numbers","b":"29:35","e":"30:1"}}},
 "Shabbat Chanukah":{
- "haftara":"Zechariah 2:14-4:7"},
+ "haft":{"k":"Zechariah","b":"2:14","e":"4:7"}},
 "Shabbat Chanukah II":{
- "haftara":"I Kings 7:40-7:50"},
+ "haft":{"k":"I Kings","b":"7:40","e":"7:50"}},
 "Shabbat Rosh Chodesh Chanukah":{
- "haftara":"Zechariah 2:14-4:7",
+ "haft":{"k":"Zechariah","b":"2:14","e":"4:7"},
  "fullkriyah":
   {"7":{"p":41,"k":"Numbers","b":"28:9","e":"28:15"},
   "M":{"p":35,"k":"Numbers","b":"7:42","e":"7:47"}}},
@@ -427,35 +431,37 @@
   "2":{"p":16,"k":"Exodus","b":"17:11","e":"17:13"},
   "3":{"p":16,"k":"Exodus","b":"17:14","e":"17:16"}}},
 "Shabbat HaChodesh":{
- "haftara":"Ezekiel 45:16 - 46:18",
+ "haft":{"k":"Ezekiel","b":"45:16","e":"46:18"},
  "fullkriyah":
   {"M":{"p":15,"k":"Exodus","b":"12:1","e":"12:20"}}},
 "Shabbat HaChodesh (on Rosh Chodesh)":{
- "haftara":"Ezekiel 45:16 - 46:18",
+ "haft":{"k":"Ezekiel","b":"45:16","e":"46:18"},
  "fullkriyah":
   {"7":{"p":41,"k":"Numbers","b":"28:9","e":"28:15"},
   "M":{"p":15,"k":"Exodus","b":"12:1","e":"12:20"}}},
 "Shabbat HaGadol":{
- "haftara":"Malachi 3:4 - 3:24"},
+ "haft":{"k":"Malachi","b":"3:4","e":"3:24"}},
 "Shabbat Nachamu":{
- "haftara":"Isaiah 40:1 - 40:26"},
+ "haft":{"k":"Isaiah","b":"40:1","e":"40:26"}},
 "Shabbat Parah":{
- "haftara":"Ezekiel 36:16 - 36:38",
+ "haft":{"k":"Ezekiel","b":"36:16","e":"36:38"},
  "fullkriyah":
   {"M":{"p":39,"k":"Numbers","b":"19:1","e":"19:22"}}},
 "Shabbat Shekalim":{
- "haftara":"II Kings 12:1 - 12:17",
+ "haft":{"k":"II Kings","b":"12:1","e":"12:17"},
  "fullkriyah":
   {"M":{"p":21,"k":"Exodus","b":"30:11","e":"30:16"}}},
 "Shabbat Shekalim (on Rosh Chodesh)":{
- "haftara":"II Kings 12:1 - 12:17",
+ "haft":{"k":"II Kings","b":"12:1","e":"12:17"},
  "fullkriyah":
   {"7":{"p":41,"k":"Numbers","b":"28:9","e":"28:15"},
   "M":{"p":21,"k":"Exodus","b":"30:11","e":"30:16"}}},
 "Shabbat Shuva":{
- "haftara":"Hosea 14:2-14:10; Micah 7:18-7:20; Joel 2:15-2:27"},
+ "haft":[{"k":"Hosea","b":"14:2","e":"14:10"},
+  {"k":"Micah","b":"7:18","e":"7:20"},
+  {"k":"Joel","b":"2:15","e":"2:27"}]},
 "Shabbat Zachor":{
- "haftara":"I Samuel 15:2 - 15:34",
+ "haft":{"k":"I Samuel","b":"15:2","e":"15:34"},
  "fullkriyah":
   {"M":{"p":49,"k":"Deuteronomy","b":"25:17","e":"25:19"}}},
 "Rosh Chodesh":{
@@ -465,8 +471,8 @@
   "3":{"p":41,"k":"Numbers","b":"28:6","e":"28:10"},
   "4":{"p":41,"k":"Numbers","b":"28:11","e":"28:15"}}},   
 "Shabbat Rosh Chodesh":{
- "haftara":"Isaiah 66:1 - 66:24",
+ "haft":{"k":"Isaiah","b":"66:1","e":"66:24"},
  "fullkriyah":
   {"M":{"p":41,"k":"Numbers","b":"28:9","e":"28:15"}}},
 "Shabbat Machar Chodesh":{
- "haftara":"I Samuel 20:18 - 20:42"}}
+ "haft":{"k":"I Samuel","b":"20:18","e":"20:42"}}}

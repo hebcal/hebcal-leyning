@@ -119,7 +119,7 @@ export function calculateNumVerses(aliyah) {
 
 /**
  * @private
- * @param {any} haftara
+ * @param {string} haftara
  * @return {number}
  */
 export function calculateHaftarahNumVerses(haftara) {

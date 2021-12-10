@@ -113,13 +113,13 @@ test('pinchas17Tamuz', (t) => {
   let ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   let a = getLeyningForParshaHaShavua(ev);
   t.is(a.reason, undefined);
-  t.is(a.haftara, 'I Kings 18:46 - 19:21');
+  t.is(a.haftara, 'I Kings 18:46-19:21');
 
   options.year = 1982;
   events = HebrewCalendar.calendar(options);
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   a = getLeyningForParshaHaShavua(ev);
-  t.is(a.haftara, 'Jeremiah 1:1 - 2:3');
+  t.is(a.haftara, 'Jeremiah 1:1-2:3');
   t.is(a.reason.haftara, 'Pinchas occurring after 17 Tammuz');
 });
 
@@ -138,40 +138,40 @@ test('getLeyningForParshaHaShavua', (t) => {
       case 'Parashat Mishpatim':
         t.is(a.reason.haftara, 'Shabbat Shekalim');
         t.is(a.reason.M, 'Shabbat Shekalim');
-        t.is(a.haftara, 'II Kings 12:1 - 12:17');
-        t.is(formatAliyah(a, 'M'), 'Exodus 30:11 - 30:16');
+        t.is(a.haftara, 'II Kings 12:1-17');
+        t.is(formatAliyah(a, 'M'), 'Exodus 30:11-30:16');
         break;
       case 'Parashat Tetzaveh':
         t.is(a.reason.haftara, 'Shabbat Zachor');
         t.is(a.reason.M, 'Shabbat Zachor');
-        t.is(a.haftara, 'I Samuel 15:2 - 15:34');
-        t.is(formatAliyah(a, 'M'), 'Deuteronomy 25:17 - 25:19');
+        t.is(a.haftara, 'I Samuel 15:2-34');
+        t.is(formatAliyah(a, 'M'), 'Deuteronomy 25:17-25:19');
         break;
       case 'Parashat Ki Tisa':
         t.is(a.reason.haftara, 'Shabbat Parah');
         t.is(a.reason.M, 'Shabbat Parah');
-        t.is(a.haftara, 'Ezekiel 36:16 - 36:38');
-        t.is(formatAliyah(a, 'M'), 'Numbers 19:1 - 19:22');
+        t.is(a.haftara, 'Ezekiel 36:16-38');
+        t.is(formatAliyah(a, 'M'), 'Numbers 19:1-19:22');
         break;
       case 'Parashat Tzav':
         t.is(a.reason.haftara, 'Shabbat HaGadol');
-        t.is(a.haftara, 'Malachi 3:4 - 3:24');
+        t.is(a.haftara, 'Malachi 3:4-24');
         break;
       case 'Parashat Tazria-Metzora':
         t.is(a.reason.haftara, 'Shabbat Rosh Chodesh');
         t.is(a.reason.M, 'Shabbat Rosh Chodesh');
-        t.is(a.haftara, 'Isaiah 66:1 - 66:24');
-        t.is(formatAliyah(a, 'M'), 'Numbers 28:9 - 28:15');
+        t.is(a.haftara, 'Isaiah 66:1-24');
+        t.is(formatAliyah(a, 'M'), 'Numbers 28:9-28:15');
         break;
       case 'Parashat Bamidbar':
         t.is(a.reason.haftara, 'Shabbat Machar Chodesh');
-        t.is(a.haftara, 'I Samuel 20:18 - 20:42');
+        t.is(a.haftara, 'I Samuel 20:18-42');
         break;
       case 'Parashat Vayeshev':
         t.is(a.reason.haftara, 'Shabbat Chanukah');
         t.is(a.reason.M, 'Chanukah Day 1');
         t.is(a.haftara, 'Zechariah 2:14-4:7');
-        t.is(formatAliyah(a, 'M'), 'Numbers 7:1 - 7:17');
+        t.is(formatAliyah(a, 'M'), 'Numbers 7:1-7:17');
         break;
       case 'Parashat Miketz':
         const expected = {
@@ -186,7 +186,13 @@ test('getLeyningForParshaHaShavua', (t) => {
             '7': {k: 'Genesis', b: '43:30', e: '44:17', v: 22},
             'M': {p: 35, k: 'Numbers', b: '7:54', e: '8:4', v: 40},
           },
-          haftara: 'I Kings 7:40-7:50',
+          haft: {
+            k: 'I Kings',
+            b: '7:40',
+            e: '7:50',
+            v: 11,
+          },
+          haftara: 'I Kings 7:40-50',
           haftaraNumV: 11,
           weekday: {
             '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
@@ -211,7 +217,7 @@ test('getLeyningForParshaHaShavua', (t) => {
   t.is(a.reason.haftara, 'Shabbat Chanukah');
   t.is(a.reason['M'], 'Chanukah Day 2');
   t.is(a.haftara, 'Zechariah 2:14-4:7');
-  t.is(formatAliyah(a, 'M'), 'Numbers 7:18 - 7:29');
+  t.is(formatAliyah(a, 'M'), 'Numbers 7:18-7:29');
 
   options.year = 2021;
   options.month = 12;
@@ -228,6 +234,12 @@ test('getLeyningForParshaHaShavua', (t) => {
       '6': {k: 'Genesis', b: '43:16', e: '44:17', v: 36},
       '7': {p: 41, k: 'Numbers', b: '28:9', e: '28:15', v: 7},
       'M': {p: 35, k: 'Numbers', b: '7:42', e: '7:47', v: 6},
+    },
+    haft: {
+      k: 'Zechariah',
+      b: '2:14',
+      e: '4:7',
+      v: 21,
     },
     haftara: 'Zechariah 2:14-4:7',
     haftaraNumV: 21,
@@ -253,9 +265,9 @@ test('getLeyningForParshaHaShavua', (t) => {
   t.is(a.reason.haftara, 'Shabbat HaChodesh (on Rosh Chodesh)');
   t.is(a.reason['7'], 'Shabbat HaChodesh (on Rosh Chodesh)');
   t.is(a.reason['M'], 'Shabbat HaChodesh (on Rosh Chodesh)');
-  t.is(a.haftara, 'Ezekiel 45:16 - 46:18');
-  t.is(formatAliyah(a, '7'), 'Numbers 28:9 - 28:15');
-  t.is(formatAliyah(a, 'M'), 'Exodus 12:1 - 12:20');
+  t.is(a.haftara, 'Ezekiel 45:16-46:18');
+  t.is(formatAliyah(a, '7'), 'Numbers 28:9-28:15');
+  t.is(formatAliyah(a, 'M'), 'Exodus 12:1-12:20');
 });
 
 test('getLeyningForHoliday', (t) => {
@@ -279,9 +291,9 @@ test('getLeyningForHoliday', (t) => {
   const shavuot = events.find((e) => e.getDesc() == 'Shavuot');
   t.is(getLeyningForHoliday(shavuot).fullkriyah['4'].p, 17);
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
-  t.is(getLeyningForHoliday(av9).haftara, 'Jeremiah 8:13 - 9:23');
+  t.is(getLeyningForHoliday(av9).haftara, 'Jeremiah 8:13-9:23');
   const nachamu = events.find((e) => e.getDesc() == 'Shabbat Nachamu');
-  t.is(getLeyningForHoliday(nachamu).haftara, 'Isaiah 40:1 - 40:26');
+  t.is(getLeyningForHoliday(nachamu).haftara, 'Isaiah 40:1-26');
   t.is(getLeyningForHoliday(nachamu).fullkriyah, undefined);
   t.is(getLeyningForHoliday(nachamu).summary, undefined);
 });
@@ -312,7 +324,13 @@ test('getLeyningForHoliday-9av-obvs', (t) => {
       '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
       '3': {p: 45, k: 'Deuteronomy', b: '4:36', e: '4:40', v: 5},
     },
-    haftara: 'Jeremiah 8:13 - 9:23',
+    haft: {
+      b: '8:13',
+      e: '9:23',
+      k: 'Jeremiah',
+      v: 34,
+    },
+    haftara: 'Jeremiah 8:13-9:23',
     haftaraNumV: 34,
   };
   const actual = getLeyningForHoliday(ev);
@@ -322,25 +340,25 @@ test('getLeyningForHoliday-9av-obvs', (t) => {
 test('shmini-atzeret', (t) => {
   const diaspora = HebrewCalendar.calendar({year: 2019, month: 10, il: false});
   const shminiDiaspora = diaspora.find((e) => e.getDesc() == 'Shmini Atzeret');
-  t.is(getLeyningForHoliday(shminiDiaspora, false).haftara, 'I Kings 8:54 - 8:66');
+  t.is(getLeyningForHoliday(shminiDiaspora, false).haftara, 'I Kings 8:54-66');
 
   const israel = HebrewCalendar.calendar({year: 2019, month: 10, il: true});
   const shminiIsrael = israel.find((e) => e.getDesc() == 'Shmini Atzeret');
-  t.is(getLeyningForHoliday(shminiIsrael, true).haftara, 'Joshua 1:1 - 1:18');
+  t.is(getLeyningForHoliday(shminiIsrael, true).haftara, 'Joshua 1:1-18');
 });
 
 test('sukkot-shabbat-chm', (t) => {
   const diaspora = HebrewCalendar.calendar({year: 2019, month: 10, il: false});
   const sukkotShabbatD = diaspora.find((e) => e.getDesc() == 'Sukkot VI (CH\'\'M)');
   const a1 = getLeyningForHoliday(sukkotShabbatD);
-  t.is(a1.haftara, 'Ezekiel 38:18 - 39:16');
-  t.is(formatAliyah(a1, 'M'), 'Numbers 29:26 - 29:31');
+  t.is(a1.haftara, 'Ezekiel 38:18-39:16');
+  t.is(formatAliyah(a1, 'M'), 'Numbers 29:26-29:31');
 
   const israel = HebrewCalendar.calendar({year: 2017, month: 10, il: true});
   const sukkotShabbatIL = israel.find((e) => e.getDesc() == 'Sukkot III (CH\'\'M)');
   const a2 = getLeyningForHoliday(sukkotShabbatIL);
-  t.is(a2.haftara, 'Ezekiel 38:18 - 39:16');
-  t.is(formatAliyah(a2, 'M'), 'Numbers 29:20 - 29:25');
+  t.is(a2.haftara, 'Ezekiel 38:18-39:16');
+  t.is(formatAliyah(a2, 'M'), 'Numbers 29:20-29:25');
 });
 
 test('sephardic', (t) => {
@@ -348,8 +366,8 @@ test('sephardic', (t) => {
   const events = HebrewCalendar.calendar(options);
   const bereshit = events.find((ev) => ev.getDesc() == 'Parashat Bereshit');
   const a = getLeyningForParshaHaShavua(bereshit);
-  t.is(a.haftara, 'Isaiah 42:5 - 43:10');
-  t.is(a.sephardic, 'Isaiah 42:5 - 42:21');
+  t.is(a.haftara, 'Isaiah 42:5-43:10');
+  t.is(a.sephardic, 'Isaiah 42:5-21');
 });
 
 test('no-leyning-on-holiday', (t) => {
@@ -415,7 +433,13 @@ test('pesach-days-567', (t) => {
       '5': {p: 16, k: 'Exodus', b: '14:26', e: '15:26', v: 32},
       'M': {p: 41, k: 'Numbers', b: '28:19', e: '28:25', v: 7},
     },
-    haftara: 'II Samuel 22:1 - 22:51',
+    haft: {
+      b: '22:1',
+      e: '22:51',
+      k: 'II Samuel',
+      v: 51,
+    },
+    haftara: 'II Samuel 22:1-51',
     haftaraNumV: 51,
   }];
   t.deepEqual(result, expected);
@@ -480,23 +504,23 @@ test('longest-holiday-haftarah', (t) => {
 test('masei-rosh-chodesh', (t) => {
   const ev1 = new ParshaEvent(new HDate(1, 'Av', 5781), ['Matot', 'Masei'], false);
   const obj1 = getLeyningForParshaHaShavua(ev1);
-  t.is(obj1.haftara, 'Jeremiah 2:4 - 2:28; Jeremiah 3:4; Isaiah 66:1; Isaiah 66:23');
+  t.is(obj1.haftara, 'Jeremiah 2:4-28, 3:4; Isaiah 66:1, 66:23');
   t.is(obj1.reason.haftara, 'Matot-Masei on Shabbat Rosh Chodesh');
 
   const ev2 = new ParshaEvent(new HDate(2, 'Av', 5782), ['Matot', 'Masei'], false);
   const obj2 = getLeyningForParshaHaShavua(ev2);
-  t.is(obj2.haftara, 'Jeremiah 2:4 - 2:28; 3:4');
+  t.is(obj2.haftara, 'Jeremiah 2:4-28, 3:4');
   t.is(obj2.reason, undefined);
 
   const ev3 = new ParshaEvent(new HDate(1, 'Av', 5812), ['Masei'], false);
   const obj3 = getLeyningForParshaHaShavua(ev3);
-  t.is(obj3.haftara, 'Jeremiah 2:4 - 2:28; Jeremiah 3:4; Isaiah 66:1; Isaiah 66:23');
+  t.is(obj3.haftara, 'Jeremiah 2:4-28, 3:4; Isaiah 66:1, 66:23');
   t.is(obj3.haftaraNumV, 28);
   t.is(obj3.reason.haftara, 'Masei on Shabbat Rosh Chodesh');
 
   const ev4 = new ParshaEvent(new HDate(28, 'Tamuz', 5822), ['Masei'], false);
   const obj4 = getLeyningForParshaHaShavua(ev4);
-  t.is(obj4.haftara, 'Jeremiah 2:4 - 2:28; 3:4');
+  t.is(obj4.haftara, 'Jeremiah 2:4-28, 3:4');
   t.is(obj4.haftaraNumV, 26);
   t.is(obj4.reason, undefined);
 });
@@ -515,7 +539,13 @@ test('getLeyningForParsha-1', (t) => {
       '7': {k: 'Numbers', b: '29:12', e: '30:1', v: 29},
       'M': {k: 'Numbers', b: '29:35', e: '30:1', v: 6},
     },
-    haftara: 'I Kings 18:46 - 19:21',
+    haft: {
+      b: '18:46',
+      e: '19:21',
+      k: 'I Kings',
+      v: 22,
+    },
+    haftara: 'I Kings 18:46-19:21',
     haftaraNumV: 22,
     weekday: {
       '1': {k: 'Numbers', b: '25:10', e: '25:12', v: 3},
@@ -540,7 +570,18 @@ test('getLeyningForParsha-2', (t) => {
       '7': {k: 'Numbers', b: '35:9', e: '36:13', v: 39},
       'M': {k: 'Numbers', b: '36:11', e: '36:13', v: 3},
     },
-    haftara: 'Jeremiah 2:4 - 2:28; 3:4',
+    haft: [{
+      k: 'Jeremiah',
+      b: '2:4',
+      e: '2:28',
+      v: 25,
+    }, {
+      k: 'Jeremiah',
+      b: '3:4',
+      e: '3:4',
+      v: 1,
+    }],
+    haftara: 'Jeremiah 2:4-28, 3:4',
     haftaraNumV: 26,
     weekday: {
       '1': {k: 'Numbers', b: '30:2', e: '30:9', v: 8},
@@ -568,9 +609,31 @@ test('getLeyningForParsha-3', (t) => {
       '7': {k: 'Numbers', b: '36:1', e: '36:13', v: 13},
       'M': {k: 'Numbers', b: '36:11', e: '36:13', v: 3},
     },
-    haftara: 'Jeremiah 2:4 - 2:28; 3:4',
+    haft: [{
+      k: 'Jeremiah',
+      b: '2:4',
+      e: '2:28',
+      v: 25,
+    }, {
+      k: 'Jeremiah',
+      b: '3:4',
+      e: '3:4',
+      v: 1,
+    }],
+    haftara: 'Jeremiah 2:4-28, 3:4',
     haftaraNumV: 26,
-    sephardic: 'Jeremiah 2:4 - 2:28; 4:1 - 4:2',
+    seph: [{
+      b: '2:4',
+      e: '2:28',
+      k: 'Jeremiah',
+      v: 25,
+    }, {
+      b: '4:1',
+      e: '4:2',
+      k: 'Jeremiah',
+      v: 2,
+    }],
+    sephardic: 'Jeremiah 2:4-28, 4:1-2',
     sephardicNumV: 27,
     weekday: {
       '1': {k: 'Numbers', b: '33:1', e: '33:3', v: 3},

@@ -54,14 +54,14 @@ test('getTriennialForParshaHaShavua', (t) => {
   let ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot-Kedoshim');
   let reading = getTriennialForParshaHaShavua(ev);
-  t.is(formatAliyahWithBook(reading['2']), 'Leviticus 16:7 - 16:11');
-  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 17:1 - 17:7');
-  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 17:5 - 17:7');
+  t.is(formatAliyahWithBook(reading['2']), 'Leviticus 16:7-16:11');
+  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 17:1-17:7');
+  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 17:5-17:7');
   ev = events[1];
   t.is(ev.getDesc(), 'Parashat Emor');
   reading = getTriennialForParshaHaShavua(ev);
-  t.is(formatAliyahWithBook(reading['1']), 'Leviticus 21:1 - 21:6');
-  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 22:13 - 22:16');
+  t.is(formatAliyahWithBook(reading['1']), 'Leviticus 21:1-21:6');
+  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 22:13-22:16');
 
   options.start = new Date(2022, 3, 29);
   options.end = new Date(2022, 4, 15);
@@ -69,20 +69,20 @@ test('getTriennialForParshaHaShavua', (t) => {
   ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot');
   reading = getTriennialForParshaHaShavua(ev);
-  t.is(formatAliyahWithBook(reading['2']), 'Leviticus 16:4 - 16:6');
-  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 16:31 - 16:34');
-  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 16:31 - 16:34');
+  t.is(formatAliyahWithBook(reading['2']), 'Leviticus 16:4-16:6');
+  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 16:31-16:34');
+  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 16:31-16:34');
   ev = events[1];
   t.is(ev.getDesc(), 'Parashat Kedoshim');
   reading = getTriennialForParshaHaShavua(ev);
-  t.is(formatAliyahWithBook(reading['1']), 'Leviticus 19:15 - 19:18');
-  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 20:23 - 20:27');
-  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 20:25 - 20:27');
+  t.is(formatAliyahWithBook(reading['1']), 'Leviticus 19:15-19:18');
+  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 20:23-20:27');
+  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 20:25-20:27');
   ev = events[2];
   t.is(ev.getDesc(), 'Parashat Emor');
   reading = getTriennialForParshaHaShavua(ev);
-  t.is(formatAliyahWithBook(reading['1']), 'Leviticus 23:23 - 23:25');
-  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 24:21 - 24:23');
+  t.is(formatAliyahWithBook(reading['1']), 'Leviticus 23:23-23:25');
+  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 24:21-24:23');
 
   options.start = new Date(2022, 9, 1);
   options.end = new Date(2022, 9, 1);

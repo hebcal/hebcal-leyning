@@ -184,15 +184,16 @@ function getFullKriyahLines(reading) {
   }
   let specialHaftara = false;
   if (reading.haftara) {
-    let aliyah = reading.haftara;
+    let haftara = reading.haftara.replace(/,/g, ';');
     if (reading.reason && reading.reason.haftara) {
       specialHaftara = true;
-      aliyah += ' | ' + reading.reason.haftara;
+      haftara += ' | ' + reading.reason.haftara;
     }
-    lines.push(['Haftara', aliyah, reading.haftaraNumV || '']);
+    lines.push(['Haftara', haftara, reading.haftaraNumV || '']);
   }
   if (reading.sephardic && !specialHaftara) {
-    lines.push(['Haftara for Sephardim', reading.sephardic, reading.sephardicNumV || '']);
+    const sephardic = reading.sephardic.replace(/,/g, ';');
+    lines.push(['Haftara for Sephardim', sephardic, reading.sephardicNumV || '']);
   }
   return lines;
 }

@@ -1,5 +1,5 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
-import {BOOK, calculateNumVerses, calculateHaftarahNumVerses, clone} from './common';
+import {BOOK, calculateNumVerses, clone} from './common';
 import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
@@ -18,8 +18,10 @@ import parshiyotObj from './aliyot.json';
  * Leyning for a parsha hashavua or holiday
  * @typedef {Object} Leyning
  * @property {string} summary
+ * @property {Aliyah} haft - Haftarah
  * @property {string} haftara - Haftarah
  * @property {number} [haftaraNumV]
+ * @property {Aliyah} [seph] - Haftarah for Sephardic
  * @property {string} [sephardic] - Haftarah for Sephardic
  * @property {number} [sephardicNumV]
  * @property {Object<string,Aliyah>} fullkriyah
@@ -174,9 +176,19 @@ function isChapVerseBefore(a, b) {
  */
 export function makeLeyningSummary(aliyot) {
   const parts = makeLeyningParts(aliyot);
-  let prev = parts.shift();
+  return makeSummaryFromParts(parts);
+}
+
+/**
+ * @private
+ * @param {Aliyah[]} parts
+ * @return {string}
+ */
+function makeSummaryFromParts(parts) {
+  let prev = parts[0];
   let summary = formatAliyahShort(prev, true);
-  parts.forEach((part) => {
+  for (let i = 1; i < parts.length; i++) {
+    const part = parts[i];
     if (part.k === prev.k) {
       summary += ', ';
     } else {
@@ -184,8 +196,23 @@ export function makeLeyningSummary(aliyot) {
     }
     summary += formatAliyahShort(part, false);
     prev = part;
-  });
+  }
   return summary;
+}
+
+/**
+ * @private
+ * @param {Aliyah|Aliyah[]} haft
+ * @return {string}
+ */
+function makeHaftaraSummary(haft) {
+  if (!haft) {
+    return haft;
+  }
+  const parts = Array.isArray(haft) ? haft : [haft];
+  const str = makeSummaryFromParts(parts);
+  // return str.replace(/-/g, ' - ');
+  return str;
 }
 
 /**
@@ -220,6 +247,33 @@ function makeLeyningParts(aliyot) {
 }
 
 /**
+ * @private
+ * @param {Object.<string,string>} haft
+ * @return {Object.<string,string>}
+ */
+function cloneHaftara(haft) {
+  if (!haft) {
+    return haft;
+  }
+  const dest = clone(haft);
+  if (Array.isArray(dest)) {
+    dest.map(calculateNumVerses);
+  } else {
+    calculateNumVerses(dest);
+  }
+  return dest;
+}
+
+/**
+ * @private
+ * @param {Aliyah|Aliyah[]} haft
+ * @return {number}
+ */
+function calculateHaftaraNumV(haft) {
+  return Array.isArray(haft) ? haft.reduce((prev, cur) => prev + cur.v, 0) : haft.v;
+}
+
+/**
  * Looks up leyning for a given holiday key. Key should be an
  * (untranslated) string used in holiday-readings.json. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
@@ -245,12 +299,10 @@ export function getLeyningForHolidayKey(key) {
     leyning.fullkriyah = clone(src.fullkriyah);
     Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   }
-  if (src.haftara) {
-    leyning.haftara = src.haftara;
-    const numv = calculateHaftarahNumVerses(leyning.haftara);
-    if (numv) {
-      leyning.haftaraNumV = numv;
-    }
+  if (src.haft) {
+    const haft = leyning.haft = cloneHaftara(src.haft);
+    leyning.haftara = makeHaftaraSummary(haft);
+    leyning.haftaraNumV = calculateHaftaraNumV(haft);
   }
   return leyning;
 }
@@ -357,13 +409,18 @@ function getSpecialHaftara(ev) {
     const month = hd.getMonth();
     if (month > months.TAMUZ || (month === months.TAMUZ && day > 17)) {
       return {
-        haftara: 'Jeremiah 1:1 - 2:3',
+        haft: {k: 'Jeremiah', b: '1:1', e: '2:3'},
         reason: 'Pinchas occurring after 17 Tammuz',
       };
     }
   } else if ((day === 30 || day === 1) && (name === 'Masei' || name === 'Matot-Masei')) {
     return {
-      haftara: 'Jeremiah 2:4 - 2:28; Jeremiah 3:4; Isaiah 66:1; Isaiah 66:23',
+      haft: [
+        {k: 'Jeremiah', b: '2:4', e: '2:28'},
+        {k: 'Jeremiah', b: '3:4', e: '3:4'},
+        {k: 'Isaiah', b: '66:1', e: '66:1'},
+        {k: 'Isaiah', b: '66:23', e: '66:23'},
+      ],
       reason: `${name} on Shabbat Rosh Chodesh`,
     };
   }
@@ -392,26 +449,22 @@ export function getLeyningForParsha(parsha) {
   });
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   const parshaNameArray = isParshaString ? raw.combined ? [raw.p1, raw.p2] : [parsha] : parsha;
-  const hkey = getHaftaraKey(parshaNameArray);
-  const haftara = parshiyotObj[hkey].haftara;
   /** @type {Leyning} */
   const result = {
     summary: makeLeyningSummary(fullkriyah),
     fullkriyah: fullkriyah,
-    haftara: haftara,
   };
-  if (haftara) {
-    const numv = calculateHaftarahNumVerses(haftara);
-    if (numv) {
-      result.haftaraNumV = numv;
-    }
+  const hkey = getHaftaraKey(parshaNameArray);
+  const haft0 = parshiyotObj[hkey].haft;
+  if (haft0) {
+    const haft = result.haft = cloneHaftara(haft0);
+    result.haftara = makeHaftaraSummary(haft);
+    result.haftaraNumV = calculateHaftaraNumV(haft);
   }
-  if (raw.sephardic) {
-    result.sephardic = raw.sephardic;
-    const numv = calculateHaftarahNumVerses(raw.sephardic);
-    if (numv) {
-      result.sephardicNumV = numv;
-    }
+  if (raw.seph) {
+    const seph = result.seph = cloneHaftara(raw.seph);
+    result.sephardic = makeHaftaraSummary(seph);
+    result.sephardicNumV = calculateHaftaraNumV(seph);
   }
   const weekdaySrc = raw.weekday || parshiyotObj[parshaNameArray[0]].weekday;
   if (weekdaySrc) {
@@ -444,27 +497,28 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   const reason = Object.create(null);
   const hd = ev.getDate();
   // Now, check for special maftir or haftara on same date
-  const origHaftara = result.haftara;
   const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason);
+  let updateHaftaraSummary = false;
   if (specialHaftara) {
-    result.haftara = specialHaftara;
+    result.haft = cloneHaftara(specialHaftara);
+    updateHaftaraSummary = true;
   }
   if (reason['7'] || reason['M']) {
     result.summary = makeLeyningSummary(result.fullkriyah);
   }
   const specialHaftara2 = getSpecialHaftara(ev);
   if (specialHaftara2) {
-    result.haftara = specialHaftara2.haftara;
+    result.haft = cloneHaftara(specialHaftara2.haft);
+    updateHaftaraSummary = true;
     reason.haftara = specialHaftara2.reason;
-  }
-  if (origHaftara !== result.haftara) {
-    const numv = calculateHaftarahNumVerses(result.haftara);
-    if (numv) {
-      result.haftaraNumV = numv;
-    }
   }
   if (Object.keys(reason).length) {
     result.reason = reason;
+  }
+  if (updateHaftaraSummary) {
+    const haft = result.haft;
+    result.haftara = makeHaftaraSummary(haft);
+    result.haftaraNumV = calculateHaftaraNumV(haft);
   }
   return result;
 }
@@ -478,13 +532,15 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
  * @return {string}
  */
 export function specialReadings(hd, il, aliyot, reason) {
-  let haftara;
+  let haft;
+  let specialHaft = false;
 
   // eslint-disable-next-line require-jsdoc
   function handleSpecial(special, key) {
-    if (special.haftara && !reason.haftara) {
-      haftara = special.haftara;
+    if (special.haft && !specialHaft) {
+      haft = cloneHaftara(special.haft);
       reason.haftara = key;
+      specialHaft = true;
     }
     if (special.fullkriyah) {
       mergeAliyotWithSpecial(aliyot, special.fullkriyah);
@@ -504,7 +560,8 @@ export function specialReadings(hd, il, aliyot, reason) {
         // only for Shabbat Chanukah I or Shabbat Chanukah II. Note
         // this section doesn't apply to Shabbat Rosh Chodesh Chanukah; that
         // case gets handled below with the mergeAliyotWithSpecial() logic
-        haftara = festivals[shabbatChanukah].haftara;
+        haft = cloneHaftara(festivals[shabbatChanukah].haft);
+        specialHaft = true;
         reason.haftara = shabbatChanukah;
         // Aliyot 1-3 from regular daily reading becomes Maftir
         const maftir = aliyot['M'] = clone(special.fullkriyah['1']);
@@ -516,7 +573,7 @@ export function specialReadings(hd, il, aliyot, reason) {
       }
     }
   });
-  if (!haftara) {
+  if (!haft) {
     const day = hd.getDate();
     if (day === 30 || day === 1) {
       const key = 'Shabbat Rosh Chodesh';
@@ -531,16 +588,16 @@ export function specialReadings(hd, il, aliyot, reason) {
       }
     }
   }
-  return haftara;
+  return haft;
 }
 
 /**
- * Formats an aliyah object like "Numbers 28:9 - 28:15"
+ * Formats an aliyah object like "Numbers 28:9-28:15"
  * @param {Aliyah} a aliyah
  * @return {string}
  */
 export function formatAliyahWithBook(a) {
-  return `${a.k} ${a.b} - ${a.e}`;
+  return `${a.k} ${a.b}-${a.e}`;
 }
 
 /**
@@ -550,9 +607,14 @@ export function formatAliyahWithBook(a) {
  * @return {string}
  */
 export function formatAliyahShort(aliyah, showBook) {
-  const cv1 = aliyah.b.split(':');
-  const cv2 = aliyah.e.split(':');
-  const end = cv1[0] === cv2[0] ? cv2[1] : aliyah.e;
+  const begin = aliyah.b;
+  const end0 = aliyah.e;
   const prefix = showBook ? aliyah.k + ' ' : '';
-  return `${prefix}${aliyah.b}-${end}`;
+  if (begin === end0) {
+    return `${prefix}${begin}`;
+  }
+  const cv1 = begin.split(':');
+  const cv2 = end0.split(':');
+  const end = cv1[0] === cv2[0] ? cv2[1] : end0;
+  return `${prefix}${begin}-${end}`;
 }
