@@ -176,6 +176,10 @@ test('getLeyningForParshaHaShavua', (t) => {
       case 'Parashat Miketz':
         const expected = {
           summary: 'Genesis 41:1-44:17; Numbers 7:54-8:4',
+          summaryParts: [
+            {k: 'Genesis', b: '41:1', e: '44:17'},
+            {k: 'Numbers', b: '7:54', e: '8:4'},
+          ],
           fullkriyah: {
             '1': {k: 'Genesis', b: '41:1', e: '41:14', v: 14},
             '2': {k: 'Genesis', b: '41:15', e: '41:38', v: 24},
@@ -235,6 +239,11 @@ test('getLeyningForParshaHaShavua', (t) => {
       '7': {p: 41, k: 'Numbers', b: '28:9', e: '28:15', v: 7},
       'M': {p: 35, k: 'Numbers', b: '7:42', e: '7:47', v: 6},
     },
+    summaryParts: [
+      {k: 'Genesis', b: '41:1', e: '44:17'},
+      {k: 'Numbers', b: '28:9', e: '28:15'},
+      {k: 'Numbers', b: '7:42', e: '7:47'},
+    ],
     haft: {
       k: 'Zechariah',
       b: '2:14',
@@ -407,6 +416,10 @@ test('pesach-days-567', (t) => {
   const result = events.map((ev) => getLeyningForHoliday(ev, false));
   const expected = [{
     summary: 'Exodus 34:1-26; Numbers 28:19-25',
+    summaryParts: [
+      {k: 'Exodus', b: '34:1', e: '34:26'},
+      {k: 'Numbers', b: '28:19', e: '28:25'},
+    ],
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '34:1', e: '34:10', v: 10},
       '2': {p: 21, k: 'Exodus', b: '34:11', e: '34:17', v: 7},
@@ -416,6 +429,10 @@ test('pesach-days-567', (t) => {
   },
   {
     summary: 'Numbers 9:1-14, 28:19-25',
+    summaryParts: [
+      {k: 'Numbers', b: '9:1', e: '9:14'},
+      {k: 'Numbers', b: '28:19', e: '28:25'},
+    ],
     fullkriyah: {
       '1': {p: 36, k: 'Numbers', b: '9:1', e: '9:5', v: 5},
       '2': {p: 36, k: 'Numbers', b: '9:6', e: '9:8', v: 3},
@@ -425,6 +442,10 @@ test('pesach-days-567', (t) => {
   },
   {
     summary: 'Exodus 13:17-15:26; Numbers 28:19-25',
+    summaryParts: [
+      {k: 'Exodus', b: '13:17', e: '15:26'},
+      {k: 'Numbers', b: '28:19', e: '28:25'},
+    ],
     fullkriyah: {
       '1': {p: 16, k: 'Exodus', b: '13:17', e: '13:22', v: 6},
       '2': {p: 16, k: 'Exodus', b: '14:1', e: '14:8', v: 8},
@@ -454,6 +475,10 @@ test('israel-sukkot-chm-day5', (t) => {
   const sukkotChmDay5 = getLeyningForHoliday(israel[0], true);
   t.deepEqual(sukkotChmDay5, {
     summary: 'Numbers 29:29-37, 29:29-34',
+    summaryParts: [
+      {k: 'Numbers', b: '29:29', e: '29:37'},
+      {k: 'Numbers', b: '29:29', e: '29:34'},
+    ],
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '29:29', e: '29:31', v: 3},
       '2': {p: 41, k: 'Numbers', b: '29:32', e: '29:34', v: 3},

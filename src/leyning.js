@@ -184,7 +184,7 @@ export function makeLeyningSummary(aliyot) {
  * @param {Aliyah[]} parts
  * @return {string}
  */
-function makeSummaryFromParts(parts) {
+export function makeSummaryFromParts(parts) {
   let prev = parts[0];
   let summary = formatAliyahShort(prev, true);
   for (let i = 1; i < parts.length; i++) {
@@ -220,7 +220,7 @@ function makeHaftaraSummary(haft) {
  * @param {Object<string,Aliyah>} aliyot
  * @return {Aliyah[]}
  */
-function makeLeyningParts(aliyot) {
+export function makeLeyningParts(aliyot) {
   const nums = Object.keys(aliyot);
   let start = aliyot[nums[0]];
   let end = start;
@@ -294,7 +294,11 @@ export function getLeyningForHolidayKey(key) {
   const leyning = Object.create(null);
   if (src.fullkriyah) {
     if (typeof src.fullkriyah['1'] === 'object') {
-      leyning.summary = makeLeyningSummary(src.fullkriyah);
+      const parts = makeLeyningParts(src.fullkriyah);
+      leyning.summary = makeSummaryFromParts(parts);
+      if (parts.length > 1) {
+        leyning.summaryParts = parts;
+      }
     }
     leyning.fullkriyah = clone(src.fullkriyah);
     Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
@@ -449,11 +453,16 @@ export function getLeyningForParsha(parsha) {
   });
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   const parshaNameArray = isParshaString ? raw.combined ? [raw.p1, raw.p2] : [parsha] : parsha;
+  const parts = makeLeyningParts(fullkriyah);
+  const summary = makeSummaryFromParts(parts);
   /** @type {Leyning} */
   const result = {
-    summary: makeLeyningSummary(fullkriyah),
+    summary,
     fullkriyah: fullkriyah,
   };
+  if (parts.length > 1) {
+    result.summaryParts = parts;
+  }
   const hkey = getHaftaraKey(parshaNameArray);
   const haft0 = parshiyotObj[hkey].haft;
   if (haft0) {
@@ -504,7 +513,9 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
     updateHaftaraSummary = true;
   }
   if (reason['7'] || reason['M']) {
-    result.summary = makeLeyningSummary(result.fullkriyah);
+    const parts = makeLeyningParts(result.fullkriyah);
+    result.summary = makeSummaryFromParts(parts);
+    result.summaryParts = parts;
   }
   const specialHaftara2 = getSpecialHaftara(ev);
   if (specialHaftara2) {

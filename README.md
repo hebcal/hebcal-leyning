@@ -81,7 +81,7 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dd><p>Looks up leyning for a regular Shabbat parsha.</p>
 </dd>
 <dt><a href="#formatAliyahWithBook">formatAliyahWithBook(a)</a> ⇒ <code>string</code></dt>
-<dd><p>Formats an aliyah object like &quot;Numbers 28:9 - 28:15&quot;</p>
+<dd><p>Formats an aliyah object like &quot;Numbers 28:9-28:15&quot;</p>
 </dd>
 <dt><a href="#formatAliyahShort">formatAliyahShort(aliyah, showBook)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats an aliyah object like &quot;Numbers 28:9-15&quot;</p>
@@ -281,7 +281,7 @@ Looks up leyning for a regular Shabbat parsha.
 <a name="formatAliyahWithBook"></a>
 
 ## formatAliyahWithBook(a) ⇒ <code>string</code>
-Formats an aliyah object like "Numbers 28:9 - 28:15"
+Formats an aliyah object like "Numbers 28:9-28:15"
 
 **Kind**: global function  
 
@@ -352,8 +352,10 @@ Leyning for a parsha hashavua or holiday
 | Name | Type | Description |
 | --- | --- | --- |
 | summary | <code>string</code> |  |
+| haft | [<code>Aliyah</code>](#Aliyah) | Haftarah |
 | haftara | <code>string</code> | Haftarah |
 | [haftaraNumV] | <code>number</code> |  |
+| [seph] | [<code>Aliyah</code>](#Aliyah) | Haftarah for Sephardic |
 | [sephardic] | <code>string</code> | Haftarah for Sephardic |
 | [sephardicNumV] | <code>number</code> |  |
 | fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> |  |
