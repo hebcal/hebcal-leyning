@@ -73,14 +73,14 @@ test('writeTriennialEvent-parsha', (t) => {
   writeTriennialEvent(stream, ev);
   const lines = stream.toString().split('\r\n');
   const expected = [
-    '30-Apr-2022,"Achrei Mot",1,"Leviticus 16:1-16:3",3',
-    '30-Apr-2022,"Achrei Mot",2,"Leviticus 16:4-16:6",3',
-    '30-Apr-2022,"Achrei Mot",3,"Leviticus 16:7-16:11",5',
-    '30-Apr-2022,"Achrei Mot",4,"Leviticus 16:12-16:17",6',
-    '30-Apr-2022,"Achrei Mot",5,"Leviticus 16:18-16:24",7',
-    '30-Apr-2022,"Achrei Mot",6,"Leviticus 16:25-16:30",6',
-    '30-Apr-2022,"Achrei Mot",7,"Leviticus 16:31-16:34",4',
-    '30-Apr-2022,"Achrei Mot","maf","Leviticus 16:31-16:34",4',
+    '30-Apr-2022,"Achrei Mot",1,"Leviticus 17:1-17:7",7',
+    '30-Apr-2022,"Achrei Mot",2,"Leviticus 17:8-17:12",5',
+    '30-Apr-2022,"Achrei Mot",3,"Leviticus 17:13-17:16",4',
+    '30-Apr-2022,"Achrei Mot",4,"Leviticus 18:1-18:5",5',
+    '30-Apr-2022,"Achrei Mot",5,"Leviticus 18:6-18:21",16',
+    '30-Apr-2022,"Achrei Mot",6,"Leviticus 18:22-18:25",4',
+    '30-Apr-2022,"Achrei Mot",7,"Leviticus 18:26-18:30",5',
+    '30-Apr-2022,"Achrei Mot","maf","Leviticus 18:26-18:30",5',
     '30-Apr-2022,"Achrei Mot","Haftara","I Samuel 20:18-42 | Shabbat Machar Chodesh",25',
     '', ''];
   t.deepEqual(lines, expected);

@@ -69,9 +69,17 @@ test('getTriennialForParshaHaShavua', (t) => {
   ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot');
   reading = getTriennialForParshaHaShavua(ev);
-  t.is(formatAliyahWithBook(reading['2']), 'Leviticus 16:4-16:6');
-  t.is(formatAliyahWithBook(reading['7']), 'Leviticus 16:31-16:34');
-  t.is(formatAliyahWithBook(reading['M']), 'Leviticus 16:31-16:34');
+  const expected0 = {
+    '1': {k: 'Leviticus', b: '17:1', e: '17:7', v: 7},
+    '2': {k: 'Leviticus', b: '17:8', e: '17:12', v: 5},
+    '3': {k: 'Leviticus', b: '17:13', e: '17:16', v: 4},
+    '4': {k: 'Leviticus', b: '18:1', e: '18:5', v: 5},
+    '5': {k: 'Leviticus', b: '18:6', e: '18:21', v: 16},
+    '6': {k: 'Leviticus', b: '18:22', e: '18:25', v: 4},
+    '7': {k: 'Leviticus', b: '18:26', e: '18:30', v: 5},
+    'M': {k: 'Leviticus', b: '18:26', e: '18:30', v: 5},
+  };
+  t.deepEqual(reading, expected0);
   ev = events[1];
   t.is(ev.getDesc(), 'Parashat Kedoshim');
   reading = getTriennialForParshaHaShavua(ev);
