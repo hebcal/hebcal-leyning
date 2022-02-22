@@ -3,6 +3,27 @@ Javascript Torah Reading API for Parashat HaShavua and holidays
 
 [![Build Status](https://circleci.com/gh/hebcal/hebcal-leyning.svg?style=svg)](https://circleci.com/gh/hebcal/hebcal-leyning)
 
+This package includes both traditional (full kriyah), triennial and weekday
+Torah readings.
+
+“Many congregations pattern their weekly Torah reading cycle after a system
+similar to the one used in ancient Israel during the rabbinic period. In
+this system, the traditional parashiot are each divided into three shorter
+segments, and the whole Torah is completed once every three years. The
+system has both advantages and disadvantages, but its ability to shorten
+the length of Torah reading without sacrificing the complete reading of the
+Torah on a regular basis has made it the choice of some synagogues in the
+Conservative Movement.”
+
+[A Complete Triennial System for Reading the Torah, Committee on Jewish Law and Standards of the Rabbinical Assembly](https://www.rabbinicalassembly.org/sites/default/files/public/halakhah/teshuvot/19861990/eisenberg_triennial.pdf)
+
+Update December 2021: In November 2020, the CJLS modified the triennial
+cycle for some combined parshiyot to change the reading for year 3 to be
+the third section of the parashah.
+
+[Modification of the Triennial Cycle Readings for Combined Parashot in Certain Years](https://www.rabbinicalassembly.org/sites/default/files/2021-09/cohen-triennial.pdf), Rabbi Miles B. Cohen
+
+
 ## Installation
 ```bash
 $ npm install @hebcal/leyning
@@ -324,6 +345,14 @@ Looks up the triennial leyning for this Parashat HaShavua
 | --- | --- | --- | --- |
 | ev | <code>Event</code> |  |  |
 | [context] | <code>boolean</code> | <code>false</code> | returns a reading wrapper object which includes `date`, `yearNum` and `aliyot` |
+
+<a name="getTriennialForParshaHaShavua..reason"></a>
+
+### getTriennialForParshaHaShavua~reason
+**Kind**: inner constant of [<code>getTriennialForParshaHaShavua</code>](#getTriennialForParshaHaShavua)  
+**Todo**
+
+- [ ] update unit tests instead
 
 <a name="Aliyah"></a>
 
