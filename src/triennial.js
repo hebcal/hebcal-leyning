@@ -339,7 +339,6 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
     throw new ReferenceError(`Can't load reading for ${name} in ${hyear} (year number ${yearNum})`);
   }
   const aliyotMap = shallowCopy({}, reading.aliyot);
-  delete aliyotMap.H; /** @todo update unit tests instead */
   // possibly replace 7th aliyah and/or maftir
   const reason = Object.create(null);
   specialReadings(hd, false, aliyotMap, reason);
