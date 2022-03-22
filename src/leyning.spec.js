@@ -156,7 +156,7 @@ test('pesach-il', (t) => {
   const expected = [
     {h: 'Erev Pesach', s: undefined},
     {h: 'Pesach I', s: 'Exodus 12:21-51; Numbers 28:16-25'},
-    {h: 'Pesach II (CH\'\'M)', s: 'Leviticus 22:26-23:44; Numbers 28:16-25'},
+    {h: 'Pesach II (CH\'\'M)', s: 'Leviticus 22:26-23:44; Numbers 28:19-25'},
     {h: 'Pesach III (CH\'\'M)', s: 'Exodus 13:1-16; Numbers 28:19-25'},
     {h: 'Pesach IV (CH\'\'M)', s: 'Exodus 22:24-23:19; Numbers 28:19-25'},
     {h: 'Pesach V (CH\'\'M)', s: 'Exodus 34:1-26; Numbers 28:19-25'},
