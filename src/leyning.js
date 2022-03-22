@@ -36,22 +36,33 @@ import parshiyotObj from './aliyot.json';
  * @return {string} key to look up in holiday-reading.json
  */
 export function getLeyningKeyForEvent(e, il=false) {
-  if (e.getFlags() & HOLIDAY_IGNORE_MASK) {
+  const mask = e.getFlags();
+  if (mask & HOLIDAY_IGNORE_MASK) {
+    return undefined;
+  }
+  // Skip all Erevs except for Simchat Torah
+  const desc = e.getDesc();
+  if (mask & flags.EREV && desc !== 'Erev Simchat Torah') {
     return undefined;
   }
   const hd = e.getDate();
   const day = hd.getDate();
-  const desc = e.getDesc();
   const dow = hd.abs() % 7;
   const month = hd.getMonth();
   const isShabbat = (dow == 6);
   const isRoshChodesh = (day == 1 || day == 30);
-
+  const holiday = e.basename();
+  const isPesach = holiday === 'Pesach';
+  if (il && isPesach) {
+    if (isShabbat) {
+      return day === 15 || day === 21 ? desc + ' (on Shabbat)' : 'Pesach Shabbat Chol ha-Moed';
+    }
+    return desc;
+  }
   if (day == 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
   } else if (e.cholHaMoedDay) {
     // Sukkot or Pesach
-    const holiday = desc.substring(0, desc.indexOf(' '));
     if (isShabbat) {
       return holiday + ' Shabbat Chol ha-Moed';
     } else if (desc == 'Sukkot VII (Hoshana Raba)') {
@@ -60,7 +71,7 @@ export function getLeyningKeyForEvent(e, il=false) {
     // If Shabbat falls on the third day of Chol ha-Moed Pesach,
     // the readings for the third, fourth, and fifth days are moved ahead
     let cholHaMoedDay = e.cholHaMoedDay;
-    if (holiday == 'Pesach' && cholHaMoedDay >= 3) {
+    if (isPesach && cholHaMoedDay >= 3) {
       if (dow == 0 && cholHaMoedDay == 4) {
         cholHaMoedDay = 3;
       } else if (dow == 1 && cholHaMoedDay == 5) {
@@ -287,9 +298,15 @@ export function getLeyningForHolidayKey(key) {
   if (key.length > 14 && key.substring(0, 13) === 'Rosh Chodesh ') {
     key = 'Rosh Chodesh';
   }
-  const src = festivals[key];
+  let src = festivals[key];
   if (typeof src === 'undefined') {
     return undefined;
+  }
+  if (src.alias) {
+    src = festivals[src.key];
+    if (typeof src === 'undefined') {
+      throw new Error(`Leying key ${key} => ${src.key} not found`);
+    }
   }
   const leyning = Object.create(null);
   if (src.fullkriyah) {

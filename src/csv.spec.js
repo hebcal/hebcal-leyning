@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import test from 'ava';
 import {Writable} from 'stream';
-import {HDate, Event, ParshaEvent, months, flags} from '@hebcal/core';
+import {HDate, HolidayEvent, RoshChodeshEvent, ParshaEvent, months, flags} from '@hebcal/core';
 import {writeFullKriyahEvent, writeTriennialEvent} from './csv';
 
 class StringWritable extends Writable {
@@ -38,7 +38,7 @@ test('writeFullKriyahEvent-parsha', (t) => {
 });
 
 test('writeFullKriyahEvent-holiday', (t) => {
-  const ev = new Event(new HDate(18, months.NISAN, 5763),
+  const ev = new HolidayEvent(new HDate(18, months.NISAN, 5763),
       'Pesach IV (CH\'\'M)', flags.CHUL_ONLY, {cholHaMoedDay: 2});
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
@@ -52,9 +52,23 @@ test('writeFullKriyahEvent-holiday', (t) => {
   t.deepEqual(lines, expected);
 });
 
+test('writeFullKriyahEvent-holiday-il', (t) => {
+  const ev = new HolidayEvent(new HDate(18, months.NISAN, 5763),
+      'Pesach IV (CH\'\'M)', flags.IL_ONLY, {cholHaMoedDay: 3});
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, true);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    `20-Apr-2003,"Pesach IV (CH''M)",1,"Exodus 22:24-22:26",3`,
+    `20-Apr-2003,"Pesach IV (CH''M)",2,"Exodus 22:27-23:5",9`,
+    `20-Apr-2003,"Pesach IV (CH''M)",3,"Exodus 23:6-23:19",14`,
+    `20-Apr-2003,"Pesach IV (CH''M)",4,"Numbers 28:19-28:25",7`,
+    '', ''];
+  t.deepEqual(lines, expected);
+});
+
 test('writeFullKriyahEvent-RoshChodesh', (t) => {
-  const ev = new Event(new HDate(1, months.SIVAN, 5782),
-      'Rosh Chodesh Sivan', flags.ROSH_CHODESH);
+  const ev = new RoshChodeshEvent(new HDate(1, months.SIVAN, 5782), 'Sivan');
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
   const lines = stream.toString().split('\r\n');
@@ -87,7 +101,7 @@ test('writeTriennialEvent-parsha', (t) => {
 });
 
 test('writeTriennialEvent-holiday', (t) => {
-  const ev = new Event(new HDate(6, months.SIVAN, 5777),
+  const ev = new HolidayEvent(new HDate(6, months.SIVAN, 5777),
       'Shavuot I', flags.CHAG | flags.LIGHT_CANDLES_TZEIS | flags.CHUL_ONLY);
   const stream = new StringWritable();
   writeTriennialEvent(stream, ev);

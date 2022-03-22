@@ -100,6 +100,139 @@ test('getLeyningKeyForEvent', (t) => {
   t.deepEqual(keys, expected);
 });
 
+test('getLeyningKeyForEvent-pesach-il', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5780, isHebrewYear: true, il: true, numYears: 3});
+  const events = events0.filter((ev) => ev.basename() === 'Pesach');
+  const actual = [];
+  for (const ev of events) {
+    actual.push({
+      d: ev.getDate().greg().toISOString().substring(0, 10),
+      h: ev.getDesc(),
+      k: getLeyningKeyForEvent(ev, true),
+    });
+  }
+  const expected = [
+    {d: '2020-04-08', h: 'Erev Pesach', k: undefined},
+    {d: '2020-04-09', h: 'Pesach I', k: 'Pesach I'},
+    {d: '2020-04-10', h: 'Pesach II (CH\'\'M)', k: 'Pesach II (CH\'\'M)'},
+    {d: '2020-04-11', h: 'Pesach III (CH\'\'M)', k: 'Pesach Shabbat Chol ha-Moed'},
+    {d: '2020-04-12', h: 'Pesach IV (CH\'\'M)', k: 'Pesach IV (CH\'\'M)'},
+    {d: '2020-04-13', h: 'Pesach V (CH\'\'M)', k: 'Pesach V (CH\'\'M)'},
+    {d: '2020-04-14', h: 'Pesach VI (CH\'\'M)', k: 'Pesach VI (CH\'\'M)'},
+    {d: '2020-04-15', h: 'Pesach VII', k: 'Pesach VII'},
+
+    {d: '2021-03-27', h: 'Erev Pesach', k: undefined},
+    {d: '2021-03-28', h: 'Pesach I', k: 'Pesach I'},
+    {d: '2021-03-29', h: 'Pesach II (CH\'\'M)', k: 'Pesach II (CH\'\'M)'},
+    {d: '2021-03-30', h: 'Pesach III (CH\'\'M)', k: 'Pesach III (CH\'\'M)'},
+    {d: '2021-03-31', h: 'Pesach IV (CH\'\'M)', k: 'Pesach IV (CH\'\'M)'},
+    {d: '2021-04-01', h: 'Pesach V (CH\'\'M)', k: 'Pesach V (CH\'\'M)'},
+    {d: '2021-04-02', h: 'Pesach VI (CH\'\'M)', k: 'Pesach VI (CH\'\'M)'},
+    {d: '2021-04-03', h: 'Pesach VII', k: 'Pesach VII (on Shabbat)'},
+
+    {d: '2022-04-15', h: 'Erev Pesach', k: undefined},
+    {d: '2022-04-16', h: 'Pesach I', k: 'Pesach I (on Shabbat)'},
+    {d: '2022-04-17', h: 'Pesach II (CH\'\'M)', k: 'Pesach II (CH\'\'M)'},
+    {d: '2022-04-18', h: 'Pesach III (CH\'\'M)', k: 'Pesach III (CH\'\'M)'},
+    {d: '2022-04-19', h: 'Pesach IV (CH\'\'M)', k: 'Pesach IV (CH\'\'M)'},
+    {d: '2022-04-20', h: 'Pesach V (CH\'\'M)', k: 'Pesach V (CH\'\'M)'},
+    {d: '2022-04-21', h: 'Pesach VI (CH\'\'M)', k: 'Pesach VI (CH\'\'M)'},
+    {d: '2022-04-22', h: 'Pesach VII', k: 'Pesach VII'},
+  ];
+  t.deepEqual(actual, expected);
+});
+
+test('pesach-il', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5782, isHebrewYear: true, il: true});
+  const events = events0.filter((ev) => ev.basename() === 'Pesach');
+  const actual = [];
+  for (const ev of events) {
+    const reading = getLeyningForHoliday(ev, true);
+    actual.push({
+      h: ev.getDesc(),
+      s: reading && reading.summary,
+    });
+  }
+  const expected = [
+    {h: 'Erev Pesach', s: undefined},
+    {h: 'Pesach I', s: 'Exodus 12:21-51; Numbers 28:16-25'},
+    {h: 'Pesach II (CH\'\'M)', s: 'Leviticus 22:26-23:44; Numbers 28:16-25'},
+    {h: 'Pesach III (CH\'\'M)', s: 'Exodus 13:1-16; Numbers 28:19-25'},
+    {h: 'Pesach IV (CH\'\'M)', s: 'Exodus 22:24-23:19; Numbers 28:19-25'},
+    {h: 'Pesach V (CH\'\'M)', s: 'Exodus 34:1-26; Numbers 28:19-25'},
+    {h: 'Pesach VI (CH\'\'M)', s: 'Numbers 9:1-14, 28:19-25'},
+    {h: 'Pesach VII', s: 'Exodus 13:17-15:26; Numbers 28:19-25'},
+  ];
+  t.deepEqual(actual, expected);
+});
+
+test('pesach-shabbat-chm-on-3rd-day', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5784, isHebrewYear: true, il: false});
+  const events = events0.filter((ev) => ev.basename() === 'Pesach');
+  const actual = [];
+  for (const ev of events) {
+    const reading = getLeyningForHoliday(ev, true);
+    actual.push({
+      d: ev.getDate().greg().toISOString().substring(0, 10),
+      h: ev.getDesc(),
+      k: getLeyningKeyForEvent(ev, false),
+      s: reading && reading.summary,
+    });
+  }
+  const expected = [
+    {d: '2024-04-22', h: 'Erev Pesach', k: undefined, s: undefined},
+    {
+      d: '2024-04-23',
+      h: 'Pesach I',
+      k: 'Pesach I',
+      s: 'Exodus 12:21-51; Numbers 28:16-25',
+    },
+    {
+      d: '2024-04-24',
+      h: 'Pesach II',
+      k: 'Pesach II',
+      s: 'Leviticus 22:26-23:44; Numbers 28:16-25',
+    },
+    {
+      d: '2024-04-25',
+      h: 'Pesach III (CH\'\'M)',
+      k: 'Pesach Chol ha-Moed Day 1',
+      s: 'Exodus 13:1-16; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-26',
+      h: 'Pesach IV (CH\'\'M)',
+      k: 'Pesach Chol ha-Moed Day 2',
+      s: 'Exodus 22:24-23:19; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-27',
+      h: 'Pesach V (CH\'\'M)',
+      k: 'Pesach Shabbat Chol ha-Moed',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-28',
+      h: 'Pesach VI (CH\'\'M)',
+      k: 'Pesach Chol ha-Moed Day 3',
+      s: 'Numbers 9:1-14, 28:19-25',
+    },
+    {
+      d: '2024-04-29',
+      h: 'Pesach VII',
+      k: 'Pesach VII',
+      s: 'Exodus 13:17-15:26; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-30',
+      h: 'Pesach VIII',
+      k: 'Pesach VIII',
+      s: 'Deuteronomy 15:19-16:17; Numbers 28:19-25',
+    },
+  ];
+  t.deepEqual(actual, expected);
+});
+
 /*
 7/18/1981 16th of Tamuz, 5741
 7/18/1981 Parashat Pinchas
