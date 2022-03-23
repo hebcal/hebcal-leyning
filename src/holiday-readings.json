@@ -29,11 +29,11 @@
   "5":{"p":31,"k":"Leviticus","b":"23:33","e":"23:44"},
   "M":{"p":41,"k":"Numbers","b":"28:16","e":"28:25"}}},
 "Pesach II (CH''M)":{
- "note":"Israel only - TODO check aliyot boundaries",
+ "note":"Israel only - according to Vaani T'fillati Siddur Yisraeli",
  "fullkriyah":
-  {"1":{"p":31,"k":"Leviticus","b":"22:26","e":"23:14"},
-  "2":{"p":31,"k":"Leviticus","b":"23:15","e":"23:32"},
-  "3":{"p":31,"k":"Leviticus","b":"23:33","e":"23:44"},
+  {"1":{"p":31,"k":"Leviticus","b":"22:26","e":"23:8"},
+  "2":{"p":31,"k":"Leviticus","b":"23:9","e":"23:14"},
+  "3":{"p":31,"k":"Leviticus","b":"23:15","e":"23:44"},
   "4":{"p":41,"k":"Numbers","b":"28:19","e":"28:25"}}},
 "Pesach Chol ha-Moed Day 1":{
  "fullkriyah":
