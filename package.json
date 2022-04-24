@@ -31,7 +31,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^3.34.1"
+    "@hebcal/core": "^3.35.0"
   },
   "scripts": {
     "build": "rollup -c",
@@ -56,12 +56,12 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/register": "^7.17.7",
     "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^21.1.0",
+    "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.2.1",
     "ava": "^4.2.0",
-    "core-js": "^3.22.1",
-    "eslint": "^8.13.0",
+    "core-js": "^3.22.2",
+    "eslint": "^8.14.0",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^3.6.10",
     "jsdoc-to-markdown": "^7.1.1",
