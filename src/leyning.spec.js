@@ -2,6 +2,7 @@ import test from 'ava';
 import {HDate, HebrewCalendar, Event, months, flags, ParshaEvent, parshiot} from '@hebcal/core';
 import {
   getLeyningForHoliday,
+  getLeyningForHolidayKey,
   getLeyningForParsha,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
@@ -889,4 +890,34 @@ test('makeLeyningSummary Tzom Gedaliah', (t) => {
   };
   const summary = makeLeyningSummary(fullkriyah, true);
   t.is(summary, 'Exodus 32:11-14, 34:1-10');
+});
+
+test('Sukkot Shabbat Chol ha-Moed', (t) => {
+  const hd = new HDate(20, 'Tishrei', 5783);
+  const events = HebrewCalendar.calendar({
+    start: hd,
+    end: hd,
+  });
+  const reading = getLeyningForHoliday(events[0]);
+  const expected = {
+    fullkriyah: {
+      '1': {p: 21, k: 'Exodus', b: '33:12', e: '33:16', v: 5},
+      '2': {p: 21, k: 'Exodus', b: '33:17', e: '33:19', v: 3},
+      '3': {p: 21, k: 'Exodus', b: '33:20', e: '33:23', v: 4},
+      '4': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
+      '5': {p: 21, k: 'Exodus', b: '34:4', e: '34:10', v: 7},
+      '6': {p: 21, k: 'Exodus', b: '34:11', e: '34:17', v: 7},
+      '7': {p: 21, k: 'Exodus', b: '34:18', e: '34:26', v: 9},
+      'M': {p: 41, k: 'Numbers', b: '29:26', e: '29:31', v: 6},
+    },
+    summary: 'Exodus 33:12-34:26; Numbers 29:26-31',
+    summaryParts: [
+      {k: 'Exodus', b: '33:12', e: '34:26'},
+      {k: 'Numbers', b: '29:26', e: '29:31'},
+    ],
+    haft: {k: 'Ezekiel', b: '38:18', e: '39:16', v: 22},
+    haftara: 'Ezekiel 38:18-39:16',
+    haftaraNumV: 22,
+  };
+  t.deepEqual(reading, expected);
 });

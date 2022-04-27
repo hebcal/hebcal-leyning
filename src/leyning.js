@@ -150,7 +150,7 @@ const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_ME
  * @return {Leyning} map of aliyot
  */
 export function getLeyningForHoliday(e, il=false) {
-  if (!e instanceof Event) {
+  if (typeof e !== 'object' || !(e instanceof Event)) {
     throw new TypeError(`Bad event argument: ${e}`);
   } else if (e.getFlags() & flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event should be a holiday: ${e.getDesc()}`);
@@ -158,13 +158,7 @@ export function getLeyningForHoliday(e, il=false) {
     return undefined;
   }
   const key = getLeyningKeyForEvent(e, il);
-  const leyning = getLeyningForHolidayKey(key);
-  if (key === 'Sukkot Shabbat Chol ha-Moed') {
-    leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${e.cholHaMoedDay}`];
-    for (let day = 1; day <= 5; day++) {
-      delete leyning.fullkriyah[`M-day${day}`];
-    }
-  }
+  const leyning = getLeyningForHolidayKey(key, e.cholHaMoedDay);
   return leyning;
 }
 
@@ -232,7 +226,7 @@ function makeHaftaraSummary(haft) {
  * @return {Aliyah[]}
  */
 export function makeLeyningParts(aliyot) {
-  const nums = Object.keys(aliyot);
+  const nums = Object.keys(aliyot).filter((x) => x.length === 1);
   let start = aliyot[nums[0]];
   let end = start;
   const parts = [];
@@ -289,9 +283,10 @@ function calculateHaftaraNumV(haft) {
  * (untranslated) string used in holiday-readings.json. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
  * @param {string} key name from `holiday-readings.json` to find
+ * @param {number} [cholHaMoedDay]
  * @return {Leyning} map of aliyot
  */
-export function getLeyningForHolidayKey(key) {
+export function getLeyningForHolidayKey(key, cholHaMoedDay) {
   if (typeof key !== 'string') {
     return undefined;
   }
@@ -310,14 +305,20 @@ export function getLeyningForHolidayKey(key) {
   }
   const leyning = Object.create(null);
   if (src.fullkriyah) {
-    if (typeof src.fullkriyah['1'] === 'object') {
-      const parts = makeLeyningParts(src.fullkriyah);
+    leyning.fullkriyah = clone(src.fullkriyah);
+    if (key === 'Sukkot Shabbat Chol ha-Moed' && cholHaMoedDay) {
+      leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${cholHaMoedDay}`];
+      for (let day = 1; day <= 5; day++) {
+        delete leyning.fullkriyah[`M-day${day}`];
+      }
+    }
+    if (typeof leyning.fullkriyah['1'] === 'object') {
+      const parts = makeLeyningParts(leyning.fullkriyah);
       leyning.summary = makeSummaryFromParts(parts);
       if (parts.length > 1) {
         leyning.summaryParts = parts;
       }
     }
-    leyning.fullkriyah = clone(src.fullkriyah);
     Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
   }
   if (src.haft) {
