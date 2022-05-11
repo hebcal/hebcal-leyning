@@ -2,7 +2,6 @@ import test from 'ava';
 import {HDate, HebrewCalendar, Event, months, flags, ParshaEvent, parshiot} from '@hebcal/core';
 import {
   getLeyningForHoliday,
-  getLeyningForHolidayKey,
   getLeyningForParsha,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
