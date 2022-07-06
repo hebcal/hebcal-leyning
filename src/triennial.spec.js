@@ -1,7 +1,7 @@
 import test from 'ava';
 import {HebrewCalendar, HDate} from '@hebcal/core';
 import {Triennial, getTriennialForParshaHaShavua} from './triennial';
-import {formatAliyahWithBook} from './leyning';
+import {formatAliyahWithBook} from './common';
 
 test('triennial', (t) => {
   const tri = new Triennial(5777);
@@ -257,8 +257,17 @@ test('emor-5746', (t) => {
       '7': {k: 'Leviticus', b: '24:13', e: '24:23', v: 11},
       'M': {k: 'Leviticus', b: '24:21', e: '24:23', v: 3},
     },
-    date: new HDate(725143),
+    date: new HDate(options.start),
     yearNum: 2,
+    haft: [
+      {b: '1:1', e: '1:7', k: 'Nachum', v: 7,
+        note: 'Judah shall observe its festivals // complete festival calendar'},
+      {b: '2:1', e: '2:3', k: 'Nachum', v: 3},
+      {b: '2:2b', e: '2:3a', k: 'Nachum', v: 2},
+    ],
+    haftara: 'Nachum 1:1-7, 2:1-3, 2:2b-3a',
+    haftaraNumV: 12,
+
   };
   t.deepEqual(reading, expected);
 });

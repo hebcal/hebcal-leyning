@@ -1,5 +1,6 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
-import {BOOK, calculateNumVerses, clone} from './common';
+import {BOOK, calculateNumVerses, clone, cloneHaftara,
+  makeHaftaraSummary, makeSummaryFromParts, calculateHaftaraNumV} from './common';
 import festivals from './holiday-readings.json';
 import parshiyotObj from './aliyot.json';
 
@@ -186,42 +187,6 @@ export function makeLeyningSummary(aliyot) {
 
 /**
  * @private
- * @param {Aliyah[]} parts
- * @return {string}
- */
-export function makeSummaryFromParts(parts) {
-  let prev = parts[0];
-  let summary = formatAliyahShort(prev, true);
-  for (let i = 1; i < parts.length; i++) {
-    const part = parts[i];
-    if (part.k === prev.k) {
-      summary += ', ';
-    } else {
-      summary += `; ${part.k} `;
-    }
-    summary += formatAliyahShort(part, false);
-    prev = part;
-  }
-  return summary;
-}
-
-/**
- * @private
- * @param {Aliyah|Aliyah[]} haft
- * @return {string}
- */
-function makeHaftaraSummary(haft) {
-  if (!haft) {
-    return haft;
-  }
-  const parts = Array.isArray(haft) ? haft : [haft];
-  const str = makeSummaryFromParts(parts);
-  // return str.replace(/-/g, ' - ');
-  return str;
-}
-
-/**
- * @private
  * @param {Object<string,Aliyah>} aliyot
  * @return {Aliyah[]}
  */
@@ -249,33 +214,6 @@ export function makeLeyningParts(aliyot) {
   }
   parts.push({k: start.k, b: start.b, e: end.e});
   return parts;
-}
-
-/**
- * @private
- * @param {Object.<string,string>} haft
- * @return {Object.<string,string>}
- */
-function cloneHaftara(haft) {
-  if (!haft) {
-    return haft;
-  }
-  const dest = clone(haft);
-  if (Array.isArray(dest)) {
-    dest.map(calculateNumVerses);
-  } else {
-    calculateNumVerses(dest);
-  }
-  return dest;
-}
-
-/**
- * @private
- * @param {Aliyah|Aliyah[]} haft
- * @return {number}
- */
-function calculateHaftaraNumV(haft) {
-  return Array.isArray(haft) ? haft.reduce((prev, cur) => prev + cur.v, 0) : haft.v;
 }
 
 /**
@@ -620,30 +558,3 @@ export function specialReadings(hd, il, aliyot, reason) {
   return haft;
 }
 
-/**
- * Formats an aliyah object like "Numbers 28:9-28:15"
- * @param {Aliyah} a aliyah
- * @return {string}
- */
-export function formatAliyahWithBook(a) {
-  return `${a.k} ${a.b}-${a.e}`;
-}
-
-/**
- * Formats an aliyah object like "Numbers 28:9-15"
- * @param {Aliyah} aliyah
- * @param {boolean} showBook
- * @return {string}
- */
-export function formatAliyahShort(aliyah, showBook) {
-  const begin = aliyah.b;
-  const end0 = aliyah.e;
-  const prefix = showBook ? aliyah.k + ' ' : '';
-  if (begin === end0) {
-    return `${prefix}${begin}`;
-  }
-  const cv1 = begin.split(':');
-  const cv2 = end0.split(':');
-  const end = cv1[0] === cv2[0] ? cv2[1] : end0;
-  return `${prefix}${begin}-${end}`;
-}

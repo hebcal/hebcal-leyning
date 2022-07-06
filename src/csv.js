@@ -1,6 +1,7 @@
 import {HebrewCalendar, flags} from '@hebcal/core';
 import {getLeyningForParshaHaShavua, getLeyningForHoliday,
-  formatAliyahWithBook, getLeyningKeyForEvent} from './leyning';
+  getLeyningKeyForEvent} from './leyning';
+import {formatAliyahWithBook} from './common';
 import {getTriennialForParshaHaShavua} from './triennial';
 
 const fmt = new Intl.DateTimeFormat('en-US', {

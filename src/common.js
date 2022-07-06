@@ -96,10 +96,10 @@ export function calculateNumVerses(aliyah) {
   }
   const chapVerseBegin = aliyah.b.split(':');
   const chapVerseEnd = aliyah.e.split(':');
-  const c1 = +chapVerseBegin[0];
-  const c2 = +chapVerseEnd[0];
-  const v1 = +chapVerseBegin[1];
-  const v2 = +chapVerseEnd[1];
+  const c1 = parseInt(chapVerseBegin[0], 10);
+  const c2 = parseInt(chapVerseEnd[0], 10);
+  const v1 = parseInt(chapVerseBegin[1], 10);
+  const v2 = parseInt(chapVerseEnd[1], 10);
   if (c1 === c2) {
     aliyah.v = v2 - v1 + 1;
   } else if (typeof aliyah.k === 'string') {
@@ -146,4 +146,95 @@ export function calculateHaftarahNumVerses(haftara) {
     }
   });
   return total || undefined;
+}
+
+/**
+ * Formats an aliyah object like "Numbers 28:9-28:15"
+ * @param {Aliyah} a aliyah
+ * @return {string}
+ */
+export function formatAliyahWithBook(a) {
+  return `${a.k} ${a.b}-${a.e}`;
+}
+
+/**
+ * Formats an aliyah object like "Numbers 28:9-15"
+ * @param {Aliyah} aliyah
+ * @param {boolean} showBook
+ * @return {string}
+ */
+export function formatAliyahShort(aliyah, showBook) {
+  const begin = aliyah.b;
+  const end0 = aliyah.e;
+  const prefix = showBook ? aliyah.k + ' ' : '';
+  if (begin === end0) {
+    return `${prefix}${begin}`;
+  }
+  const cv1 = begin.split(':');
+  const cv2 = end0.split(':');
+  const end = cv1[0] === cv2[0] ? cv2[1] : end0;
+  return `${prefix}${begin}-${end}`;
+}
+
+/**
+ * @private
+ * @param {Aliyah[]} parts
+ * @return {string}
+ */
+export function makeSummaryFromParts(parts) {
+  let prev = parts[0];
+  let summary = formatAliyahShort(prev, true);
+  for (let i = 1; i < parts.length; i++) {
+    const part = parts[i];
+    if (part.k === prev.k) {
+      summary += ', ';
+    } else {
+      summary += `; ${part.k} `;
+    }
+    summary += formatAliyahShort(part, false);
+    prev = part;
+  }
+  return summary;
+}
+
+/**
+ * @private
+ * @param {Aliyah|Aliyah[]} haft
+ * @return {string}
+ */
+export function makeHaftaraSummary(haft) {
+  if (!haft) {
+    return haft;
+  }
+  const parts = Array.isArray(haft) ? haft : [haft];
+  const str = makeSummaryFromParts(parts);
+  // return str.replace(/-/g, ' - ');
+  return str;
+}
+
+/**
+ * @private
+ * @param {Aliyah|Aliyah[]} haft
+ * @return {number}
+ */
+export function calculateHaftaraNumV(haft) {
+  return Array.isArray(haft) ? haft.reduce((prev, cur) => prev + cur.v, 0) : haft.v;
+}
+
+/**
+ * @private
+ * @param {Object.<string,string>} haft
+ * @return {Object.<string,string>}
+ */
+export function cloneHaftara(haft) {
+  if (!haft) {
+    return haft;
+  }
+  const dest = clone(haft);
+  if (Array.isArray(dest)) {
+    dest.map(calculateNumVerses);
+  } else {
+    calculateNumVerses(dest);
+  }
+  return dest;
 }

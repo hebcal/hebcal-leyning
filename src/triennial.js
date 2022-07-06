@@ -2,7 +2,9 @@ import {Event, HDate, HebrewCalendar, parshiot, flags, months} from '@hebcal/cor
 import {parshaToString, specialReadings} from './leyning';
 import parshiyotObj from './aliyot.json';
 import {BOOK, calculateNumVerses, clone, shallowCopy,
+  cloneHaftara, makeHaftaraSummary, calculateHaftaraNumV,
   doubled, getDoubledName} from './common';
+import triennialHaft from './triennial-haft.json';
 
 /**
  * Represents triennial aliyot for a given date
@@ -350,6 +352,12 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   if (context) {
     reading.yearNum = yearNum;
     reading.aliyot = aliyotMap;
+    const triHaft = triennialHaft[name];
+    if (typeof triHaft === 'object') {
+      const haft = reading.haft = cloneHaftara(triHaft[yearNum + 1]);
+      reading.haftara = makeHaftaraSummary(haft);
+      reading.haftaraNumV = calculateHaftaraNumV(haft);
+    }
     return reading;
   }
   return aliyotMap;

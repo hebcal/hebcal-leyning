@@ -5,10 +5,9 @@ import {
   getLeyningForParsha,
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
-  formatAliyahWithBook,
   makeLeyningSummary,
 } from './leyning';
-import {doubled, getDoubledName} from './common';
+import {doubled, getDoubledName, formatAliyahWithBook} from './common';
 
 test('getLeyningKeyForEvent', (t) => {
   const options = {year: 5757, isHebrewYear: true};
