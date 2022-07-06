@@ -25,7 +25,7 @@
  "3":{"k":"I Kings","b":"1:11","e":"1:31","note":"David's old age // Abraham's"}
 },
 "Toldot":{
- "1":{"k":"Malakhi","b":"1:1","e":"1:14","note":"Jacob / Esau"},
+ "1":{"k":"Malachi","b":"1:1","e":"1:14","note":"Jacob / Esau"},
  "2":{"k":"II Samuel","b":"19:32","e":"19:40","note":"Barzilay infirm in old age // Isaac"},
  "3":[{"k":"Judges","b":"3:15","e":"3:27","note":"Ehud's ploy // Jacob's ploy"},
   {"k":"Judges","b":"3:30","e":"3:30"}]
@@ -132,7 +132,7 @@
 "Vayikra":{
  "1":{"k":"Isaiah","b":"43:21","e":"44:8","note":"sacrifices"},
  "2":{"k":"I Samuel","b":"2:13","e":"2:26","note":"misbehaving kohanim // if a priest sins"},
- "3":{"k":"Malakhi","b":"2:13","e":"3:4","note":"sinfulness ruins offering // sin offerings"}
+ "3":{"k":"Malachi","b":"2:13","e":"3:4","note":"sinfulness ruins offering // sin offerings"}
 },
 "Tzav":{
  "1":[{"k":"Jeremiah","b":"7:21","e":"7:28","note":"justice over sacrifices // sacrifices at Tabernacle"},
@@ -167,8 +167,8 @@
 },
 "Emor":{
  "1":{"k":"Ezekiel","b":"44:15","e":"44:24","note":"the conduct of kohanim"},
- "2":[{"k":"Malakhi","b":"2:1","e":"2:10","note":"conduct of kohanim / chillul hashem // particularly vs. 22:31-32"},
-  {"k":"Malakhi","b":"2:7","e":"2:7"}],
+ "2":[{"k":"Malachi","b":"2:1","e":"2:10","note":"conduct of kohanim / chillul hashem // particularly vs. 22:31-32"},
+  {"k":"Malachi","b":"2:7","e":"2:7"}],
  "3":[{"k":"Nachum","b":"1:1","e":"1:7","note":"Judah shall observe its festivals // complete festival calendar"},
   {"k":"Nachum","b":"2:1","e":"2:3"},
   {"k":"Nachum","b":"2:2b","e":"2:3a"}]
@@ -182,7 +182,7 @@
  "1":{"k":"Jeremiah","b":"17:1","e":"17:14","note":"blessings and curses // tokhechah"},
  "2":[{"k":"Jeremiah","b":"16:9","e":"16:15","note":"desolation and redemption // tokhechah"},
   {"k":"Jeremiah","b":"16:19","e":"16:21"}],
- "3":{"k":"Malakhi","b":"3:5","e":"3:12","note":"curses and blessings // tokhechah"}
+ "3":{"k":"Malachi","b":"3:5","e":"3:12","note":"curses and blessings // tokhechah"}
 },
 "Bamidbar":{
  "1":[{"k":"Hosea","b":"2:1","e":"2:7","note":"number, lead thru desert as after Egypt // census, desert wanderings"},
