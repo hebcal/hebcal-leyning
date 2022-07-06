@@ -11,7 +11,7 @@
     "kriyah",
     "triennial"
   ],
-  "description": "Javascript Torah Reading API for Parashat HaShavua and holidays",
+  "description": "Torah Reading API for Parashat HaShavua and holidays",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "repository": {
