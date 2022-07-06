@@ -320,3 +320,21 @@ test('Triennial.debug', (t) => {
   ];
   t.deepEqual(lines2, expected2);
 });
+
+test('multi-year', (t) => {
+  for (let hyear = 5782; hyear < 6200; hyear++) {
+    if (hyear === 5831 || hyear === 5832 || hyear === 5833 || hyear === 5834) {
+      continue;
+    }
+    const events = HebrewCalendar.calendar({
+      year: hyear,
+      isHebrewYear: true,
+      sedrot: true,
+      noHolidays: true,
+    });
+    for (const ev of events) {
+      getTriennialForParshaHaShavua(ev, true);
+    }
+  }
+  t.pass();
+});
