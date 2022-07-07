@@ -1,5 +1,5 @@
 import test from 'ava';
-import {HebrewCalendar, HDate} from '@hebcal/core';
+import {HebrewCalendar, HDate, months, flags} from '@hebcal/core';
 import {Triennial, getTriennialForParshaHaShavua} from './triennial';
 import {formatAliyahWithBook} from './common';
 
@@ -337,4 +337,22 @@ test('multi-year', (t) => {
     }
   }
   t.pass();
+});
+
+test('triennial-haft', (t) => {
+  // 7/9/2022 Parashat Chukat
+  const hd1 = new HDate(10, months.TAMUZ, 5782);
+  const ev1 = HebrewCalendar.calendar({start: hd1, end: hd1, sedrot: true, noHolidays: true})[0];
+  t.is(ev1.getFlags(), flags.PARSHA_HASHAVUA);
+  t.is(ev1.getDesc(), 'Parashat Chukat');
+  const r1 = getTriennialForParshaHaShavua(ev1, true);
+  t.is(r1.haftara, 'II Kings 18:1-13, 19:15-19');
+
+  // 7/30/2022 Parashat Matot-Masei
+  const hd2 = new HDate(2, months.AV, 5782);
+  const ev2 = HebrewCalendar.calendar({start: hd2, end: hd2, sedrot: true, noHolidays: true})[0];
+  t.is(ev2.getFlags(), flags.PARSHA_HASHAVUA);
+  t.is(ev2.getDesc(), 'Parashat Matot-Masei');
+  const r2 = getTriennialForParshaHaShavua(ev2, true);
+  t.is(r2.haftara, 'I Kings 9:2-9, 9:4-5a');
 });

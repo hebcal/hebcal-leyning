@@ -236,10 +236,11 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
     return undefined;
   }
   if (src.alias) {
-    src = festivals[src.key];
-    if (typeof src === 'undefined') {
+    const tmp = festivals[src.key];
+    if (typeof tmp === 'undefined') {
       throw new Error(`Leying key ${key} => ${src.key} not found`);
     }
+    src = tmp;
   }
   const leyning = Object.create(null);
   if (src.fullkriyah) {
@@ -479,8 +480,19 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
     updateHaftaraSummary = true;
     reason.haftara = specialHaftara2.reason;
   }
-  if (Object.keys(reason).length) {
+  const reasons = Object.keys(reason);
+  if (reasons.length !== 0) {
     result.reason = reason;
+    reasons.forEach((num) => {
+      if (num === 'haftara') {
+        result.haft.reason = reason[num];
+      } else {
+        const aliyah = result.fullkriyah[num];
+        if (typeof aliyah === 'object') {
+          aliyah.reason = reason[num];
+        }
+      }
+    });
   }
   if (updateHaftaraSummary) {
     const haft = result.haft;

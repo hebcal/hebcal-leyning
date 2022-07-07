@@ -331,7 +331,8 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   // When Nitzavim & Vayeilech are not combined, they should each be read in their entirety.
   // Vayeilech can occur immediately after RH, so back up one year to pick up
   // the tail end of previous 3-year cycle.
-  const hyear = (parsha[0] === 'Vayeilech' && hd.getMonth() === months.TISHREI) ? hyear0 - 1 : hyear0;
+  const p1 = parsha[0];
+  const hyear = (p1 === 'Vayeilech' && hd.getMonth() === months.TISHREI) ? hyear0 - 1 : hyear0;
   const triennial = getTriennial(hyear);
   const startYear = triennial.getStartYear();
   const yearNum = hyear - startYear;
@@ -345,14 +346,24 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   const reason = Object.create(null);
   specialReadings(hd, false, aliyotMap, reason);
   Object.keys(reason).forEach((num) => {
-    if (aliyotMap[num]) {
-      aliyotMap[num].reason = reason[num];
+    const aliyah = aliyotMap[num];
+    if (typeof aliyah === 'object') {
+      aliyah.reason = reason[num];
     }
   });
   if (context) {
     reading.yearNum = yearNum;
     reading.aliyot = aliyotMap;
-    const triHaft = triennialHaft[name];
+    /*
+     * INSTRUCTIONS REGARDING DOUBLE PARSHIYOT
+     * In any 3 year sequence, in some years these parshiyot are read together
+     * and in some they are read separately. When separated: read the next haftarah
+     * of the parashah being read. When together: when reading the first third,
+     * read the next haftarah of the first parashah, when reading the latter
+     * two thirds, read the next haftarah of the latter parashah
+     */
+    const triHaft = parsha.length === 1 ? triennialHaft[name] :
+      yearNum === 0 ? triennialHaft[p1] : triennialHaft[parsha[1]];
     if (typeof triHaft === 'object') {
       const haft = reading.haft = cloneHaftara(triHaft[yearNum + 1]);
       reading.haftara = makeHaftaraSummary(haft);
