@@ -1,7 +1,7 @@
 import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
 import {BOOK, calculateNumVerses, clone, cloneHaftara,
   makeHaftaraSummary, makeSummaryFromParts, calculateHaftaraNumV} from './common';
-import festivals from './holiday-readings.json';
+import {lookupFestival, hasFestival} from './festival';
 import parshiyotObj from './aliyot.json';
 
 /**
@@ -102,12 +102,12 @@ export function getLeyningKeyForEvent(e, il=false) {
 
   if (isShabbat && 'Shabbat' != desc.substring(0, 7)) {
     const desc2 = desc + ' (on Shabbat)';
-    if (festivals[desc2]) {
+    if (hasFestival(desc2)) {
       return desc2;
     }
   }
 
-  if (festivals[desc]) {
+  if (hasFestival(desc)) {
     return desc;
   }
 
@@ -231,16 +231,9 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
   if (key.length > 14 && key.substring(0, 13) === 'Rosh Chodesh ') {
     key = 'Rosh Chodesh';
   }
-  let src = festivals[key];
+  const src = lookupFestival(key);
   if (typeof src === 'undefined') {
     return undefined;
-  }
-  if (src.alias) {
-    const tmp = festivals[src.key];
-    if (typeof tmp === 'undefined') {
-      throw new Error(`Leying key ${key} => ${src.key} not found`);
-    }
-    src = tmp;
   }
   const leyning = Object.create(null);
   if (src.fullkriyah) {
@@ -532,14 +525,14 @@ export function specialReadings(hd, il, aliyot, reason) {
   events.forEach((ev) => {
     const key = getLeyningKeyForEvent(ev, il);
     //            console.log(hd.greg().toLocaleDateString(), name, ev.getDesc(), key);
-    const special = festivals[key];
+    const special = lookupFestival(key);
     if (special) {
       const shabbatChanukah = getChanukahShabbatKey(ev, key);
       if (shabbatChanukah) {
         // only for Shabbat Chanukah I or Shabbat Chanukah II. Note
         // this section doesn't apply to Shabbat Rosh Chodesh Chanukah; that
         // case gets handled below with the mergeAliyotWithSpecial() logic
-        haft = cloneHaftara(festivals[shabbatChanukah].haft);
+        haft = cloneHaftara(lookupFestival(shabbatChanukah).haft);
         specialHaft = true;
         reason.haftara = shabbatChanukah;
         // Aliyot 1-3 from regular daily reading becomes Maftir
@@ -556,13 +549,13 @@ export function specialReadings(hd, il, aliyot, reason) {
     const day = hd.getDate();
     if (day === 30 || day === 1) {
       const key = 'Shabbat Rosh Chodesh';
-      const special = festivals[key];
+      const special = lookupFestival(key);
       handleSpecial(special, key);
     } else {
       const tommorow = hd.next().getDate();
       if (tommorow === 30 || tommorow === 1) {
         const key = 'Shabbat Machar Chodesh';
-        const special = festivals[key];
+        const special = lookupFestival(key);
         handleSpecial(special, key);
       }
     }
