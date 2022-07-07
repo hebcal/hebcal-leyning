@@ -364,8 +364,9 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
      */
     const triHaft = parsha.length === 1 ? triennialHaft[name] :
       yearNum === 0 ? triennialHaft[p1] : triennialHaft[parsha[1]];
-    if (typeof triHaft === 'object') {
-      const haft = reading.haft = cloneHaftara(triHaft[yearNum + 1]);
+    const triHaft2 = triHaft && triHaft[yearNum + 1];
+    if (typeof triHaft2 === 'object') {
+      const haft = reading.haft = cloneHaftara(triHaft2);
       reading.haftara = makeHaftaraSummary(haft);
       reading.haftaraNumV = calculateHaftaraNumV(haft);
     }

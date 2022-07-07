@@ -333,7 +333,13 @@ test('multi-year', (t) => {
       noHolidays: true,
     });
     for (const ev of events) {
-      getTriennialForParshaHaShavua(ev, true);
+      try {
+        getTriennialForParshaHaShavua(ev, true);
+      } catch (err) {
+        console.log(ev);
+        console.log(err);
+        t.fail(ev.getDesc());
+      }
     }
   }
   t.pass();
