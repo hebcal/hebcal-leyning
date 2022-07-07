@@ -148,7 +148,7 @@
 "Tazria":{
  "1":{"k":"Isaiah","b":"46:3","e":"46:13","note":"since birth // birth"},
  "2":{"k":"Isaiah","b":"46:3","e":"46:13","note":"im yoled zakhar // v'yaldah zakhar"},
- "3":{"k":"Jeremiah","b":"30:1","e":"30:9","note":""}
+ "3":{"k":"Jeremiah","b":"30:1","e":"30:9"}
 },
 "Metzora":{
  "1":{"k":"II Kings","b":"5:1","e":"5:14","note":"Healing of a leper"},
@@ -158,7 +158,7 @@
 "Achrei Mot":{
  "1":{"k":"Ezekiel","b":"22:1","e":"22:16","note":"abominations // arayot"},
  "2":{"k":"Ezekiel","b":"20:2","e":"20:20","note":"abominations of Egypt // arayot"},
- "3":{"k":"Ezekiel","b":"20:2","e":"20:20","note":""}
+ "3":{"k":"Ezekiel","b":"20:2","e":"20:20"}
 },
 "Kedoshim":{
  "1":{"k":"Isaiah","b":"61:1","e":"61:9","note":"you shall be called Priests // kedoshim"},
@@ -176,7 +176,7 @@
 "Behar":{
  "1":{"k":"Jeremiah","b":"32:6","e":"32:15","note":"land redemption // shmittah"},
  "2":{"k":"Jeremiah","b":"32:16","e":"32:27","note":"prayerwill Israel ever redeem its land // shmittah"},
- "3":{"k":"Jeremiah","b":"32:16","e":"32:27","note":""}
+ "3":{"k":"Jeremiah","b":"32:16","e":"32:27"}
 },
 "Bechukotai":{
  "1":{"k":"Jeremiah","b":"17:1","e":"17:14","note":"blessings and curses // tokhechah"},
@@ -246,16 +246,8 @@
  "3":[{"k":"I Kings","b":"9:2","e":"9:9","note":"l'mashal v'lishninah"},
   {"k":"I Kings","b":"9:4","e":"9:5a"}]
 },
-"Devarim":{
- "1":{"k":"Isaiah","b":"1:1","e":"1:27","note":"eichah hayetah l'zonah (every year)"},
- "2":{"k":"Isaiah","b":"1:1","e":"1:27","note":"eichah hayetah l'zonah (every year)"},
- "3":{"k":"Isaiah","b":"1:1","e":"1:27","note":"eichah hayetah l'zonah (every year)"}
-},
-"Vaetchanan":{
- "1":{"k":"Isaiah","b":"40:1","e":"40:26","note":"mal'ah tzva'ah, nirtzah avonah (every year)"},
- "2":{"k":"Isaiah","b":"40:1","e":"40:26","note":"mal'ah tzva'ah, nirtzah avonah (every year)"},
- "3":{"k":"Isaiah","b":"40:1","e":"40:26","note":"mal'ah tzva'ah, nirtzah avonah (every year)"}
-},
+"Devarim - Isaiah 1:1-27, same as full kriyah": false,
+"Vaetchanan - Isaiah 40:1-26, same as full kriyah": false,
 "Eikev":{
  "1":{"k":"Isaiah","b":"49:14","e":"49:26","note":"ani moshiekh"},
  "2":{"k":"Isaiah","b":"50:1","e":"51:3","note":"sason v'simcha yimatze"},

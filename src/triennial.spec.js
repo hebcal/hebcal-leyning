@@ -355,4 +355,12 @@ test('triennial-haft', (t) => {
   t.is(ev2.getDesc(), 'Parashat Matot-Masei');
   const r2 = getTriennialForParshaHaShavua(ev2, true);
   t.is(r2.haftara, 'I Kings 9:2-9, 9:4-5a');
+
+  // 8/6/2022 Parashat Devarim
+  const hd3 = new HDate(9, months.AV, 5782);
+  const ev3 = HebrewCalendar.calendar({start: hd3, end: hd3, sedrot: true, noHolidays: true})[0];
+  t.is(ev3.getFlags(), flags.PARSHA_HASHAVUA);
+  t.is(ev3.getDesc(), 'Parashat Devarim');
+  const r3 = getTriennialForParshaHaShavua(ev3, true);
+  t.is(r3.haftara, undefined);
 });
