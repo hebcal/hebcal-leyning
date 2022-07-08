@@ -32,12 +32,12 @@
 },
 "Vayetzei":{
  "1":{"k":"Hosea","b":"12:3","e":"12:14","note":"Jacob story"},
- "2":{"k":"Zekhariah","b":"1:7","e":"1:17","note":"striped horses //streaked sheep"},
+ "2":{"k":"Zechariah","b":"1:7","e":"1:17","note":"striped horses //streaked sheep"},
  "3":{"k":"I Samuel","b":"19:11","e":"19:18","note":"deceit / terafim / female wiles // Rachel hides terafim"}
 },
 "Vayishlach":{
- "1":[{"k":"Ovadiah","b":"1:10","e":"1:18","note":"Jacob defeats Edom (Babylon) // Jacob meets Esau"},
-  {"k":"Ovadiah","b":"1:21","e":"1:21"}],
+ "1":[{"k":"Obadiah","b":"1:10","e":"1:18","note":"Jacob defeats Edom (Babylon) // Jacob meets Esau"},
+  {"k":"Obadiah","b":"1:21","e":"1:21"}],
  "2":{"k":"Jeremiah","b":"30:10","e":"30:22","note":"Jacob will return, settle // Jacob's early settling in Shechem and Bet El"},
  "3":[{"k":"Amos","b":"1:1","e":"1:1","note":"prophecy against Edom // genealogy of Edom"},
   {"k":"Amos","b":"1:11","e":"2:3"}]
@@ -55,7 +55,7 @@
 },
 "Vayigash":{
  "1":{"k":"Ezekiel","b":"37:15","e":"37:28","note":"Judah and Joseph united"},
- "2":{"k":"Zekhariah","b":"10:3","e":"10:12","note":"Judah and Joseph, return from Egypt // J & J, brothers return to Jacob"},
+ "2":{"k":"Zechariah","b":"10:3","e":"10:12","note":"Judah and Joseph, return from Egypt // J & J, brothers return to Jacob"},
  "3":{"k":"Isaiah","b":"41:1","e":"41:10","note":"brother helps / Jacob not fear // Joseph settles his family in Goshen"}
 },
 "Vayechi":{
@@ -104,7 +104,7 @@
  "3":{"k":"Joshua","b":"24:16","e":"24:28","note":"Joshua's covenant // na'aseh v'nishma"}
 },
 "Terumah":{
- "1":{"k":"Zekhariah","b":"2:5","e":"2:17","note":"God's presence in Israelvshakhanti b'tokhekh"},
+ "1":{"k":"Zechariah","b":"2:5","e":"2:17","note":"God's presence in Israelvshakhanti b'tokhekh"},
  "2":{"k":"I Kings","b":"6:1","e":"6:13","note":"Temple // Tabernacle"},
  "3":{"k":"II Samuel","b":"7:1","e":"7:16","note":"Temple // Tabernacle"}
 },
@@ -197,8 +197,8 @@
   {"k":"Joel","b":"2:12","e":"2:14"}]
 },
 "Beha'alotcha":{
- "1":[{"k":"Zekhariah","b":"3:1","e":"3:5","note":"Purifying kohen, Menorah // Menorah, purifying leviim"},
-  {"k":"Zekhariah","b":"4:1","e":"4:7"}],
+ "1":[{"k":"Zechariah","b":"3:1","e":"3:5","note":"Purifying kohen, Menorah // Menorah, purifying leviim"},
+  {"k":"Zechariah","b":"4:1","e":"4:7"}],
  "2":[{"k":"Joshua","b":"3:3","e":"3:8","note":"Ark leads in travel"},
   {"k":"Joshua","b":"3:17","e":" 4:7"}],
  "3":{"k":"II Kings","b":"20:1","e":"20:11","note":"Hezekiah healed thru prayer // Miriam"}
@@ -248,7 +248,7 @@
 "Eikev":{
  "1":{"k":"Isaiah","b":"49:14","e":"49:26","note":"ani moshiekh"},
  "2":{"k":"Isaiah","b":"50:1","e":"51:3","note":"sason v'simcha yimatze"},
- "3":{"k":"Zekhariah","b":"8:1","e":"8:8","note":"be'emet u-vitzdakah"}
+ "3":{"k":"Zechariah","b":"8:1","e":"8:8","note":"be'emet u-vitzdakah"}
 },
 "Re'eh":{
  "1":{"k":"Isaiah","b":"54:11","e":"55:5**","note":"aniya soarah"},
@@ -270,7 +270,7 @@
 "Ki Tavo":{
  "1":{"k":"Isaiah","b":"60:1","e":"60:9","note":"kumi ori"},
  "2":{"k":"Isaiah","b":"60:13","e":"60:22","note":"amekh kulam tzadikim"},
- "3":{"k":"Zekhariah","b":"8:11","e":"8:22","note":"emet umishpat shalom"}
+ "3":{"k":"Zechariah","b":"8:11","e":"8:22","note":"emet umishpat shalom"}
 },
 "Nitzavim":{
  "1":{"k":"Isaiah","b":"61:10","e":"62:12","note":"sos asis"},
@@ -321,7 +321,6 @@
     {"k":"Habakkuk","b":"3:1","e":"3:13"},
     {"k":"Habakkuk","b":"3:18","e":"3:19"}
   ],
-  "Rosh Hashana I (on Shabbat)":{"k":"I Samuel","b":"1:1","e":"2:10"},
   "Rosh Hashana II":{"k":"Jeremiah","b":"31:2","e":"31:20"},
   "Yom Kippur":{"k":"Isaiah","b":"58:1","e":"58:14"},
   "Yom Kippur (on Shabbat)":{"k":"Isaiah","b":"58:1","e":"58:14"},

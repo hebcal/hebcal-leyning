@@ -117,3 +117,43 @@ test('writeTriennialEvent-holiday', (t) => {
     '', ''];
   t.deepEqual(lines, expected);
 });
+
+test('writeTriennialEvent-parsha-alt-haftara', (t) => {
+  const ev = new ParshaEvent(new HDate(new Date(2016, 10, 19)), ['Vayera']);
+  const stream = new StringWritable();
+  writeTriennialEvent(stream, ev);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    '19-Nov-2016,"Vayera",1,"Genesis 18:1-18:5",5',
+    '19-Nov-2016,"Vayera",2,"Genesis 18:6-18:8",3',
+    '19-Nov-2016,"Vayera",3,"Genesis 18:9-18:14",6',
+    '19-Nov-2016,"Vayera",4,"Genesis 18:15-18:21",7',
+    '19-Nov-2016,"Vayera",5,"Genesis 18:22-18:26",5',
+    '19-Nov-2016,"Vayera",6,"Genesis 18:27-18:30",4',
+    '19-Nov-2016,"Vayera",7,"Genesis 18:31-18:33",3',
+    '19-Nov-2016,"Vayera","maf","Genesis 18:31-18:33",3',
+    '19-Nov-2016,"Vayera","Haftara","II Kings 4:1-37",37',
+    '19-Nov-2016,"Vayera","Haftara for Sephardim","II Kings 4:1-23",23',
+    '19-Nov-2016,"Vayera","Alternate Haftara","II Kings 4:8-17",10',
+    '', ''];
+  t.deepEqual(lines, expected);
+});
+
+test('writeTriennialEvent-holiday-alt-haftara', (t) => {
+  const ev = new HolidayEvent(new HDate(16, months.TISHREI, 5789),
+      'Sukkot II', flags.CHAG | flags.YOM_TOV_ENDS | flags.CHUL_ONLY);
+  const stream = new StringWritable();
+  writeTriennialEvent(stream, ev);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    '06-Oct-2028,"Sukkot II",1,"Leviticus 22:26-23:3",11',
+    '06-Oct-2028,"Sukkot II",2,"Leviticus 23:4-23:14",11',
+    '06-Oct-2028,"Sukkot II",3,"Leviticus 23:15-23:22",8',
+    '06-Oct-2028,"Sukkot II",4,"Leviticus 23:23-23:32",10',
+    '06-Oct-2028,"Sukkot II",5,"Leviticus 23:33-23:44",12',
+    '06-Oct-2028,"Sukkot II","maf","Numbers 29:12-29:16",5',
+    '06-Oct-2028,"Sukkot II","Haftara","I Kings 8:2-21",20',
+    '06-Oct-2028,"Sukkot II","Alternate Haftara","I Kings 8:2-13",12',
+    '', ''];
+  t.deepEqual(lines, expected);
+});

@@ -2,7 +2,7 @@ import {HebrewCalendar, flags} from '@hebcal/core';
 import {getLeyningForParshaHaShavua, getLeyningForHoliday,
   getLeyningKeyForEvent} from './leyning';
 import {formatAliyahWithBook} from './common';
-import {getTriennialForParshaHaShavua} from './triennial';
+import {getTriennialForParshaHaShavua, getTriennialHaftaraForHoliday, Triennial} from './triennial';
 
 const fmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric', month: 'short', day: '2-digit',
@@ -85,26 +85,49 @@ export function writeTriennialEvent(stream, ev) {
   if (ignore(ev)) {
     return;
   }
-  const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
-  const reading0 = isParsha ? getTriennialForParshaHaShavua(ev) : getLeyningForHoliday(ev, false);
-  if (!reading0) {
-    return;
-  }
-  let reading;
-  if (isParsha) {
-    const fk = getLeyningForParshaHaShavua(ev, false);
-    reading = {
-      haftara: fk.haftara,
-      haftaraNumV: fk.haftaraNumV,
-      sephardic: fk.sephardic,
-      sephardicNumV: fk.sephardicNumV,
-      reason: fk.reason,
-      fullkriyah: reading0,
-    };
+  if (ev.getFlags() === flags.PARSHA_HASHAVUA) {
+    writeTriennialEventParsha(stream, ev);
   } else {
-    reading = reading0;
+    writeTriennialEventHoliday(stream, ev);
   }
-  writeCsvLines(stream, ev, reading, false);
+}
+
+/**
+ * @private
+ * @param {fs.WriteStream} stream
+ * @param {Event} ev
+ */
+function writeTriennialEventHoliday(stream, ev) {
+  const il = false;
+  const reading = getLeyningForHoliday(ev, il);
+  if (reading) {
+    const key = getLeyningKeyForEvent(ev, il);
+    const year = ev.getDate().getFullYear();
+    const yearNum = Triennial.getYearNumber(year) - 1;
+    const triHaft = getTriennialHaftaraForHoliday(key, yearNum);
+    if (triHaft) {
+      reading.triHaftara = triHaft.haftara;
+      reading.triHaftaraNumV = triHaft.haftaraNumV;
+    }
+    writeCsvLines(stream, ev, reading, il, false);
+  }
+}
+
+/**
+ * @private
+ * @param {fs.WriteStream} stream
+ * @param {Event} ev
+ */
+function writeTriennialEventParsha(stream, ev) {
+  const triReading = getTriennialForParshaHaShavua(ev, true);
+  if (triReading) {
+    const il = false;
+    const reading = getLeyningForParshaHaShavua(ev, il);
+    reading.fullkriyah = triReading.aliyot;
+    reading.triHaftara = triReading.haftara;
+    reading.triHaftaraNumV = triReading.haftaraNumV;
+    writeCsvLines(stream, ev, reading, il, true);
+  }
 }
 
 /**
@@ -135,10 +158,9 @@ export function writeFullKriyahEvent(stream, ev, il) {
   }
   const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
   const reading = isParsha ? getLeyningForParshaHaShavua(ev, il) : getLeyningForHoliday(ev, il);
-  if (!reading) {
-    return;
+  if (reading) {
+    writeCsvLines(stream, ev, reading, il, isParsha);
   }
-  writeCsvLines(stream, ev, reading, il);
 }
 
 /**
@@ -147,9 +169,9 @@ export function writeFullKriyahEvent(stream, ev, il) {
  * @param {Event} ev
  * @param {Leyning} reading
  * @param {boolean} il
+ * @param {boolean} isParsha
  */
-function writeCsvLines(stream, ev, reading, il) {
-  const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
+function writeCsvLines(stream, ev, reading, il, isParsha) {
   const parsha = isParsha ? ev.basename() : getLeyningKeyForEvent(ev, il) || ev.render();
   const date = fmtDate(ev.getDate().greg());
   const lines = getFullKriyahLines(reading);
@@ -195,6 +217,10 @@ function getFullKriyahLines(reading) {
   if (reading.sephardic && !specialHaftara) {
     const sephardic = reading.sephardic.replace(/,/g, ';');
     lines.push(['Haftara for Sephardim', sephardic, reading.sephardicNumV || '']);
+  }
+  if (reading.triHaftara) {
+    const haftara = reading.triHaftara.replace(/,/g, ';');
+    lines.push(['Alternate Haftara', haftara, reading.triHaftaraNumV || '']);
   }
   return lines;
 }
