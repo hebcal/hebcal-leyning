@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HebrewCalendar, HDate, months, flags} from '@hebcal/core';
-import {Triennial, getTriennialForParshaHaShavua} from './triennial';
+import {Triennial, getTriennialForParshaHaShavua, getTriennialHaftaraForHoliday} from './triennial';
 import {formatAliyahWithBook} from './common';
 
 test('triennial', (t) => {
@@ -369,4 +369,21 @@ test('triennial-haft', (t) => {
   t.is(ev3.getDesc(), 'Parashat Devarim');
   const r3 = getTriennialForParshaHaShavua(ev3, true);
   t.is(r3.haftara, undefined);
+});
+
+test('getTriennialHaftaraForHoliday', (t) => {
+  const pesachI = getTriennialHaftaraForHoliday('Pesach I', 0);
+  t.deepEqual(pesachI, {
+    haft: {k: 'Joshua', b: '5:2', e: '5:12', v: 11},
+    haftara: 'Joshua 5:2-12',
+    haftaraNumV: 11,
+  });
+  const pesachIII = getTriennialHaftaraForHoliday('Pesach III (CH\'\'M)', 2);
+  t.is(pesachIII, undefined);
+  const av9yr1 = getTriennialHaftaraForHoliday('Tish\'a B\'Av', 0);
+  t.is(av9yr1.haftara, 'Jeremiah 8:13-23, 9:23');
+  const av9yr2 = getTriennialHaftaraForHoliday('Tish\'a B\'Av', 1);
+  t.is(av9yr2.haftara, 'Jeremiah 9:1-10, 9:23');
+  const av9yr3 = getTriennialHaftaraForHoliday('Tish\'a B\'Av', 2);
+  t.is(av9yr3.haftara, 'Jeremiah 9:11-23');
 });

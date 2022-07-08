@@ -354,23 +354,62 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   if (context) {
     reading.yearNum = yearNum;
     reading.aliyot = aliyotMap;
-    /*
-     * INSTRUCTIONS REGARDING DOUBLE PARSHIYOT
-     * In any 3 year sequence, in some years these parshiyot are read together
-     * and in some they are read separately. When separated: read the next haftarah
-     * of the parashah being read. When together: when reading the first third,
-     * read the next haftarah of the first parashah, when reading the latter
-     * two thirds, read the next haftarah of the latter parashah
-     */
-    const triHaft = parsha.length === 1 ? triennialHaft[name] :
-      yearNum === 0 ? triennialHaft[p1] : triennialHaft[parsha[1]];
-    const triHaft2 = triHaft && triHaft[yearNum + 1];
-    if (typeof triHaft2 === 'object') {
-      const haft = reading.haft = cloneHaftara(triHaft2);
-      reading.haftara = makeHaftaraSummary(haft);
-      reading.haftaraNumV = calculateHaftaraNumV(haft);
-    }
+    const triHaft = getTriennialHaftara(parsha, yearNum);
+    shallowCopy(reading, triHaft);
     return reading;
   }
   return aliyotMap;
+}
+
+/**
+ * Looks up the alternative triennial Haftara for a given parsha
+ *
+ * INSTRUCTIONS REGARDING DOUBLE PARSHIYOT
+ *
+ * In any 3 year sequence, in some years these parshiyot are read together
+ * and in some they are read separately.
+ * When separated: read the next haftarah of the parashah being read.
+ * When together: when reading the first third, read the next haftarah
+ * of the first parashah, when reading the latter two thirds, read the
+ * next haftarah of the latter parashah
+ * @private
+ * @param {string[]} parsha
+ * @param {number} yearNum 0, 1, or 2
+ * @return {Object}
+ */
+export function getTriennialHaftara(parsha, yearNum) {
+  const p1 = parsha[0];
+  const triHaft = parsha.length === 1 ? triennialHaft[p1] :
+    yearNum === 0 ? triennialHaft[p1] : triennialHaft[parsha[1]];
+  const triHaft2 = triHaft && triHaft[yearNum + 1];
+  if (typeof triHaft2 === 'object') {
+    const haft = cloneHaftara(triHaft2);
+    return {
+      haft: haft,
+      haftara: makeHaftaraSummary(haft),
+      haftaraNumV: calculateHaftaraNumV(haft),
+    };
+  }
+  return {};
+}
+
+/**
+ * Looks up the alternative triennial Haftara for a holiday
+ * @param {string} key
+ * @param {number} yearNum
+ * @return {Object}
+ */
+export function getTriennialHaftaraForHoliday(key, yearNum) {
+  if (key === 'Tish\'a B\'Av') {
+    return getTriennialHaftara([key], yearNum);
+  }
+  const triHaft2 = triennialHaft._holidays[key];
+  if (typeof triHaft2 === 'object') {
+    const haft = cloneHaftara(triHaft2);
+    return {
+      haft: haft,
+      haftara: makeHaftaraSummary(haft),
+      haftaraNumV: calculateHaftaraNumV(haft),
+    };
+  }
 }

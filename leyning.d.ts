@@ -160,6 +160,8 @@ declare module '@hebcal/leyning' {
      */
     export function getTriennialForParshaHaShavua(ev: Event, context?: boolean): AliyotMap|TriennialAliyot;
 
+    export function getTriennialHaftaraForHoliday(holiday: string, yearNum: number): any;
+
     export const parshiyot: any;
     export const holidayReadings: any;
     export const BOOK: string[];

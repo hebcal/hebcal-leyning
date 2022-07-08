@@ -288,5 +288,84 @@
  "2":[{"k":"II Samuel","b":"22:1","e":"22:1","note":"David //Moses' song"},
   {"k":"II Samuel","b":"22:19","e":"22:31"}],
  "3":{"k":"Joshua","b":"23:1","e":"23:11","note":"Joshua's farewell"}
-}
+},
+"Tish'a B'Av":{
+  "1":[{"k":"Jeremiah","b":"8:13","e":"8:23"},
+    {"k":"Jeremiah","b":"9:23","e":"9:23"}],
+  "2":[{"k":"Jeremiah","b":"9:1","e":"9:10"},
+    {"k":"Jeremiah","b":"9:23","e":"9:23"}],
+  "3":{"k":"Jeremiah","b":"9:11","e":"9:23"}
+},
+"_holidays": {
+  "Pesach I":{"k":"Joshua","b":"5:2","e":"5:12"},
+  "Pesach I (on Shabbat)":{"k":"Joshua","b":"5:2","e":"5:12"},
+  "Pesach II":[
+    {"k":"II Kings","b":"23:1","e":"23:9"},
+    {"k":"II Kings","b":"23:21","e":"23:23"}
+  ],
+  "Pesach VII":{"k":"II Samuel","b":"22:1","e":"22:19"},
+  "Pesach VII (on Shabbat)":{"k":"II Samuel","b":"22:1","e":"22:19"},
+  "Pesach VIII":[
+    {"k":"Isaiah","b":"11:1","e":"11:12"},
+    {"k":"Isaiah","b":"11:16","e":"11:16"}
+  ],
+  "Pesach VIII (on Shabbat)":[
+    {"k":"Isaiah","b":"11:1","e":"11:12"},
+    {"k":"Isaiah","b":"11:16","e":"11:16"}
+  ],
+  "Shavuot II":[
+    {"k":"Habakkuk","b":"3:1","e":"3:13"},
+    {"k":"Habakkuk","b":"3:18","e":"3:19"}
+  ],
+  "Shavuot II (on Shabbat)":[
+    {"k":"Habakkuk","b":"3:1","e":"3:13"},
+    {"k":"Habakkuk","b":"3:18","e":"3:19"}
+  ],
+  "Rosh Hashana I (on Shabbat)":{"k":"I Samuel","b":"1:1","e":"2:10"},
+  "Rosh Hashana II":{"k":"Jeremiah","b":"31:2","e":"31:20"},
+  "Yom Kippur":{"k":"Isaiah","b":"58:1","e":"58:14"},
+  "Yom Kippur (on Shabbat)":{"k":"Isaiah","b":"58:1","e":"58:14"},
+  "Yom Kippur (Mincha, Traditional)":[
+    {"k":"Jonah","b":"1:1","e":"4:11"},
+    {"k":"Micah","b":"7:18","e":"7:20"}
+  ],
+  "Yom Kippur (Mincha, Alternate)":[
+    {"k":"Jonah","b":"1:1","e":"4:11"},
+    {"k":"Micah","b":"7:18","e":"7:20"}
+  ],
+  "Sukkot I":[
+    {"k":"Zechariah","b":"14:1","e":"14:9"},
+    {"k":"Zechariah","b":"14:16","e":"14:21"}
+  ],
+  "Sukkot I (on Shabbat)":[
+    {"k":"Zechariah","b":"14:1","e":"14:9"},
+    {"k":"Zechariah","b":"14:16","e":"14:21"}
+  ],
+  "Sukkot II":{"k":"I Kings","b":"8:2","e":"8:13"},
+  "Sukkot Shabbat Chol ha-Moed":{"k":"Ezekiel","b":"38:18","e":"39:7"},
+  "Simchat Torah":{"k":"Joshua","b":"1:1","e":"1:9"},
+  "Shabbat Chanukah":{"k":"Zechariah","b":"3:6","e":"4:7"},
+  "Shabbat Rosh Chodesh Chanukah":{"k":"Zechariah","b":"3:6","e":"4:7"},
+  "Shabbat HaChodesh":{"k":"Ezekiel","b":"45:16","e":"45:25"},
+  "Shabbat HaChodesh (on Rosh Chodesh)":{"k":"Ezekiel","b":"45:16","e":"45:25"},
+  "Shabbat HaGadol":[
+    {"k":"Malachi","b":"3:13","e":"3:24"},
+    {"k":"Malachi","b":"3:23","e":"3:23"}
+  ],
+  "Shabbat Nachamu":{"k":"Isaiah","b":"40:1","e":"40:26"},
+  "Shabbat Parah":{"k":"Ezekiel","b":"36:16","e":"36:38"},
+  "Shabbat Shekalim":{"k":"II Kings","b":"12:1","e":"12:17"},
+  "Shabbat Shekalim (on Rosh Chodesh)":{"k":"II Kings","b":"12:1","e":"12:17"},
+  "Shabbat Shuva":[
+    {"k":"Hosea","b":"14:2","e":"14:10"},
+    {"k":"Micah","b":"7:18","e":"7:20"}
+  ],
+  "Shabbat Shuva (alt)":{"k":"Joel","b":"2:15","e":"2:27"},
+  "Shabbat Zachor":{"k":"I Samuel","b":"15:2","e":"15:34"},
+  "Shabbat Rosh Chodesh":[
+    {"k":"Isaiah","b":"66:1","e":"66:14"},
+    {"k":"Isaiah","b":"66:22","e":"66:24"},
+    {"k":"Isaiah","b":"66:23","e":"66:23"}
+  ]
+ }
 }
