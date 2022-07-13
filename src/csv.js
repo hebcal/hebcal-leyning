@@ -198,7 +198,7 @@ function getFullKriyahLines(reading) {
       if (typeof a !== 'undefined') {
         const k = num == 'M' ? 'maf' : num;
         let aliyah = formatAliyahWithBook(a);
-        if (reading.reason && reading.reason[num]) {
+        if (reading.reason?.[num]) {
           aliyah += ' | ' + reading.reason[num];
         }
         lines.push([k, aliyah, a.v || '']);
@@ -208,7 +208,7 @@ function getFullKriyahLines(reading) {
   let specialHaftara = false;
   if (reading.haftara) {
     let haftara = reading.haftara.replace(/,/g, ';');
-    if (reading.reason && reading.reason.haftara) {
+    if (reading.reason?.haftara) {
       specialHaftara = true;
       haftara += ' | ' + reading.reason.haftara;
     }

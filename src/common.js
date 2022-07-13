@@ -69,7 +69,7 @@ export function clone(src) {
  * @param {boolean} showBook display the book name in the `verses` field (e.g. for special Maftir)
  */
 export function addSefariaLinksToLeyning(aliyot, showBook) {
-  const book1 = aliyot['1'] && aliyot['1'].k;
+  const book1 = aliyot['1']?.k;
   Object.keys(aliyot).forEach((num) => {
     const aliyah = aliyot[num];
     aliyah.num = num == 'M' ? 'maf' : num;

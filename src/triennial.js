@@ -381,7 +381,7 @@ export function getTriennialHaftara(parsha, yearNum) {
   const idx = (parsha.length === 1 || yearNum === 0) ? 0 : 1;
   const name = parsha[idx];
   const triHaft = triennialHaft[name];
-  const triHaft2 = triHaft && triHaft[yearNum + 1];
+  const triHaft2 = triHaft?.[yearNum + 1];
   if (typeof triHaft2 === 'object') {
     const haft = cloneHaftara(triHaft2);
     return {
