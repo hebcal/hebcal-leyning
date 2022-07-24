@@ -39,12 +39,13 @@ function getParshaDates(events) {
  * @param {boolean} il
  */
 export function writeFullKriyahCsv(stream, hyear, il) {
-  const events = HebrewCalendar.calendar({
+  const events0 = HebrewCalendar.calendar({
     year: hyear,
     isHebrewYear: true,
     sedrot: true,
     il: il,
   });
+  const events = events0.filter((ev) => ev.getDesc() !== 'Rosh Chodesh Tevet');
   const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
   events.forEach((ev) => {
@@ -60,13 +61,14 @@ export function writeFullKriyahCsv(stream, hyear, il) {
  * @param {number} hyear
  */
 export function writeTriennialCsv(stream, hyear) {
-  const events = HebrewCalendar.calendar({
+  const events0 = HebrewCalendar.calendar({
     year: hyear,
     isHebrewYear: true,
     numYears: 3,
     sedrot: true,
     il: false,
   });
+  const events = events0.filter((ev) => ev.getDesc() !== 'Rosh Chodesh Tevet');
   const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Triennial Reading","Verses"\r\n');
   events.forEach((ev) => {

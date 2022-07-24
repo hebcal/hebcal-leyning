@@ -43,7 +43,7 @@ test('getLeyningKeyForEvent', (t) => {
     'Chanukah: 5 Candles': 'Chanukah Day 4',
     'Chanukah: 6 Candles': 'Chanukah Day 5',
     'Chanukah: 7 Candles': 'Chanukah Day 6',
-    'Rosh Chodesh Tevet': undefined, // to avoid duplicate with Chanukah
+    'Rosh Chodesh Tevet': 'Chanukah Day 6', // allow duplicate with Chanukah
     'Chanukah: 8 Candles': 'Chanukah Day 7',
     'Chanukah: 8th Day': 'Chanukah Day 8',
     'Asara B\'Tevet': 'Asara B\'Tevet',
@@ -458,6 +458,49 @@ test('getLeyningForHoliday-RoshChodesh', (t) => {
   };
   const actual = getLeyningForHoliday(ev);
   t.deepEqual(actual, expected);
+});
+
+test('Rosh Chodesh Tevet', (t) => {
+  const expectedDay6 = {
+    fullkriyah: {
+      '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:5', v: 5},
+      '2': {p: 41, k: 'Numbers', b: '28:6', e: '28:10', v: 5},
+      '3': {p: 41, k: 'Numbers', b: '28:11', e: '28:15', v: 5},
+      '4': {p: 35, k: 'Numbers', b: '7:42', e: '7:47', v: 6},
+    },
+    summary: 'Numbers 28:1-15, 7:42-47',
+    summaryParts: [
+      {k: 'Numbers', b: '28:1', e: '28:15'},
+      {k: 'Numbers', b: '7:42', e: '7:47'},
+    ],
+  };
+  const rchTevet = new Event(new HDate(1, months.TEVET, 5784),
+      'Rosh Chodesh Tevet', flags.ROSH_CHODESH);
+  const reading2 = getLeyningForHoliday(rchTevet);
+  t.deepEqual(reading2, expectedDay6);
+
+  const rchTevet30kis = new Event(new HDate(30, months.KISLEV, 5787),
+      'Rosh Chodesh Tevet', flags.ROSH_CHODESH);
+  const reading3 = getLeyningForHoliday(rchTevet30kis);
+  t.deepEqual(reading3, expectedDay6);
+
+  const expectedDay7rch = {
+    fullkriyah: {
+      '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:5', v: 5},
+      '2': {p: 41, k: 'Numbers', b: '28:6', e: '28:10', v: 5},
+      '3': {p: 41, k: 'Numbers', b: '28:11', e: '28:15', v: 5},
+      '4': {p: 35, k: 'Numbers', b: '7:48', e: '7:53', v: 6},
+    },
+    summary: 'Numbers 28:1-15, 7:48-53',
+    summaryParts: [
+      {k: 'Numbers', b: '28:1', e: '28:15'},
+      {k: 'Numbers', b: '7:48', e: '7:53'},
+    ],
+  };
+  const rchTevet1tev = new Event(new HDate(1, months.TEVET, 5787),
+      'Rosh Chodesh Tevet', flags.ROSH_CHODESH);
+  const reading4 = getLeyningForHoliday(rchTevet1tev);
+  t.deepEqual(reading4, expectedDay7rch);
 });
 
 test('getLeyningForHoliday-9av-obvs', (t) => {

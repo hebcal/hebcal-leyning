@@ -1,4 +1,4 @@
-import {HebrewCalendar, months, flags, Event} from '@hebcal/core';
+import {HebrewCalendar, HDate, months, flags, Event} from '@hebcal/core';
 import {BOOK, calculateNumVerses, clone, cloneHaftara,
   makeHaftaraSummary, makeSummaryFromParts, calculateHaftaraNumV} from './common';
 import {lookupFestival, hasFestival} from './festival';
@@ -129,7 +129,18 @@ export function getLeyningKeyForEvent(e, il=false) {
     return undefined;
   }
 
-  if (isRoshChodesh && desc !== 'Rosh Chodesh Tevet') {
+  if (desc === 'Rosh Chodesh Tevet') {
+    if (isShabbat) {
+      return 'Shabbat Rosh Chodesh Chanukah';
+    }
+    if (day === 30 || HDate.shortKislev(hd.getFullYear())) {
+      return 'Chanukah Day 6'; // 30th of Kislev or 1st of Tevet
+    } else {
+      return 'Chanukah Day 7 (on Rosh Chodesh)'; // 1st of Tevet
+    }
+  }
+
+  if (isRoshChodesh) {
     return desc;
   }
 
