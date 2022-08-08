@@ -189,6 +189,7 @@ test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Isaiah', b: '54:11', e: '55:5'}), 12);
   t.is(calculateNumVerses({k: 'Zechariah', b: '2:14', e: '4:7'}), 21);
   t.is(calculateNumVerses({k: 'Ezekiel', b: '1:1', e: '1:28'}), 28);
+  t.is(calculateNumVerses({k: 'Deuteronomy', b: '5:25', e: '6:3'}), 9);
 });
 
 test('calculateHaftarahNumVerses', (t) => {
