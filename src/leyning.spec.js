@@ -90,7 +90,7 @@ test('getLeyningKeyForEvent', (t) => {
     'Shabbat Chazon': undefined,
     'Erev Tish\'a B\'Av': undefined,
     'Tish\'a B\'Av': 'Tish\'a B\'Av',
-    'Shabbat Nachamu': 'Shabbat Nachamu',
+    'Shabbat Nachamu': undefined,
     'Tu B\'Av': undefined,
     'Rosh Chodesh Elul': 'Rosh Chodesh Elul',
     'Leil Selichot': undefined,
@@ -438,10 +438,6 @@ test('getLeyningForHoliday', (t) => {
   t.is(getLeyningForHoliday(shavuot).fullkriyah['4'].p, 17);
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
   t.is(getLeyningForHoliday(av9).haftara, 'Jeremiah 8:13-9:23');
-  const nachamu = events.find((e) => e.getDesc() == 'Shabbat Nachamu');
-  t.is(getLeyningForHoliday(nachamu).haftara, 'Isaiah 40:1-26');
-  t.is(getLeyningForHoliday(nachamu).fullkriyah, undefined);
-  t.is(getLeyningForHoliday(nachamu).summary, undefined);
 });
 
 test('getLeyningForHoliday-RoshChodesh', (t) => {
