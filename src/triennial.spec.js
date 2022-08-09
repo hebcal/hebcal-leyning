@@ -184,35 +184,38 @@ test('multi', (t) => {
   for (let year = 5744; year <= 6000; year += 3) {
     try {
       const tri = new Triennial(year);
-      t.is(typeof tri.getReading('Nitzavim-Vayeilech', 2), 'object');
+      for (let yearNum = 0; yearNum <= 2; yearNum++) {
+        t.is(typeof tri.getReading('Vayakhel', yearNum), 'object');
+        t.is(typeof tri.getReading('Pekudei', yearNum), 'object');
+      }
     } catch (error) {
       t.fail();
     }
   }
 });
 
-test('Nitzavim-Vayeilech', (t) => {
+test('Vayakhel-Pekudei', (t) => {
   const tri = new Triennial(5831);
-  const separate = tri.getReading('Nitzavim-Vayeilech', 2);
+  const separate = tri.getReading('Vayakhel-Pekudei', 2);
   const expectedSeparate = {
     readSeparately: true,
-    date1: new HDate(757056),
-    date2: new HDate(757063),
+    date1: new HDate(756846),
+    date2: new HDate(756853),
   };
   t.deepEqual(separate, expectedSeparate);
-  const reading = tri.getReading('Nitzavim', 2);
+  const reading = tri.getReading('Vayakhel', 2);
   const expected = {
     aliyot: {
-      '1': {k: 'Deuteronomy', b: '29:9', e: '29:11', v: 3},
-      '2': {k: 'Deuteronomy', b: '29:12', e: '29:14', v: 3},
-      '3': {k: 'Deuteronomy', b: '29:15', e: '29:28', v: 14},
-      '4': {k: 'Deuteronomy', b: '30:1', e: '30:6', v: 6},
-      '5': {k: 'Deuteronomy', b: '30:7', e: '30:10', v: 4},
-      '6': {k: 'Deuteronomy', b: '30:11', e: '30:14', v: 4},
-      '7': {k: 'Deuteronomy', b: '30:15', e: '30:20', v: 6},
-      'M': {k: 'Deuteronomy', b: '30:15', e: '30:20', v: 6},
+      '1': {k: 'Exodus', b: '37:17', e: '37:19', v: 3},
+      '2': {k: 'Exodus', b: '37:20', e: '37:24', v: 5},
+      '3': {k: 'Exodus', b: '37:25', e: '37:29', v: 5},
+      '4': {k: 'Exodus', b: '38:1', e: '38:3', v: 3},
+      '5': {k: 'Exodus', b: '38:4', e: '38:8', v: 5},
+      '6': {k: 'Exodus', b: '38:9', e: '38:15', v: 7},
+      '7': {k: 'Exodus', b: '38:16', e: '38:20', v: 5},
+      'M': {k: 'Exodus', b: '38:18', e: '38:20', v: 3},
     },
-    date: new HDate(757056),
+    date: new HDate(756846),
   };
   t.deepEqual(reading, expected);
 });
