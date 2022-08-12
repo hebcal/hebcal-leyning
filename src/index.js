@@ -1,4 +1,5 @@
 export * from './leyning';
+export {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 export {
   Triennial,
   getTriennialForParshaHaShavua,

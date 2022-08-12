@@ -17,6 +17,20 @@ export const doubled = [
 ];
 
 /**
+ * Formats parsha as a string
+ * @private
+ * @param {string[]} parsha
+ * @return {string}
+ */
+export function parshaToString(parsha) {
+  let s = parsha[0];
+  if (parsha.length == 2) {
+    s += '-' + parsha[1];
+  }
+  return s;
+}
+
+/**
  * takes a 0-based (Bereshit=0) parsha ID
  * @private
  * @param {number} id

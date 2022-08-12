@@ -1,8 +1,9 @@
 import {Event, HDate, HebrewCalendar, parshiot, flags, months} from '@hebcal/core';
-import {parshaToString, specialReadings} from './leyning';
+import {specialReadings} from './specialReadings';
 import parshiyotObj from './aliyot.json';
 import {BOOK, calculateNumVerses, clone, shallowCopy,
   cloneHaftara, makeHaftaraSummary, calculateHaftaraNumV,
+  parshaToString,
   doubled, getDoubledName} from './common';
 import triennialHaft from './triennial-haft.json';
 

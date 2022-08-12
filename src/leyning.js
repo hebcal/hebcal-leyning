@@ -1,8 +1,11 @@
-import {HebrewCalendar, HDate, months, flags, Event, ParshaEvent} from '@hebcal/core';
+import {HebrewCalendar, months, flags, Event, ParshaEvent, Locale} from '@hebcal/core';
 import {BOOK, calculateNumVerses, clone, cloneHaftara,
+  parshaToString,
   makeHaftaraSummary, makeSummaryFromParts, calculateHaftaraNumV} from './common';
-import {lookupFestival, hasFestival} from './festival';
+import {lookupFestival} from './festival';
 import parshiyotObj from './aliyot.json';
+import {specialReadings} from './specialReadings';
+import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEvent';
 
 /**
  * Represents an aliyah
@@ -29,130 +32,6 @@ import parshiyotObj from './aliyot.json';
  * @property {Object<string,Aliyah>} [weekday]
  * @property {Object} [reason]
  */
-
-/**
- * Based on the event date, type and title, finds the relevant leyning key
- * @param {Event} e event
- * @param {boolean} [il] true if Israel holiday scheme
- * @return {string} key to look up in holiday-reading.json
- */
-export function getLeyningKeyForEvent(e, il=false) {
-  const mask = e.getFlags();
-  if (mask & HOLIDAY_IGNORE_MASK) {
-    return undefined;
-  }
-  // Skip all Erevs except for Simchat Torah
-  const desc = e.getDesc();
-  if (mask & flags.EREV && desc !== 'Erev Simchat Torah') {
-    return undefined;
-  }
-  const hd = e.getDate();
-  const day = hd.getDate();
-  const dow = hd.abs() % 7;
-  const month = hd.getMonth();
-  const isShabbat = (dow == 6);
-  const isRoshChodesh = (day == 1 || day == 30);
-  const holiday = e.basename();
-  const isPesach = holiday === 'Pesach';
-  if (il && isPesach) {
-    if (isShabbat) {
-      return day === 15 || day === 21 ? desc + ' (on Shabbat)' : 'Pesach Shabbat Chol ha-Moed';
-    }
-    return desc;
-  }
-  if (day == 1 && month === months.TISHREI) {
-    return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
-  } else if (e.cholHaMoedDay) {
-    // Sukkot or Pesach
-    if (isShabbat) {
-      return holiday + ' Shabbat Chol ha-Moed';
-    } else if (desc == 'Sukkot VII (Hoshana Raba)') {
-      return 'Sukkot Final Day (Hoshana Raba)';
-    }
-    // If Shabbat falls on the third day of Chol ha-Moed Pesach,
-    // the readings for the third, fourth, and fifth days are moved ahead
-    let cholHaMoedDay = e.cholHaMoedDay;
-    if (isPesach && cholHaMoedDay >= 3) {
-      if (dow == 0 && cholHaMoedDay == 4) {
-        cholHaMoedDay = 3;
-      } else if (dow == 1 && cholHaMoedDay == 5) {
-        cholHaMoedDay = 4;
-      }
-    }
-    return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
-  } else if (e.chanukahDay) {
-    if (isShabbat && isRoshChodesh) {
-      return 'Shabbat Rosh Chodesh Chanukah';
-    } else if (isRoshChodesh && e.chanukahDay == 7) {
-      return `Chanukah Day 7 (on Rosh Chodesh)`;
-    } else {
-      return `Chanukah Day ${e.chanukahDay}`;
-    }
-  }
-
-  if (isRoshChodesh && (desc == 'Shabbat HaChodesh' || desc == 'Shabbat Shekalim')) {
-    return desc + ' (on Rosh Chodesh)';
-  }
-
-  if (desc == 'Shavuot') {
-    return 'Shavuot I';
-  } else if (il && desc == 'Shmini Atzeret') {
-    return 'Simchat Torah';
-  }
-
-  if (isShabbat && 'Shabbat' != desc.substring(0, 7)) {
-    const desc2 = desc + ' (on Shabbat)';
-    if (hasFestival(desc2)) {
-      return desc2;
-    }
-  }
-
-  if (hasFestival(desc)) {
-    return desc;
-  }
-
-  if (isShabbat) {
-    if (isRoshChodesh) {
-      if ((day === 30 && month === months.KISLEV) ||
-          (day === 1 && month === months.TEVET)) {
-        return 'Shabbat Rosh Chodesh Chanukah';
-      }
-      return 'Shabbat Rosh Chodesh';
-    }
-    const tommorow = hd.next().getDate();
-    if (tommorow === 30 || tommorow === 1) {
-      return 'Shabbat Machar Chodesh';
-    }
-  }
-
-  if (desc === 'Rosh Hashana LaBehemot') {
-    return undefined;
-  }
-
-  if (desc === 'Rosh Chodesh Tevet') {
-    if (isShabbat) {
-      return 'Shabbat Rosh Chodesh Chanukah';
-    }
-    if (day === 30 || HDate.shortKislev(hd.getFullYear())) {
-      return 'Chanukah Day 6'; // 30th of Kislev or 1st of Tevet
-    } else {
-      return 'Chanukah Day 7 (on Rosh Chodesh)'; // 1st of Tevet
-    }
-  }
-
-  if (isRoshChodesh) {
-    return desc;
-  }
-
-  if (desc === 'Tish\'a B\'Av (observed)') {
-    return 'Tish\'a B\'Av';
-  }
-
-  return undefined;
-}
-
-const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_MEVARCHIM |
-  flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE;
 
 /**
  * Looks up leyning for a given holiday. Returns some
@@ -239,14 +118,17 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
   if (typeof key !== 'string') {
     return undefined;
   }
-  if (key.length > 14 && key.substring(0, 13) === 'Rosh Chodesh ') {
-    key = 'Rosh Chodesh';
-  }
-  const src = lookupFestival(key);
+  const key2 = (key.length > 14 && key.substring(0, 13) === 'Rosh Chodesh ') ? 'Rosh Chodesh' : key;
+  const src = lookupFestival(key2);
   if (typeof src === 'undefined') {
     return undefined;
   }
-  const leyning = Object.create(null);
+  const leyning = {
+    name: {
+      en: key,
+      he: Locale.lookupTranslation(key, 'he'),
+    },
+  };
   if (src.fullkriyah) {
     leyning.fullkriyah = clone(src.fullkriyah);
     if (key === 'Sukkot Shabbat Chol ha-Moed' && cholHaMoedDay) {
@@ -273,20 +155,6 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
 }
 
 /**
- * Formats parsha as a string
- * @private
- * @param {string[]} parsha
- * @return {string}
- */
-export function parshaToString(parsha) {
-  let s = parsha[0];
-  if (parsha.length == 2) {
-    s += '-' + parsha[1];
-  }
-  return s;
-}
-
-/**
  * on doubled parshiot, read only the second Haftarah
  * except for Nitzavim-Vayelech
  * @private
@@ -299,60 +167,6 @@ function getHaftaraKey(parsha) {
   } else {
     return parsha[1];
   }
-}
-
-/**
- * @private
- * @param {Object<string,Aliyah>} aliyot
- */
-function aliyotCombine67(aliyot) {
-  const a6 = clone(aliyot['6']);
-  const a7 = aliyot['7'];
-  if (a6.k !== a7.k) {
-    throw new Error('Impossible to combine aliyot 6 & 7: ' + JSON.stringify(aliyot));
-  }
-  delete aliyot['7'];
-  aliyot['6'] = {
-    k: a6.k,
-    b: a6.b,
-    e: a7.e,
-  };
-  if (a6.v && a7.v) {
-    aliyot['6'].v = a6.v + a7.v;
-  }
-}
-
-/**
- * @private
- * @param {Object<string,Aliyah>} aliyot
- * @param {Object<string,Aliyah>} special
- */
-function mergeAliyotWithSpecial(aliyot, special) {
-  if (special['7']) {
-    aliyotCombine67(aliyot);
-    aliyot['7'] = clone(special['7']);
-    calculateNumVerses(aliyot['7']);
-  }
-  if (special['M']) {
-    aliyot['M'] = clone(special['M']);
-    calculateNumVerses(aliyot['M']);
-  }
-}
-
-/**
- * @private
- * @param {Event} e
- * @param {string} key
- * @return {string}
- */
-function getChanukahShabbatKey(e, key) {
-  if (key == 'Shabbat Rosh Chodesh Chanukah') {
-    return undefined;
-  }
-  if (e.chanukahDay) {
-    return (e.chanukahDay == 8) ? 'Shabbat Chanukah II' : 'Shabbat Chanukah';
-  }
-  return undefined;
 }
 
 /**
@@ -418,6 +232,12 @@ export function getLeyningForParsha(parsha) {
   const summary = makeSummaryFromParts(parts);
   /** @type {Leyning} */
   const result = {
+    name: {
+      en: name,
+      he: parshaNameArray.map((s) => Locale.lookupTranslation(s, 'he')).join('־'),
+    },
+    parsha: parshaNameArray,
+    parshaNum: raw.num,
     summary,
     fullkriyah: fullkriyah,
   };
@@ -507,80 +327,16 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
 }
 
 /**
- * @private
- * @param {HDate} hd
- * @param {boolean} il
- * @param {Object<string,Aliyah>} aliyot
- * @param {Object<string,string>} reason
- * @return {string}
- */
-export function specialReadings(hd, il, aliyot, reason) {
-  let haft;
-  let specialHaft = false;
-
-  // eslint-disable-next-line require-jsdoc
-  function handleSpecial(special, key) {
-    if (special.haft && !specialHaft) {
-      haft = cloneHaftara(special.haft);
-      reason.haftara = key;
-      specialHaft = true;
-    }
-    if (special.fullkriyah) {
-      mergeAliyotWithSpecial(aliyot, special.fullkriyah);
-      Object.keys(special.fullkriyah).map((k) => reason[k] = key);
-    }
-  }
-
-  const events0 = HebrewCalendar.getHolidaysOnDate(hd, il) || [];
-  const events = events0.filter((ev) => !(ev.getFlags() & flags.ROSH_CHODESH));
-  events.forEach((ev) => {
-    const key = getLeyningKeyForEvent(ev, il);
-    //            console.log(hd.greg().toLocaleDateString(), name, ev.getDesc(), key);
-    const special = lookupFestival(key);
-    if (special) {
-      const shabbatChanukah = getChanukahShabbatKey(ev, key);
-      if (shabbatChanukah) {
-        // only for Shabbat Chanukah I or Shabbat Chanukah II. Note
-        // this section doesn't apply to Shabbat Rosh Chodesh Chanukah; that
-        // case gets handled below with the mergeAliyotWithSpecial() logic
-        haft = cloneHaftara(lookupFestival(shabbatChanukah).haft);
-        specialHaft = true;
-        reason.haftara = shabbatChanukah;
-        // Aliyot 1-3 from regular daily reading becomes Maftir
-        const maftir = aliyot['M'] = clone(special.fullkriyah['1']);
-        maftir.e = special.fullkriyah['3'].e;
-        calculateNumVerses(maftir);
-        reason.M = key;
-      } else {
-        handleSpecial(special, key);
-      }
-    }
-  });
-  if (!haft) {
-    const day = hd.getDate();
-    if (day === 30 || day === 1) {
-      const key = 'Shabbat Rosh Chodesh';
-      const special = lookupFestival(key);
-      handleSpecial(special, key);
-    } else {
-      const tommorow = hd.next().getDate();
-      if (tommorow === 30 || tommorow === 1) {
-        const key = 'Shabbat Machar Chodesh';
-        const special = lookupFestival(key);
-        handleSpecial(special, key);
-      }
-    }
-  }
-  return haft;
-}
-
-/**
  * Looks up leyning for a regular Shabbat or holiday
  * @param {HDate} hdate Hebrew Date
  * @param {boolean} il in Israel
  * @return {Leyning} map of aliyot
  */
 export function getLeyningOnDate(hdate, il) {
+  if (hdate.getDay() !== 6) {
+    const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
+    return events ? getLeyningForHoliday(events[0], il) : undefined;
+  }
   const hyear = hdate.getFullYear();
   if (hyear < 3762) {
     throw new RangeError('Hebrew year must be 3762 or later');

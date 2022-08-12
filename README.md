@@ -23,6 +23,7 @@ the third section of the parashah.
 
 [Modification of the Triennial Cycle Readings for Combined Parashot in Certain Years](https://www.rabbinicalassembly.org/sites/default/files/2021-09/cohen-triennial.pdf), Rabbi Miles B. Cohen
 
+Update August 2022: Incorporated [An Emendation to Richard Eisenberg’s Complete Triennial System for Reading Torah, to Address a Rare Situation](https://www.rabbinicalassembly.org/sites/default/files/public/halakhah/teshuvot/2011-2020/heller-triennial-emendation.pdf), Rabbi Joshua Heller, 2012
 
 ## Installation
 ```bash
