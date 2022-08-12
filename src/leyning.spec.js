@@ -6,6 +6,7 @@ import {
   getLeyningForParshaHaShavua,
   getLeyningKeyForEvent,
   makeLeyningSummary,
+  getLeyningOnDate,
 } from './leyning';
 import {doubled, getDoubledName, formatAliyahWithBook} from './common';
 
@@ -960,6 +961,33 @@ test('Sukkot Shabbat Chol ha-Moed', (t) => {
     haft: {k: 'Ezekiel', b: '38:18', e: '39:16', v: 22},
     haftara: 'Ezekiel 38:18-39:16',
     haftaraNumV: 22,
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('getLeyningOnDate', (t) => {
+  const hd = new HDate(16, 'Av', 5782);
+  const reading = getLeyningOnDate(hd, false);
+  const expected = {
+    summary: 'Deuteronomy 3:23-7:11',
+    fullkriyah: {
+      '1': {k: 'Deuteronomy', b: '3:23', e: '4:4', v: 11},
+      '2': {k: 'Deuteronomy', b: '4:5', e: '4:40', v: 36},
+      '3': {k: 'Deuteronomy', b: '4:41', e: '4:49', v: 9},
+      '4': {k: 'Deuteronomy', b: '5:1', e: '5:18', v: 18},
+      '5': {k: 'Deuteronomy', b: '5:19', e: '6:3', v: 15},
+      '6': {k: 'Deuteronomy', b: '6:4', e: '6:25', v: 22},
+      '7': {k: 'Deuteronomy', b: '7:1', e: '7:11', v: 11},
+      'M': {k: 'Deuteronomy', b: '7:9', e: '7:11', v: 3},
+    },
+    haft: {k: 'Isaiah', b: '40:1', e: '40:26', v: 26},
+    haftara: 'Isaiah 40:1-26',
+    haftaraNumV: 26,
+    weekday: {
+      '1': {k: 'Deuteronomy', b: '3:23', e: '3:25', v: 3},
+      '2': {k: 'Deuteronomy', b: '3:26', e: '4:4', v: 8},
+      '3': {k: 'Deuteronomy', b: '4:5', e: '4:8', v: 4},
+    },
   };
   t.deepEqual(reading, expected);
 });

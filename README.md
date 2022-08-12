@@ -107,11 +107,17 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dt><a href="#getLeyningForParshaHaShavua">getLeyningForParshaHaShavua(ev, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a regular Shabbat parsha.</p>
 </dd>
+<dt><a href="#getLeyningOnDate">getLeyningOnDate(hdate, il)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
+<dd><p>Looks up leyning for a regular Shabbat or holiday</p>
+</dd>
 <dt><a href="#getTriennial">getTriennial(year)</a> ⇒ <code><a href="#Triennial">Triennial</a></code></dt>
 <dd><p>Calculates the 3-year readings for a given year</p>
 </dd>
 <dt><a href="#getTriennialForParshaHaShavua">getTriennialForParshaHaShavua(ev, [context])</a> ⇒ <code><a href="#TriennialAliyot">TriennialAliyot</a></code> | <code>Object.&lt;string, Aliyah&gt;</code></dt>
 <dd><p>Looks up the triennial leyning for this Parashat HaShavua</p>
+</dd>
+<dt><a href="#getTriennialHaftaraForHoliday">getTriennialHaftaraForHoliday(key, yearNum)</a> ⇒ <code>Object</code></dt>
+<dd><p>Looks up the alternative triennial Haftara for a holiday</p>
 </dd>
 </dl>
 
@@ -323,6 +329,19 @@ Looks up leyning for a regular Shabbat parsha.
 | ev | <code>Event</code> |  | the Hebcal event associated with this leyning |
 | [il] | <code>boolean</code> | <code>false</code> | in Israel |
 
+<a name="getLeyningOnDate"></a>
+
+## getLeyningOnDate(hdate, il) ⇒ [<code>Leyning</code>](#Leyning)
+Looks up leyning for a regular Shabbat or holiday
+
+**Kind**: global function  
+**Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| hdate | <code>HDate</code> | Hebrew Date |
+| il | <code>boolean</code> | in Israel |
+
 <a name="getTriennial"></a>
 
 ## getTriennial(year) ⇒ [<code>Triennial</code>](#Triennial)
@@ -346,6 +365,18 @@ Looks up the triennial leyning for this Parashat HaShavua
 | --- | --- | --- | --- |
 | ev | <code>Event</code> |  |  |
 | [context] | <code>boolean</code> | <code>false</code> | returns a reading wrapper object which includes `date`, `yearNum` and `aliyot` |
+
+<a name="getTriennialHaftaraForHoliday"></a>
+
+## getTriennialHaftaraForHoliday(key, yearNum) ⇒ <code>Object</code>
+Looks up the alternative triennial Haftara for a holiday
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| key | <code>string</code> | 
+| yearNum | <code>number</code> | 
 
 <a name="Aliyah"></a>
 

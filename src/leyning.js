@@ -1,4 +1,4 @@
-import {HebrewCalendar, HDate, months, flags, Event} from '@hebcal/core';
+import {HebrewCalendar, HDate, months, flags, Event, ParshaEvent} from '@hebcal/core';
 import {BOOK, calculateNumVerses, clone, cloneHaftara,
   makeHaftaraSummary, makeSummaryFromParts, calculateHaftaraNumV} from './common';
 import {lookupFestival, hasFestival} from './festival';
@@ -574,3 +574,24 @@ export function specialReadings(hd, il, aliyot, reason) {
   return haft;
 }
 
+/**
+ * Looks up leyning for a regular Shabbat or holiday
+ * @param {HDate} hdate Hebrew Date
+ * @param {boolean} il in Israel
+ * @return {Leyning} map of aliyot
+ */
+export function getLeyningOnDate(hdate, il) {
+  const hyear = hdate.getFullYear();
+  if (hyear < 3762) {
+    throw new RangeError('Hebrew year must be 3762 or later');
+  }
+  const sedra = HebrewCalendar.getSedra(hyear, il);
+  const parsha = sedra.lookup(hdate);
+  if (parsha.chag) {
+    const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
+    return getLeyningForHoliday(events[0], il);
+  }
+
+  const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
+  return getLeyningForParshaHaShavua(parshaEvent, il);
+}

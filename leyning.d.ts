@@ -1,6 +1,6 @@
 /// <reference types="node"/>
 
-import {Event} from '@hebcal/core';
+import {Event, HDate} from '@hebcal/core';
 import {WriteStream} from 'fs';
 
 declare module '@hebcal/leyning' {
@@ -51,6 +51,14 @@ declare module '@hebcal/leyning' {
             [key: string]: string;
         };
     };
+
+    /**
+     * Looks up leyning for a regular Shabbat or holiday
+     * @param hdate Hebrew Date
+     * @param il in Israel
+     * @returns map of aliyot
+     */
+    export function getLeyningOnDate(hdate: HDate, il: boolean): Leyning;
 
     /**
      * Represents triennial aliyot for a given date
