@@ -28,6 +28,14 @@ declare module '@hebcal/leyning' {
      * Leyning for a parsha hashavua or holiday
      */
     export type Leyning = {
+        name: {
+            en: string;
+            he: string;
+        };
+        /** An array of either 1 (regular) or 2 (doubled parsha). `undefined` for holiday readings */
+        parsha?: string[];
+        /** 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings */
+        parshaNum?: number;
         /** Such as `Genesis 1:1 - 6:8` */
         summary: string;
         /** Haftarah object */

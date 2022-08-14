@@ -333,21 +333,24 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
  * @return {Leyning} map of aliyot
  */
 export function getLeyningOnDate(hdate, il) {
-  if (hdate.getDay() !== 6) {
-    const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
-    return events ? getLeyningForHoliday(events[0], il) : undefined;
-  }
+  const dow = hdate.getDay();
   const hyear = hdate.getFullYear();
-  if (hyear < 3762) {
-    throw new RangeError('Hebrew year must be 3762 or later');
-  }
   const sedra = HebrewCalendar.getSedra(hyear, il);
   const parsha = sedra.lookup(hdate);
-  if (parsha.chag) {
-    const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
-    return getLeyningForHoliday(events[0], il);
+  if (dow === 6 && !parsha.chag) {
+    const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
+    return getLeyningForParshaHaShavua(parshaEvent, il);
   }
-
-  const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
-  return getLeyningForParshaHaShavua(parshaEvent, il);
+  const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
+  if (!events && (dow === 1 || dow === 4)) {
+    const reading = getLeyningForParsha(parsha.parsha);
+    const result = {
+      name: reading.name,
+      parsha: reading.parsha,
+      parshaNum: reading.parshaNum,
+      weekday: reading.weekday,
+    };
+    return result;
+  }
+  return events ? getLeyningForHoliday(events[0], il) : undefined;
 }
