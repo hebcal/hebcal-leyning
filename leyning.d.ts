@@ -61,7 +61,17 @@ declare module '@hebcal/leyning' {
     };
 
     /**
-     * Looks up leyning for a regular Shabbat or holiday
+     * Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
+     *
+     * If `hdate` coincides with a holiday that has Torah reading, returns the
+     * reading for that day (see {@link getLeyningForHoliday})
+     *
+     * Otherwise, if `hdate` is a Saturday, returns {@link getLeyningForParshaHaShavua}
+     *
+     * Otherwise, if `hdate` is a Monday or Thursday, returns {@link Leyning} for the
+     * Parashat haShavua, containing only the `weekday` aliyot (no `fullkriyah`).
+     *
+     * Otherwise, returns `undefined`.
      * @param hdate Hebrew Date
      * @param il in Israel
      * @returns map of aliyot
@@ -93,20 +103,20 @@ declare module '@hebcal/leyning' {
 
     /**
      * Based on the event date, type and title, finds the relevant leyning key
-     * @param e - event
+     * @param ev - the Hebcal holiday event
      * @param [il] - true if Israel holiday scheme
      * @returns key to look up in holiday-reading.json
      */
-    export function getLeyningKeyForEvent(e: Event, il?: boolean): string;
+    export function getLeyningKeyForEvent(ev: Event, il?: boolean): string;
 
     /**
      * Looks up leyning for a given holiday. Returns some
      * of full kriyah aliyot, special Maftir, special Haftarah
-     * @param e - the Hebcal event associated with this leyning
+     * @param ev - the Hebcal event associated with this leyning
      * @param [il] - true if Israel holiday scheme
      * @returns map of aliyot
      */
-    export function getLeyningForHoliday(e: Event, il?: boolean): Leyning;
+    export function getLeyningForHoliday(ev: Event, il?: boolean): Leyning;
 
     /**
      * Looks up leyning for a given holiday key. Key should be an
@@ -118,12 +128,13 @@ declare module '@hebcal/leyning' {
     export function getLeyningForHolidayKey(key: string): Leyning;
 
     /**
-     * Looks up leyning for a regular Shabbat parsha.
-     * @param e - the Hebcal event associated with this leyning
+     * Looks up leyning for a regular Shabbat parsha, including any special
+     * maftir or Haftara.
+     * @param ev - the Hebcal event associated with this leyning
      * @param [il] - in Israel
      * @returns map of aliyot
      */
-    export function getLeyningForParshaHaShavua(e: Event, il?: boolean): Leyning;
+    export function getLeyningForParshaHaShavua(ev: Event, il?: boolean): Leyning;
 
     /**
      * Looks up regular leyning for a weekly parsha with no special readings

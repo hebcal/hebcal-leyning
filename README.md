@@ -106,10 +106,17 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dd><p>Looks up regular leyning for a weekly parsha with no special readings</p>
 </dd>
 <dt><a href="#getLeyningForParshaHaShavua">getLeyningForParshaHaShavua(ev, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
-<dd><p>Looks up leyning for a regular Shabbat parsha.</p>
+<dd><p>Looks up leyning for a regular Shabbat parsha, including any special
+maftir or Haftara.</p>
 </dd>
 <dt><a href="#getLeyningOnDate">getLeyningOnDate(hdate, il)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
-<dd><p>Looks up leyning for a regular Shabbat or holiday</p>
+<dd><p>Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.</p>
+<p>If <code>hdate</code> coincides with a holiday that has Torah reading, returns the
+reading for that day (see <a href="#getLeyningForHoliday">getLeyningForHoliday</a>)</p>
+<p>Otherwise, if <code>hdate</code> is a Saturday, returns <a href="#getLeyningForParshaHaShavua">getLeyningForParshaHaShavua</a></p>
+<p>Otherwise, if <code>hdate</code> is a Monday or Thursday, returns <a href="#Leyning">Leyning</a> for the
+Parashat haShavua, containing only the <code>weekday</code> aliyot (no <code>fullkriyah</code>).</p>
+<p>Otherwise, returns <code>undefined</code>.</p>
 </dd>
 <dt><a href="#getTriennial">getTriennial(year)</a> ⇒ <code><a href="#Triennial">Triennial</a></code></dt>
 <dd><p>Calculates the 3-year readings for a given year</p>
@@ -320,7 +327,8 @@ Looks up regular leyning for a weekly parsha with no special readings
 <a name="getLeyningForParshaHaShavua"></a>
 
 ## getLeyningForParshaHaShavua(ev, [il]) ⇒ [<code>Leyning</code>](#Leyning)
-Looks up leyning for a regular Shabbat parsha.
+Looks up leyning for a regular Shabbat parsha, including any special
+maftir or Haftara.
 
 **Kind**: global function  
 **Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
@@ -333,7 +341,17 @@ Looks up leyning for a regular Shabbat parsha.
 <a name="getLeyningOnDate"></a>
 
 ## getLeyningOnDate(hdate, il) ⇒ [<code>Leyning</code>](#Leyning)
-Looks up leyning for a regular Shabbat or holiday
+Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
+
+If `hdate` coincides with a holiday that has Torah reading, returns the
+reading for that day (see [getLeyningForHoliday](#getLeyningForHoliday))
+
+Otherwise, if `hdate` is a Saturday, returns [getLeyningForParshaHaShavua](#getLeyningForParshaHaShavua)
+
+Otherwise, if `hdate` is a Monday or Thursday, returns [Leyning](#Leyning) for the
+Parashat haShavua, containing only the `weekday` aliyot (no `fullkriyah`).
+
+Otherwise, returns `undefined`.
 
 **Kind**: global function  
 **Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  

@@ -109,3 +109,57 @@ test('getLeyningOnDate-weekday2', (t) => {
   };
   t.deepEqual(reading, expected);
 });
+
+test('getLeyningOnDate-weekday-search1', (t) => {
+  const hd = new HDate(28, 'Elul', 5783);
+  const reading = getLeyningOnDate(hd, false);
+  const expected = {
+    name: {en: 'Ha\'Azinu', he: 'הַאֲזִינוּ'},
+    parsha: ['Ha\'Azinu'],
+    parshaNum: 53,
+    weekday: {
+      '1': {k: 'Deuteronomy', b: '32:1', e: '32:3', v: 3},
+      '2': {k: 'Deuteronomy', b: '32:4', e: '32:6', v: 3},
+      '3': {k: 'Deuteronomy', b: '32:7', e: '32:12', v: 6},
+    },
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('getLeyningOnDate-weekday-erev-sukkot', (t) => {
+  const hd = new HDate(14, 'Tishrei', 5786);
+  const reading = getLeyningOnDate(hd, false);
+  const expected = {
+    name: {en: 'Bereshit', he: 'בְּרֵאשִׁית'},
+    parsha: ['Bereshit'],
+    parshaNum: 1,
+    weekday: {
+      '1': {k: 'Genesis', b: '1:1', e: '1:5', v: 5},
+      '2': {k: 'Genesis', b: '1:6', e: '1:8', v: 3},
+      '3': {k: 'Genesis', b: '1:9', e: '1:13', v: 5},
+    },
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('getLeyningOnDate-weekday-search2', (t) => {
+  const hd = new HDate(13, 'Tishrei', 5787);
+  const reading = getLeyningOnDate(hd, true);
+  const expected = {
+    name: {en: 'Bereshit', he: 'בְּרֵאשִׁית'},
+    parsha: ['Bereshit'],
+    parshaNum: 1,
+    weekday: {
+      '1': {k: 'Genesis', b: '1:1', e: '1:5', v: 5},
+      '2': {k: 'Genesis', b: '1:6', e: '1:8', v: 3},
+      '3': {k: 'Genesis', b: '1:9', e: '1:13', v: 5},
+    },
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('getLeyningOnDate-weekday-undefined', (t) => {
+  const hd = new HDate(12, 'Tishrei', 5787);
+  const reading = getLeyningOnDate(hd, true);
+  t.is(reading, undefined);
+});
