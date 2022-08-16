@@ -54,7 +54,7 @@ declare module '@hebcal/leyning' {
         fullkriyah: AliyotMap;
         /** Optional map of weekday Torah Readings aliyot `1` through `3` for Monday and Thursday */
         weekday?: AliyotMap;
-        /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `H` for Haftarah */
+        /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `haftara` for Haftarah */
         reason?: {
             [key: string]: string;
         };

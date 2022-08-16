@@ -19,18 +19,31 @@ import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEven
  */
 
 /**
+ * Name of the parsha hashavua or holiday
+ * @typedef {Object} LeyningNames
+ * @property {string} en English
+ * @property {string} he Hebrew (with nikud)
+ */
+
+/**
  * Leyning for a parsha hashavua or holiday
  * @typedef {Object} Leyning
- * @property {string} summary
- * @property {Aliyah} haft - Haftarah
- * @property {string} haftara - Haftarah
- * @property {number} [haftaraNumV]
- * @property {Aliyah} [seph] - Haftarah for Sephardic
- * @property {string} [sephardic] - Haftarah for Sephardic
- * @property {number} [sephardicNumV]
- * @property {Object<string,Aliyah>} fullkriyah
- * @property {Object<string,Aliyah>} [weekday]
- * @property {Object} [reason]
+ * @property {LeyningNames} name
+ * @property {string[]} [parsha] - An array of either 1 (regular) or 2 (doubled parsha).
+ *    `undefined` for holiday readings
+ * @property {num} [parshaNum] - 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings
+ * @property {string} summary - Such as `Genesis 1:1 - 6:8`
+ * @property {Aliyah|Aliyah[]} haft - Haftarah object(s)
+ * @property {string} haftara - Haftarah, such as `Isaiah 42:5 – 43:11`
+ * @property {number} [haftaraNumV] - Number of verses in the Haftarah
+ * @property {Aliyah|Aliyah[]} [seph] - Haftarah object(s) for Sephardim
+ * @property {string} [sephardic] - Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21`
+ * @property {number} [sephardicNumV] - Number of verses in the Haftarah for Sephardim
+ * @property {Object<string,Aliyah>} fullkriyah - Map of aliyot `1` through `7` plus `M` for maftir
+ * @property {Object<string,Aliyah>} [weekday] - Optional map of weekday Torah Readings
+ *    aliyot `1` through `3` for Monday and Thursday
+ * @property {Object} [reason] - Explanations for special readings,
+ *    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah
  */
 
 /**

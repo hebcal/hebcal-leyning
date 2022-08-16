@@ -135,6 +135,9 @@ Parashat haShavua, containing only the <code>weekday</code> aliyot (no <code>ful
 <dt><a href="#Aliyah">Aliyah</a> : <code>Object</code></dt>
 <dd><p>Represents an aliyah</p>
 </dd>
+<dt><a href="#LeyningNames">LeyningNames</a> : <code>Object</code></dt>
+<dd><p>Name of the parsha hashavua or holiday</p>
+</dd>
 <dt><a href="#Leyning">Leyning</a> : <code>Object</code></dt>
 <dd><p>Leyning for a parsha hashavua or holiday</p>
 </dd>
@@ -413,6 +416,19 @@ Represents an aliyah
 | [v] | <code>number</code> | number of verses |
 | [p] | <code>number</code> | parsha number (1=Bereshit, 54=Vezot HaBracha) |
 
+<a name="LeyningNames"></a>
+
+## LeyningNames : <code>Object</code>
+Name of the parsha hashavua or holiday
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| en | <code>string</code> | English |
+| he | <code>string</code> | Hebrew (with nikud) |
+
 <a name="Leyning"></a>
 
 ## Leyning : <code>Object</code>
@@ -423,16 +439,19 @@ Leyning for a parsha hashavua or holiday
 
 | Name | Type | Description |
 | --- | --- | --- |
-| summary | <code>string</code> |  |
-| haft | [<code>Aliyah</code>](#Aliyah) | Haftarah |
-| haftara | <code>string</code> | Haftarah |
-| [haftaraNumV] | <code>number</code> |  |
-| [seph] | [<code>Aliyah</code>](#Aliyah) | Haftarah for Sephardic |
-| [sephardic] | <code>string</code> | Haftarah for Sephardic |
-| [sephardicNumV] | <code>number</code> |  |
-| fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> |  |
-| [weekday] | <code>Object.&lt;string, Aliyah&gt;</code> |  |
-| [reason] | <code>Object</code> |  |
+| name | [<code>LeyningNames</code>](#LeyningNames) |  |
+| [parsha] | <code>Array.&lt;string&gt;</code> | An array of either 1 (regular) or 2 (doubled parsha).    `undefined` for holiday readings |
+| [parshaNum] | <code>num</code> | 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings |
+| summary | <code>string</code> | Such as `Genesis 1:1 - 6:8` |
+| haft | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) |
+| haftara | <code>string</code> | Haftarah, such as `Isaiah 42:5 – 43:11` |
+| [haftaraNumV] | <code>number</code> | Number of verses in the Haftarah |
+| [seph] | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) for Sephardim |
+| [sephardic] | <code>string</code> | Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` |
+| [sephardicNumV] | <code>number</code> | Number of verses in the Haftarah for Sephardim |
+| fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> | Map of aliyot `1` through `7` plus `M` for maftir |
+| [weekday] | <code>Object.&lt;string, Aliyah&gt;</code> | Optional map of weekday Torah Readings    aliyot `1` through `3` for Monday and Thursday |
+| [reason] | <code>Object</code> | Explanations for special readings,    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah |
 
 <a name="TriennialAliyot"></a>
 
