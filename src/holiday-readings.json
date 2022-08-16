@@ -160,6 +160,11 @@
 "Ta'anit Esther":{"alias":true,"key":"Fast Day (Morning)"},
 "Tzom Gedaliah":{"alias":true,"key":"Fast Day (Morning)"},
 "Tzom Tammuz":{"alias":true,"key":"Fast Day (Morning)"},
+"Asara B'Tevet (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
+"Ta'anit Bechorot (Mincha)":{"alias":true,"key":"Fast Day (Afternon)"},
+"Ta'anit Esther (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
+"Tzom Gedaliah (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
+"Tzom Tammuz (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
 "Tish'a B'Av":{
  "haft":{"k":"Jeremiah","b":"8:13","e":"9:23"},
  "fullkriyah":

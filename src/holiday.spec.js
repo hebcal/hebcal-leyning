@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HDate, HebrewCalendar, Event, months, flags} from '@hebcal/core';
-import {getLeyningForHoliday} from './leyning';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from './leyning';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {formatAliyahWithBook} from './common';
 
@@ -408,4 +408,74 @@ test('Sukkot Shabbat Chol ha-Moed', (t) => {
     haftaraNumV: 22,
   };
   t.deepEqual(reading, expected);
+});
+
+test('17tamuz', (t) => {
+  const hd = new HDate(17, 'Tamuz', 5783);
+  const events = HebrewCalendar.calendar({
+    start: hd,
+    end: hd,
+  });
+  const reading = getLeyningForHoliday(events[0]);
+  const expected = {
+    name: {en: 'Tzom Tammuz', he: 'צוֹם תָּמוּז'},
+    fullkriyah: {
+      '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
+      '2': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
+      '3': {p: 21, k: 'Exodus', b: '34:4', e: '34:10', v: 7},
+    },
+    summary: 'Exodus 32:11-14, 34:1-10',
+    summaryParts: [
+      {k: 'Exodus', b: '32:11', e: '32:14'},
+      {k: 'Exodus', b: '34:1', e: '34:10'},
+    ],
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('9av', (t) => {
+  const hd = new HDate(9, 'Av', 5783);
+  const events = HebrewCalendar.calendar({
+    start: hd,
+    end: hd,
+  });
+  const reading = getLeyningForHoliday(events[0]);
+  const expected = {
+    name: {en: 'Tish\'a B\'Av', he: 'תִּשְׁעָה בְּאָב'},
+    fullkriyah: {
+      '1': {p: 45, k: 'Deuteronomy', b: '4:25', e: '4:29', v: 5},
+      '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
+      '3': {p: 45, k: 'Deuteronomy', b: '4:36', e: '4:40', v: 5},
+    },
+    summary: 'Deuteronomy 4:25-40',
+    haft: {k: 'Jeremiah', b: '8:13', e: '9:23', v: 34},
+    haftara: 'Jeremiah 8:13-9:23',
+    haftaraNumV: 34,
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('fast day mincha', (t) => {
+  const reading = getLeyningForHolidayKey('Tish\'a B\'Av (Mincha)');
+  const expected = {
+    name: {en: 'Tish\'a B\'Av (Mincha)', he: undefined},
+    fullkriyah: {
+      '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
+      '2': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
+      '3': {p: 21, k: 'Exodus', b: '34:4', e: '34:10', v: 7},
+    },
+    summary: 'Exodus 32:11-14, 34:1-10',
+    summaryParts: [
+      {k: 'Exodus', b: '32:11', e: '32:14'},
+      {k: 'Exodus', b: '34:1', e: '34:10'},
+    ],
+    haft: {k: 'Isaiah', b: '55:6', e: '56:8', v: 16},
+    haftara: 'Isaiah 55:6-56:8',
+    haftaraNumV: 16,
+  };
+  t.deepEqual(reading, expected);
+
+  const reading2 = getLeyningForHolidayKey('Tzom Gedaliah (Mincha)');
+  expected.name = {en: 'Tzom Gedaliah (Mincha)', he: undefined};
+  t.deepEqual(reading2, expected);
 });
