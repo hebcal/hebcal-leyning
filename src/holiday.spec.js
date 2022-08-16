@@ -478,4 +478,8 @@ test('fast day mincha', (t) => {
   const reading2 = getLeyningForHolidayKey('Tzom Gedaliah (Mincha)');
   expected.name = {en: 'Tzom Gedaliah (Mincha)', he: undefined};
   t.deepEqual(reading2, expected);
+
+  const reading3 = getLeyningForHolidayKey('Ta\'anit Bechorot (Mincha)');
+  expected.name = {en: 'Ta\'anit Bechorot (Mincha)', he: undefined};
+  t.deepEqual(reading3, expected);
 });
