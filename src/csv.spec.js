@@ -157,3 +157,22 @@ test('writeTriennialEvent-holiday-alt-haftara', (t) => {
     '', ''];
   t.deepEqual(lines, expected);
 });
+
+test('writeFullKriyahEvent-9av', (t) => {
+  const ev = new HolidayEvent(new HDate(9, months.AV, 5783), 'Tish\'a B\'Av', flags.MAJOR_FAST);
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, false);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    `27-Jul-2023,"Tish'a B'Av",1,"Deuteronomy 4:25-4:29",5`,
+    `27-Jul-2023,"Tish'a B'Av",2,"Deuteronomy 4:30-4:35",6`,
+    `27-Jul-2023,"Tish'a B'Av",3,"Deuteronomy 4:36-4:40",5`,
+    `27-Jul-2023,"Tish'a B'Av","Haftara","Jeremiah 8:13-9:23",34`,
+    '',
+    `27-Jul-2023,"Tish'a B'Av (Mincha)",1,"Exodus 32:11-32:14",4`,
+    `27-Jul-2023,"Tish'a B'Av (Mincha)",2,"Exodus 34:1-34:3",3`,
+    `27-Jul-2023,"Tish'a B'Av (Mincha)",3,"Exodus 34:4-34:10",7`,
+    `27-Jul-2023,"Tish'a B'Av (Mincha)","Haftara","Isaiah 55:6-56:8",16`,
+    '', ''];
+  t.deepEqual(lines, expected);
+});

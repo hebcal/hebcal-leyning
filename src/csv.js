@@ -1,5 +1,5 @@
-import {HebrewCalendar, flags} from '@hebcal/core';
-import {getLeyningForParshaHaShavua, getLeyningForHoliday} from './leyning';
+import {HebrewCalendar, flags, Event} from '@hebcal/core';
+import {getLeyningForParshaHaShavua, getLeyningForHoliday, getLeyningForHolidayKey} from './leyning';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {formatAliyahWithBook} from './common';
 import {getTriennialForParshaHaShavua, getTriennialHaftaraForHoliday, Triennial} from './triennial';
@@ -158,10 +158,19 @@ export function writeFullKriyahEvent(stream, ev, il) {
   if (ignore(ev)) {
     return;
   }
-  const isParsha = ev.getFlags() === flags.PARSHA_HASHAVUA;
+  const mask = ev.getFlags();
+  const isParsha = mask === flags.PARSHA_HASHAVUA;
   const reading = isParsha ? getLeyningForParshaHaShavua(ev, il) : getLeyningForHoliday(ev, il);
   if (reading) {
     writeCsvLines(stream, ev, reading, il, isParsha);
+    if (!isParsha && !(mask & flags.ROSH_CHODESH)) {
+      const minchaDesc = ev.getDesc() + ' (Mincha)';
+      const readingMincha = getLeyningForHolidayKey(minchaDesc);
+      if (readingMincha) {
+        const minchaEv = new Event(ev.getDate(), minchaDesc, flags.USER_EVENT);
+        writeCsvLines(stream, minchaEv, readingMincha, il, false);
+      }
+    }
   }
 }
 
