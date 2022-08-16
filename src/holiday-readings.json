@@ -144,37 +144,29 @@
   "6":{"p":47,"k":5,"b":"16:9","e":"16:12"},
   "7":{"p":47,"k":5,"b":"16:13","e":"16:17"},
   "M":{"p":41,"k":4,"b":"28:26","e":"28:31"}}},
-"Asara B'Tevet":{
+"Fast Day (Morning)":{
  "fullkriyah":
   {"1":{"p":21,"k":2,"b":"32:11","e":"32:14"},
   "2":{"p":21,"k":2,"b":"34:1","e":"34:3"},
   "3":{"p":21,"k":2,"b":"34:4","e":"34:10"}}},
-"Ta'anit Bechorot":{
+"Fast Day (Afternoon)":{
+ "haft":{"k":"Isaiah","b":"55:6","e":"56:8"},
  "fullkriyah":
   {"1":{"p":21,"k":2,"b":"32:11","e":"32:14"},
   "2":{"p":21,"k":2,"b":"34:1","e":"34:3"},
   "3":{"p":21,"k":2,"b":"34:4","e":"34:10"}}},
-"Ta'anit Esther":{
- "fullkriyah":
-  {"1":{"p":21,"k":2,"b":"32:11","e":"32:14"},
-  "2":{"p":21,"k":2,"b":"34:1","e":"34:3"},
-  "3":{"p":21,"k":2,"b":"34:4","e":"34:10"}}},
-"Tzom Gedaliah":{
- "fullkriyah":
-  {"1":{"p":21,"k":2,"b":"32:11","e":"32:14"},
-  "2":{"p":21,"k":2,"b":"34:1","e":"34:3"},
-  "3":{"p":21,"k":2,"b":"34:4","e":"34:10"}}},
-"Tzom Tammuz":{
- "fullkriyah":
-  {"1":{"p":21,"k":2,"b":"32:11","e":"32:14"},
-  "2":{"p":21,"k":2,"b":"34:1","e":"34:3"},
-  "3":{"p":21,"k":2,"b":"34:4","e":"34:10"}}},
+"Asara B'Tevet":{"alias":true,"key":"Fast Day (Morning)"},
+"Ta'anit Bechorot":{"alias":true,"key":"Fast Day (Morning)"},
+"Ta'anit Esther":{"alias":true,"key":"Fast Day (Morning)"},
+"Tzom Gedaliah":{"alias":true,"key":"Fast Day (Morning)"},
+"Tzom Tammuz":{"alias":true,"key":"Fast Day (Morning)"},
 "Tish'a B'Av":{
  "haft":{"k":"Jeremiah","b":"8:13","e":"9:23"},
  "fullkriyah":
   {"1":{"p":45,"k":5,"b":"4:25","e":"4:29"},
   "2":{"p":45,"k":5,"b":"4:30","e":"4:35"},
   "3":{"p":45,"k":5,"b":"4:36","e":"4:40"}}},
+"Tish'a B'Av (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
 "Rosh Hashana I":{
  "haft":{"k":"I Samuel","b":"1:1","e":"2:10"},
  "fullkriyah":

@@ -42,7 +42,7 @@ import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEven
  * @property {Object<string,Aliyah>} fullkriyah - Map of aliyot `1` through `7` plus `M` for maftir
  * @property {Object<string,Aliyah>} [weekday] - Optional map of weekday Torah Readings
  *    aliyot `1` through `3` for Monday and Thursday
- * @property {Object} [reason] - Explanations for special readings,
+ * @property {Object<string,string>} [reason] - Explanations for special readings,
  *    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah
  */
 
