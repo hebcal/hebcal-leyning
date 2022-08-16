@@ -451,7 +451,7 @@ Leyning for a parsha hashavua or holiday
 | [sephardicNumV] | <code>number</code> | Number of verses in the Haftarah for Sephardim |
 | fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> | Map of aliyot `1` through `7` plus `M` for maftir |
 | [weekday] | <code>Object.&lt;string, Aliyah&gt;</code> | Optional map of weekday Torah Readings    aliyot `1` through `3` for Monday and Thursday |
-| [reason] | <code>Object</code> | Explanations for special readings,    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah |
+| [reason] | <code>Object.&lt;string, string&gt;</code> | Explanations for special readings,    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah |
 
 <a name="TriennialAliyot"></a>
 
