@@ -3,6 +3,8 @@ import numverses from './numverses.json';
 
 /**
  * Names of the books of the Torah. BOOK[1] === 'Genesis'
+ * @readonly
+ * @const {string[]}
  */
 export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
 
@@ -73,30 +75,6 @@ export function shallowCopy(target, source) {
  */
 export function clone(src) {
   return JSON.parse(JSON.stringify(src));
-}
-
-/**
- * Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
- * CAUTION: Modifies the `aliyot` parameter instead of making a copy.
- * @deprecated
- * @param {Object<string,Aliyah>} aliyot aliyah map to decorate
- * @param {boolean} showBook display the book name in the `verses` field (e.g. for special Maftir)
- */
-export function addSefariaLinksToLeyning(aliyot, showBook) {
-  const book1 = aliyot['1']?.k;
-  Object.keys(aliyot).forEach((num) => {
-    const aliyah = aliyot[num];
-    aliyah.num = num == 'M' ? 'maf' : num;
-    const begin = aliyah.b.split(':');
-    const end = aliyah.e.split(':');
-    const endChapVerse = begin[0] === end[0] ? end[1] : aliyah.e;
-    const verses = `${aliyah.b}-${endChapVerse}`;
-    aliyah.verses = showBook || (book1 != aliyah.k) ? `${aliyah.k} ${verses}` : verses;
-    const sefariaVerses = verses.replace(/:/g, '.');
-    const sefAliyot = showBook ? '0' : '1';
-    const url = `https://www.sefaria.org/${aliyah.k}.${sefariaVerses}?lang=bi&aliyot=${sefAliyot}`;
-    aliyah.href = url;
-  });
 }
 
 /**

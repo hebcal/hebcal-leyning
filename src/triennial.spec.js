@@ -53,13 +53,13 @@ test('getTriennialForParshaHaShavua', (t) => {
   let events = HebrewCalendar.calendar(options);
   let ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot-Kedoshim');
-  let reading = getTriennialForParshaHaShavua(ev);
+  let reading = getTriennialForParshaHaShavua(ev).aliyot;
   t.is(formatAliyahWithBook(reading['2']), 'Leviticus 16:7-16:11');
   t.is(formatAliyahWithBook(reading['7']), 'Leviticus 17:1-17:7');
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 17:5-17:7');
   ev = events[1];
   t.is(ev.getDesc(), 'Parashat Emor');
-  reading = getTriennialForParshaHaShavua(ev);
+  reading = getTriennialForParshaHaShavua(ev).aliyot;
   t.is(formatAliyahWithBook(reading['1']), 'Leviticus 21:1-21:6');
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 22:13-22:16');
 
@@ -68,7 +68,7 @@ test('getTriennialForParshaHaShavua', (t) => {
   events = HebrewCalendar.calendar(options);
   ev = events[0];
   t.is(ev.getDesc(), 'Parashat Achrei Mot');
-  reading = getTriennialForParshaHaShavua(ev);
+  reading = getTriennialForParshaHaShavua(ev).aliyot;
   const expected0 = {
     '1': {k: 'Leviticus', b: '17:1', e: '17:7', v: 7},
     '2': {k: 'Leviticus', b: '17:8', e: '17:12', v: 5},
@@ -82,13 +82,13 @@ test('getTriennialForParshaHaShavua', (t) => {
   t.deepEqual(reading, expected0);
   ev = events[1];
   t.is(ev.getDesc(), 'Parashat Kedoshim');
-  reading = getTriennialForParshaHaShavua(ev);
+  reading = getTriennialForParshaHaShavua(ev).aliyot;
   t.is(formatAliyahWithBook(reading['1']), 'Leviticus 19:15-19:18');
   t.is(formatAliyahWithBook(reading['7']), 'Leviticus 20:23-20:27');
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 20:25-20:27');
   ev = events[2];
   t.is(ev.getDesc(), 'Parashat Emor');
-  reading = getTriennialForParshaHaShavua(ev);
+  reading = getTriennialForParshaHaShavua(ev).aliyot;
   t.is(formatAliyahWithBook(reading['1']), 'Leviticus 23:23-23:25');
   t.is(formatAliyahWithBook(reading['M']), 'Leviticus 24:21-24:23');
 
@@ -97,7 +97,7 @@ test('getTriennialForParshaHaShavua', (t) => {
   events = HebrewCalendar.calendar(options);
   ev = events[0];
   t.is(ev.getDesc(), 'Parashat Vayeilech');
-  reading = getTriennialForParshaHaShavua(ev);
+  reading = getTriennialForParshaHaShavua(ev).aliyot;
   const expected = {
     '1': {k: 'Deuteronomy', b: '31:1', e: '31:3', v: 3},
     '2': {k: 'Deuteronomy', b: '31:4', e: '31:6', v: 3},
@@ -121,7 +121,7 @@ test('specialReading1', (t) => {
   const events = HebrewCalendar.calendar(options);
   const ev = events[0];
   t.is(ev.getDesc(), 'Parashat Miketz');
-  const reading = getTriennialForParshaHaShavua(ev);
+  const reading = getTriennialForParshaHaShavua(ev).aliyot;
   const expected = {
     '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
     '2': {k: 'Genesis', b: '41:5', e: '41:7', v: 3},
@@ -152,7 +152,7 @@ test('specialReading2', (t) => {
   const events = HebrewCalendar.calendar(options);
   const ev = events[0];
   t.is(ev.getDesc(), 'Parashat Mishpatim');
-  const reading = getTriennialForParshaHaShavua(ev);
+  const reading = getTriennialForParshaHaShavua(ev).aliyot;
   const expected = {
     '1': {k: 'Exodus', b: '22:4', e: '22:8', v: 5},
     '2': {k: 'Exodus', b: '22:9', e: '22:12', v: 4},
@@ -249,19 +249,19 @@ test('vayeilech-elul', (t) => {
   options.start = options.end = new Date(2020, 8, 12);
   const event1 = HebrewCalendar.calendar(options)[0];
   t.is(event1.getDesc(), 'Parashat Nitzavim-Vayeilech');
-  const reading1 = getTriennialForParshaHaShavua(event1, true);
+  const reading1 = getTriennialForParshaHaShavua(event1);
   t.is(reading1.yearNum, 0);
 
   options.start = options.end = new Date(2021, 8, 11);
   const event2 = HebrewCalendar.calendar(options)[0];
   t.is(event2.getDesc(), 'Parashat Vayeilech');
-  const reading2 = getTriennialForParshaHaShavua(event2, true);
+  const reading2 = getTriennialForParshaHaShavua(event2);
   t.is(reading2.yearNum, 1);
 
   options.start = options.end = new Date(2022, 9, 1);
   const event3 = HebrewCalendar.calendar(options)[0];
   t.is(event3.getDesc(), 'Parashat Vayeilech');
-  const reading3 = getTriennialForParshaHaShavua(event3, true);
+  const reading3 = getTriennialForParshaHaShavua(event3);
   t.is(reading3.yearNum, 2);
 });
 
@@ -274,7 +274,7 @@ test('emor-5746', (t) => {
   options.start = options.end = new Date(1986, 4, 17);
   const ev = HebrewCalendar.calendar(options)[0];
   t.is(ev.getDesc(), 'Parashat Emor');
-  const reading = getTriennialForParshaHaShavua(ev, true);
+  const reading = getTriennialForParshaHaShavua(ev);
   const expected = {
     aliyot: {
       '1': {k: 'Leviticus', b: '23:23', e: '23:25', v: 3},
@@ -363,7 +363,7 @@ test('multi-year', (t) => {
     });
     for (const ev of events) {
       try {
-        getTriennialForParshaHaShavua(ev, true);
+        getTriennialForParshaHaShavua(ev);
       } catch (err) {
         console.log(ev);
         console.log(err);
@@ -380,7 +380,7 @@ test('triennial-haft', (t) => {
   const ev1 = HebrewCalendar.calendar({start: hd1, end: hd1, sedrot: true, noHolidays: true})[0];
   t.is(ev1.getFlags(), flags.PARSHA_HASHAVUA);
   t.is(ev1.getDesc(), 'Parashat Chukat');
-  const r1 = getTriennialForParshaHaShavua(ev1, true);
+  const r1 = getTriennialForParshaHaShavua(ev1);
   t.is(r1.haftara, 'II Kings 18:1-13, 19:15-19');
 
   // 7/30/2022 Parashat Matot-Masei
@@ -388,7 +388,7 @@ test('triennial-haft', (t) => {
   const ev2 = HebrewCalendar.calendar({start: hd2, end: hd2, sedrot: true, noHolidays: true})[0];
   t.is(ev2.getFlags(), flags.PARSHA_HASHAVUA);
   t.is(ev2.getDesc(), 'Parashat Matot-Masei');
-  const r2 = getTriennialForParshaHaShavua(ev2, true);
+  const r2 = getTriennialForParshaHaShavua(ev2);
   t.is(r2.haftara, 'I Kings 9:2-9, 9:4-5a');
 
   // 8/6/2022 Parashat Devarim
@@ -396,7 +396,7 @@ test('triennial-haft', (t) => {
   const ev3 = HebrewCalendar.calendar({start: hd3, end: hd3, sedrot: true, noHolidays: true})[0];
   t.is(ev3.getFlags(), flags.PARSHA_HASHAVUA);
   t.is(ev3.getDesc(), 'Parashat Devarim');
-  const r3 = getTriennialForParshaHaShavua(ev3, true);
+  const r3 = getTriennialForParshaHaShavua(ev3);
   t.is(r3.haftara, undefined);
 });
 

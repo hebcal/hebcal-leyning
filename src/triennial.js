@@ -272,7 +272,7 @@ export class Triennial {
     Object.keys(variations).forEach((variation) => {
       const aliyot = variations[variation];
       if (typeof aliyot === 'object') {
-        const dest = Object.create(null);
+        const dest = {};
         Object.keys(aliyot).forEach((num) => {
           const src = aliyot[num];
           const reading = {k: book, b: src[0], e: src[1]};
@@ -319,10 +319,9 @@ export function getTriennial(year) {
 /**
  * Looks up the triennial leyning for this Parashat HaShavua
  * @param {Event} ev
- * @param {boolean} [context=false] returns a reading wrapper object which includes `date`, `yearNum` and `aliyot`
- * @return {TriennialAliyot|Object<string,Aliyah>} a map of aliyot 1-7 plus "M"
+ * @return {TriennialAliyot} a map of aliyot 1-7 plus "M"
  */
-export function getTriennialForParshaHaShavua(ev, context=false) {
+export function getTriennialForParshaHaShavua(ev) {
   if (!ev instanceof Event) {
     throw new TypeError(`Bad event argument: ${ev}`);
   } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
@@ -346,7 +345,7 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
   }
   const aliyotMap = shallowCopy({}, reading.aliyot);
   // possibly replace 7th aliyah and/or maftir
-  const reason = Object.create(null);
+  const reason = {};
   specialReadings(hd, false, aliyotMap, reason);
   Object.keys(reason).forEach((num) => {
     const aliyah = aliyotMap[num];
@@ -354,14 +353,11 @@ export function getTriennialForParshaHaShavua(ev, context=false) {
       aliyah.reason = reason[num];
     }
   });
-  if (context) {
-    reading.yearNum = yearNum;
-    reading.aliyot = aliyotMap;
-    const triHaft = getTriennialHaftara(parsha, yearNum);
-    shallowCopy(reading, triHaft);
-    return reading;
-  }
-  return aliyotMap;
+  reading.yearNum = yearNum;
+  reading.aliyot = aliyotMap;
+  const triHaft = getTriennialHaftara(parsha, yearNum);
+  shallowCopy(reading, triHaft);
+  return reading;
 }
 
 /**

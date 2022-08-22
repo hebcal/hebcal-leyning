@@ -43,16 +43,16 @@ function mergeAliyotWithSpecial(aliyot, special) {
 
 /**
  * @private
- * @param {Event} e
+ * @param {Event} ev
  * @param {string} key
  * @return {string}
  */
-function getChanukahShabbatKey(e, key) {
+function getChanukahShabbatKey(ev, key) {
   if (key == 'Shabbat Rosh Chodesh Chanukah') {
     return undefined;
   }
-  if (e.chanukahDay) {
-    return (e.chanukahDay == 8) ? 'Shabbat Chanukah II' : 'Shabbat Chanukah';
+  if (ev.chanukahDay) {
+    return (ev.chanukahDay == 8) ? 'Shabbat Chanukah II' : 'Shabbat Chanukah';
   }
   return undefined;
 }

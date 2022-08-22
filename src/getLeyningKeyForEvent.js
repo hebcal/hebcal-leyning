@@ -6,27 +6,27 @@ export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHA
 
 /**
  * Based on the event date, type and title, finds the relevant leyning key
- * @param {Event} e event
+ * @param {Event} ev event
  * @param {boolean} [il] true if Israel holiday scheme
  * @return {string} key to look up in holiday-reading.json
  */
-export function getLeyningKeyForEvent(e, il = false) {
-  const mask = e.getFlags();
+export function getLeyningKeyForEvent(ev, il = false) {
+  const mask = ev.getFlags();
   if (mask & HOLIDAY_IGNORE_MASK) {
     return undefined;
   }
   // Skip all Erevs except for Simchat Torah
-  const desc = e.getDesc();
+  const desc = ev.getDesc();
   if (mask & flags.EREV && desc !== 'Erev Simchat Torah') {
     return undefined;
   }
-  const hd = e.getDate();
+  const hd = ev.getDate();
   const day = hd.getDate();
   const dow = hd.abs() % 7;
   const month = hd.getMonth();
   const isShabbat = (dow == 6);
   const isRoshChodesh = (day == 1 || day == 30);
-  const holiday = e.basename();
+  const holiday = ev.basename();
   const isPesach = holiday === 'Pesach';
   if (il && isPesach) {
     if (isShabbat) {
@@ -36,7 +36,7 @@ export function getLeyningKeyForEvent(e, il = false) {
   }
   if (day == 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
-  } else if (e.cholHaMoedDay) {
+  } else if (ev.cholHaMoedDay) {
     // Sukkot or Pesach
     if (isShabbat) {
       return holiday + ' Shabbat Chol ha-Moed';
@@ -45,7 +45,7 @@ export function getLeyningKeyForEvent(e, il = false) {
     }
     // If Shabbat falls on the third day of Chol ha-Moed Pesach,
     // the readings for the third, fourth, and fifth days are moved ahead
-    let cholHaMoedDay = e.cholHaMoedDay;
+    let cholHaMoedDay = ev.cholHaMoedDay;
     if (isPesach && cholHaMoedDay >= 3) {
       if (dow == 0 && cholHaMoedDay == 4) {
         cholHaMoedDay = 3;
@@ -54,13 +54,13 @@ export function getLeyningKeyForEvent(e, il = false) {
       }
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
-  } else if (e.chanukahDay) {
+  } else if (ev.chanukahDay) {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
-    } else if (isRoshChodesh && e.chanukahDay == 7) {
+    } else if (isRoshChodesh && ev.chanukahDay == 7) {
       return `Chanukah Day 7 (on Rosh Chodesh)`;
     } else {
-      return `Chanukah Day ${e.chanukahDay}`;
+      return `Chanukah Day ${ev.chanukahDay}`;
     }
   }
 

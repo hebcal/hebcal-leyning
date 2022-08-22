@@ -49,20 +49,20 @@ import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEven
 /**
  * Looks up leyning for a given holiday. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
- * @param {Event} e the Hebcal event associated with this leyning
+ * @param {Event} ev the Hebcal event associated with this leyning
  * @param {boolean} [il] true if Israel holiday scheme
  * @return {Leyning} map of aliyot
  */
-export function getLeyningForHoliday(e, il=false) {
-  if (typeof e !== 'object' || !(e instanceof Event)) {
-    throw new TypeError(`Bad event argument: ${e}`);
-  } else if (e.getFlags() & flags.PARSHA_HASHAVUA) {
-    throw new TypeError(`Event should be a holiday: ${e.getDesc()}`);
-  } else if (e.getFlags() & HOLIDAY_IGNORE_MASK) {
+export function getLeyningForHoliday(ev, il=false) {
+  if (typeof ev !== 'object' || !(ev instanceof Event)) {
+    throw new TypeError(`Bad event argument: ${ev}`);
+  } else if (ev.getFlags() & flags.PARSHA_HASHAVUA) {
+    throw new TypeError(`Event should be a holiday: ${ev.getDesc()}`);
+  } else if (ev.getFlags() & HOLIDAY_IGNORE_MASK) {
     return undefined;
   }
-  const key = getLeyningKeyForEvent(e, il);
-  const leyning = getLeyningForHolidayKey(key, e.cholHaMoedDay);
+  const key = getLeyningKeyForEvent(ev, il);
+  const leyning = getLeyningForHolidayKey(key, ev.cholHaMoedDay);
   return leyning;
 }
 
@@ -232,7 +232,7 @@ export function getLeyningForParsha(parsha) {
   }
   const name = isParshaString ? parsha : parshaToString(parsha);
   const raw = parshiyotObj[name];
-  const fullkriyah = Object.create(null);
+  const fullkriyah = {};
   const book = BOOK[raw.book];
   Object.keys(raw.fullkriyah).forEach((num) => {
     const src = raw.fullkriyah[num];
@@ -271,7 +271,7 @@ export function getLeyningForParsha(parsha) {
   }
   const weekdaySrc = raw.weekday || parshiyotObj[parshaNameArray[0]].weekday;
   if (weekdaySrc) {
-    const weekday = result.weekday = Object.create(null);
+    const weekday = result.weekday = {};
     ['1', '2', '3'].forEach((num) => {
       const src = weekdaySrc[num];
       const aliyah = {k: book, b: src.b, e: src.e};
@@ -298,7 +298,7 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   // first, collect the default aliyot and haftara
   const parsha = ev.parsha;
   const result = getLeyningForParsha(parsha);
-  const reason = Object.create(null);
+  const reason = {};
   const hd = ev.getDate();
   // Now, check for special maftir or haftara on same date
   const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason);

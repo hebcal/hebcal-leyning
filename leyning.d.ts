@@ -28,8 +28,11 @@ declare module '@hebcal/leyning' {
      * Leyning for a parsha hashavua or holiday
      */
     export type Leyning = {
+        /** Name of the parsha hashavua or holiday */
         name: {
+            /** English */
             en: string;
+            /** Hebrew (with nikud) */
             he: string;
         };
         /** An array of either 1 (regular) or 2 (doubled parsha). `undefined` for holiday readings */
@@ -77,24 +80,6 @@ declare module '@hebcal/leyning' {
      * @returns map of aliyot
      */
     export function getLeyningOnDate(hdate: HDate, il: boolean): Leyning;
-
-    /**
-     * Represents triennial aliyot for a given date
-     */
-    export type TriennialAliyot = {
-        /** Map of aliyot `1` through `7` plus `M` for maftir */
-        aliyot: AliyotMap;
-        /** year number, 0-2 */
-        yearNum: number;
-        /** Shabbat date for when this parsha is read in this 3-year cycle */
-        date: Date;
-        /** true if a double parsha is read separately in year `yearNum` */
-        readSeparately?: boolean;
-        /** Shabbat date of the first part of a read-separately aliyah pair */
-        date1?: Date;
-        /** Shabbat date of the second part of a read-separately aliyah pair */
-        date2?: Date;
-    };
 
     /**
      * Makes a summary of the leyning, like "Genesis 6:9-11:32"
@@ -154,6 +139,24 @@ declare module '@hebcal/leyning' {
     export function formatAliyahShort(aliyah: Aliyah, showBook: boolean): string;
 
     /**
+     * Represents triennial aliyot for a given date
+     */
+    export type TriennialAliyot = {
+        /** Map of aliyot `1` through `7` plus `M` for maftir */
+        aliyot: AliyotMap;
+        /** year number, 0-2 */
+        yearNum: number;
+        /** Shabbat date for when this parsha is read in this 3-year cycle */
+        date: Date;
+        /** true if a double parsha is read separately in year `yearNum` */
+        readSeparately?: boolean;
+        /** Shabbat date of the first part of a read-separately aliyah pair */
+        date1?: Date;
+        /** Shabbat date of the second part of a read-separately aliyah pair */
+        date2?: Date;
+    };
+
+    /**
      * Triennial Torah readings
      */
     export class Triennial {
@@ -182,26 +185,17 @@ declare module '@hebcal/leyning' {
     /**
      * Looks up triennial leyning for a regular Shabbat parsha.
      * @param ev - the Hebcal event associated with this parsha
-     * @param [context] returns a reading wrapper object which includes `date`, `yearNum` and `aliyot`
      * @returns a map of aliyot 1-7 plus "M"
      */
-    export function getTriennialForParshaHaShavua(ev: Event, context?: boolean): AliyotMap|TriennialAliyot;
+    export function getTriennialForParshaHaShavua(ev: Event): TriennialAliyot;
 
     export function getTriennialHaftaraForHoliday(holiday: string, yearNum: number): any;
 
-    export const parshiyot: any;
-    export const holidayReadings: any;
+    /**
+     * Names of the books of the Torah. BOOK[1] === 'Genesis'
+     */
     export const BOOK: string[];
 
     export function writeTriennialCsv(stream: WriteStream, hyear: number): void;
     export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean): void;
-
-    /**
-     * Makes Sefaria links by adding `href`, `verses` and `num` attributes to each aliyah.
-     * CAUTION: Modifies the `aliyot` parameter instead of making a copy.
-     * @deprecated
-     * @param aliyot - aliyah map to decorate
-     * @param showBook - display the book name in the `verses` field (e.g. for special Maftir)
-     */
-    export function addSefariaLinksToLeyning(aliyot: AliyotMap, showBook: boolean): void;
 }
