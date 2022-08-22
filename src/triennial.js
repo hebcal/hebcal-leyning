@@ -3,8 +3,7 @@ import {specialReadings} from './specialReadings';
 import triennialConfig from './triennial.json';
 import {BOOK, calculateNumVerses, clone, shallowCopy,
   cloneHaftara, makeHaftaraSummary, calculateHaftaraNumV,
-  parshaToString,
-  doubled, getDoubledName} from './common';
+  parshaToString} from './common';
 import triennialHaft from './triennial-haft.json';
 
 /**
@@ -20,10 +19,33 @@ import triennialHaft from './triennial-haft.json';
 
 const VEZOT_HABERAKHAH = 'Vezot Haberakhah';
 const isSometimesDoubled = Object.create(null);
+// N.B. these are 0-based indices
+const doubled = [
+  21, // Vayakhel-Pekudei
+  26, // Tazria-Metzora
+  28, // Achrei Mot-Kedoshim
+  31, // Behar-Bechukotai
+  38, // Chukat-Balak
+  41, // Matot-Masei
+  50, // Nitzavim-Vayeilech
+];
 doubled.forEach((id) => {
   isSometimesDoubled[id] = true;
   isSometimesDoubled[id + 1] = true;
 });
+
+/**
+ * takes a 0-based (Bereshit=0) parsha ID
+ * @private
+ * @param {number} id
+ * @return {string}
+ */
+function getDoubledName(id) {
+  const p1 = parshiot[id];
+  const p2 = parshiot[id + 1];
+  const name = p1 + '-' + p2;
+  return name;
+}
 
 let triennialAliyot;
 

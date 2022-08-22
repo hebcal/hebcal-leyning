@@ -1,7 +1,6 @@
 import test from 'ava';
 import {parshiot} from '@hebcal/core';
 import {getLeyningForParsha} from './leyning';
-import {doubled, getDoubledName} from './common';
 
 test('getLeyningForParsha-1', (t) => {
   const reading = getLeyningForParsha('Pinchas');
@@ -148,7 +147,15 @@ test('getLeyningForParsha-3', (t) => {
 });
 
 test('no-aliyot-lessthan-three', (t) => {
-  const toTest = [].concat(parshiot, doubled.map(getDoubledName));
+  const toTest = [].concat(parshiot, [
+    'Vayakhel-Pekudei',
+    'Tazria-Metzora',
+    'Achrei Mot-Kedoshim',
+    'Behar-Bechukotai',
+    'Chukat-Balak',
+    'Matot-Masei',
+    'Nitzavim-Vayeilech',
+  ]);
   for (const parsha of toTest) {
     const reading = getLeyningForParsha(parsha);
     for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
