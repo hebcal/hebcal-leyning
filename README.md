@@ -83,6 +83,12 @@ for (const [num, aliyah] of Object.entries(triReading)) {
 <dt><a href="#formatAliyahShort">formatAliyahShort(aliyah, showBook)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats an aliyah object like &quot;Numbers 28:9-15&quot;</p>
 </dd>
+<dt><a href="#hasFestival">hasFestival(holiday)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Is there a special festival Torah Reading for <code>holiday</code>?</p>
+</dd>
+<dt><a href="#lookupFestival">lookupFestival(holiday)</a> ⇒ <code>any</code></dt>
+<dd><p>Returns the raw metadata for festival reading for <code>holiday</code></p>
+</dd>
 <dt><a href="#getLeyningKeyForEvent">getLeyningKeyForEvent(ev, [il])</a> ⇒ <code>string</code></dt>
 <dd><p>Based on the event date, type and title, finds the relevant leyning key</p>
 </dd>
@@ -114,6 +120,9 @@ reading for that day (see <a href="#getLeyningForHoliday">getLeyningForHoliday</
 Parashat haShavua, containing only the <code>weekday</code> aliyot (no <code>fullkriyah</code>).</p>
 <p>Otherwise, returns <code>undefined</code>.</p>
 </dd>
+<dt><a href="#lookupParsha">lookupParsha(parsha)</a> ⇒ <code><a href="#ParshaMeta">ParshaMeta</a></code></dt>
+<dd><p>Returns the parsha metadata</p>
+</dd>
 <dt><a href="#getTriennial">getTriennial(year)</a> ⇒ <code><a href="#Triennial">Triennial</a></code></dt>
 <dd><p>Calculates the 3-year readings for a given year</p>
 </dd>
@@ -136,6 +145,9 @@ Parashat haShavua, containing only the <code>weekday</code> aliyot (no <code>ful
 </dd>
 <dt><a href="#Leyning">Leyning</a> : <code>Object</code></dt>
 <dd><p>Leyning for a parsha hashavua or holiday</p>
+</dd>
+<dt><a href="#ParshaMeta">ParshaMeta</a> : <code>Object</code></dt>
+<dd><p>Parsha metadata</p>
 </dd>
 <dt><a href="#TriennialAliyot">TriennialAliyot</a> : <code>Object</code></dt>
 <dd><p>Represents triennial aliyot for a given date</p>
@@ -239,6 +251,28 @@ Formats an aliyah object like "Numbers 28:9-15"
 | --- | --- |
 | aliyah | [<code>Aliyah</code>](#Aliyah) | 
 | showBook | <code>boolean</code> | 
+
+<a name="hasFestival"></a>
+
+## hasFestival(holiday) ⇒ <code>boolean</code>
+Is there a special festival Torah Reading for `holiday`?
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| holiday | <code>string</code> | 
+
+<a name="lookupFestival"></a>
+
+## lookupFestival(holiday) ⇒ <code>any</code>
+Returns the raw metadata for festival reading for `holiday`
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| holiday | <code>string</code> | 
 
 <a name="getLeyningKeyForEvent"></a>
 
@@ -346,6 +380,17 @@ Otherwise, returns `undefined`.
 | hdate | <code>HDate</code> | Hebrew Date |
 | il | <code>boolean</code> | in Israel |
 
+<a name="lookupParsha"></a>
+
+## lookupParsha(parsha) ⇒ [<code>ParshaMeta</code>](#ParshaMeta)
+Returns the parsha metadata
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | 
+
 <a name="getTriennial"></a>
 
 ## getTriennial(year) ⇒ [<code>Triennial</code>](#Triennial)
@@ -422,7 +467,7 @@ Leyning for a parsha hashavua or holiday
 | --- | --- | --- |
 | name | [<code>LeyningNames</code>](#LeyningNames) |  |
 | [parsha] | <code>Array.&lt;string&gt;</code> | An array of either 1 (regular) or 2 (doubled parsha).    `undefined` for holiday readings |
-| [parshaNum] | <code>num</code> | 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings |
+| [parshaNum] | <code>number</code> | 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings |
 | summary | <code>string</code> | Such as `Genesis 1:1 - 6:8` |
 | haft | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) |
 | haftara | <code>string</code> | Haftarah, such as `Isaiah 42:5 – 43:11` |
@@ -433,6 +478,24 @@ Leyning for a parsha hashavua or holiday
 | fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> | Map of aliyot `1` through `7` plus `M` for maftir |
 | [weekday] | <code>Object.&lt;string, Aliyah&gt;</code> | Optional map of weekday Torah Readings    aliyot `1` through `3` for Monday and Thursday |
 | [reason] | <code>Object.&lt;string, string&gt;</code> | Explanations for special readings,    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah |
+
+<a name="ParshaMeta"></a>
+
+## ParshaMeta : <code>Object</code>
+Parsha metadata
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| num | <code>number</code> | 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings |
+| hebrew | <code>string</code> | parsha name in Hebrew with niqud |
+| book | <code>number</code> | 1 for Genesis, 2 for Exodus, 5 for Deuteronomy |
+| haft | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) |
+| [seph] | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) for Sephardim |
+| fullkriyah | <code>Object.&lt;string, Array.&lt;string&gt;&gt;</code> | Map of aliyot `1` through `7` plus `M` for maftir |
+| weekday | <code>Object.&lt;string, Array.&lt;string&gt;&gt;</code> | Map of weekday Torah Readings    aliyot `1` through `3` for Monday and Thursday |
 
 <a name="TriennialAliyot"></a>
 

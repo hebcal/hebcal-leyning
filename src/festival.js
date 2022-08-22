@@ -2,28 +2,28 @@ import festivals from './holiday-readings.json';
 import {BOOK, clone} from './common';
 
 /**
- * @private
- * @param {string} key
+ * Is there a special festival Torah Reading for `holiday`?
+ * @param {string} holiday
  * @return {boolean}
  */
-export function hasFestival(key) {
-  return typeof festivals[key] === 'object';
+export function hasFestival(holiday) {
+  return typeof festivals[holiday] === 'object';
 }
 
 /**
- * @private
- * @param {string} key
+ * Returns the raw metadata for festival reading for `holiday`
+ * @param {string} holiday
  * @return {any}
  */
-export function lookupFestival(key) {
-  let src = festivals[key];
+export function lookupFestival(holiday) {
+  let src = festivals[holiday];
   if (typeof src === 'undefined') {
     return undefined;
   }
   if (src.alias) {
     const tmp = festivals[src.key];
     if (typeof tmp === 'undefined') {
-      throw new Error(`Leying key ${key} => ${src.key} not found`);
+      throw new Error(`Leyning alias ${holiday} => ${src.key} not found`);
     }
     src = tmp;
   }

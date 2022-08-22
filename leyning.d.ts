@@ -198,4 +198,43 @@ declare module '@hebcal/leyning' {
 
     export function writeTriennialCsv(stream: WriteStream, hyear: number): void;
     export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean): void;
+
+    /**
+     * Parsha metadata (underlying JSON object)
+     */
+    export type ParshaMeta = {
+        /** 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings */
+        num: number;
+        /** parsha name in Hebrew with niqud */
+        hebrew: string;
+        /** 1 for Genesis, 2 for Exodus, 5 for Deuteronomy */
+        book: number;
+        /** Haftarah object(s) */
+        haft: Aliyah | Aliyah[];
+        /** Haftarah object(s) for Sephardim */
+        seph?: Aliyah | Aliyah[];
+        /** Raw map of Shabbat aliyot `1` through `7` plus `M` for maftir */
+        fullkriyah: {
+            [key: string]: string[];
+        };
+        /** weekday - raw map of weekday Torah Readings aliyot `1` through `3` for Mon & Thu */
+        weekday: {
+            [key: string]: string[];
+        };
+    };
+
+    /**
+     * Returns raw parsha metadata
+     */
+    export function lookupParsha(parsha: string | string[]): ParshaMeta;
+
+    /**
+     * Is there a special festival Torah Reading for `holiday`?
+     */
+    export function hasFestival(holiday: string): boolean;
+  
+    /**
+     * Returns the raw metadata for festival reading for `holiday`
+     */
+    export function lookupFestival(holiday: string): any;  
 }

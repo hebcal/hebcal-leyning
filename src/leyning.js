@@ -31,7 +31,7 @@ import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEven
  * @property {LeyningNames} name
  * @property {string[]} [parsha] - An array of either 1 (regular) or 2 (doubled parsha).
  *    `undefined` for holiday readings
- * @property {num} [parshaNum] - 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings
+ * @property {number} [parshaNum] - 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings
  * @property {string} summary - Such as `Genesis 1:1 - 6:8`
  * @property {Aliyah|Aliyah[]} haft - Haftarah object(s)
  * @property {string} haftara - Haftarah, such as `Isaiah 42:5 – 43:11`
@@ -417,4 +417,37 @@ function findParshaHaShavua(saturday, il) {
   }
   /* NOTREACHED */
   return null;
+}
+
+
+/**
+ * Parsha metadata
+ * @typedef {Object} ParshaMeta
+ * @property {number} num - 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings
+ * @property {string} hebrew - parsha name in Hebrew with niqud
+ * @property {number} book - 1 for Genesis, 2 for Exodus, 5 for Deuteronomy
+ * @property {Aliyah|Aliyah[]} haft - Haftarah object(s)
+ * @property {Aliyah|Aliyah[]} [seph] - Haftarah object(s) for Sephardim
+ * @property {Object<string,string[]>} fullkriyah - Map of aliyot `1` through `7` plus `M` for maftir
+ * @property {Object<string,string[]>} weekday - Map of weekday Torah Readings
+ *    aliyot `1` through `3` for Monday and Thursday
+ */
+
+/**
+ * Returns the parsha metadata
+ * @param {string|string[]} parsha
+ * @return {ParshaMeta}
+ */
+export function lookupParsha(parsha) {
+  const isParshaString = typeof parsha === 'string';
+  if (!isParshaString &&
+      (!Array.isArray(parsha) || (parsha.length !== 1 && parsha.length !== 2))) {
+    throw new TypeError(`Bad parsha argument: ${parsha}`);
+  }
+  const name = isParshaString ? parsha : parshaToString(parsha);
+  const raw = parshiyotObj[name];
+  if (typeof raw !== 'object') {
+    throw new TypeError(`Bad parsha argument: ${parsha}`);
+  }
+  return raw;
 }
