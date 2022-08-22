@@ -275,7 +275,7 @@ export class Triennial {
         const dest = Object.create(null);
         Object.keys(aliyot).forEach((num) => {
           const src = aliyot[num];
-          const reading = {k: book, b: src.b, e: src.e};
+          const reading = {k: book, b: src[0], e: src[1]};
           if (src.v) {
             reading.v = src.v;
           }
