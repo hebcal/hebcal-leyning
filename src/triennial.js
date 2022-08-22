@@ -1,6 +1,6 @@
 import {Event, HDate, HebrewCalendar, parshiot, flags, months} from '@hebcal/core';
 import {specialReadings} from './specialReadings';
-import parshiyotObj from './aliyot.json';
+import triennialConfig from './triennial.json';
 import {BOOK, calculateNumVerses, clone, shallowCopy,
   cloneHaftara, makeHaftaraSummary, calculateHaftaraNumV,
   parshaToString,
@@ -131,7 +131,8 @@ export class Triennial {
       // Next, look up the pattern in JSON to determine readings for each year.
       // For "all-together", use "Y" pattern to imply Y.1, Y.2, Y.3
       const variation = (pattern === 'TTT') ?
-                'Y' : parshiyotObj[name].triennial.patterns[pattern];
+        'Y' :
+        triennialConfig[name].patterns[pattern];
       if (typeof variation === 'undefined') {
         throw new Error(`Can't find pattern ${pattern} for ${name}, startYear=${this.startYear}`);
       }
@@ -229,7 +230,7 @@ export class Triennial {
   }
 
   /**
-   * Walks parshiyotObj and builds lookup table for triennial aliyot
+   * Walks triennialConfig and builds lookup table for triennial aliyot
    * @private
    * @return {Object}
    */
@@ -237,14 +238,15 @@ export class Triennial {
     const triennialAliyot = Object.create(null);
     const triennialAliyotAlt = Object.create(null);
     // build a lookup table so we don't have to follow num/variation/sameas
-    Object.keys(parshiyotObj).forEach((parsha) => {
-      const value = parshiyotObj[parsha];
+    Object.keys(triennialConfig).forEach((parsha) => {
+      const value = triennialConfig[parsha];
+      if (typeof value !== 'object' || typeof value.book !== 'number') {
+        throw new Error(`misconfiguration: ${parsha}`);
+      }
       const book = BOOK[value.book];
-      if (value.triennial) { // Vezot Haberakhah has no triennial
-        triennialAliyot[parsha] = Triennial.resolveSameAs(parsha, book, value.triennial);
-        if (value.triennial.alt) {
-          triennialAliyotAlt[parsha] = Triennial.resolveSameAs(parsha, book, value.triennial.alt);
-        }
+      triennialAliyot[parsha] = Triennial.resolveSameAs(parsha, book, value);
+      if (value.alt) {
+        triennialAliyotAlt[parsha] = Triennial.resolveSameAs(parsha, book, value.alt);
       }
     });
     // TODO: handle triennialAliyotAlt also
@@ -265,7 +267,7 @@ export class Triennial {
     if (typeof variations === 'undefined') {
       throw new Error(`Parashat ${parsha} has no years or variations`);
     }
-    // first pass, copy only alyiot definitions from parshiyotObj into lookup table
+    // first pass, copy only alyiot definitions from triennialConfig into lookup table
     const lookup = Object.create(null);
     Object.keys(variations).forEach((variation) => {
       const aliyot = variations[variation];
