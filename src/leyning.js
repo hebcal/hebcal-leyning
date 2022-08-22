@@ -236,7 +236,7 @@ export function getLeyningForParsha(parsha) {
   const book = BOOK[raw.book];
   Object.keys(raw.fullkriyah).forEach((num) => {
     const src = raw.fullkriyah[num];
-    const reading = {k: book, b: src.b, e: src.e};
+    const reading = {k: book, b: src[0], e: src[1]};
     fullkriyah[num] = reading;
   });
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
@@ -274,7 +274,7 @@ export function getLeyningForParsha(parsha) {
     const weekday = result.weekday = {};
     ['1', '2', '3'].forEach((num) => {
       const src = weekdaySrc[num];
-      const aliyah = {k: book, b: src.b, e: src.e};
+      const aliyah = {k: book, b: src[0], e: src[1]};
       calculateNumVerses(aliyah);
       weekday[num] = aliyah;
     });
