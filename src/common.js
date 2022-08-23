@@ -32,18 +32,6 @@ export function parshaToString(parsha) {
  */
 
 /**
- * A bit like Object.assign(), but just a shallow copy
- * @private
- * @param {any} target
- * @param {any} source
- * @return {any}
- */
-export function shallowCopy(target, source) {
-  Object.keys(source).forEach((k) => target[k] = source[k]);
-  return target;
-}
-
-/**
  * Makes a deep copy of the src object using JSON stringify and parse
  * @private
  * @param {any} src

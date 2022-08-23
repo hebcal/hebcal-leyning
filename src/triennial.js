@@ -1,7 +1,7 @@
 import {Event, HDate, HebrewCalendar, parshiot, flags, months} from '@hebcal/core';
 import {specialReadings} from './specialReadings';
 import triennialConfig from './triennial.json';
-import {BOOK, calculateNumVerses, clone, shallowCopy,
+import {BOOK, calculateNumVerses, clone,
   cloneHaftara, makeHaftaraSummary, calculateHaftaraNumV,
   parshaToString} from './common';
 import triennialHaft from './triennial-haft.json';
@@ -45,6 +45,18 @@ function getDoubledName(id) {
   const p2 = parshiot[id + 1];
   const name = p1 + '-' + p2;
   return name;
+}
+
+/**
+ * A bit like Object.assign(), but just a shallow copy
+ * @private
+ * @param {any} target
+ * @param {any} source
+ * @return {any}
+ */
+function shallowCopy(target, source) {
+  Object.keys(source).forEach((k) => target[k] = source[k]);
+  return target;
 }
 
 let triennialAliyot;
