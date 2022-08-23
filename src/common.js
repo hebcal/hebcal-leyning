@@ -9,7 +9,6 @@ export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuterono
 
 /**
  * Formats parsha as a string
- * @private
  * @param {string[]} parsha
  * @return {string}
  */
@@ -33,7 +32,6 @@ export function parshaToString(parsha) {
 
 /**
  * Makes a deep copy of the src object using JSON stringify and parse
- * @private
  * @param {any} src
  * @return {any}
  */
@@ -42,8 +40,10 @@ export function clone(src) {
 }
 
 /**
- * @private
- * @param {any} aliyah
+ * Calculates the number of verses in an aliyah or haftara based on
+ * the `b` (begin verse), `e` (end verse) and `k` (book).
+ * Modifies `aliyah` by setting the `v` field.
+ * @param {Aliyah} aliyah
  * @return {number}
  */
 export function calculateNumVerses(aliyah) {
@@ -71,37 +71,6 @@ export function calculateNumVerses(aliyah) {
     aliyah.v = total;
   }
   return aliyah.v;
-}
-
-/**
- * @private
- * @param {string} haftara
- * @return {number}
- */
-export function calculateHaftarahNumVerses(haftara) {
-  const sections = haftara.split(/[;,]/);
-  let total = 0;
-  let prevBook;
-  sections.forEach((haft) => {
-    const matches = haft.trim().match(/^(([^\d]+)\s+)?(\d.+)$/);
-    if (matches !== null) {
-      const hbook = matches[2] ? matches[2].trim() : prevBook;
-      const hverses = matches[3].trim();
-      const cv = hverses.match(/^(\d+:\d+)\s*-\s*(\d+(:\d+)?)$/);
-      if (cv) {
-        if (cv[2].indexOf(':') === -1) {
-          const chap = cv[1].substring(0, cv[1].indexOf(':'));
-          cv[2] = `${chap}:${cv[2]}`;
-        }
-        const haft = {k: hbook, b: cv[1], e: cv[2]};
-        total += calculateNumVerses(haft);
-      } else {
-        total++; // Something like "Jeremiah 3:4" is 1 verse
-      }
-      prevBook = hbook;
-    }
-  });
-  return total || undefined;
 }
 
 /**
@@ -133,48 +102,12 @@ export function formatAliyahShort(aliyah, showBook) {
 }
 
 /**
- * @private
- * @param {Aliyah[]} parts
- * @return {string}
- */
-export function makeSummaryFromParts(parts) {
-  let prev = parts[0];
-  let summary = formatAliyahShort(prev, true);
-  for (let i = 1; i < parts.length; i++) {
-    const part = parts[i];
-    if (part.k === prev.k) {
-      summary += ', ';
-    } else {
-      summary += `; ${part.k} `;
-    }
-    summary += formatAliyahShort(part, false);
-    prev = part;
-  }
-  return summary;
-}
-
-/**
- * @private
- * @param {Aliyah|Aliyah[]} haft
- * @return {string}
- */
-export function makeHaftaraSummary(haft) {
-  if (!haft) {
-    return haft;
-  }
-  const parts = Array.isArray(haft) ? haft : [haft];
-  const str = makeSummaryFromParts(parts);
-  // return str.replace(/-/g, ' - ');
-  return str;
-}
-
-/**
- * @private
- * @param {Aliyah|Aliyah[]} haft
+ * Returns the total number of verses in an array of Aliyah (or haftarah) objects
+ * @param {Aliyah|Aliyah[]} aliyot
  * @return {number}
  */
-export function calculateHaftaraNumV(haft) {
-  return Array.isArray(haft) ? haft.reduce((prev, cur) => prev + cur.v, 0) : haft.v;
+export function sumVerses(aliyot) {
+  return Array.isArray(aliyot) ? aliyot.reduce((prev, cur) => prev + cur.v, 0) : aliyot.v;
 }
 
 /**

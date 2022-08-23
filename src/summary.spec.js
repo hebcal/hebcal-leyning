@@ -1,5 +1,5 @@
 import test from 'ava';
-import {makeLeyningSummary} from './leyning';
+import {makeLeyningSummary} from './summary';
 
 test('mls-Noach', (t) => {
   const fullkriyah = {

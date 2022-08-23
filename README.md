@@ -77,11 +77,39 @@ for (const [num, aliyah] of Object.entries(triReading)) {
 ## Functions
 
 <dl>
+<dt><a href="#parshaToString">parshaToString(parsha)</a> ⇒ <code>string</code></dt>
+<dd><p>Formats parsha as a string</p>
+</dd>
+<dt><a href="#clone">clone(src)</a> ⇒ <code>any</code></dt>
+<dd><p>Makes a deep copy of the src object using JSON stringify and parse</p>
+</dd>
+<dt><a href="#calculateNumVerses">calculateNumVerses(aliyah)</a> ⇒ <code>number</code></dt>
+<dd><p>Calculates the number of verses in an aliyah or haftara based on
+the <code>b</code> (begin verse), <code>e</code> (end verse) and <code>k</code> (book).
+Modifies <code>aliyah</code> by setting the <code>v</code> field.</p>
+</dd>
 <dt><a href="#formatAliyahWithBook">formatAliyahWithBook(a)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats an aliyah object like &quot;Numbers 28:9-28:15&quot;</p>
 </dd>
 <dt><a href="#formatAliyahShort">formatAliyahShort(aliyah, showBook)</a> ⇒ <code>string</code></dt>
 <dd><p>Formats an aliyah object like &quot;Numbers 28:9-15&quot;</p>
+</dd>
+<dt><a href="#sumVerses">sumVerses(aliyot)</a> ⇒ <code>number</code></dt>
+<dd><p>Returns the total number of verses in an array of Aliyah (or haftarah) objects</p>
+</dd>
+<dt><a href="#makeLeyningParts">makeLeyningParts(aliyot)</a> ⇒ <code><a href="#Aliyah">Array.&lt;Aliyah&gt;</a></code></dt>
+<dd><p>Summarizes an <code>AliyotMap</code> by collapsing all adjacent aliyot.
+Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)</p>
+</dd>
+<dt><a href="#makeSummaryFromParts">makeSummaryFromParts(parts)</a> ⇒ <code>string</code></dt>
+<dd><p>Returns a string representation of the leyning parts.
+Separate verse ranges read from the same book are separated
+by commas, e.g. <code>Isaiah 6:1-7:6, 9:5-6</code>.
+Verse ranges from different books are separated by semicolons,
+e.g. <code>Genesis 21:1-34; Numbers 29:1-6</code>.</p>
+</dd>
+<dt><a href="#makeLeyningSummary">makeLeyningSummary(aliyot)</a> ⇒ <code>string</code></dt>
+<dd><p>Makes a summary of the leyning, like &quot;Genesis 6:9-11:32&quot;</p>
 </dd>
 <dt><a href="#hasFestival">hasFestival(holiday)</a> ⇒ <code>boolean</code></dt>
 <dd><p>Is there a special festival Torah Reading for <code>holiday</code>?</p>
@@ -95,9 +123,6 @@ for (const [num, aliyah] of Object.entries(triReading)) {
 <dt><a href="#getLeyningForHoliday">getLeyningForHoliday(ev, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
-</dd>
-<dt><a href="#makeLeyningSummary">makeLeyningSummary(aliyot)</a> ⇒ <code>string</code></dt>
-<dd><p>Makes a summary of the leyning, like &quot;Genesis 6:9-11:32&quot;</p>
 </dd>
 <dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key, [cholHaMoedDay])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday key. Key should be an
@@ -229,6 +254,41 @@ Names of the books of the Torah. BOOK[1] === 'Genesis'
 
 **Kind**: global constant  
 **Read only**: true  
+<a name="parshaToString"></a>
+
+## parshaToString(parsha) ⇒ <code>string</code>
+Formats parsha as a string
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| parsha | <code>Array.&lt;string&gt;</code> | 
+
+<a name="clone"></a>
+
+## clone(src) ⇒ <code>any</code>
+Makes a deep copy of the src object using JSON stringify and parse
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| src | <code>any</code> | 
+
+<a name="calculateNumVerses"></a>
+
+## calculateNumVerses(aliyah) ⇒ <code>number</code>
+Calculates the number of verses in an aliyah or haftara based on
+the `b` (begin verse), `e` (end verse) and `k` (book).
+Modifies `aliyah` by setting the `v` field.
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| aliyah | [<code>Aliyah</code>](#Aliyah) | 
+
 <a name="formatAliyahWithBook"></a>
 
 ## formatAliyahWithBook(a) ⇒ <code>string</code>
@@ -251,6 +311,55 @@ Formats an aliyah object like "Numbers 28:9-15"
 | --- | --- |
 | aliyah | [<code>Aliyah</code>](#Aliyah) | 
 | showBook | <code>boolean</code> | 
+
+<a name="sumVerses"></a>
+
+## sumVerses(aliyot) ⇒ <code>number</code>
+Returns the total number of verses in an array of Aliyah (or haftarah) objects
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| aliyot | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | 
+
+<a name="makeLeyningParts"></a>
+
+## makeLeyningParts(aliyot) ⇒ [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah)
+Summarizes an `AliyotMap` by collapsing all adjacent aliyot.
+Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
+
+<a name="makeSummaryFromParts"></a>
+
+## makeSummaryFromParts(parts) ⇒ <code>string</code>
+Returns a string representation of the leyning parts.
+Separate verse ranges read from the same book are separated
+by commas, e.g. `Isaiah 6:1-7:6, 9:5-6`.
+Verse ranges from different books are separated by semicolons,
+e.g. `Genesis 21:1-34; Numbers 29:1-6`.
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| parts | [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | 
+
+<a name="makeLeyningSummary"></a>
+
+## makeLeyningSummary(aliyot) ⇒ <code>string</code>
+Makes a summary of the leyning, like "Genesis 6:9-11:32"
+
+**Kind**: global function  
+
+| Param | Type |
+| --- | --- |
+| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
 
 <a name="hasFestival"></a>
 
@@ -300,17 +409,6 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | --- | --- | --- | --- |
 | ev | <code>Event</code> |  | the Hebcal event associated with this leyning |
 | [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
-
-<a name="makeLeyningSummary"></a>
-
-## makeLeyningSummary(aliyot) ⇒ <code>string</code>
-Makes a summary of the leyning, like "Genesis 6:9-11:32"
-
-**Kind**: global function  
-
-| Param | Type |
-| --- | --- |
-| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
 
 <a name="getLeyningForHolidayKey"></a>
 

@@ -1,11 +1,12 @@
 import {HDate, HebrewCalendar, months, flags, Event, ParshaEvent, Locale} from '@hebcal/core';
 import {BOOK, calculateNumVerses, clone, cloneHaftara,
-  parshaToString,
-  makeHaftaraSummary, makeSummaryFromParts, calculateHaftaraNumV} from './common';
+  parshaToString, sumVerses} from './common';
+import {makeSummaryFromParts} from './summary';
 import {lookupFestival} from './festival';
 import parshiyotObj from './aliyot.json';
 import {specialReadings} from './specialReadings';
 import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEvent';
+import {makeLeyningParts} from './summary';
 
 /**
  * Represents an aliyah
@@ -67,59 +68,6 @@ export function getLeyningForHoliday(ev, il=false) {
 }
 
 /**
- * @private
- * @param {string} a
- * @param {string} b
- * @return {boolean}
- */
-function isChapVerseBefore(a, b) {
-  const cv1 = a.split(':').map((x) => +x);
-  const cv2 = b.split(':').map((x) => +x);
-  return (cv1[0]*100 + cv1[1]) < (cv2[0]*100 + cv2[1]);
-}
-
-/**
- * Makes a summary of the leyning, like "Genesis 6:9-11:32"
- * @param {Object<string,Aliyah>} aliyot
- * @return {string}
- */
-export function makeLeyningSummary(aliyot) {
-  const parts = makeLeyningParts(aliyot);
-  return makeSummaryFromParts(parts);
-}
-
-/**
- * @private
- * @param {Object<string,Aliyah>} aliyot
- * @return {Aliyah[]}
- */
-export function makeLeyningParts(aliyot) {
-  const nums = Object.keys(aliyot).filter((x) => x.length === 1);
-  let start = aliyot[nums[0]];
-  let end = start;
-  const parts = [];
-  for (let i = 0; i < nums.length; i++) {
-    const num = nums[i];
-    const aliyah = aliyot[num];
-    if ((i === nums.length - 1) && (aliyah.k === end.k) && (aliyah.e === end.e)) {
-      // short-circuit when final aliyah is within the previous (e.g. M inside of 7)
-      continue;
-    }
-    const prevEndChap = +(end.e.split(':')[0]);
-    const curStartChap = +(aliyah.b.split(':')[0]);
-    const sameOrNextChap = curStartChap === prevEndChap || curStartChap === prevEndChap + 1;
-    if ((i !== 0) &&
-      (aliyah.k !== start.k || isChapVerseBefore(aliyah.b, start.e) || !sameOrNextChap)) {
-      parts.push({k: start.k, b: start.b, e: end.e});
-      start = aliyah;
-    }
-    end = aliyah;
-  }
-  parts.push({k: start.k, b: start.b, e: end.e});
-  return parts;
-}
-
-/**
  * Looks up leyning for a given holiday key. Key should be an
  * (untranslated) string used in holiday-readings.json. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
@@ -161,8 +109,8 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
   }
   if (src.haft) {
     const haft = leyning.haft = cloneHaftara(src.haft);
-    leyning.haftara = makeHaftaraSummary(haft);
-    leyning.haftaraNumV = calculateHaftaraNumV(haft);
+    leyning.haftara = makeSummaryFromParts(haft);
+    leyning.haftaraNumV = sumVerses(haft);
   }
   return leyning;
 }
@@ -261,13 +209,13 @@ export function getLeyningForParsha(parsha) {
   const haft0 = parshiyotObj[hkey].haft;
   if (haft0) {
     const haft = result.haft = cloneHaftara(haft0);
-    result.haftara = makeHaftaraSummary(haft);
-    result.haftaraNumV = calculateHaftaraNumV(haft);
+    result.haftara = makeSummaryFromParts(haft);
+    result.haftaraNumV = sumVerses(haft);
   }
   if (raw.seph) {
     const seph = result.seph = cloneHaftara(raw.seph);
-    result.sephardic = makeHaftaraSummary(seph);
-    result.sephardicNumV = calculateHaftaraNumV(seph);
+    result.sephardic = makeSummaryFromParts(seph);
+    result.sephardicNumV = sumVerses(seph);
   }
   const weekdaySrc = raw.weekday || parshiyotObj[parshaNameArray[0]].weekday;
   if (weekdaySrc) {
@@ -334,8 +282,8 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   }
   if (updateHaftaraSummary) {
     const haft = result.haft;
-    result.haftara = makeHaftaraSummary(haft);
-    result.haftaraNumV = calculateHaftaraNumV(haft);
+    result.haftara = makeSummaryFromParts(haft);
+    result.haftaraNumV = sumVerses(haft);
   }
   return result;
 }

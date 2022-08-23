@@ -2,8 +2,8 @@ import {Event, HDate, HebrewCalendar, parshiot, flags, months} from '@hebcal/cor
 import {specialReadings} from './specialReadings';
 import triennialConfig from './triennial.json';
 import {BOOK, calculateNumVerses, clone,
-  cloneHaftara, makeHaftaraSummary, calculateHaftaraNumV,
-  parshaToString} from './common';
+  cloneHaftara, sumVerses, parshaToString} from './common';
+import {makeSummaryFromParts} from './summary';
 import triennialHaft from './triennial-haft.json';
 
 /**
@@ -419,8 +419,8 @@ export function getTriennialHaftara(parsha, yearNum) {
     const haft = cloneHaftara(triHaft2);
     return {
       haft: haft,
-      haftara: makeHaftaraSummary(haft),
-      haftaraNumV: calculateHaftaraNumV(haft),
+      haftara: makeSummaryFromParts(haft),
+      haftaraNumV: sumVerses(haft),
     };
   }
   return {};
@@ -441,8 +441,8 @@ export function getTriennialHaftaraForHoliday(key, yearNum) {
     const haft = cloneHaftara(triHaft2);
     return {
       haft: haft,
-      haftara: makeHaftaraSummary(haft),
-      haftaraNumV: calculateHaftaraNumV(haft),
+      haftara: makeSummaryFromParts(haft),
+      haftaraNumV: sumVerses(haft),
     };
   }
   return undefined;

@@ -1,5 +1,5 @@
 import test from 'ava';
-import {calculateNumVerses, calculateHaftarahNumVerses} from './common';
+import {calculateNumVerses} from './common';
 
 test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Genesis', b: '1:1', e: '1:1'}), 1);
@@ -15,17 +15,4 @@ test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Zechariah', b: '2:14', e: '4:7'}), 21);
   t.is(calculateNumVerses({k: 'Ezekiel', b: '1:1', e: '1:28'}), 28);
   t.is(calculateNumVerses({k: 'Deuteronomy', b: '5:25', e: '6:3'}), 9);
-});
-
-test('calculateHaftarahNumVerses', (t) => {
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28'), 28);
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1-1:28'), 28);
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1-28'), 28);
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28, 3:12'), 29);
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28; 3:12'), 29);
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1-28, 3:12'), 29);
-  t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28; Ezekiel 3:12'), 29);
-  t.is(calculateHaftarahNumVerses('Joshua 5:2-6:1'), 15);
-  t.is(calculateHaftarahNumVerses('II Kings 23:1 - 23:9; 23:21 - 23:25'), 14);
-  t.is(calculateHaftarahNumVerses('II Kings 23:1-9; 23:21-25'), 14);
 });
