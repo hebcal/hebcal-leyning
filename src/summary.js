@@ -50,7 +50,7 @@ export function makeLeyningParts(aliyot) {
  * by commas, e.g. `Isaiah 6:1-7:6, 9:5-6`.
  * Verse ranges from different books are separated by semicolons,
  * e.g. `Genesis 21:1-34; Numbers 29:1-6`.
- * @param {Aliyah[]} parts
+ * @param {Aliyah|Aliyah[]} parts
  * @return {string}
  */
 export function makeSummaryFromParts(parts) {

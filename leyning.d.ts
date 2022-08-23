@@ -64,6 +64,38 @@ declare module '@hebcal/leyning' {
     };
 
     /**
+     * Formats parsha as a string
+     */
+    export function parshaToString(parsha: string[]): string;
+    /**
+     * Makes a deep copy of the src object using JSON stringify and parse
+     */
+    export function clone(src: any): any;
+    /**
+     * Calculates the number of verses in an aliyah or haftara based on
+     * the `b` (begin verse), `e` (end verse) and `k` (book).
+     * Modifies `aliyah` by setting the `v` field.
+     */
+    export function calculateNumVerses(aliyah: Aliyah): number;
+    /**
+     * Returns the total number of verses in an array of Aliyah (or haftarah) objects
+     */
+    export function sumVerses(aliyot: Aliyah | Aliyah[]): number;
+    /**
+     * Summarizes an `AliyotMap` by collapsing all adjacent aliyot.
+     * Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
+     */
+     export function makeLeyningParts(aliyot: AliyotMap): Aliyah[];
+     /**
+      * Returns a string representation of the leyning parts.
+      * Separate verse ranges read from the same book are separated
+      * by commas, e.g. `Isaiah 6:1-7:6, 9:5-6`.
+      * Verse ranges from different books are separated by semicolons,
+      * e.g. `Genesis 21:1-34; Numbers 29:1-6`.
+      */
+     export function makeSummaryFromParts(parts: Aliyah | Aliyah[]): string;
+
+    /**
      * Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
      *
      * If `hdate` coincides with a holiday that has Torah reading, returns the
