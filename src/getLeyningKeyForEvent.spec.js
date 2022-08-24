@@ -31,7 +31,7 @@ test('getLeyningKeyForEvent', (t) => {
     'Rosh Chodesh Kislev': 'Rosh Chodesh Kislev',
     'Chanukah: 1 Candle': undefined,
     'Chanukah: 2 Candles': 'Chanukah Day 1',
-    'Chanukah: 3 Candles': 'Chanukah Day 2',
+    'Chanukah: 3 Candles': 'Chanukah Day 2 (on Shabbat)',
     'Chanukah: 4 Candles': 'Chanukah Day 3',
     'Chanukah: 5 Candles': 'Chanukah Day 4',
     'Chanukah: 6 Candles': 'Chanukah Day 5',

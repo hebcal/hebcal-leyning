@@ -132,18 +132,12 @@ function getHaftaraKey(parsha) {
 
 /**
  * @private
- * @param {Event} ev the Hebcal event associated with this leyning
- * @return {any}
+ * @param {string[]} parsha
+ * @param {HDate} hd
+ * @return {Object|boolean}
  */
-function getSpecialHaftara(ev) {
-  if (!ev instanceof Event) {
-    throw new TypeError(`Bad event argument: ${ev}`);
-  } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
-    throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
-  }
-  const parsha = ev.parsha;
+function getSpecialHaftara(parsha, hd) {
   const name = parshaToString(parsha); // untranslated
-  const hd = ev.getDate();
   const day = hd.getDate();
   if (name === 'Pinchas') {
     const month = hd.getMonth();
@@ -260,7 +254,7 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
     result.summary = makeSummaryFromParts(parts);
     result.summaryParts = parts;
   }
-  const specialHaftara2 = getSpecialHaftara(ev);
+  const specialHaftara2 = getSpecialHaftara(parsha, hd);
   if (specialHaftara2) {
     result.haft = cloneHaftara(specialHaftara2.haft);
     updateHaftaraSummary = true;

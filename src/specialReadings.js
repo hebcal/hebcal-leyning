@@ -97,22 +97,7 @@ export function specialReadings(hd, il, aliyot, reason) {
     //            console.log(hd.greg().toLocaleDateString(), name, ev.getDesc(), key);
     const special = lookupFestival(key);
     if (special) {
-      const shabbatChanukah = getChanukahShabbatKey(ev, key);
-      if (shabbatChanukah) {
-        // only for Shabbat Chanukah I or Shabbat Chanukah II. Note
-        // this section doesn't apply to Shabbat Rosh Chodesh Chanukah; that
-        // case gets handled below with the mergeAliyotWithSpecial() logic
-        haft = cloneHaftara(lookupFestival(shabbatChanukah).haft);
-        specialHaft = true;
-        reason.haftara = shabbatChanukah;
-        // Aliyot 1-3 from regular daily reading becomes Maftir
-        const maftir = aliyot['M'] = clone(special.fullkriyah['1']);
-        maftir.e = special.fullkriyah['3'].e;
-        calculateNumVerses(maftir);
-        reason.M = key;
-      } else {
-        handleSpecial(special, key);
-      }
+      handleSpecial(special, key);
     }
   });
   if (!haft) {

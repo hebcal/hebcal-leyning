@@ -113,8 +113,6 @@ test('getLeyningForHoliday', (t) => {
   t.is(getLeyningForHoliday(sukkot2).fullkriyah['4'].p, 41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
   t.is(getLeyningForHoliday(shminiAtzeret).fullkriyah['7'].p, 47);
-  const chanukah3 = events.find((e) => e.getDesc() == 'Chanukah: 3 Candles');
-  t.is(getLeyningForHoliday(chanukah3).fullkriyah['3'].e, '7:29');
   const tevet17 = events.find((e) => e.getDesc() == 'Asara B\'Tevet');
   t.is(getLeyningForHoliday(tevet17).fullkriyah['3'].e, '34:10');
   const pesach5 = events.find((e) => e.getDesc() == 'Pesach V (CH\'\'M)');
@@ -123,6 +121,21 @@ test('getLeyningForHoliday', (t) => {
   t.is(getLeyningForHoliday(shavuot).fullkriyah['4'].p, 17);
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
   t.is(getLeyningForHoliday(av9).haftara, 'Jeremiah 8:13-9:23');
+});
+
+test('getLeyningForHoliday-Chanukah', (t) => {
+  const options = {year: 5757, isHebrewYear: true, il: true};
+  const events = HebrewCalendar.calendar(options);
+  const chanukah3 = events.find((e) => e.getDesc() == 'Chanukah: 3 Candles');
+  const reading = getLeyningForHoliday(chanukah3);
+  const expected = {
+    name: {en: 'Chanukah Day 2 (on Shabbat)', he: undefined},
+    fullkriyah: {M: {p: 35, k: 'Numbers', b: '7:18', e: '7:23', v: 6}},
+    haft: {k: 'Zechariah', b: '2:14', e: '4:7', v: 21},
+    haftara: 'Zechariah 2:14-4:7',
+    haftaraNumV: 21,
+  };
+  t.deepEqual(reading, expected);
 });
 
 test('getLeyningForHoliday-RoshChodesh', (t) => {

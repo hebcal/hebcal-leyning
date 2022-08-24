@@ -31,8 +31,7 @@ function formatAliyah(aliyot, num) {
   return formatAliyahWithBook(aliyot.fullkriyah[num]);
 }
 
-test('getLeyningForParshaHaShavua', (t) => {
-  /** @type {HebrewCalendar.Options} */
+test('2026', (t) => {
   const options = {year: 2026, isHebrewYear: false, sedrot: true, noHolidays: true};
   const events = HebrewCalendar.calendar(options);
   for (const ev of events) {
@@ -71,8 +70,7 @@ test('getLeyningForParshaHaShavua', (t) => {
         t.is(a.haftara, 'I Samuel 20:18-42');
         break;
       case 'Parashat Vayeshev':
-        t.is(a.reason.haftara, 'Shabbat Chanukah');
-        t.is(a.reason.M, 'Chanukah Day 1');
+        t.is(a.reason.haftara, 'Chanukah Day 1 (on Shabbat)');
         t.is(a.haftara, 'Zechariah 2:14-4:7');
         t.is(formatAliyah(a, 'M'), 'Numbers 7:1-7:17');
         break;
@@ -100,14 +98,14 @@ test('getLeyningForParshaHaShavua', (t) => {
             '6': {k: 'Genesis', b: '43:16', e: '43:29', v: 14},
             '7': {k: 'Genesis', b: '43:30', e: '44:17', v: 22},
             'M': {p: 35, k: 'Numbers', b: '7:54', e: '8:4', v: 40,
-              reason: 'Chanukah Day 8'},
+              reason: 'Chanukah Day 8 (on Shabbat)'},
           },
           haft: {
             k: 'I Kings',
             b: '7:40',
             e: '7:50',
             v: 11,
-            reason: 'Shabbat Chanukah II',
+            reason: 'Chanukah Day 8 (on Shabbat)',
           },
           haftara: 'I Kings 7:40-50',
           haftaraNumV: 11,
@@ -117,29 +115,37 @@ test('getLeyningForParshaHaShavua', (t) => {
             '3': {k: 'Genesis', b: '41:8', e: '41:14', v: 7},
           },
           reason: {
-            haftara: 'Shabbat Chanukah II',
-            M: 'Chanukah Day 8',
+            haftara: 'Chanukah Day 8 (on Shabbat)',
+            M: 'Chanukah Day 8 (on Shabbat)',
           },
         };
-        t.deepEqual(a, expected, 'Shabbat Chanukah II');
+        t.deepEqual(a, expected, 'Chanukah Day 8 (on Shabbat)');
         break;
     }
   }
+});
 
-  options.year = 2020;
-  options.month = 12;
-  let events2 = HebrewCalendar.calendar(options);
-  const vayeshev = events2.find((e) => e.getDesc() == 'Parashat Vayeshev');
-  let a = getLeyningForParshaHaShavua(vayeshev);
-  t.is(a.reason.haftara, 'Shabbat Chanukah');
-  t.is(a.reason['M'], 'Chanukah Day 2');
+test('2020-12', (t) => {
+  const events = HebrewCalendar.calendar({year: 2020, month: 12, sedrot: true, noHolidays: true});
+  const vayeshev = events.find((e) => e.getDesc() == 'Parashat Vayeshev');
+  const a = getLeyningForParshaHaShavua(vayeshev);
+  t.is(a.reason.haftara, 'Chanukah Day 2 (on Shabbat)');
+  t.is(a.reason['M'], 'Chanukah Day 2 (on Shabbat)');
   t.is(a.haftara, 'Zechariah 2:14-4:7');
-  t.is(formatAliyah(a, 'M'), 'Numbers 7:18-7:29');
+  const expected = {
+    p: 35,
+    k: 'Numbers',
+    b: '7:18',
+    e: '7:23',
+    v: 6,
+    reason: 'Chanukah Day 2 (on Shabbat)',
+  };
+  t.deepEqual(a.fullkriyah.M, expected);
+});
 
-  options.year = 2021;
-  options.month = 12;
-  events2 = HebrewCalendar.calendar(options);
-  const miketz = events2.find((e) => e.getDesc() == 'Parashat Miketz');
+test('2021-12', (t) => {
+  const events = HebrewCalendar.calendar({year: 2021, month: 12, sedrot: true, noHolidays: true});
+  const miketz = events.find((e) => e.getDesc() == 'Parashat Miketz');
   const expected = {
     name: {
       en: 'Miketz',
@@ -187,14 +193,14 @@ test('getLeyningForParshaHaShavua', (t) => {
       'M': 'Shabbat Rosh Chodesh Chanukah',
     },
   };
-  a = getLeyningForParshaHaShavua(miketz);
+  const a = getLeyningForParshaHaShavua(miketz);
   t.deepEqual(a, expected, 'Shabbat Rosh Chodesh Chanukah');
+});
 
-  options.year = 2019;
-  options.month = 4;
-  events2 = HebrewCalendar.calendar(options);
-  const tazria = events2.find((e) => e.getDesc() == 'Parashat Tazria');
-  a = getLeyningForParshaHaShavua(tazria);
+test('2019-04', (t) => {
+  const events = HebrewCalendar.calendar({year: 2019, month: 4, sedrot: true, noHolidays: true});
+  const tazria = events.find((e) => e.getDesc() == 'Parashat Tazria');
+  const a = getLeyningForParshaHaShavua(tazria);
   t.is(a.reason.haftara, 'Shabbat HaChodesh (on Rosh Chodesh)');
   t.is(a.reason['7'], 'Shabbat HaChodesh (on Rosh Chodesh)');
   t.is(a.reason['M'], 'Shabbat HaChodesh (on Rosh Chodesh)');
