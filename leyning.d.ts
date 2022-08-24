@@ -20,6 +20,10 @@ declare module '@hebcal/leyning' {
         p?: number;
     };
 
+    export type StringMap = {
+        [key: string]: string;
+    }
+
     export type AliyotMap = {
         [key: string]: Aliyah;
     }
@@ -58,9 +62,7 @@ declare module '@hebcal/leyning' {
         /** Optional map of weekday Torah Readings aliyot `1` through `3` for Monday and Thursday */
         weekday?: AliyotMap;
         /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `haftara` for Haftarah */
-        reason?: {
-            [key: string]: string;
-        };
+        reason?: StringMap;
     };
 
     /**
@@ -85,7 +87,7 @@ declare module '@hebcal/leyning' {
      * Summarizes an `AliyotMap` by collapsing all adjacent aliyot.
      * Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
      */
-     export function makeLeyningParts(aliyot: AliyotMap): Aliyah[];
+    export function makeLeyningParts(aliyot: AliyotMap): Aliyah[];
      /**
       * Returns a string representation of the leyning parts.
       * Separate verse ranges read from the same book are separated
@@ -93,8 +95,19 @@ declare module '@hebcal/leyning' {
       * Verse ranges from different books are separated by semicolons,
       * e.g. `Genesis 21:1-34; Numbers 29:1-6`.
       */
-     export function makeSummaryFromParts(parts: Aliyah | Aliyah[]): string;
-
+    export function makeSummaryFromParts(parts: Aliyah | Aliyah[]): string;
+    /**
+     * Determines if the regular parashat haShavua coincides with an event that requires
+     * a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
+     * Chodesh or Machar Chodesh, etc.).
+     *
+     * If a special maftir occurs, modifies `aliyot` to replace `M` and sets `reason.M`
+     * (and in some cases modifies the 6th and 7th aliyah, setting `reason['7']`).
+     *
+     * If a special Haftarah applies, returns the Haftarah object and sets `reason.haftara`.
+     * If no special Haftarah, returns `undefined`
+     */
+    export function specialReadings(hd: HDate, il: boolean, aliyot: AliyotMap, reason: StringMap): Aliyah | Aliyah[];
     /**
      * Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
      *
@@ -171,65 +184,15 @@ declare module '@hebcal/leyning' {
     export function formatAliyahShort(aliyah: Aliyah, showBook: boolean): string;
 
     /**
-     * Represents triennial aliyot for a given date
-     */
-    export type TriennialAliyot = {
-        /** Map of aliyot `1` through `7` plus `M` for maftir */
-        aliyot: AliyotMap;
-        /** year number, 0-2 */
-        yearNum: number;
-        /** Shabbat date for when this parsha is read in this 3-year cycle */
-        date: Date;
-        /** true if a double parsha is read separately in year `yearNum` */
-        readSeparately?: boolean;
-        /** Shabbat date of the first part of a read-separately aliyah pair */
-        date1?: Date;
-        /** Shabbat date of the second part of a read-separately aliyah pair */
-        date2?: Date;
-    };
-
-    /**
-     * Triennial Torah readings
-     */
-    export class Triennial {
-        constructor(hebrewYear: number);
-        getReading(parsha: string, yearNum: number): TriennialAliyot;
-        getStartYear(): number;
-        debug(): string;
-        /**
-         * Returns triennial year 1, 2 or 3 based on this Hebrew year
-         * @param year Hebrew year
-         */
-        static getYearNumber(year: number): number;
-        /**
-         * Returns Hebrew year that this 3-year triennial cycle began
-         * @param year Hebrew year
-         */
-        static getCycleStartYear(year: number): number;
-    }
-
-    /**
-     * Calculates the 3-year readings for a given year
-     * @param year - Hebrew year
-     */
-    export function getTriennial(year: number): Triennial;
-
-    /**
-     * Looks up triennial leyning for a regular Shabbat parsha.
-     * @param ev - the Hebcal event associated with this parsha
-     * @returns a map of aliyot 1-7 plus "M"
-     */
-    export function getTriennialForParshaHaShavua(ev: Event): TriennialAliyot;
-
-    export function getTriennialHaftaraForHoliday(holiday: string, yearNum: number): any;
-
-    /**
      * Names of the books of the Torah. BOOK[1] === 'Genesis'
      */
     export const BOOK: string[];
 
-    export function writeTriennialCsv(stream: WriteStream, hyear: number): void;
     export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean): void;
+    /**
+     * Formats reading for CSV
+     */
+    export function writeCsvLines(stream: WriteStream, ev: Event, reading: Leyning, il: boolean, isParsha: boolean): void;
 
     /**
      * Parsha metadata (underlying JSON object)

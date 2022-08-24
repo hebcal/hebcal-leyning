@@ -4,10 +4,4 @@ export * from './festival';
 export {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 export * from './specialReadings';
 export * from './leyning';
-export {
-  Triennial,
-  getTriennialForParshaHaShavua,
-  getTriennial,
-  getTriennialHaftaraForHoliday,
-} from './triennial';
-export {writeFullKriyahCsv, writeTriennialCsv} from './csv';
+export {writeFullKriyahCsv, writeCsvLines} from './csv';

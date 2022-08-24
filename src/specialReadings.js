@@ -58,12 +58,20 @@ function getChanukahShabbatKey(ev, key) {
 }
 
 /**
- * @private
+ * Determines if the regular parashat haShavua coincides with an event that requires
+ * a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
+ * Chodesh or Machar Chodesh, etc.).
+ *
+ * If a special maftir occurs, modifies `aliyot` to replace `M` and sets `reason.M`
+ * (and in some cases modifies the 6th and 7th aliyah, setting `reason['7']`).
+ *
+ * If a special Haftarah applies, returns the Haftarah object and sets `reason.haftara`.
+ * If no special Haftarah, returns `undefined`
  * @param {HDate} hd
  * @param {boolean} il
  * @param {Object<string,Aliyah>} aliyot
  * @param {Object<string,string>} reason
- * @return {string}
+ * @return {Aliyah | Aliyah[]}
  */
 export function specialReadings(hd, il, aliyot, reason) {
   let haft;

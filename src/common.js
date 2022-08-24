@@ -112,8 +112,8 @@ export function sumVerses(aliyot) {
 
 /**
  * @private
- * @param {Object.<string,string>} haft
- * @return {Object.<string,string>}
+ * @param {Aliyah|Aliyah[]} haft
+ * @return {Aliyah|Aliyah[]}
  */
 export function cloneHaftara(haft) {
   if (!haft) {
