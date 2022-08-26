@@ -163,3 +163,40 @@ test('getLeyningOnDate-weekday-undefined', (t) => {
   const reading = getLeyningOnDate(hd, true);
   t.is(reading, undefined);
 });
+
+test('getLeyningOnDate-15av-Wednesday', (t) => {
+  const hd = new HDate(15, 'Av', 5786);
+  const reading = getLeyningOnDate(hd, false);
+  t.is(reading, undefined);
+});
+
+test('getLeyningOnDate-15av-Monday', (t) => {
+  const hd = new HDate(15, 'Av', 5788);
+  // Tu B'Av doesn't generate reading
+  const reading = getLeyningOnDate(hd, false);
+  const expected = {
+    name: {en: 'Eikev', he: 'עֵקֶב'},
+    parsha: ['Eikev'],
+    parshaNum: 46,
+    weekday: {
+      '1': {k: 'Deuteronomy', b: '7:12', e: '7:21', v: 10},
+      '2': {k: 'Deuteronomy', b: '7:22', e: '8:3', v: 8},
+      '3': {k: 'Deuteronomy', b: '8:4', e: '8:10', v: 7},
+    },
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('getLeyningOnDate-multiple-holidays', (t) => {
+  // Shabbat Zachor, Erev Purim, Parashat Vayikra
+  const hd = new HDate(new Date(2024, 2, 23));
+  const reading = getLeyningOnDate(hd, false);
+  t.is(reading.name.en, 'Vayikra');
+  t.is(reading.summary, 'Leviticus 1:1-5:26; Deuteronomy 25:17-19');
+  t.is(reading.reason.M, 'Shabbat Zachor');
+
+  // Ignore Rosh Hashana LaBehemot and continue to Rosh Chodesh
+  const hd2 = new HDate(1, 'Elul', 5784);
+  const reading2 = getLeyningOnDate(hd2, false);
+  t.is(reading2.name.en, 'Rosh Chodesh Elul');
+});

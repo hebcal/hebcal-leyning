@@ -266,18 +266,12 @@ export function getLeyningOnDate(hdate, il) {
     const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
     return getLeyningForParshaHaShavua(parshaEvent, il);
   }
-  const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
-  if (events) {
-    for (let i = 0; i < events.length; i++) {
-      const reading = getLeyningForHoliday(events[i], il);
-      if (reading) {
-        return reading;
-      }
+  const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
+  for (let i = 0; i < events.length; i++) {
+    const reading = getLeyningForHoliday(events[i], il);
+    if (reading) {
+      return reading;
     }
-    if (dow !== 1 && dow !== 4) {
-      return undefined; // today is a non-reading holiday
-    }
-    // otherwise continue below for Mon/Thu
   }
   if (dow === 1 || dow === 4) {
     const saturday = hdate.onOrAfter(6);
