@@ -268,10 +268,13 @@ export function getLeyningOnDate(hdate, il) {
   }
   const events = HebrewCalendar.getHolidaysOnDate(hdate, il);
   if (events) {
-    const reading = getLeyningForHoliday(events[0], il);
-    if (reading) {
-      return reading;
-    } else if (dow !== 1 && dow !== 4) {
+    for (let i = 0; i < events.length; i++) {
+      const reading = getLeyningForHoliday(events[i], il);
+      if (reading) {
+        return reading;
+      }
+    }
+    if (dow !== 1 && dow !== 4) {
       return undefined; // today is a non-reading holiday
     }
     // otherwise continue below for Mon/Thu
