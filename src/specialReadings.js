@@ -1,5 +1,5 @@
 import {HebrewCalendar, flags} from '@hebcal/core';
-import {calculateNumVerses, clone, cloneHaftara} from './common';
+import {calculateNumVerses, clone, cloneHaftara, parshaToString} from './common';
 import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 
@@ -42,22 +42,6 @@ function mergeAliyotWithSpecial(aliyot, special) {
 }
 
 /**
- * @private
- * @param {Event} ev
- * @param {string} key
- * @return {string}
- */
-function getChanukahShabbatKey(ev, key) {
-  if (key == 'Shabbat Rosh Chodesh Chanukah') {
-    return undefined;
-  }
-  if (ev.chanukahDay) {
-    return (ev.chanukahDay == 8) ? 'Shabbat Chanukah II' : 'Shabbat Chanukah';
-  }
-  return undefined;
-}
-
-/**
  * Determines if the regular parashat haShavua coincides with an event that requires
  * a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
  * Chodesh or Machar Chodesh, etc.).
@@ -71,9 +55,10 @@ function getChanukahShabbatKey(ev, key) {
  * @param {boolean} il
  * @param {Object<string,Aliyah>} aliyot
  * @param {Object<string,string>} reason
+ * @param {string[]} parsha
  * @return {Aliyah | Aliyah[]}
  */
-export function specialReadings(hd, il, aliyot, reason) {
+export function specialReadings(hd, il, aliyot, reason, parsha) {
   let haft;
   let specialHaft = false;
 
@@ -101,9 +86,18 @@ export function specialReadings(hd, il, aliyot, reason) {
     }
   });
   if (!haft) {
+    const parshaName = parsha ? parshaToString(parsha) : null;
     const day = hd.getDate();
-    if (day === 30 || day === 1) {
-      const key = 'Shabbat Rosh Chodesh';
+    if (parshaName === 'Pinchas' && day > 17) {
+      // Pinchas is always read in Tamuz (never another month)
+      // either on the 14, 16, 17 (in Israel), 19, 21, 23, 24
+      const key = 'Pinchas occurring after 17 Tammuz';
+      const special = lookupFestival(key);
+      handleSpecial(special, key);
+    } else if (day === 30 || day === 1) {
+      const key = (parshaName === 'Masei' || parshaName === 'Matot-Masei') ?
+        `${parshaName} on Shabbat Rosh Chodesh` :
+        'Shabbat Rosh Chodesh';
       const special = lookupFestival(key);
       handleSpecial(special, key);
     } else {

@@ -131,37 +131,6 @@ function getHaftaraKey(parsha) {
 }
 
 /**
- * @private
- * @param {string[]} parsha
- * @param {HDate} hd
- * @return {Object|boolean}
- */
-function getSpecialHaftara(parsha, hd) {
-  const name = parshaToString(parsha); // untranslated
-  const day = hd.getDate();
-  if (name === 'Pinchas') {
-    const month = hd.getMonth();
-    if (month > months.TAMUZ || (month === months.TAMUZ && day > 17)) {
-      return {
-        haft: {k: 'Jeremiah', b: '1:1', e: '2:3'},
-        reason: 'Pinchas occurring after 17 Tammuz',
-      };
-    }
-  } else if ((day === 30 || day === 1) && (name === 'Masei' || name === 'Matot-Masei')) {
-    return {
-      haft: [
-        {k: 'Jeremiah', b: '2:4', e: '2:28'},
-        {k: 'Jeremiah', b: '3:4', e: '3:4'},
-        {k: 'Isaiah', b: '66:1', e: '66:1'},
-        {k: 'Isaiah', b: '66:23', e: '66:23'},
-      ],
-      reason: `${name} on Shabbat Rosh Chodesh`,
-    };
-  }
-  return false;
-}
-
-/**
  * Looks up regular leyning for a weekly parsha with no special readings
  * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  * @return {Leyning} map of aliyot
@@ -243,22 +212,16 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   const reason = {};
   const hd = ev.getDate();
   // Now, check for special maftir or haftara on same date
-  const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason);
-  let updateHaftaraSummary = false;
+  const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason, parsha);
   if (specialHaftara) {
-    result.haft = cloneHaftara(specialHaftara);
-    updateHaftaraSummary = true;
+    const haft = result.haft = cloneHaftara(specialHaftara);
+    result.haftara = makeSummaryFromParts(haft);
+    result.haftaraNumV = sumVerses(haft);
   }
   if (reason['7'] || reason['M']) {
     const parts = makeLeyningParts(result.fullkriyah);
     result.summary = makeSummaryFromParts(parts);
     result.summaryParts = parts;
-  }
-  const specialHaftara2 = getSpecialHaftara(parsha, hd);
-  if (specialHaftara2) {
-    result.haft = cloneHaftara(specialHaftara2.haft);
-    updateHaftaraSummary = true;
-    reason.haftara = specialHaftara2.reason;
   }
   const reasons = Object.keys(reason);
   if (reasons.length !== 0) {
@@ -273,11 +236,6 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
         }
       }
     });
-  }
-  if (updateHaftaraSummary) {
-    const haft = result.haft;
-    result.haftara = makeSummaryFromParts(haft);
-    result.haftaraNumV = sumVerses(haft);
   }
   return result;
 }

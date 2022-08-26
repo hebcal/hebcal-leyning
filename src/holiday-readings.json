@@ -487,6 +487,15 @@
  "haft":{"k":"I Samuel","b":"15:2","e":"15:34"},
  "fullkriyah":
   {"M":{"p":49,"k":5,"b":"25:17","e":"25:19"}}},
+"Pinchas occurring after 17 Tammuz":{
+ "haft": {"k": "Jeremiah", "b": "1:1", "e": "2:3"}},
+"Masei on Shabbat Rosh Chodesh":{
+ "haft":[
+  {"k":"Jeremiah","b":"2:4","e":"2:28"},
+  {"k":"Jeremiah","b":"3:4","e":"3:4"},
+  {"k":"Isaiah","b":"66:1","e":"66:1"},
+  {"k":"Isaiah","b":"66:23","e":"66:23"}]},
+"Matot-Masei on Shabbat Rosh Chodesh":{"alias":true,"key":"Masei on Shabbat Rosh Chodesh"},
 "Rosh Chodesh":{
  "fullkriyah":
   {"1":{"p":41,"k":4,"b":"28:1","e":"28:3"},

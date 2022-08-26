@@ -88,7 +88,7 @@ e.g. <code>Genesis 21:1-34; Numbers 29:1-6</code>.</p>
 <dt><a href="#getLeyningKeyForEvent">getLeyningKeyForEvent(ev, [il])</a> ⇒ <code>string</code></dt>
 <dd><p>Based on the event date, type and title, finds the relevant leyning key</p>
 </dd>
-<dt><a href="#specialReadings">specialReadings(hd, il, aliyot, reason)</a> ⇒ <code><a href="#Aliyah">Aliyah</a></code> | <code><a href="#Aliyah">Array.&lt;Aliyah&gt;</a></code></dt>
+<dt><a href="#specialReadings">specialReadings(hd, il, aliyot, reason, parsha)</a> ⇒ <code><a href="#Aliyah">Aliyah</a></code> | <code><a href="#Aliyah">Array.&lt;Aliyah&gt;</a></code></dt>
 <dd><p>Determines if the regular parashat haShavua coincides with an event that requires
 a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
 Chodesh or Machar Chodesh, etc.).</p>
@@ -298,7 +298,7 @@ Based on the event date, type and title, finds the relevant leyning key
 
 <a name="specialReadings"></a>
 
-## specialReadings(hd, il, aliyot, reason) ⇒ [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah)
+## specialReadings(hd, il, aliyot, reason, parsha) ⇒ [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah)
 Determines if the regular parashat haShavua coincides with an event that requires
 a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
 Chodesh or Machar Chodesh, etc.).
@@ -317,6 +317,7 @@ If no special Haftarah, returns `undefined`
 | il | <code>boolean</code> | 
 | aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
 | reason | <code>Object.&lt;string, string&gt;</code> | 
+| parsha | <code>Array.&lt;string&gt;</code> | 
 
 <a name="getLeyningForHoliday"></a>
 

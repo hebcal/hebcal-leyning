@@ -129,7 +129,7 @@ test('getLeyningForHoliday-Chanukah', (t) => {
   const chanukah3 = events.find((e) => e.getDesc() == 'Chanukah: 3 Candles');
   const reading = getLeyningForHoliday(chanukah3);
   const expected = {
-    name: {en: 'Chanukah Day 2 (on Shabbat)', he: undefined},
+    name: {en: 'Chanukah Day 2 (on Shabbat)', he: 'חֲנוּכָּה יוֹם ב׳ (בְּשַׁבָּת)'},
     fullkriyah: {M: {p: 35, k: 'Numbers', b: '7:18', e: '7:23', v: 6}},
     haft: {k: 'Zechariah', b: '2:14', e: '4:7', v: 21},
     haftara: 'Zechariah 2:14-4:7',

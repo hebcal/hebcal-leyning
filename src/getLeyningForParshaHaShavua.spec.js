@@ -24,6 +24,22 @@ test('pinchas17Tamuz', (t) => {
   a = getLeyningForParshaHaShavua(ev);
   t.is(a.haftara, 'Jeremiah 1:1-2:3');
   t.is(a.reason.haftara, 'Pinchas occurring after 17 Tammuz');
+
+  options.year = 2022;
+  options.il = true;
+  events = HebrewCalendar.calendar(options);
+  ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
+  a = getLeyningForParshaHaShavua(ev);
+  t.is(a.reason, undefined);
+  t.is(a.haftara, 'I Kings 18:46-19:21');
+
+  options.year = 2023;
+  options.il = true;
+  events = HebrewCalendar.calendar(options);
+  ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
+  a = getLeyningForParshaHaShavua(ev);
+  t.is(a.haftara, 'Jeremiah 1:1-2:3');
+  t.is(a.reason.haftara, 'Pinchas occurring after 17 Tammuz');
 });
 
 // eslint-disable-next-line require-jsdoc
