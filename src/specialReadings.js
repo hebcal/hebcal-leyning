@@ -63,7 +63,11 @@ export function specialReadings(hd, il, aliyot, reason, parsha) {
   let specialHaft = false;
 
   // eslint-disable-next-line require-jsdoc
-  function handleSpecial(special, key) {
+  function handleSpecial(key) {
+    const special = lookupFestival(key);
+    if (!special) {
+      return;
+    }
     if (special.haft && !specialHaft) {
       haft = cloneHaftara(special.haft);
       reason.haftara = key;
@@ -79,10 +83,8 @@ export function specialReadings(hd, il, aliyot, reason, parsha) {
   const events = events0.filter((ev) => !(ev.getFlags() & flags.ROSH_CHODESH));
   events.forEach((ev) => {
     const key = getLeyningKeyForEvent(ev, il);
-    //            console.log(hd.greg().toLocaleDateString(), name, ev.getDesc(), key);
-    const special = lookupFestival(key);
-    if (special) {
-      handleSpecial(special, key);
+    if (key) {
+      handleSpecial(key);
     }
   });
   if (!haft) {
@@ -91,21 +93,16 @@ export function specialReadings(hd, il, aliyot, reason, parsha) {
     if (parshaName === 'Pinchas' && day > 17) {
       // Pinchas is always read in Tamuz (never another month)
       // either on the 14, 16, 17 (in Israel), 19, 21, 23, 24
-      const key = 'Pinchas occurring after 17 Tammuz';
-      const special = lookupFestival(key);
-      handleSpecial(special, key);
+      handleSpecial('Pinchas occurring after 17 Tammuz');
     } else if (day === 30 || day === 1) {
       const key = (parshaName === 'Masei' || parshaName === 'Matot-Masei') ?
         `${parshaName} on Shabbat Rosh Chodesh` :
         'Shabbat Rosh Chodesh';
-      const special = lookupFestival(key);
-      handleSpecial(special, key);
+      handleSpecial(key);
     } else {
       const tommorow = hd.next().getDate();
       if (tommorow === 30 || tommorow === 1) {
-        const key = 'Shabbat Machar Chodesh';
-        const special = lookupFestival(key);
-        handleSpecial(special, key);
+        handleSpecial('Shabbat Machar Chodesh');
       }
     }
   }
