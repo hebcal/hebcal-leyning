@@ -77,6 +77,12 @@ export function getLeyningKeyForEvent(ev, il = false) {
   }
 
   if (isShabbat && 'Shabbat' != desc.substring(0, 7)) {
+    if (isRoshChodesh) {
+      if (desc === 'Rosh Chodesh Tevet') {
+        return 'Shabbat Rosh Chodesh Chanukah';
+      }
+      return 'Shabbat Rosh Chodesh';
+    }
     const desc2 = desc + ' (on Shabbat)';
     if (hasFestival(desc2)) {
       return desc2;
@@ -88,13 +94,6 @@ export function getLeyningKeyForEvent(ev, il = false) {
   }
 
   if (isShabbat) {
-    if (isRoshChodesh) {
-      if ((day === 30 && month === months.KISLEV) ||
-        (day === 1 && month === months.TEVET)) {
-        return 'Shabbat Rosh Chodesh Chanukah';
-      }
-      return 'Shabbat Rosh Chodesh';
-    }
     const tommorow = hd.next().getDate();
     if (tommorow === 30 || tommorow === 1) {
       return 'Shabbat Machar Chodesh';

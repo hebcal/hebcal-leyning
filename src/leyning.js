@@ -79,8 +79,7 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
   if (typeof key !== 'string') {
     return undefined;
   }
-  const key2 = (key.length > 14 && key.substring(0, 13) === 'Rosh Chodesh ') ? 'Rosh Chodesh' : key;
-  const src = lookupFestival(key2);
+  const src = lookupFestival(key);
   if (typeof src === 'undefined') {
     return undefined;
   }
