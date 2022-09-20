@@ -31,7 +31,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^3.43.0"
+    "@hebcal/core": "^3.44.2"
   },
   "scripts": {
     "build": "rollup -c",
@@ -60,7 +60,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^14.1.0",
     "ava": "^4.3.3",
-    "core-js": "^3.25.1",
+    "core-js": "^3.25.2",
     "eslint": "^8.23.1",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^3.6.11",
