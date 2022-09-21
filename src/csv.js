@@ -22,7 +22,7 @@ function fmtDate(dt) {
  * @param {Event[]} events
  * @return {Object<string,boolean>}
  */
-function getParshaDates(events) {
+export function getParshaDates(events) {
   const parshaEvents = events.filter((ev) => ev.getFlags() === flags.PARSHA_HASHAVUA);
   const parshaDates = parshaEvents.reduce((set, ev) => {
     set[ev.getDate().toString()] = true;
@@ -85,14 +85,27 @@ export function writeFullKriyahEvent(stream, ev, il) {
   const reading = isParsha ? getLeyningForParshaHaShavua(ev, il) : getLeyningForHoliday(ev, il);
   if (reading) {
     writeCsvLines(stream, ev, reading, il, isParsha);
-    if (!isParsha && !(mask & flags.ROSH_CHODESH)) {
-      const minchaDesc = ev.getDesc() + ' (Mincha)';
-      const readingMincha = getLeyningForHolidayKey(minchaDesc);
-      if (readingMincha) {
-        const minchaEv = new Event(ev.getDate(), minchaDesc, flags.USER_EVENT);
-        writeCsvLines(stream, minchaEv, readingMincha, il, false);
-      }
+    if (!isParsha) {
+      writeHolidayMincha(stream, ev, il);
     }
+  }
+}
+
+/**
+ * @private
+ * @param {fs.WriteStream} stream
+ * @param {Event} ev
+ * @param {boolean} il
+ */
+export function writeHolidayMincha(stream, ev, il) {
+  const desc = ev.getDesc();
+  const minchaDesc1 = desc + ' (Mincha)';
+  const readingMincha1 = getLeyningForHolidayKey(minchaDesc1);
+  const readingMincha = readingMincha1 ||
+    getLeyningForHolidayKey(getLeyningKeyForEvent(ev, il) + ' (Mincha)');
+  if (readingMincha) {
+    const minchaEv = new Event(ev.getDate(), minchaDesc1, flags.USER_EVENT);
+    writeCsvLines(stream, minchaEv, readingMincha, il, false);
   }
 }
 

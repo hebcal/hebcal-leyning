@@ -194,6 +194,13 @@ declare module '@hebcal/leyning' {
      */
     export function writeCsvLines(stream: WriteStream, ev: Event, reading: Leyning, il: boolean, isParsha: boolean): void;
 
+    export function writeHolidayMincha(stream: WriteStream, ev: Event, il: boolean): void;
+
+    export interface StringToBoolMap {
+        [key: string]: boolean;
+    }
+    export function getParshaDates(events: Event[]): StringToBoolMap;
+
     /**
      * Parsha metadata (underlying JSON object)
      */

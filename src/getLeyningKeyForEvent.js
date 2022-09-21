@@ -2,7 +2,7 @@ import {HDate, months, flags} from '@hebcal/core';
 import {hasFestival} from './festival';
 
 export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_MEVARCHIM |
-  flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE;
+  flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE | flags.MISHNA_YOMI | flags.MODERN_HOLIDAY;
 
 /**
  * Based on the event date, type and title, finds the relevant leyning key
