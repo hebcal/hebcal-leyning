@@ -125,11 +125,6 @@ test('2026', (t) => {
           },
           haftara: 'I Kings 7:40-50',
           haftaraNumV: 11,
-          weekday: {
-            '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
-            '2': {k: 'Genesis', b: '41:5', e: '41:7', v: 3},
-            '3': {k: 'Genesis', b: '41:8', e: '41:14', v: 7},
-          },
           reason: {
             haftara: 'Chanukah Day 8 (on Shabbat)',
             M: 'Chanukah Day 8 (on Shabbat)',
@@ -198,11 +193,6 @@ test('2021-12', (t) => {
     },
     haftara: 'Zechariah 2:14-4:7',
     haftaraNumV: 21,
-    weekday: {
-      '1': {k: 'Genesis', b: '41:1', e: '41:4', v: 4},
-      '2': {k: 'Genesis', b: '41:5', e: '41:7', v: 3},
-      '3': {k: 'Genesis', b: '41:8', e: '41:14', v: 7},
-    },
     reason: {
       '7': 'Shabbat Rosh Chodesh Chanukah',
       'haftara': 'Shabbat Rosh Chodesh Chanukah',

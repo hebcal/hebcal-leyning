@@ -236,6 +236,8 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
       }
     });
   }
+  // to avoid confusion, don't include Saturday mincha reading here
+  delete result.weekday;
   return result;
 }
 

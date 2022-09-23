@@ -28,11 +28,6 @@ test('getLeyningOnDate-parsha', (t) => {
     haft: {k: 'Isaiah', b: '40:1', e: '40:26', v: 26},
     haftara: 'Isaiah 40:1-26',
     haftaraNumV: 26,
-    weekday: {
-      '1': {k: 'Deuteronomy', b: '3:23', e: '3:25', v: 3},
-      '2': {k: 'Deuteronomy', b: '3:26', e: '4:4', v: 8},
-      '3': {k: 'Deuteronomy', b: '4:5', e: '4:8', v: 4},
-    },
   };
   t.deepEqual(reading, expected);
 });
