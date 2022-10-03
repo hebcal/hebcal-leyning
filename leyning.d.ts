@@ -65,6 +65,11 @@ declare module '@hebcal/leyning' {
         reason?: StringMap;
     };
 
+    export type HaftaraAshkSeph = {
+        haft: Aliyah | Aliyah[];
+        seph?: Aliyah | Aliyah[];
+    };
+
     /**
      * Formats parsha as a string
      */
@@ -107,7 +112,7 @@ declare module '@hebcal/leyning' {
      * If a special Haftarah applies, returns the Haftarah object and sets `reason.haftara`.
      * If no special Haftarah, returns `undefined`
      */
-    export function specialReadings(hd: HDate, il: boolean, aliyot: AliyotMap, reason: StringMap, parsha: string[]): Aliyah | Aliyah[];
+    export function specialReadings(hd: HDate, il: boolean, aliyot: AliyotMap, reason: StringMap, parsha: string[], wantSeph: boolean): Aliyah | Aliyah[] | HaftaraAshkSeph;
     /**
      * Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
      *

@@ -53,6 +53,7 @@ test('getLeyningKeyForEvent', (t) => {
     {d: '1997-02-07', h: 'Rosh Chodesh Adar I', k: 'Rosh Chodesh Adar I'},
     {d: '1997-02-08', h: 'Rosh Chodesh Adar I', k: 'Shabbat Rosh Chodesh'},
     {d: '1997-02-21', h: 'Purim Katan', k: undefined},
+    {d: '1997-02-22', h: 'Shushan Purim Katan', k: undefined},
     {d: '1997-03-08', h: 'Shabbat Shekalim', k: 'Shabbat Shekalim'},
     {d: '1997-03-09', h: 'Rosh Chodesh Adar II', k: 'Rosh Chodesh Adar II'},
     {d: '1997-03-10', h: 'Rosh Chodesh Adar II', k: 'Rosh Chodesh Adar II'},

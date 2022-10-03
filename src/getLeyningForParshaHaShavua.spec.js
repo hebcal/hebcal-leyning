@@ -282,3 +282,90 @@ test('masei-rosh-chodesh', (t) => {
   t.is(obj4.reason, undefined);
 });
 
+
+test('Shabbat Shuva - Vayeilech', (t) => {
+  const hd = new HDate(6, 'Tishrei', 5783);
+  const ev = new ParshaEvent(hd, ['Vayeilech'], false);
+  const reading = getLeyningForParshaHaShavua(ev);
+  delete reading.fullkriyah;
+  const expected = {
+    name: {en: 'Vayeilech', he: 'וַיֵּלֶךְ'},
+    parsha: ['Vayeilech'],
+    parshaNum: 52,
+    summary: 'Deuteronomy 31:1-30',
+    haft: [
+      {
+        k: 'Hosea',
+        b: '14:2',
+        e: '14:10',
+        v: 9,
+        reason: 'Shabbat Shuva (with Vayeilech)',
+      },
+      {
+        k: 'Micah',
+        b: '7:18',
+        e: '7:20',
+        v: 3,
+        reason: 'Shabbat Shuva (with Vayeilech)',
+      },
+    ],
+    haftara: 'Hosea 14:2-10; Micah 7:18-20',
+    haftaraNumV: 12,
+    reason: {haftara: 'Shabbat Shuva (with Vayeilech)'},
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('Shabbat Shuva - Ha\'Azinu', (t) => {
+  const hd = new HDate(8, 'Tishrei', 5784);
+  const ev = new ParshaEvent(hd, ['Ha\'Azinu'], false);
+  const reading = getLeyningForParshaHaShavua(ev);
+  delete reading.fullkriyah;
+  const expected = {
+    name: {en: 'Ha\'Azinu', he: 'הַאֲזִינוּ'},
+    parsha: ['Ha\'Azinu'],
+    parshaNum: 53,
+    summary: 'Deuteronomy 32:1-52',
+    haft: [
+      {
+        k: 'Hosea',
+        b: '14:2',
+        e: '14:10',
+        v: 9,
+        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+      },
+      {
+        k: 'Joel',
+        b: '2:15',
+        e: '2:27',
+        v: 13,
+        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+      },
+    ],
+    haftara: 'Hosea 14:2-10; Joel 2:15-27',
+    haftaraNumV: 22,
+    seph: [
+      {
+        k: 'Hosea',
+        b: '14:2',
+        e: '14:10',
+        v: 9,
+        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+      },
+      {
+        k: 'Micah',
+        b: '7:18',
+        e: '7:20',
+        v: 3,
+        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+      },
+    ],
+    sephardic: 'Hosea 14:2-10; Micah 7:18-20',
+    sephardicNumV: 12,
+    reason: {
+      haftara: 'Shabbat Shuva (with Ha\'Azinu)',
+      sephardic: 'Shabbat Shuva (with Ha\'Azinu)',
+    },
+  };
+  t.deepEqual(reading, expected);
+});

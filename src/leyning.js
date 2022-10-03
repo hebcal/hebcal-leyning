@@ -111,6 +111,11 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
     leyning.haftara = makeSummaryFromParts(haft);
     leyning.haftaraNumV = sumVerses(haft);
   }
+  if (src.seph) {
+    const seph = leyning.seph = cloneHaftara(src.seph);
+    leyning.sephardic = makeSummaryFromParts(seph);
+    leyning.sephardicNumV = sumVerses(seph);
+  }
   return leyning;
 }
 
@@ -211,11 +216,16 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   const reason = {};
   const hd = ev.getDate();
   // Now, check for special maftir or haftara on same date
-  const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason, parsha);
+  const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason, parsha, true);
   if (specialHaftara) {
-    const haft = result.haft = cloneHaftara(specialHaftara);
+    const haft = result.haft = cloneHaftara(specialHaftara.haft);
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
+    if (specialHaftara.seph) {
+      const seph = result.seph = cloneHaftara(specialHaftara.seph);
+      result.sephardic = makeSummaryFromParts(seph);
+      result.sephardicNumV = sumVerses(seph);
+    }
   }
   if (reason['7'] || reason['M']) {
     const parts = makeLeyningParts(result.fullkriyah);
@@ -226,8 +236,10 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   if (reasons.length !== 0) {
     result.reason = reason;
     reasons.forEach((num) => {
-      if (num === 'haftara') {
-        result.haft.reason = reason[num];
+      if (num === 'haftara' || num === 'sephardic') {
+        const haftObj = result[num === 'haftara' ? 'haft' : 'seph'];
+        const hafts = Array.isArray(haftObj) ? haftObj : [haftObj];
+        hafts.forEach((haft) => haft.reason = reason[num]);
       } else {
         const aliyah = result.fullkriyah[num];
         if (typeof aliyah === 'object') {

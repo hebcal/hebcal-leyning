@@ -56,11 +56,14 @@ function mergeAliyotWithSpecial(aliyot, special) {
  * @param {Object<string,Aliyah>} aliyot
  * @param {Object<string,string>} reason
  * @param {string[]} parsha
+ * @param {boolean} [wantSeph]
  * @return {Aliyah | Aliyah[]}
  */
-export function specialReadings(hd, il, aliyot, reason, parsha) {
+export function specialReadings(hd, il, aliyot, reason, parsha, wantSeph=false) {
   let haft;
+  let seph;
   let specialHaft = false;
+  const parshaName = parsha ? parshaToString(parsha) : null;
 
   // eslint-disable-next-line require-jsdoc
   function handleSpecial(key) {
@@ -72,6 +75,10 @@ export function specialReadings(hd, il, aliyot, reason, parsha) {
       haft = cloneHaftara(special.haft);
       reason.haftara = key;
       specialHaft = true;
+      if (special.seph) {
+        seph = cloneHaftara(special.seph);
+        reason.sephardic = key;
+      }
     }
     if (special.fullkriyah) {
       mergeAliyotWithSpecial(aliyot, special.fullkriyah);
@@ -82,13 +89,16 @@ export function specialReadings(hd, il, aliyot, reason, parsha) {
   const events0 = HebrewCalendar.getHolidaysOnDate(hd, il) || [];
   const events = events0.filter((ev) => !(ev.getFlags() & flags.ROSH_CHODESH));
   events.forEach((ev) => {
-    const key = getLeyningKeyForEvent(ev, il);
-    if (key) {
-      handleSpecial(key);
+    if (ev.getDesc() === 'Shabbat Shuva' && parshaName) {
+      handleSpecial(`Shabbat Shuva (with ${parshaName})`);
+    } else {
+      const key = getLeyningKeyForEvent(ev, il);
+      if (key) {
+        handleSpecial(key);
+      }
     }
   });
   if (!haft) {
-    const parshaName = parsha ? parshaToString(parsha) : null;
     const day = hd.getDate();
     if (parshaName === 'Pinchas' && day > 17) {
       // Pinchas is always read in Tamuz (never another month)
@@ -106,5 +116,9 @@ export function specialReadings(hd, il, aliyot, reason, parsha) {
       }
     }
   }
-  return haft;
+  if (wantSeph && haft) {
+    return {haft, seph};
+  } else {
+    return haft;
+  }
 }
