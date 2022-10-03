@@ -20,7 +20,7 @@ import {getLeyningForParshaHaShavua, formatAliyahWithBook} from '@hebcal/leyning
 
 const events = HebrewCalendar.calendar({sedrot: true, noHolidays: true});
 const ev = events.find((ev) => ev.getDesc() == 'Parashat Pinchas');
-const reading = getLeyningForParshaHaShavua(ev);
+const reading = getLeyningForParshaHaShavua(ev, false);
 console.log(`${ev.getDesc()}: ${reading.summary}`);
 console.log(`Haftara: ${reading.haftara}`);
 for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {

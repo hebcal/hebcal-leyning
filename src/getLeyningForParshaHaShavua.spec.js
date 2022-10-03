@@ -14,14 +14,14 @@ test('pinchas17Tamuz', (t) => {
   const options = {year: 1981, month: 7, isHebrewYear: false, sedrot: true, noHolidays: true};
   let events = HebrewCalendar.calendar(options);
   let ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
-  let a = getLeyningForParshaHaShavua(ev);
+  let a = getLeyningForParshaHaShavua(ev, false);
   t.is(a.reason, undefined);
   t.is(a.haftara, 'I Kings 18:46-19:21');
 
   options.year = 1982;
   events = HebrewCalendar.calendar(options);
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
-  a = getLeyningForParshaHaShavua(ev);
+  a = getLeyningForParshaHaShavua(ev, false);
   t.is(a.haftara, 'Jeremiah 1:1-2:3');
   t.is(a.reason.haftara, 'Pinchas occurring after 17 Tammuz');
 
@@ -29,7 +29,7 @@ test('pinchas17Tamuz', (t) => {
   options.il = true;
   events = HebrewCalendar.calendar(options);
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
-  a = getLeyningForParshaHaShavua(ev);
+  a = getLeyningForParshaHaShavua(ev, false);
   t.is(a.reason, undefined);
   t.is(a.haftara, 'I Kings 18:46-19:21');
 
@@ -37,7 +37,7 @@ test('pinchas17Tamuz', (t) => {
   options.il = true;
   events = HebrewCalendar.calendar(options);
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
-  a = getLeyningForParshaHaShavua(ev);
+  a = getLeyningForParshaHaShavua(ev, false);
   t.is(a.haftara, 'Jeremiah 1:1-2:3');
   t.is(a.reason.haftara, 'Pinchas occurring after 17 Tammuz');
 });
@@ -51,7 +51,7 @@ test('2026', (t) => {
   const options = {year: 2026, isHebrewYear: false, sedrot: true, noHolidays: true};
   const events = HebrewCalendar.calendar(options);
   for (const ev of events) {
-    const a = getLeyningForParshaHaShavua(ev);
+    const a = getLeyningForParshaHaShavua(ev, false);
     switch (ev.getDesc()) {
       case 'Parashat Mishpatim':
         t.is(a.reason.haftara, 'Shabbat Shekalim');
@@ -248,7 +248,7 @@ test('longest-regular-haftarah', (t) => {
   let numverses = 0;
   let parsha = '';
   for (const ev of events) {
-    const reading = getLeyningForParshaHaShavua(ev);
+    const reading = getLeyningForParshaHaShavua(ev, false);
     if (reading.haftaraNumV > numverses) {
       numverses = reading.haftaraNumV;
       parsha = ev.getDesc();
@@ -286,7 +286,7 @@ test('masei-rosh-chodesh', (t) => {
 test('Shabbat Shuva - Vayeilech', (t) => {
   const hd = new HDate(6, 'Tishrei', 5783);
   const ev = new ParshaEvent(hd, ['Vayeilech'], false);
-  const reading = getLeyningForParshaHaShavua(ev);
+  const reading = getLeyningForParshaHaShavua(ev, false);
   delete reading.fullkriyah;
   const expected = {
     name: {en: 'Vayeilech', he: 'וַיֵּלֶךְ'},
@@ -319,7 +319,7 @@ test('Shabbat Shuva - Vayeilech', (t) => {
 test('Shabbat Shuva - Ha\'Azinu', (t) => {
   const hd = new HDate(8, 'Tishrei', 5784);
   const ev = new ParshaEvent(hd, ['Ha\'Azinu'], false);
-  const reading = getLeyningForParshaHaShavua(ev);
+  const reading = getLeyningForParshaHaShavua(ev, false);
   delete reading.fullkriyah;
   const expected = {
     name: {en: 'Ha\'Azinu', he: 'הַאֲזִינוּ'},
@@ -366,6 +366,32 @@ test('Shabbat Shuva - Ha\'Azinu', (t) => {
       haftara: 'Shabbat Shuva (with Ha\'Azinu)',
       sephardic: 'Shabbat Shuva (with Ha\'Azinu)',
     },
+  };
+  t.deepEqual(reading, expected);
+});
+
+test('Shushan Purim (on Shabbat)', (t) => {
+  const hd = new HDate(15, 'Adar', 5781);
+  const ev = new ParshaEvent(hd, ['Tetzaveh'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  const expected = {
+    name: {en: 'Tetzaveh', he: 'תְּצַוֶּה'},
+    parsha: ['Tetzaveh'],
+    parshaNum: 20,
+    summary: 'Exodus 27:20-30:10',
+    fullkriyah: {
+      '1': {k: 'Exodus', b: '27:20', e: '28:12', v: 14},
+      '2': {k: 'Exodus', b: '28:13', e: '28:30', v: 18},
+      '3': {k: 'Exodus', b: '28:31', e: '28:43', v: 13},
+      '4': {k: 'Exodus', b: '29:1', e: '29:18', v: 18},
+      '5': {k: 'Exodus', b: '29:19', e: '29:37', v: 19},
+      '6': {k: 'Exodus', b: '29:38', e: '29:46', v: 9},
+      '7': {k: 'Exodus', b: '30:1', e: '30:10', v: 10},
+      'M': {k: 'Exodus', b: '30:8', e: '30:10', v: 3},
+    },
+    haft: {k: 'Ezekiel', b: '43:10', e: '43:27', v: 18},
+    haftara: 'Ezekiel 43:10-27',
+    haftaraNumV: 18,
   };
   t.deepEqual(reading, expected);
 });
