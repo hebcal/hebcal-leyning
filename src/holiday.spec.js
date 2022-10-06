@@ -475,7 +475,7 @@ test('fast day mincha', (t) => {
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
       '2': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
-      '3': {p: 21, k: 'Exodus', b: '34:4', e: '34:10', v: 7},
+      'M': {p: 21, k: 'Exodus', b: '34:4', e: '34:10', v: 7},
     },
     summary: 'Exodus 32:11-14, 34:1-10',
     summaryParts: [

@@ -94,7 +94,7 @@ test('writeFullKriyahEvent-9av', (t) => {
     '',
     `27-Jul-2023,"Tish'a B'Av (Mincha)",1,"Exodus 32:11-32:14",4`,
     `27-Jul-2023,"Tish'a B'Av (Mincha)",2,"Exodus 34:1-34:3",3`,
-    `27-Jul-2023,"Tish'a B'Av (Mincha)",3,"Exodus 34:4-34:10",7`,
+    `27-Jul-2023,"Tish'a B'Av (Mincha)","maf","Exodus 34:4-34:10",7`,
     `27-Jul-2023,"Tish'a B'Av (Mincha)","Haftara","Isaiah 55:6-56:8",16`,
     '', ''];
   t.deepEqual(lines, expected);
