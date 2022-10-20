@@ -1,7 +1,8 @@
 # @hebcal/leyning
 Javascript Torah Reading API for Parashat HaShavua and holidays
 
-[![Build Status](https://circleci.com/gh/hebcal/hebcal-leyning.svg?style=svg)](https://circleci.com/gh/hebcal/hebcal-leyning)
+[![Build Status](https://github.com/hebcal/hebcal-leyning/actions/workflows/node.js.yml/badge.svg)](https://github.com/hebcal/hebcal-leyning/actions/workflows/node.js.yml)
+
 
 This package includes both traditional (full kriyah) and weekday
 Torah readings.
