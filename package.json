@@ -64,7 +64,7 @@
     "core-js": "^3.26.0",
     "eslint": "^8.26.0",
     "eslint-config-google": "^0.14.0",
-    "jsdoc": "^3.6.11",
+    "jsdoc": "^4.0.0",
     "jsdoc-to-markdown": "^7.1.1",
     "rollup": "^3.2.5"
   }
