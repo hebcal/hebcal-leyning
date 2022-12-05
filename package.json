@@ -14,6 +14,10 @@
   "description": "Torah Reading API for Parashat HaShavua and holidays",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/hebcal/hebcal-leyning.git"
@@ -31,7 +35,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^3.46.1"
+    "@hebcal/core": "^3.46.6"
   },
   "scripts": {
     "build": "rollup -c",
@@ -52,20 +56,20 @@
     "verbose": true
   },
   "devDependencies": {
-    "@babel/core": "^7.20.2",
+    "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.18.9",
-    "@rollup/plugin-babel": "^6.0.2",
-    "@rollup/plugin-commonjs": "^23.0.2",
-    "@rollup/plugin-json": "^5.0.1",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^23.0.3",
+    "@rollup/plugin-json": "^5.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-terser": "^0.1.0",
+    "@rollup/plugin-terser": "^0.2.0",
     "ava": "^5.1.0",
     "core-js": "^3.26.1",
-    "eslint": "^8.28.0",
+    "eslint": "^8.29.0",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^4.0.0",
-    "jsdoc-to-markdown": "^7.1.1",
-    "rollup": "^3.4.0"
+    "jsdoc-to-markdown": "^8.0.0",
+    "rollup": "^3.6.0"
   }
 }
