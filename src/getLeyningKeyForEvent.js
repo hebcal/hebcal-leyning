@@ -77,6 +77,10 @@ export function getLeyningKeyForEvent(ev, il = false) {
     return 'Simchat Torah';
   }
 
+  if (desc === 'Chag HaBanot') {
+    return undefined;
+  }
+
   if (isShabbat && 'Shabbat' != desc.substring(0, 7)) {
     if (isRoshChodesh) {
       if (desc === 'Rosh Chodesh Tevet') {

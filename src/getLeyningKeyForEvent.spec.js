@@ -42,6 +42,7 @@ test('getLeyningKeyForEvent', (t) => {
     {d: '1996-12-08', h: 'Chanukah: 4 Candles', k: 'Chanukah Day 3'},
     {d: '1996-12-09', h: 'Chanukah: 5 Candles', k: 'Chanukah Day 4'},
     {d: '1996-12-10', h: 'Chanukah: 6 Candles', k: 'Chanukah Day 5'},
+    {d: '1996-12-11', h: 'Chag HaBanot', k: undefined},
     {d: '1996-12-11', h: 'Chanukah: 7 Candles', k: 'Chanukah Day 6'},
     {d: '1996-12-11', h: 'Rosh Chodesh Tevet', k: 'Chanukah Day 6'},
     {d: '1996-12-12', h: 'Chanukah: 8 Candles', k: 'Chanukah Day 7'},
