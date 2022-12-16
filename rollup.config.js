@@ -22,7 +22,7 @@ module.exports = [
           ['@babel/preset-env', {
             modules: false,
             targets: {
-              node: '10.21.0',
+              node: '12.22.0',
             },
           }],
         ],
@@ -110,8 +110,9 @@ module.exports = [
               'web.dom-collections.for-each',
             ],
             targets: {
-              'chrome': '58',
-              'ie': '11',
+              chrome: '103',
+              ie: '11',
+              safari: '13.1',
             },
             useBuiltIns: 'usage',
             corejs: 3,
