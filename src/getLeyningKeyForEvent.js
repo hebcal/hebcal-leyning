@@ -12,6 +12,9 @@ export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHA
  * @return {string} key to look up in holiday-reading.json
  */
 export function getLeyningKeyForEvent(ev, il = false) {
+  if (typeof ev.eventTime !== 'undefined') {
+    return undefined;
+  }
   const mask = ev.getFlags();
   if (mask & HOLIDAY_IGNORE_MASK) {
     return undefined;

@@ -4,6 +4,16 @@ import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 
 /**
+ * Leyning for a parsha hashavua or holiday
+ * @typedef {Object} SpecialReading
+ * @property {Object<string,Aliyah>} aliyot - Map of aliyot `1` through `7` plus `M` for maftir
+ * @property {Object<string,string>} [reason] - Explanations for special readings,
+ *    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah
+ * @property {Aliyah|Aliyah[]} haft - Haftarah object(s)
+ * @property {Aliyah|Aliyah[]} seph - Haftarah object(s)
+ */
+
+/**
  * @private
  * @param {Object<string,Aliyah>} aliyot
  */
@@ -46,24 +56,23 @@ function mergeAliyotWithSpecial(aliyot, special) {
  * a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
  * Chodesh or Machar Chodesh, etc.).
  *
- * If a special maftir occurs, modifies `aliyot` to replace `M` and sets `reason.M`
- * (and in some cases modifies the 6th and 7th aliyah, setting `reason['7']`).
+ * This function does not modify `aliyot`. Instead, it returns a deep copy
+ * with `aliyot['M']` replaced and sets `reason.M`
+ * (and in some cases the 6th and 7th aliyah, setting `reason['7']`).
  *
- * If a special Haftarah applies, returns the Haftarah object and sets `reason.haftara`.
- * If no special Haftarah, returns `undefined`
+ * If a special Haftarah applies, the result will have a `haft` property
+ * pointing to Haftarah object and sets `reason.haftara`.
+ * @param {string[]} parsha
  * @param {HDate} hd
  * @param {boolean} il
  * @param {Object<string,Aliyah>} aliyot
- * @param {Object<string,string>} reason
- * @param {string[]} parsha
- * @param {boolean} [wantSeph]
- * @return {Aliyah | Aliyah[]}
+ * @return {SpecialReading}
  */
-export function specialReadings(hd, il, aliyot, reason, parsha, wantSeph=false) {
+export function specialReadings2(parsha, hd, il, aliyot) {
   let haft;
   let seph;
   let specialHaft = false;
-  const parshaName = parsha ? parshaToString(parsha) : null;
+  const reason = {};
 
   // eslint-disable-next-line require-jsdoc
   function handleSpecial(key) {
@@ -81,15 +90,18 @@ export function specialReadings(hd, il, aliyot, reason, parsha, wantSeph=false) 
       }
     }
     if (special.fullkriyah) {
-      mergeAliyotWithSpecial(aliyot, special.fullkriyah);
+      const aliyotMap = clone(aliyot);
+      mergeAliyotWithSpecial(aliyotMap, special.fullkriyah);
       Object.keys(special.fullkriyah).map((k) => reason[k] = key);
+      aliyot = aliyotMap;
     }
   }
 
+  const parshaName = parshaToString(parsha);
   const events0 = HebrewCalendar.getHolidaysOnDate(hd, il) || [];
   const events = events0.filter((ev) => !(ev.getFlags() & flags.ROSH_CHODESH));
   events.forEach((ev) => {
-    if (ev.getDesc() === 'Shabbat Shuva' && parshaName) {
+    if (ev.getDesc() === 'Shabbat Shuva') {
       handleSpecial(`Shabbat Shuva (with ${parshaName})`);
     } else {
       const key = getLeyningKeyForEvent(ev, il);
@@ -116,9 +128,5 @@ export function specialReadings(hd, il, aliyot, reason, parsha, wantSeph=false) 
       }
     }
   }
-  if (wantSeph && haft) {
-    return {haft, seph};
-  } else {
-    return haft;
-  }
+  return {aliyot, reason, haft, seph};
 }

@@ -65,11 +65,6 @@ declare module '@hebcal/leyning' {
         reason?: StringMap;
     };
 
-    export type HaftaraAshkSeph = {
-        haft: Aliyah | Aliyah[];
-        seph?: Aliyah | Aliyah[];
-    };
-
     /**
      * Formats parsha as a string
      */
@@ -101,6 +96,12 @@ declare module '@hebcal/leyning' {
       * e.g. `Genesis 21:1-34; Numbers 29:1-6`.
       */
     export function makeSummaryFromParts(parts: Aliyah | Aliyah[]): string;
+    export type SpecialReading = {
+        aliyot: AliyotMap;
+        reason: StringMap;
+        haft: Aliyah | Aliyah[];
+        seph?: Aliyah | Aliyah[];
+    };
     /**
      * Determines if the regular parashat haShavua coincides with an event that requires
      * a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
@@ -112,7 +113,7 @@ declare module '@hebcal/leyning' {
      * If a special Haftarah applies, returns the Haftarah object and sets `reason.haftara`.
      * If no special Haftarah, returns `undefined`
      */
-    export function specialReadings(hd: HDate, il: boolean, aliyot: AliyotMap, reason: StringMap, parsha: string[], wantSeph: boolean): Aliyah | Aliyah[] | HaftaraAshkSeph;
+    export function specialReadings2(parsha: string[], hd: HDate, il: boolean, aliyot: AliyotMap): SpecialReading;
     /**
      * Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
      *
@@ -177,6 +178,13 @@ declare module '@hebcal/leyning' {
      * @returns map of aliyot
      */
      export function getLeyningForParsha(parsha: string|string[]): Leyning;
+
+    /**
+     * Looks up Monday/Thursday aliyot for a regular parsha
+     * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+     * @returns map of aliyot
+     */
+    export function getWeekdayReading(parsha: string|string[]): AliyotMap;
 
     /**
      * Formats an aliyah object like "Numbers 28:9 - 28:15"

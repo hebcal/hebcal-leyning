@@ -1,10 +1,10 @@
-import {HDate, HebrewCalendar, months, flags, Event, ParshaEvent, Locale} from '@hebcal/core';
+import {HDate, HebrewCalendar, months, flags, ParshaEvent, Locale} from '@hebcal/core';
 import {BOOK, calculateNumVerses, clone, cloneHaftara,
   parshaToString, sumVerses} from './common';
 import {makeSummaryFromParts} from './summary';
 import {lookupFestival} from './festival';
 import parshiyotObj from './aliyot.json';
-import {specialReadings} from './specialReadings';
+import {specialReadings2} from './specialReadings';
 import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEvent';
 import {makeLeyningParts} from './summary';
 
@@ -55,8 +55,10 @@ import {makeLeyningParts} from './summary';
  * @return {Leyning} map of aliyot
  */
 export function getLeyningForHoliday(ev, il=false) {
-  if (typeof ev !== 'object' || !(ev instanceof Event)) {
+  if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${ev}`);
+  } else if (typeof ev.eventTime !== 'undefined') {
+    return undefined;
   } else if (ev.getFlags() & flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event should be a holiday: ${ev.getDesc()}`);
   } else if (ev.getFlags() & HOLIDAY_IGNORE_MASK) {
@@ -136,17 +138,12 @@ function getHaftaraKey(parsha) {
 
 /**
  * Looks up regular leyning for a weekly parsha with no special readings
+ * @private
  * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  * @return {Leyning} map of aliyot
  */
-export function getLeyningForParsha(parsha) {
-  const isParshaString = typeof parsha === 'string';
-  if (!isParshaString &&
-      (!Array.isArray(parsha) || (parsha.length !== 1 && parsha.length !== 2))) {
-    throw new TypeError(`Bad parsha argument: ${parsha}`);
-  }
-  const name = isParshaString ? parsha : parshaToString(parsha);
-  const raw = parshiyotObj[name];
+function getLeyningForParshaShabbatOnly(parsha) {
+  const raw = lookupParsha(parsha);
   const fullkriyah = {};
   const book = BOOK[raw.book];
   Object.keys(raw.fullkriyah).forEach((num) => {
@@ -155,7 +152,8 @@ export function getLeyningForParsha(parsha) {
     fullkriyah[num] = reading;
   });
   Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
-  const parshaNameArray = isParshaString ? raw.combined ? [raw.p1, raw.p2] : [parsha] : parsha;
+  const name = parshaToString(parsha);
+  const parshaNameArray = raw.combined ? [raw.p1, raw.p2] : [name];
   const parts = makeLeyningParts(fullkriyah);
   const summary = makeSummaryFromParts(parts);
   /** @type {Leyning} */
@@ -184,16 +182,41 @@ export function getLeyningForParsha(parsha) {
     result.sephardic = makeSummaryFromParts(seph);
     result.sephardicNumV = sumVerses(seph);
   }
-  const weekdaySrc = raw.weekday || parshiyotObj[parshaNameArray[0]].weekday;
-  if (weekdaySrc) {
-    const weekday = result.weekday = {};
-    ['1', '2', '3'].forEach((num) => {
-      const src = weekdaySrc[num];
-      const aliyah = {k: book, b: src[0], e: src[1]};
-      calculateNumVerses(aliyah);
-      weekday[num] = aliyah;
-    });
+  return result;
+}
+
+/**
+ * Looks up Monday/Thursday aliyot for a regular parsha
+ * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * @return {Object<string,Aliyah>} map of aliyot
+ */
+export function getWeekdayReading(parsha) {
+  const raw = lookupParsha(parsha);
+  const parshaMeta = raw.combined ? lookupParsha(raw.p1) : raw;
+  const aliyot = parshaMeta.weekday;
+  if (!aliyot) {
+    throw new Error(`Parsha missing weekday: ${parsha}`);
   }
+  const book = BOOK[raw.book];
+  const weekday = {};
+  for (let i = 1; i <= 3; i++) {
+    const num = '' + i;
+    const src = aliyot[num];
+    const aliyah = {k: book, b: src[0], e: src[1]};
+    calculateNumVerses(aliyah);
+    weekday[num] = aliyah;
+  }
+  return weekday;
+}
+
+/**
+ * Looks up regular leyning for a weekly parsha with no special readings
+ * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * @return {Leyning} map of aliyot
+ */
+export function getLeyningForParsha(parsha) {
+  const result = getLeyningForParshaShabbatOnly(parsha);
+  result.weekday = getWeekdayReading(parsha);
   return result;
 }
 
@@ -205,29 +228,30 @@ export function getLeyningForParsha(parsha) {
  * @return {Leyning} map of aliyot
  */
 export function getLeyningForParshaHaShavua(ev, il=false) {
-  if (!ev instanceof Event) {
+  if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${ev}`);
   } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
   }
   // first, collect the default aliyot and haftara
   const parsha = ev.parsha;
-  const result = getLeyningForParsha(parsha);
-  const reason = {};
+  const result = getLeyningForParshaShabbatOnly(parsha);
   const hd = ev.getDate();
   // Now, check for special maftir or haftara on same date
-  const specialHaftara = specialReadings(hd, il, result.fullkriyah, reason, parsha, true);
-  if (specialHaftara) {
-    const haft = result.haft = cloneHaftara(specialHaftara.haft);
+  const special = specialReadings2(parsha, hd, il, result.fullkriyah);
+  const reason = special.reason;
+  if (special.haft) {
+    const haft = result.haft = cloneHaftara(special.haft);
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
-    if (specialHaftara.seph) {
-      const seph = result.seph = cloneHaftara(specialHaftara.seph);
+    if (special.seph) {
+      const seph = result.seph = cloneHaftara(special.seph);
       result.sephardic = makeSummaryFromParts(seph);
       result.sephardicNumV = sumVerses(seph);
     }
   }
   if (reason['7'] || reason['M']) {
+    result.fullkriyah = special.aliyot;
     const parts = makeLeyningParts(result.fullkriyah);
     result.summary = makeSummaryFromParts(parts);
     result.summaryParts = parts;
@@ -248,8 +272,6 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
       }
     });
   }
-  // to avoid confusion, don't include Saturday mincha reading here
-  delete result.weekday;
   return result;
 }
 
@@ -345,16 +367,11 @@ function findParshaHaShavua(saturday, il) {
 
 /**
  * Returns the parsha metadata
- * @param {string|string[]} parsha
+ * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  * @return {ParshaMeta}
  */
 export function lookupParsha(parsha) {
-  const isParshaString = typeof parsha === 'string';
-  if (!isParshaString &&
-      (!Array.isArray(parsha) || (parsha.length !== 1 && parsha.length !== 2))) {
-    throw new TypeError(`Bad parsha argument: ${parsha}`);
-  }
-  const name = isParshaString ? parsha : parshaToString(parsha);
+  const name = parshaToString(parsha);
   const raw = parshiyotObj[name];
   if (typeof raw !== 'object') {
     throw new TypeError(`Bad parsha argument: ${parsha}`);

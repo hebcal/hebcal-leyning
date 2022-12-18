@@ -89,14 +89,15 @@ e.g. <code>Genesis 21:1-34; Numbers 29:1-6</code>.</p>
 <dt><a href="#getLeyningKeyForEvent">getLeyningKeyForEvent(ev, [il])</a> ⇒ <code>string</code></dt>
 <dd><p>Based on the event date, type and title, finds the relevant leyning key</p>
 </dd>
-<dt><a href="#specialReadings">specialReadings(hd, il, aliyot, reason, parsha)</a> ⇒ <code><a href="#Aliyah">Aliyah</a></code> | <code><a href="#Aliyah">Array.&lt;Aliyah&gt;</a></code></dt>
+<dt><a href="#specialReadings2">specialReadings2(parsha, hd, il, aliyot)</a> ⇒ <code><a href="#SpecialReading">SpecialReading</a></code></dt>
 <dd><p>Determines if the regular parashat haShavua coincides with an event that requires
 a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
 Chodesh or Machar Chodesh, etc.).</p>
-<p>If a special maftir occurs, modifies <code>aliyot</code> to replace <code>M</code> and sets <code>reason.M</code>
-(and in some cases modifies the 6th and 7th aliyah, setting <code>reason[&#39;7&#39;]</code>).</p>
-<p>If a special Haftarah applies, returns the Haftarah object and sets <code>reason.haftara</code>.
-If no special Haftarah, returns <code>undefined</code></p>
+<p>This function does not modify <code>aliyot</code>. Instead, it returns a deep copy
+with <code>aliyot[&#39;M&#39;]</code> replaced and sets <code>reason.M</code>
+(and in some cases the 6th and 7th aliyah, setting <code>reason[&#39;7&#39;]</code>).</p>
+<p>If a special Haftarah applies, the result will have a <code>haft</code> property
+pointing to Haftarah object and sets <code>reason.haftara</code>.</p>
 </dd>
 <dt><a href="#getLeyningForHoliday">getLeyningForHoliday(ev, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday. Returns some
@@ -106,6 +107,9 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dd><p>Looks up leyning for a given holiday key. Key should be an
 (untranslated) string used in holiday-readings.json. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
+</dd>
+<dt><a href="#getWeekdayReading">getWeekdayReading(parsha)</a> ⇒ <code>Object.&lt;string, Aliyah&gt;</code></dt>
+<dd><p>Looks up Monday/Thursday aliyot for a regular parsha</p>
 </dd>
 <dt><a href="#getLeyningForParsha">getLeyningForParsha(parsha)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up regular leyning for a weekly parsha with no special readings</p>
@@ -137,6 +141,9 @@ Parashat haShavua, containing only the <code>weekday</code> aliyot (no <code>ful
 <dt><a href="#Aliyah">Aliyah</a> : <code>Object</code></dt>
 <dd><p>Represents an aliyah</p>
 </dd>
+<dt><a href="#SpecialReading">SpecialReading</a> : <code>Object</code></dt>
+<dd><p>Leyning for a parsha hashavua or holiday</p>
+</dd>
 <dt><a href="#LeyningNames">LeyningNames</a> : <code>Object</code></dt>
 <dd><p>Name of the parsha hashavua or holiday</p>
 </dd>
@@ -162,9 +169,9 @@ Formats parsha as a string
 
 **Kind**: global function  
 
-| Param | Type |
-| --- | --- |
-| parsha | <code>Array.&lt;string&gt;</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
 
 <a name="clone"></a>
 
@@ -297,28 +304,28 @@ Based on the event date, type and title, finds the relevant leyning key
 | ev | <code>Event</code> |  | event |
 | [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
 
-<a name="specialReadings"></a>
+<a name="specialReadings2"></a>
 
-## specialReadings(hd, il, aliyot, reason, parsha) ⇒ [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah)
+## specialReadings2(parsha, hd, il, aliyot) ⇒ [<code>SpecialReading</code>](#SpecialReading)
 Determines if the regular parashat haShavua coincides with an event that requires
 a special maftir or Haftara (for example Shabbat HaGadol, Shabbat Chanukah, Rosh
 Chodesh or Machar Chodesh, etc.).
 
-If a special maftir occurs, modifies `aliyot` to replace `M` and sets `reason.M`
-(and in some cases modifies the 6th and 7th aliyah, setting `reason['7']`).
+This function does not modify `aliyot`. Instead, it returns a deep copy
+with `aliyot['M']` replaced and sets `reason.M`
+(and in some cases the 6th and 7th aliyah, setting `reason['7']`).
 
-If a special Haftarah applies, returns the Haftarah object and sets `reason.haftara`.
-If no special Haftarah, returns `undefined`
+If a special Haftarah applies, the result will have a `haft` property
+pointing to Haftarah object and sets `reason.haftara`.
 
 **Kind**: global function  
 
 | Param | Type |
 | --- | --- |
+| parsha | <code>Array.&lt;string&gt;</code> | 
 | hd | <code>HDate</code> | 
 | il | <code>boolean</code> | 
 | aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
-| reason | <code>Object.&lt;string, string&gt;</code> | 
-| parsha | <code>Array.&lt;string&gt;</code> | 
 
 <a name="getLeyningForHoliday"></a>
 
@@ -349,6 +356,18 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | key | <code>string</code> | name from `holiday-readings.json` to find |
 | [cholHaMoedDay] | <code>number</code> |  |
 
+<a name="getWeekdayReading"></a>
+
+## getWeekdayReading(parsha) ⇒ <code>Object.&lt;string, Aliyah&gt;</code>
+Looks up Monday/Thursday aliyot for a regular parsha
+
+**Kind**: global function  
+**Returns**: <code>Object.&lt;string, Aliyah&gt;</code> - map of aliyot  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
+
 <a name="getLeyningForParsha"></a>
 
 ## getLeyningForParsha(parsha) ⇒ [<code>Leyning</code>](#Leyning)
@@ -361,10 +380,6 @@ Looks up regular leyning for a weekly parsha with no special readings
 | --- | --- | --- |
 | parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
 
-<a name="getLeyningForParsha..result"></a>
-
-### getLeyningForParsha~result : [<code>Leyning</code>](#Leyning)
-**Kind**: inner constant of [<code>getLeyningForParsha</code>](#getLeyningForParsha)  
 <a name="getLeyningForParshaHaShavua"></a>
 
 ## getLeyningForParshaHaShavua(ev, [il]) ⇒ [<code>Leyning</code>](#Leyning)
@@ -409,9 +424,9 @@ Returns the parsha metadata
 
 **Kind**: global function  
 
-| Param | Type |
-| --- | --- |
-| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
 
 <a name="writeCsvLines"></a>
 
@@ -443,6 +458,21 @@ Represents an aliyah
 | e | <code>string</code> | ending verse (e.g. "28:15") |
 | [v] | <code>number</code> | number of verses |
 | [p] | <code>number</code> | parsha number (1=Bereshit, 54=Vezot HaBracha) |
+
+<a name="SpecialReading"></a>
+
+## SpecialReading : <code>Object</code>
+Leyning for a parsha hashavua or holiday
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | Map of aliyot `1` through `7` plus `M` for maftir |
+| [reason] | <code>Object.&lt;string, string&gt;</code> | Explanations for special readings,    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah |
+| haft | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) |
+| seph | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) |
 
 <a name="LeyningNames"></a>
 

@@ -1,5 +1,5 @@
 import test from 'ava';
-import {calculateNumVerses} from './common';
+import {calculateNumVerses, parshaToString} from './common';
 
 test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Genesis', b: '1:1', e: '1:1'}), 1);
@@ -15,4 +15,26 @@ test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Zechariah', b: '2:14', e: '4:7'}), 21);
   t.is(calculateNumVerses({k: 'Ezekiel', b: '1:1', e: '1:28'}), 28);
   t.is(calculateNumVerses({k: 'Deuteronomy', b: '5:25', e: '6:3'}), 9);
+});
+
+test('parshaToString', (t) => {
+  t.is(parshaToString('Bereshit'), 'Bereshit');
+  t.is(parshaToString(['Bereshit']), 'Bereshit');
+  t.is(parshaToString(['Matot', 'Masei']), 'Matot-Masei');
+  t.is(parshaToString('Matot-Masei'), 'Matot-Masei');
+});
+
+test('parshaToString-throws', (t) => {
+  const error = t.throws(() => {
+    parshaToString([]);
+  }, {instanceOf: TypeError});
+  t.is(error.message, 'Bad parsha argument: ');
+  const error2 = t.throws(() => {
+    parshaToString(123);
+  }, {instanceOf: TypeError});
+  t.is(error2.message, 'Bad parsha argument: 123');
+  const error3 = t.throws(() => {
+    parshaToString(null);
+  }, {instanceOf: TypeError});
+  t.is(error3.message, 'Bad parsha argument: null');
 });

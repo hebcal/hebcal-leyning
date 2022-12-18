@@ -9,10 +9,15 @@ export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuterono
 
 /**
  * Formats parsha as a string
- * @param {string[]} parsha
+ * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  * @return {string}
  */
 export function parshaToString(parsha) {
+  if (typeof parsha === 'string') {
+    return parsha;
+  } else if (!Array.isArray(parsha) || parsha.length === 0 || parsha.length > 2) {
+    throw new TypeError(`Bad parsha argument: ${parsha}`);
+  }
   let s = parsha[0];
   if (parsha.length == 2) {
     s += '-' + parsha[1];
