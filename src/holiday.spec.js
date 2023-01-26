@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HDate, HebrewCalendar, Event, months, flags} from '@hebcal/core';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './leyning';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {formatAliyahWithBook} from './common';
 
@@ -471,7 +471,7 @@ test('9av', (t) => {
 test('fast day mincha', (t) => {
   const reading = getLeyningForHolidayKey('Tish\'a B\'Av (Mincha)');
   const expected = {
-    name: {en: 'Tish\'a B\'Av (Mincha)', he: undefined},
+    name: {en: 'Tish\'a B\'Av (Mincha)', he: 'תִּשְׁעָה בְּאָב מִנחָה'},
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
       '2': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
@@ -489,10 +489,10 @@ test('fast day mincha', (t) => {
   t.deepEqual(reading, expected);
 
   const reading2 = getLeyningForHolidayKey('Tzom Gedaliah (Mincha)');
-  expected.name = {en: 'Tzom Gedaliah (Mincha)', he: undefined};
+  expected.name = {en: 'Tzom Gedaliah (Mincha)', he: 'צוֹם גְּדַלְיָה מִנחָה'};
   t.deepEqual(reading2, expected);
 
   const reading3 = getLeyningForHolidayKey('Ta\'anit Bechorot (Mincha)');
-  expected.name = {en: 'Ta\'anit Bechorot (Mincha)', he: undefined};
+  expected.name = {en: 'Ta\'anit Bechorot (Mincha)', he: 'תַּעֲנִית בְּכוֹרוֹת מִנחָה'};
   t.deepEqual(reading3, expected);
 });

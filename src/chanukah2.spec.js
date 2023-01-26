@@ -1,6 +1,7 @@
 import test from 'ava';
 import {HebrewCalendar, flags} from '@hebcal/core';
-import {getLeyningForParshaHaShavua, getLeyningForHoliday} from './leyning';
+import {getLeyningForParshaHaShavua} from './leyning';
+import {getLeyningForHoliday} from './getLeyningForHoliday';
 
 test('Chanukah', (t) => {
   const events = HebrewCalendar.calendar({

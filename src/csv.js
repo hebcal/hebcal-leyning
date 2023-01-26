@@ -1,5 +1,6 @@
 import {HebrewCalendar, flags, Event} from '@hebcal/core';
-import {getLeyningForParshaHaShavua, getLeyningForHoliday, getLeyningForHolidayKey} from './leyning';
+import {getLeyningForParshaHaShavua} from './leyning';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {formatAliyahWithBook} from './common';
 
