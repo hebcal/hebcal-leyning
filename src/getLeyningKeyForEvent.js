@@ -47,6 +47,13 @@ export function getLeyningKeyForEvent(ev, il = false) {
     } else if (desc == 'Sukkot VII (Hoshana Raba)') {
       return 'Sukkot Final Day (Hoshana Raba)';
     }
+    if (isPesach && ev.cholHaMoedDay) {
+      if (dow === 0 && desc === 'Pesach IV (CH\'\'M)') {
+        return 'Pesach Chol ha-Moed Day 2 on Sunday';
+      } else if (dow === 1 && desc === 'Pesach V (CH\'\'M)') {
+        return 'Pesach Chol ha-Moed Day 3 on Monday';
+      }
+    }
     // If Shabbat falls on the third day of Chol ha-Moed Pesach,
     // the readings for the third, fourth, and fifth days are moved ahead
     let cholHaMoedDay = ev.cholHaMoedDay;

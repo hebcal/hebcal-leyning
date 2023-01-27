@@ -38,31 +38,31 @@ test('writeFullKriyahEvent-parsha', (t) => {
 });
 
 test('writeFullKriyahEvent-holiday', (t) => {
-  const ev = new HolidayEvent(new HDate(18, months.NISAN, 5763),
+  const ev = new HolidayEvent(new HDate(18, months.NISAN, 5764),
       'Pesach IV (CH\'\'M)', flags.CHUL_ONLY, {cholHaMoedDay: 2});
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
   const lines = stream.toString().split('\r\n');
   const expected = [
-    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",1,"Exodus 22:24-22:26",3',
-    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",2,"Exodus 22:27-23:5",9',
-    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",3,"Exodus 23:6-23:19",14',
-    '20-Apr-2003,"Pesach Chol ha-Moed Day 2",4,"Numbers 28:19-28:25",7',
+    '09-Apr-2004,"Pesach Chol ha-Moed Day 2",1,"Exodus 22:24-22:26",3',
+    '09-Apr-2004,"Pesach Chol ha-Moed Day 2",2,"Exodus 22:27-23:5",9',
+    '09-Apr-2004,"Pesach Chol ha-Moed Day 2",3,"Exodus 23:6-23:19",14',
+    '09-Apr-2004,"Pesach Chol ha-Moed Day 2",4,"Numbers 28:19-28:25",7',
     '', ''];
   t.deepEqual(lines, expected);
 });
 
 test('writeFullKriyahEvent-holiday-il', (t) => {
-  const ev = new HolidayEvent(new HDate(18, months.NISAN, 5763),
+  const ev = new HolidayEvent(new HDate(18, months.NISAN, 5764),
       'Pesach IV (CH\'\'M)', flags.IL_ONLY, {cholHaMoedDay: 3});
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, true);
   const lines = stream.toString().split('\r\n');
   const expected = [
-    `20-Apr-2003,"Pesach IV (CH''M)",1,"Exodus 22:24-22:26",3`,
-    `20-Apr-2003,"Pesach IV (CH''M)",2,"Exodus 22:27-23:5",9`,
-    `20-Apr-2003,"Pesach IV (CH''M)",3,"Exodus 23:6-23:19",14`,
-    `20-Apr-2003,"Pesach IV (CH''M)",4,"Numbers 28:19-28:25",7`,
+    `09-Apr-2004,"Pesach IV (CH''M)",1,"Exodus 22:24-22:26",3`,
+    `09-Apr-2004,"Pesach IV (CH''M)",2,"Exodus 22:27-23:5",9`,
+    `09-Apr-2004,"Pesach IV (CH''M)",3,"Exodus 23:6-23:19",14`,
+    `09-Apr-2004,"Pesach IV (CH''M)",4,"Numbers 28:19-28:25",7`,
     '', ''];
   t.deepEqual(lines, expected);
 });

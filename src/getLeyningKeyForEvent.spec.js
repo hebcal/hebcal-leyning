@@ -142,3 +142,27 @@ test('getLeyningKeyForEvent-pesach-il', (t) => {
   ];
   t.deepEqual(actual, expected);
 });
+
+test('getLeyningKeyForEvent-pesach-diaspora', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
+  const events = events0.filter((ev) => ev.basename() === 'Pesach');
+  const actual = events.map((ev) => {
+    return {
+      d: ev.getDate().greg().toISOString().substring(0, 10),
+      h: ev.getDesc(),
+      k: getLeyningKeyForEvent(ev, false),
+    };
+  });
+  const expected = [
+    {d: '2023-04-05', h: 'Erev Pesach', k: undefined},
+    {d: '2023-04-06', h: 'Pesach I', k: 'Pesach I'},
+    {d: '2023-04-07', h: 'Pesach II', k: 'Pesach II'},
+    {d: '2023-04-08', h: 'Pesach III (CH\'\'M)', k: 'Pesach Shabbat Chol ha-Moed'},
+    {d: '2023-04-09', h: 'Pesach IV (CH\'\'M)', k: 'Pesach Chol ha-Moed Day 2 on Sunday'},
+    {d: '2023-04-10', h: 'Pesach V (CH\'\'M)', k: 'Pesach Chol ha-Moed Day 3 on Monday'},
+    {d: '2023-04-11', h: 'Pesach VI (CH\'\'M)', k: 'Pesach Chol ha-Moed Day 4'},
+    {d: '2023-04-12', h: 'Pesach VII', k: 'Pesach VII'},
+    {d: '2023-04-13', h: 'Pesach VIII', k: 'Pesach VIII'},
+  ];
+  t.deepEqual(actual, expected);
+});

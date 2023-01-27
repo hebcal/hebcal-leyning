@@ -114,6 +114,8 @@
 "Pesach IV (CH''M)":{"alias":true,"il":true,"key":"Pesach Chol ha-Moed Day 2"},
 "Pesach V (CH''M)":{"alias":true,"il":true,"key":"Pesach Chol ha-Moed Day 3"},
 "Pesach VI (CH''M)":{"alias":true,"il":true,"key":"Pesach Chol ha-Moed Day 4"},
+"Pesach Chol ha-Moed Day 2 on Sunday":{"alias":true,"il":false,"key":"Pesach Chol ha-Moed Day 1"},
+"Pesach Chol ha-Moed Day 3 on Monday":{"alias":true,"il":false,"key":"Pesach Chol ha-Moed Day 2"},
 "Shavuot I":{
  "haft":[{"k":"Ezekiel","b":"1:1","e":"1:28"},
   {"k":"Ezekiel","b":"3:12","e":"3:12"}],

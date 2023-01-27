@@ -496,3 +496,44 @@ test('fast day mincha', (t) => {
   expected.name = {en: 'Ta\'anit Bechorot (Mincha)', he: 'תַּעֲנִית בְּכוֹרוֹת מִנחָה'};
   t.deepEqual(reading3, expected);
 });
+
+test('pesach-diaspora-chm-day2-sunday', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
+  const events = events0.filter((ev) => ev.basename() === 'Pesach' && ev.cholHaMoedDay);
+  const actual = events.map((ev) => {
+    const reading = getLeyningForHoliday(ev);
+    return {
+      d: ev.getDate().greg().toISOString().substring(0, 10),
+      h: ev.getDesc(),
+      n: reading.name.en,
+      s: reading.summary,
+    };
+  });
+  const expected = [
+    {
+      d: '2023-04-08',
+      h: 'Pesach III (CH\'\'M)',
+      n: 'Pesach Shabbat Chol ha-Moed',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25',
+    },
+    {
+      d: '2023-04-09',
+      h: 'Pesach IV (CH\'\'M)',
+      n: 'Pesach Chol ha-Moed Day 2 on Sunday',
+      s: 'Exodus 13:1-16; Numbers 28:19-25',
+    },
+    {
+      d: '2023-04-10',
+      h: 'Pesach V (CH\'\'M)',
+      n: 'Pesach Chol ha-Moed Day 3 on Monday',
+      s: 'Exodus 22:24-23:19; Numbers 28:19-25',
+    },
+    {
+      d: '2023-04-11',
+      h: 'Pesach VI (CH\'\'M)',
+      n: 'Pesach Chol ha-Moed Day 4',
+      s: 'Numbers 9:1-14, 28:19-25',
+    },
+  ];
+  t.deepEqual(actual, expected);
+});
