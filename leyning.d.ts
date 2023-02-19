@@ -63,6 +63,8 @@ declare module '@hebcal/leyning' {
         weekday?: AliyotMap;
         /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `haftara` for Haftarah */
         reason?: StringMap;
+        /** Song of Songs is read on the sabbath of Passover week, the Book of Ruth on Shavuot, Lamentations on Tisha be-Av, Ecclesiastes on the sabbath of the week of Sukkoth, and the Book of Esther on Purim */
+        megillah?: AliyotMap;
     };
 
     /**

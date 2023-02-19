@@ -174,7 +174,7 @@ function getFullKriyahLines(reading) {
       const a = reading.megillah[num];
       if (typeof a !== 'undefined') {
         const aliyah = formatAliyahWithBook(a);
-        lines.push([`Megillah Chap. ${num}`, aliyah, a.v || '']);
+        lines.push([`Megillah Ch. ${num}`, aliyah, a.v || '']);
       }
     });
   }

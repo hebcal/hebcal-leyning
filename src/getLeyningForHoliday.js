@@ -58,9 +58,6 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
   if (src.megillah) {
     const book = src.megillah;
     const chaps = numverses[book];
-    if (!Array.isArray(chaps)) {
-      throw new TypeError(`Bad megillah for ${key}: ${book}`);
-    }
     const m = {};
     for (let i = 1; i < chaps.length; i++) {
       const numv = chaps[i];

@@ -99,13 +99,13 @@ with <code>aliyot[&#39;M&#39;]</code> replaced and sets <code>reason.M</code>
 <p>If a special Haftarah applies, the result will have a <code>haft</code> property
 pointing to Haftarah object and sets <code>reason.haftara</code>.</p>
 </dd>
-<dt><a href="#getLeyningForHoliday">getLeyningForHoliday(ev, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
-<dd><p>Looks up leyning for a given holiday. Returns some
-of full kriyah aliyot, special Maftir, special Haftarah</p>
-</dd>
 <dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key, [cholHaMoedDay])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday key. Key should be an
 (untranslated) string used in holiday-readings.json. Returns some
+of full kriyah aliyot, special Maftir, special Haftarah</p>
+</dd>
+<dt><a href="#getLeyningForHoliday">getLeyningForHoliday(ev, [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
+<dd><p>Looks up leyning for a given holiday. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
 </dd>
 <dt><a href="#getWeekdayReading">getWeekdayReading(parsha)</a> ⇒ <code>Object.&lt;string, Aliyah&gt;</code></dt>
@@ -327,20 +327,6 @@ pointing to Haftarah object and sets `reason.haftara`.
 | il | <code>boolean</code> | 
 | aliyot | <code>Object.&lt;string, Aliyah&gt;</code> | 
 
-<a name="getLeyningForHoliday"></a>
-
-## getLeyningForHoliday(ev, [il]) ⇒ [<code>Leyning</code>](#Leyning)
-Looks up leyning for a given holiday. Returns some
-of full kriyah aliyot, special Maftir, special Haftarah
-
-**Kind**: global function  
-**Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| ev | <code>Event</code> |  | the Hebcal event associated with this leyning |
-| [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
-
 <a name="getLeyningForHolidayKey"></a>
 
 ## getLeyningForHolidayKey(key, [cholHaMoedDay]) ⇒ [<code>Leyning</code>](#Leyning)
@@ -355,6 +341,20 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | --- | --- | --- |
 | key | <code>string</code> | name from `holiday-readings.json` to find |
 | [cholHaMoedDay] | <code>number</code> |  |
+
+<a name="getLeyningForHoliday"></a>
+
+## getLeyningForHoliday(ev, [il]) ⇒ [<code>Leyning</code>](#Leyning)
+Looks up leyning for a given holiday. Returns some
+of full kriyah aliyot, special Maftir, special Haftarah
+
+**Kind**: global function  
+**Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| ev | <code>Event</code> |  | the Hebcal event associated with this leyning |
+| [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
 
 <a name="getWeekdayReading"></a>
 
@@ -510,6 +510,7 @@ Leyning for a parsha hashavua or holiday
 | fullkriyah | <code>Object.&lt;string, Aliyah&gt;</code> | Map of aliyot `1` through `7` plus `M` for maftir |
 | [weekday] | <code>Object.&lt;string, Aliyah&gt;</code> | Optional map of weekday Torah Readings    aliyot `1` through `3` for Monday and Thursday |
 | [reason] | <code>Object.&lt;string, string&gt;</code> | Explanations for special readings,    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah |
+| [megillah] | <code>Object.&lt;string, Aliyah&gt;</code> | Optional map of megillah reading.    Song of Songs is read on the sabbath of Passover week, the Book of Ruth on Shavuot,    Lamentations on Tisha be-Av, Ecclesiastes on the sabbath of the week of Sukkoth,    and the Book of Esther on Purim. |
 
 <a name="ParshaMeta"></a>
 

@@ -44,6 +44,10 @@ import {getLeyningForHoliday} from './getLeyningForHoliday';
  *    aliyot `1` through `3` for Monday and Thursday
  * @property {Object<string,string>} [reason] - Explanations for special readings,
  *    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah
+ * @property {Object<string,Aliyah>} [megillah] - Optional map of megillah reading.
+ *    Song of Songs is read on the sabbath of Passover week, the Book of Ruth on Shavuot,
+ *    Lamentations on Tisha be-Av, Ecclesiastes on the sabbath of the week of Sukkoth,
+ *    and the Book of Esther on Purim.
  */
 
 /**
