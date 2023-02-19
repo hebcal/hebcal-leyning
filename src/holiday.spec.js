@@ -416,6 +416,20 @@ test('Sukkot Shabbat Chol ha-Moed', (t) => {
       {k: 'Exodus', b: '33:12', e: '34:26'},
       {k: 'Numbers', b: '29:26', e: '29:31'},
     ],
+    megillah: {
+      '1': {k: 'Ecclesiastes', b: '1:1', e: '1:18', v: 18},
+      '2': {k: 'Ecclesiastes', b: '2:1', e: '2:26', v: 26},
+      '3': {k: 'Ecclesiastes', b: '3:1', e: '3:22', v: 22},
+      '4': {k: 'Ecclesiastes', b: '4:1', e: '4:17', v: 17},
+      '5': {k: 'Ecclesiastes', b: '5:1', e: '5:19', v: 19},
+      '6': {k: 'Ecclesiastes', b: '6:1', e: '6:12', v: 12},
+      '7': {k: 'Ecclesiastes', b: '7:1', e: '7:29', v: 29},
+      '8': {k: 'Ecclesiastes', b: '8:1', e: '8:17', v: 17},
+      '9': {k: 'Ecclesiastes', b: '9:1', e: '9:18', v: 18},
+      '10': {k: 'Ecclesiastes', b: '10:1', e: '10:20', v: 20},
+      '11': {k: 'Ecclesiastes', b: '11:1', e: '11:10', v: 10},
+      '12': {k: 'Ecclesiastes', b: '12:1', e: '12:14', v: 14},
+    },
     haft: {k: 'Ezekiel', b: '38:18', e: '39:16', v: 22},
     haftara: 'Ezekiel 38:18-39:16',
     haftaraNumV: 22,
@@ -535,5 +549,56 @@ test('pesach-diaspora-chm-day2-sunday', (t) => {
       s: 'Numbers 9:1-14, 28:19-25',
     },
   ];
+  t.deepEqual(actual, expected);
+});
+
+test('Shavuot Israel', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: true});
+  const events = events0.filter((ev) => ev.getDesc() === 'Shavuot');
+  const actual = getLeyningForHoliday(events[0]);
+  const expected = {
+    '1': {k: 'Ruth', b: '1:1', e: '1:22', v: 22},
+    '2': {k: 'Ruth', b: '2:1', e: '2:23', v: 23},
+    '3': {k: 'Ruth', b: '3:1', e: '3:18', v: 18},
+    '4': {k: 'Ruth', b: '4:1', e: '4:22', v: 22},
+  };
+  t.deepEqual(actual.megillah, expected);
+});
+
+test('Shavuot Diaspora', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
+  const events = events0.filter((ev) => ev.basename() === 'Shavuot');
+  t.is(events[0].getDesc(), 'Erev Shavuot');
+  t.is(getLeyningForHoliday(events[0]), undefined);
+  t.is(events[1].getDesc(), 'Shavuot I');
+  t.is(getLeyningForHoliday(events[1]).megillah, undefined);
+  t.is(events[2].getDesc(), 'Shavuot II');
+  t.deepEqual(getLeyningForHoliday(events[2]).megillah, {
+    '1': {k: 'Ruth', b: '1:1', e: '1:22', v: 22},
+    '2': {k: 'Ruth', b: '2:1', e: '2:23', v: 23},
+    '3': {k: 'Ruth', b: '3:1', e: '3:18', v: 18},
+    '4': {k: 'Ruth', b: '4:1', e: '4:22', v: 22},
+  });
+});
+
+test('Erev Purim', (t) => {
+  const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
+  const events = events0.filter((ev) => ev.getDesc() === 'Erev Purim');
+  const actual = getLeyningForHoliday(events[0]);
+  const expected = {
+    name: {en: 'Erev Purim', he: 'עֶרֶב פּוּרִים'},
+    megillah: {
+      '1': {k: 'Esther', b: '1:1', e: '1:22', v: 22},
+      '2': {k: 'Esther', b: '2:1', e: '2:23', v: 23},
+      '3': {k: 'Esther', b: '3:1', e: '3:15', v: 15},
+      '4': {k: 'Esther', b: '4:1', e: '4:17', v: 17},
+      '5': {k: 'Esther', b: '5:1', e: '5:14', v: 14},
+      '6': {k: 'Esther', b: '6:1', e: '6:14', v: 14},
+      '7': {k: 'Esther', b: '7:1', e: '7:10', v: 10},
+      '8': {k: 'Esther', b: '8:1', e: '8:17', v: 17},
+      '9': {k: 'Esther', b: '9:1', e: '9:32', v: 32},
+      '10': {k: 'Esther', b: '10:1', e: '10:3', v: 3},
+    },
+  };
   t.deepEqual(actual, expected);
 });

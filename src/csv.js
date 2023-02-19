@@ -169,5 +169,14 @@ function getFullKriyahLines(reading) {
     const haftara = reading.triHaftara.replace(/,/g, ';');
     lines.push(['Alternate Haftara', haftara, reading.triHaftaraNumV || '']);
   }
+  if (reading.megillah) {
+    Object.keys(reading.megillah).forEach((num) => {
+      const a = reading.megillah[num];
+      if (typeof a !== 'undefined') {
+        const aliyah = formatAliyahWithBook(a);
+        lines.push([`Megillah Chap. ${num}`, aliyah, a.v || '']);
+      }
+    });
+  }
   return lines;
 }

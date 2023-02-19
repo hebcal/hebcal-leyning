@@ -60,6 +60,7 @@
   "3":{"p":36,"k":4,"b":"9:9","e":"9:14"},
   "4":{"p":41,"k":4,"b":"28:19","e":"28:25"}}},
 "Pesach Shabbat Chol ha-Moed":{
+ "megillah":"Song of Songs",
  "haft":{"k":"Ezekiel","b":"37:1","e":"37:14"},
  "fullkriyah":
   {"1":{"p":21,"k":2,"b":"33:12","e":"33:16"},
@@ -116,6 +117,18 @@
 "Pesach VI (CH''M)":{"alias":true,"il":true,"key":"Pesach Chol ha-Moed Day 4"},
 "Pesach Chol ha-Moed Day 2 on Sunday":{"alias":true,"il":false,"key":"Pesach Chol ha-Moed Day 1"},
 "Pesach Chol ha-Moed Day 3 on Monday":{"alias":true,"il":false,"key":"Pesach Chol ha-Moed Day 2"},
+"Shavuot":{
+ "note":"Israel only",
+ "megillah":"Ruth",
+ "haft":[{"k":"Ezekiel","b":"1:1","e":"1:28"},
+  {"k":"Ezekiel","b":"3:12","e":"3:12"}],
+ "fullkriyah":
+  {"1":{"p":17,"k":2,"b":"19:1","e":"19:6"},
+  "2":{"p":17,"k":2,"b":"19:7","e":"19:13"},
+  "3":{"p":17,"k":2,"b":"19:14","e":"19:19"},
+  "4":{"p":17,"k":2,"b":"19:20","e":"20:14"},
+  "5":{"p":17,"k":2,"b":"20:15","e":"20:23"},
+  "M":{"p":41,"k":4,"b":"28:26","e":"28:31"}}},
 "Shavuot I":{
  "haft":[{"k":"Ezekiel","b":"1:1","e":"1:28"},
   {"k":"Ezekiel","b":"3:12","e":"3:12"}],
@@ -127,6 +140,7 @@
   "5":{"p":17,"k":2,"b":"20:15","e":"20:23"},
   "M":{"p":41,"k":4,"b":"28:26","e":"28:31"}}},
 "Shavuot II":{
+ "megillah":"Ruth",
  "haft":{"k":"Habakkuk","b":"3:1","e":"3:19"},
  "fullkriyah":
   {"1":{"p":47,"k":5,"b":"15:19","e":"15:23"},
@@ -136,6 +150,7 @@
   "5":{"p":47,"k":5,"b":"16:13","e":"16:17"},
   "M":{"p":41,"k":4,"b":"28:26","e":"28:31"}}},
 "Shavuot II (on Shabbat)":{
+ "megillah":"Ruth",
  "haft":{"k":"Habakkuk","b":"3:1","e":"3:19"},
  "fullkriyah":
   {"1":{"p":47,"k":5,"b":"14:22","e":"14:29"},
@@ -167,6 +182,7 @@
 "Ta'anit Esther (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
 "Tzom Gedaliah (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
 "Tzom Tammuz (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
+"Erev Tish'a B'Av":{"megillah":"Lamentations"},
 "Tish'a B'Av":{
  "haft":{"k":"Jeremiah","b":"8:13","e":"9:23"},
  "fullkriyah":
@@ -299,6 +315,7 @@
   "3":{"p":41,"k":4,"b":"29:35","e":"29:37"},
   "4":{"p":41,"k":4,"b":"29:29","e":"29:34"}}},
 "Sukkot Shabbat Chol ha-Moed":{
+ "megillah":"Ecclesiastes",
  "haft":{"k":"Ezekiel","b":"38:18","e":"39:16"},
  "fullkriyah":
   {"1":{"p":21,"k":2,"b":"33:12","e":"33:16"},
@@ -448,7 +465,9 @@
 "Chanukah Day 8 (on Shabbat)":{
  "haft":{"k":"I Kings","b":"7:40","e":"7:50"},
  "fullkriyah":{"M":{"p":35,"k":4,"b":"7:54","e":"8:4"}}},
+"Erev Purim":{"megillah":"Esther"},
 "Purim":{
+ "megillah":"Esther",
  "fullkriyah":
   {"1":{"p":16,"k":2,"b":"17:8","e":"17:10"},
   "2":{"p":16,"k":2,"b":"17:11","e":"17:13"},

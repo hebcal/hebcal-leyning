@@ -21,7 +21,7 @@ export function getLeyningKeyForEvent(ev, il = false) {
   }
   // Skip all Erevs except for Simchat Torah
   const desc = ev.getDesc();
-  if (mask & flags.EREV && desc !== 'Erev Simchat Torah') {
+  if (mask & flags.EREV && !hasFestival(desc)) {
     return undefined;
   }
   const hd = ev.getDate();
@@ -81,9 +81,7 @@ export function getLeyningKeyForEvent(ev, il = false) {
     return desc + ' (on Rosh Chodesh)';
   }
 
-  if (desc == 'Shavuot') {
-    return 'Shavuot I';
-  } else if (il && desc == 'Shmini Atzeret') {
+  if (il && desc == 'Shmini Atzeret') {
     return 'Simchat Torah';
   }
 

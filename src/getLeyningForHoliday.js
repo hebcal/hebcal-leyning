@@ -4,6 +4,7 @@ import {makeSummaryFromParts} from './summary';
 import {lookupFestival} from './festival';
 import {makeLeyningParts} from './summary';
 import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEvent';
+import numverses from './numverses.json';
 
 /**
  * Looks up leyning for a given holiday key. Key should be an
@@ -53,6 +54,19 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay) {
     const seph = leyning.seph = cloneHaftara(src.seph);
     leyning.sephardic = makeSummaryFromParts(seph);
     leyning.sephardicNumV = sumVerses(seph);
+  }
+  if (src.megillah) {
+    const book = src.megillah;
+    const chaps = numverses[book];
+    if (!Array.isArray(chaps)) {
+      throw new TypeError(`Bad megillah for ${key}: ${book}`);
+    }
+    const m = {};
+    for (let i = 1; i < chaps.length; i++) {
+      const numv = chaps[i];
+      m[`${i}`] = {k: book, b: `${i}:1`, e: `${i}:${numv}`, v: numv};
+    }
+    leyning.megillah = m;
   }
   return leyning;
 }
