@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HDate} from '@hebcal/core';
-import {getLeyningOnDate} from './leyning';
+import {getLeyningOnDate} from './getLeyningOnDate';
 
 test('getLeyningOnDate-parsha', (t) => {
   const hd = new HDate(16, 'Av', 5782);
@@ -199,9 +199,10 @@ test('getLeyningOnDate-multiple-holidays', (t) => {
 test('getLeyningOnDate-Erev-Purim', (t) => {
   const hd = new HDate(13, 'Adar', 5783);
   const readings = getLeyningOnDate(hd, false, true);
-  t.is(readings.length, 2);
+  t.is(readings.length, 3);
   t.is(readings[0].name.en, 'Ta\'anit Esther');
-  t.is(readings[1].name.en, 'Erev Purim');
+  t.is(readings[1].name.en, 'Ta\'anit Esther (Mincha)');
+  t.is(readings[2].name.en, 'Erev Purim');
 });
 
 test('getLeyningOnDate-wantarray-empty', (t) => {
