@@ -118,7 +118,7 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dd><p>Looks up leyning for a regular Shabbat parsha, including any special
 maftir or Haftara.</p>
 </dd>
-<dt><a href="#getLeyningOnDate">getLeyningOnDate(hdate, il)</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
+<dt><a href="#getLeyningOnDate">getLeyningOnDate(hdate, il, [wantarray])</a> ⇒ <code><a href="#Leyning">Leyning</a></code> | <code><a href="#Leyning">Array.&lt;Leyning&gt;</a></code></dt>
 <dd><p>Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.</p>
 <p>If <code>hdate</code> coincides with a holiday that has Torah reading, returns the
 reading for that day (see <a href="#getLeyningForHoliday">getLeyningForHoliday</a>)</p>
@@ -396,7 +396,7 @@ maftir or Haftara.
 
 <a name="getLeyningOnDate"></a>
 
-## getLeyningOnDate(hdate, il) ⇒ [<code>Leyning</code>](#Leyning)
+## getLeyningOnDate(hdate, il, [wantarray]) ⇒ [<code>Leyning</code>](#Leyning) \| [<code>Array.&lt;Leyning&gt;</code>](#Leyning)
 Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
 
 If `hdate` coincides with a holiday that has Torah reading, returns the
@@ -410,12 +410,13 @@ Parashat haShavua, containing only the `weekday` aliyot (no `fullkriyah`).
 Otherwise, returns `undefined`.
 
 **Kind**: global function  
-**Returns**: [<code>Leyning</code>](#Leyning) - map of aliyot  
+**Returns**: [<code>Leyning</code>](#Leyning) \| [<code>Array.&lt;Leyning&gt;</code>](#Leyning) - map of aliyot  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| hdate | <code>HDate</code> | Hebrew Date |
-| il | <code>boolean</code> | in Israel |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| hdate | <code>HDate</code> |  | Hebrew Date |
+| il | <code>boolean</code> |  | in Israel |
+| [wantarray] | <code>boolean</code> | <code>false</code> | to return an array of 0 or more readings |
 
 <a name="lookupParsha"></a>
 

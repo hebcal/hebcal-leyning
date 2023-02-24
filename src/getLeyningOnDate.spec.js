@@ -195,3 +195,23 @@ test('getLeyningOnDate-multiple-holidays', (t) => {
   const reading2 = getLeyningOnDate(hd2, false);
   t.is(reading2.name.en, 'Rosh Chodesh Elul');
 });
+
+test('getLeyningOnDate-Erev-Purim', (t) => {
+  const hd = new HDate(13, 'Adar', 5783);
+  const readings = getLeyningOnDate(hd, false, true);
+  t.is(readings.length, 2);
+  t.is(readings[0].name.en, 'Ta\'anit Esther');
+  t.is(readings[1].name.en, 'Erev Purim');
+});
+
+test('getLeyningOnDate-wantarray-empty', (t) => {
+  const hd = new HDate(12, 'Adar', 5783);
+  const readings = getLeyningOnDate(hd, false, true);
+  t.is(readings.length, 0);
+});
+
+test('getLeyningOnDate-no-wantarray', (t) => {
+  const hd = new HDate(12, 'Adar', 5783);
+  const readings = getLeyningOnDate(hd, false, false);
+  t.is(readings, undefined);
+});

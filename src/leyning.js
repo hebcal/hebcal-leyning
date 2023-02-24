@@ -219,23 +219,33 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
  *
  * @param {HDate} hdate Hebrew Date
  * @param {boolean} il in Israel
- * @return {Leyning} map of aliyot
+ * @param {boolean} [wantarray] to return an array of 0 or more readings
+ * @return {Leyning|Leyning[]} map of aliyot
  */
-export function getLeyningOnDate(hdate, il) {
+export function getLeyningOnDate(hdate, il, wantarray=false) {
   const dow = hdate.getDay();
   const hyear = hdate.getFullYear();
   const sedra = HebrewCalendar.getSedra(hyear, il);
   const parsha = sedra.lookup(hdate);
   if (dow === 6 && !parsha.chag) {
     const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
-    return getLeyningForParshaHaShavua(parshaEvent, il);
+    const reading = getLeyningForParshaHaShavua(parshaEvent, il);
+    return wantarray ? [reading] : reading;
   }
   const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
+  const arr = [];
   for (let i = 0; i < events.length; i++) {
     const reading = getLeyningForHoliday(events[i], il);
     if (reading) {
-      return reading;
+      if (wantarray) {
+        arr.push(reading);
+      } else {
+        return reading;
+      }
     }
+  }
+  if (wantarray && arr.length !== 0) {
+    return arr;
   }
   if (dow === 1 || dow === 4) {
     const saturday = hdate.onOrAfter(6);
@@ -247,10 +257,10 @@ export function getLeyningOnDate(hdate, il) {
       parshaNum: reading.parshaNum,
       weekday: reading.weekday,
     };
-    return result;
+    return wantarray ? [result] : result;
   }
   // no reading today: it's not Shabbat, Mon/Thu, or a Torah-reading holiday
-  return undefined;
+  return wantarray ? [] : undefined;
 }
 
 /**

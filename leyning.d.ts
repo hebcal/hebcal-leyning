@@ -130,9 +130,10 @@ declare module '@hebcal/leyning' {
      * Otherwise, returns `undefined`.
      * @param hdate Hebrew Date
      * @param il in Israel
+     * @param wantarray to return an array of 0 or more readings
      * @returns map of aliyot
      */
-    export function getLeyningOnDate(hdate: HDate, il: boolean): Leyning;
+    export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray?: boolean): Leyning | Leyning[];
 
     /**
      * Makes a summary of the leyning, like "Genesis 6:9-11:32"
