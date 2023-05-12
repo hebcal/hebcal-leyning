@@ -19,7 +19,13 @@ function isChapVerseBefore(a, b) {
  * @return {Aliyah[]}
  */
 export function makeLeyningParts(aliyot) {
-  const nums = Object.keys(aliyot).filter((x) => x.length === 1);
+  const nums = Object.keys(aliyot).filter((x) => {
+    if (x.length === 1) {
+      return true;
+    }
+    const code = x.charCodeAt(0);
+    return code >= 48 && code <= 57;
+  });
   let start = aliyot[nums[0]];
   let end = start;
   const parts = [];

@@ -1,5 +1,5 @@
 import test from 'ava';
-import {makeLeyningSummary} from './summary';
+import {makeLeyningSummary, makeLeyningParts} from './summary';
 
 test('mls-Noach', (t) => {
   const fullkriyah = {
@@ -73,4 +73,72 @@ test('mls-Tzom Gedaliah', (t) => {
   };
   const summary = makeLeyningSummary(fullkriyah, true);
   t.is(summary, 'Exodus 32:11-14, 34:1-10');
+});
+
+test('makeLeyningParts-megillah', (t) => {
+  const aliyot = {
+    '1': {
+      'k': 'Esther',
+      'b': '1:1',
+      'e': '1:22',
+      'v': 22,
+    },
+    '2': {
+      'k': 'Esther',
+      'b': '2:1',
+      'e': '2:23',
+      'v': 23,
+    },
+    '3': {
+      'k': 'Esther',
+      'b': '3:1',
+      'e': '3:15',
+      'v': 15,
+    },
+    '4': {
+      'k': 'Esther',
+      'b': '4:1',
+      'e': '4:17',
+      'v': 17,
+    },
+    '5': {
+      'k': 'Esther',
+      'b': '5:1',
+      'e': '5:14',
+      'v': 14,
+    },
+    '6': {
+      'k': 'Esther',
+      'b': '6:1',
+      'e': '6:14',
+      'v': 14,
+    },
+    '7': {
+      'k': 'Esther',
+      'b': '7:1',
+      'e': '7:10',
+      'v': 10,
+    },
+    '8': {
+      'k': 'Esther',
+      'b': '8:1',
+      'e': '8:17',
+      'v': 17,
+    },
+    '9': {
+      'k': 'Esther',
+      'b': '9:1',
+      'e': '9:32',
+      'v': 32,
+    },
+    '10': {
+      'k': 'Esther',
+      'b': '10:1',
+      'e': '10:3',
+      'v': 3,
+    },
+  };
+  const parts = makeLeyningParts(aliyot);
+  const expected = [{b: '1:1', e: '10:3', k: 'Esther'}];
+  t.deepEqual(parts, expected);
 });
