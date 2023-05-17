@@ -506,8 +506,8 @@ test('fast day mincha', (t) => {
   expected.name = {en: 'Tzom Gedaliah (Mincha)', he: 'צוֹם גְּדַלְיָה מִנחָה'};
   t.deepEqual(reading2, expected);
 
-  const reading3 = getLeyningForHolidayKey('Ta\'anit Bechorot (Mincha)');
-  expected.name = {en: 'Ta\'anit Bechorot (Mincha)', he: 'תַּעֲנִית בְּכוֹרוֹת מִנחָה'};
+  const reading3 = getLeyningForHolidayKey('Ta\'anit Esther (Mincha)');
+  expected.name = {en: 'Ta\'anit Esther (Mincha)', he: 'תַּעֲנִית אֶסְתֵּר מִנחָה'};
   t.deepEqual(reading3, expected);
 });
 

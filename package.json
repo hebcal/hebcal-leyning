@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "7.3.2",
+  "version": "7.3.3",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -56,7 +56,7 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-terser": "^0.4.2",
+    "@rollup/plugin-terser": "^0.4.3",
     "ava": "^5.2.0",
     "core-js": "^3.30.2",
     "eslint": "^8.40.0",

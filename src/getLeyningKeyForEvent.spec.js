@@ -67,7 +67,7 @@ test('getLeyningKeyForEvent', (t) => {
     {d: '1997-04-05', h: 'Shabbat HaChodesh', k: 'Shabbat HaChodesh'},
     {d: '1997-04-08', h: 'Rosh Chodesh Nisan', k: 'Rosh Chodesh Nisan'},
     {d: '1997-04-19', h: 'Shabbat HaGadol', k: 'Shabbat HaGadol'},
-    {d: '1997-04-21', h: 'Ta\'anit Bechorot', k: 'Ta\'anit Bechorot'},
+    {d: '1997-04-21', h: 'Ta\'anit Bechorot', k: undefined},
     {d: '1997-04-21', h: 'Erev Pesach', k: undefined},
     {d: '1997-04-22', h: 'Pesach I', k: 'Pesach I'},
     {d: '1997-04-23', h: 'Pesach II', k: 'Pesach II'},
