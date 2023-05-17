@@ -69,6 +69,9 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
     }
     leyning.megillah = m;
   }
+  if (src.note) {
+    leyning.note = src.note;
+  }
   return leyning;
 }
 

@@ -1,5 +1,5 @@
 import test from 'ava';
-import {HDate, HebrewCalendar, Event, months, flags} from '@hebcal/core';
+import {HDate, HebrewCalendar, Event, months, flags, HolidayEvent} from '@hebcal/core';
 import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {formatAliyahWithBook} from './common';
@@ -623,4 +623,16 @@ test('Erev Purim', (t) => {
     },
   };
   t.deepEqual(actual, expected);
+});
+
+test('getLeyningForHoliday-note', (t) => {
+  const ev = new HolidayEvent(new HDate(15, months.ADAR_II, 5784),
+      'Shushan Purim', flags.MINOR_HOLIDAY);
+  const reading = getLeyningForHoliday(ev, true);
+  t.is(reading.note, 'Jerusalem & walled cities only');
+});
+
+test('getLeyningForHolidayKey-note', (t) => {
+  const reading = getLeyningForHolidayKey('Shushan Purim', undefined, true);
+  t.is(reading.note, 'Jerusalem & walled cities only');
 });
