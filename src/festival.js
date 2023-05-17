@@ -35,5 +35,8 @@ export function lookupFestival(holiday) {
       }
     });
   }
+  if (src.note) {
+    result.note = src.note;
+  }
   return result;
 }
