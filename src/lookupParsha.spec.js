@@ -5,7 +5,7 @@ test('lookupParsha', (t) => {
   const meta = lookupParsha('Bereshit');
   const expected = {
     'num': 1,
-    'hebrew': 'בְּרֵאשִׁית',
+    'hebrew': 'בְּרֵאשִׁית',
     'book': 1,
     'haft': {'k': 'Isaiah', 'b': '42:5', 'e': '43:10'},
     'seph': {'k': 'Isaiah', 'b': '42:5', 'e': '42:21'},

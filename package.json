@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "7.3.1",
+  "version": "7.3.2",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -35,7 +35,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^4.0.1"
+    "@hebcal/core": "^4.0.3"
   },
   "scripts": {
     "build": "rollup -c",
@@ -56,13 +56,13 @@
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-terser": "^0.4.1",
+    "@rollup/plugin-terser": "^0.4.2",
     "ava": "^5.2.0",
     "core-js": "^3.30.2",
     "eslint": "^8.40.0",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^4.0.2",
     "jsdoc-to-markdown": "^8.0.0",
-    "rollup": "^3.21.6"
+    "rollup": "^3.22.0"
   }
 }
