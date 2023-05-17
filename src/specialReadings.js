@@ -80,6 +80,9 @@ export function specialReadings2(parsha, hd, il, aliyot) {
     if (!special) {
       return;
     }
+    if (typeof special.il === 'boolean' && il !== special.il) {
+      return;
+    }
     if (special.haft && !specialHaft) {
       haft = cloneHaftara(special.haft);
       reason.haftara = key;

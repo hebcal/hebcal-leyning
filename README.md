@@ -99,7 +99,7 @@ with <code>aliyot[&#39;M&#39;]</code> replaced and sets <code>reason.M</code>
 <p>If a special Haftarah applies, the result will have a <code>haft</code> property
 pointing to Haftarah object and sets <code>reason.haftara</code>.</p>
 </dd>
-<dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key, [cholHaMoedDay])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
+<dt><a href="#getLeyningForHolidayKey">getLeyningForHolidayKey(key, [cholHaMoedDay], [il])</a> ⇒ <code><a href="#Leyning">Leyning</a></code></dt>
 <dd><p>Looks up leyning for a given holiday key. Key should be an
 (untranslated) string used in holiday-readings.json. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
@@ -118,6 +118,9 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dd><p>Looks up leyning for a regular Shabbat parsha, including any special
 maftir or Haftara.</p>
 </dd>
+<dt><a href="#lookupParsha">lookupParsha(parsha)</a> ⇒ <code><a href="#ParshaMeta">ParshaMeta</a></code></dt>
+<dd><p>Returns the parsha metadata</p>
+</dd>
 <dt><a href="#getLeyningOnDate">getLeyningOnDate(hdate, il, [wantarray])</a> ⇒ <code><a href="#Leyning">Leyning</a></code> | <code><a href="#Leyning">Array.&lt;Leyning&gt;</a></code></dt>
 <dd><p>Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.</p>
 <p>If <code>hdate</code> coincides with a holiday that has Torah reading, returns the
@@ -126,9 +129,6 @@ reading for that day (see <a href="#getLeyningForHoliday">getLeyningForHoliday</
 <p>Otherwise, if <code>hdate</code> is a Monday or Thursday, returns <a href="#Leyning">Leyning</a> for the
 Parashat haShavua, containing only the <code>weekday</code> aliyot (no <code>fullkriyah</code>).</p>
 <p>Otherwise, returns <code>undefined</code>.</p>
-</dd>
-<dt><a href="#lookupParsha">lookupParsha(parsha)</a> ⇒ <code><a href="#ParshaMeta">ParshaMeta</a></code></dt>
-<dd><p>Returns the parsha metadata</p>
 </dd>
 <dt><a href="#writeCsvLines">writeCsvLines(stream, ev, reading, il, isParsha)</a></dt>
 <dd><p>Formats reading for CSV</p>
@@ -329,7 +329,7 @@ pointing to Haftarah object and sets `reason.haftara`.
 
 <a name="getLeyningForHolidayKey"></a>
 
-## getLeyningForHolidayKey(key, [cholHaMoedDay]) ⇒ [<code>Leyning</code>](#Leyning)
+## getLeyningForHolidayKey(key, [cholHaMoedDay], [il]) ⇒ [<code>Leyning</code>](#Leyning)
 Looks up leyning for a given holiday key. Key should be an
 (untranslated) string used in holiday-readings.json. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah
@@ -341,6 +341,7 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | --- | --- | --- |
 | key | <code>string</code> | name from `holiday-readings.json` to find |
 | [cholHaMoedDay] | <code>number</code> |  |
+| [il] | <code>boolean</code> |  |
 
 <a name="getLeyningForHoliday"></a>
 
@@ -394,6 +395,17 @@ maftir or Haftara.
 | ev | <code>Event</code> |  | the Hebcal event associated with this leyning |
 | [il] | <code>boolean</code> | <code>false</code> | in Israel |
 
+<a name="lookupParsha"></a>
+
+## lookupParsha(parsha) ⇒ [<code>ParshaMeta</code>](#ParshaMeta)
+Returns the parsha metadata
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
+
 <a name="getLeyningOnDate"></a>
 
 ## getLeyningOnDate(hdate, il, [wantarray]) ⇒ [<code>Leyning</code>](#Leyning) \| [<code>Array.&lt;Leyning&gt;</code>](#Leyning)
@@ -417,17 +429,6 @@ Otherwise, returns `undefined`.
 | hdate | <code>HDate</code> |  | Hebrew Date |
 | il | <code>boolean</code> |  | in Israel |
 | [wantarray] | <code>boolean</code> | <code>false</code> | to return an array of 0 or more readings |
-
-<a name="lookupParsha"></a>
-
-## lookupParsha(parsha) ⇒ [<code>ParshaMeta</code>](#ParshaMeta)
-Returns the parsha metadata
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
 
 <a name="writeCsvLines"></a>
 

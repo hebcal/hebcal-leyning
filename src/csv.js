@@ -101,9 +101,9 @@ export function writeFullKriyahEvent(stream, ev, il) {
 export function writeHolidayMincha(stream, ev, il) {
   const desc = ev.getDesc();
   const minchaDesc1 = desc + ' (Mincha)';
-  const readingMincha1 = getLeyningForHolidayKey(minchaDesc1);
+  const readingMincha1 = getLeyningForHolidayKey(minchaDesc1, ev.cholHaMoedDay, il);
   const readingMincha = readingMincha1 ||
-    getLeyningForHolidayKey(getLeyningKeyForEvent(ev, il) + ' (Mincha)');
+    getLeyningForHolidayKey(getLeyningKeyForEvent(ev, il) + ' (Mincha)', ev.cholHaMoedDay, il);
   if (readingMincha) {
     const minchaEv = new Event(ev.getDate(), minchaDesc1, flags.USER_EVENT);
     writeCsvLines(stream, minchaEv, readingMincha, il, false);

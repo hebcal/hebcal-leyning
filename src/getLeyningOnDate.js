@@ -104,13 +104,13 @@ const minchaSuffix = ' (Mincha)';
  */
 function getMincha(ev, il) {
   const desc = ev.getDesc() + minchaSuffix;
-  const reading1 = getLeyningForHolidayKey(desc);
+  const reading1 = getLeyningForHolidayKey(desc, ev.cholHaMoedDay, il);
   if (reading1) {
     return reading1;
   }
   const desc2 = getLeyningKeyForEvent(ev, il);
   if (desc2) {
-    const reading2 = getLeyningForHolidayKey(desc2 + minchaSuffix);
+    const reading2 = getLeyningForHolidayKey(desc2 + minchaSuffix, ev.cholHaMoedDay, il);
     if (reading2) {
       return reading2;
     }

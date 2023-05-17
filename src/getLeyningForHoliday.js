@@ -12,14 +12,18 @@ import numverses from './numverses.json';
  * of full kriyah aliyot, special Maftir, special Haftarah
  * @param {string} key name from `holiday-readings.json` to find
  * @param {number} [cholHaMoedDay]
+ * @param {boolean} [il]
  * @return {Leyning} map of aliyot
  */
-export function getLeyningForHolidayKey(key, cholHaMoedDay) {
+export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
   if (typeof key !== 'string') {
     return undefined;
   }
   const src = lookupFestival(key);
   if (typeof src === 'undefined') {
+    return undefined;
+  }
+  if (typeof src.il === 'boolean' && typeof il === 'boolean' && il !== src.il) {
     return undefined;
   }
   const leyning = {
@@ -86,6 +90,6 @@ export function getLeyningForHoliday(ev, il = false) {
     return undefined;
   }
   const key = getLeyningKeyForEvent(ev, il);
-  const leyning = getLeyningForHolidayKey(key, ev.cholHaMoedDay);
+  const leyning = getLeyningForHolidayKey(key, ev.cholHaMoedDay, il);
   return leyning;
 }

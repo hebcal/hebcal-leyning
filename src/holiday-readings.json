@@ -30,6 +30,7 @@
   "M":{"p":41,"k":4,"b":"28:16","e":"28:25"}}},
 "Pesach II (CH''M)":{
  "note":"Israel only - according to Vaani T'fillati Siddur Yisraeli",
+ "il":true,
  "fullkriyah":
   {"1":{"p":31,"k":3,"b":"22:26","e":"23:8"},
   "2":{"p":31,"k":3,"b":"23:9","e":"23:14"},
@@ -119,6 +120,7 @@
 "Pesach Chol ha-Moed Day 3 on Monday":{"alias":true,"il":false,"key":"Pesach Chol ha-Moed Day 2"},
 "Shavuot":{
  "note":"Israel only",
+ "il":true,
  "megillah":"Ruth",
  "haft":[{"k":"Ezekiel","b":"1:1","e":"1:28"},
   {"k":"Ezekiel","b":"3:12","e":"3:12"}],
@@ -472,12 +474,14 @@
   "3":{"p":16,"k":2,"b":"17:14","e":"17:16"}}},
 "Shushan Purim":{
  "note":"Jerusalem & walled cities only",
+ "il":true,
  "megillah":"Esther",
  "fullkriyah":
   {"1":{"p":16,"k":2,"b":"17:8","e":"17:10"},
   "2":{"p":16,"k":2,"b":"17:11","e":"17:13"},
   "3":{"p":16,"k":2,"b":"17:14","e":"17:16"}}},
 "Shushan Purim (on Shabbat)":{
+ "il":true,
  "note":"Jerusalem & walled cities only: special maftir Exodus 17:8-16, same Haftara as Shabbat Zachor"},
 "Shabbat HaChodesh":{
  "haft":{"k":"Ezekiel","b":"45:16","e":"46:18"},

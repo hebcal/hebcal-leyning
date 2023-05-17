@@ -162,9 +162,11 @@ declare module '@hebcal/leyning' {
      * (untranslated) string used in holiday-readings.json. Returns some
      * of full kriyah aliyot, special Maftir, special Haftarah
      * @param key - name from `holiday-readings.json` to find
+     * @param [cholHaMoedDay] - `ev.cholHaMoedDay` or `undefined`
+     * @param [il] - true if Israel holiday scheme
      * @returns map of aliyot
      */
-    export function getLeyningForHolidayKey(key: string): Leyning;
+    export function getLeyningForHolidayKey(key: string, cholHaMoedDay?: number, il?: boolean): Leyning;
 
     /**
      * Looks up leyning for a regular Shabbat parsha, including any special
