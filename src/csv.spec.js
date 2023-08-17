@@ -1,7 +1,8 @@
 /* eslint-disable require-jsdoc */
 import test from 'ava';
 import {Writable} from 'stream';
-import {HDate, HolidayEvent, RoshChodeshEvent, ParshaEvent, months, flags} from '@hebcal/core';
+import {HDate, HolidayEvent, RoshChodeshEvent, ParshaEvent,
+  HebrewCalendar, months, flags} from '@hebcal/core';
 import {writeFullKriyahEvent} from './csv';
 
 class StringWritable extends Writable {
@@ -96,6 +97,23 @@ test('writeFullKriyahEvent-9av', (t) => {
     `27-Jul-2023,"Tish'a B'Av (Mincha)",2,"Exodus 34:1-34:3",3`,
     `27-Jul-2023,"Tish'a B'Av (Mincha)","maf","Exodus 34:4-34:10",7`,
     `27-Jul-2023,"Tish'a B'Av (Mincha)","Haftara","Isaiah 55:6-56:8",16`,
+    '', ''];
+  t.deepEqual(lines, expected);
+});
+
+test.skip('writeFullKriyahEvent-SimchatTorah', (t) => {
+  const events = HebrewCalendar.calendar({
+    start: new HDate(22, months.TISHREI, 5784),
+    end: new HDate(23, months.TISHREI, 5784),
+    il: false,
+  });
+  t.is(events.length, 2);
+  const stream = new StringWritable();
+  events.forEach((ev) => writeFullKriyahEvent(stream, ev, false));
+  const lines = stream.toString().split('\r\n');
+  console.log(lines);
+  // Erev Simchat Torah
+  const expected = [
     '', ''];
   t.deepEqual(lines, expected);
 });
