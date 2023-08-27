@@ -1,4 +1,4 @@
-import {HebrewCalendar, flags} from '@hebcal/core';
+import {HebrewCalendar, flags, months} from '@hebcal/core';
 import {calculateNumVerses, clone, cloneHaftara, parshaToString} from './common';
 import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
@@ -124,7 +124,18 @@ export function specialReadings2(parsha, hd, il, aliyot) {
         `${parshaName} on Shabbat Rosh Chodesh` :
         'Shabbat Rosh Chodesh';
       handleSpecial(key);
-    } else {
+    } else if (parshaName === 'Ki Teitzei' && day === 14) {
+      // Ki Teitzei is always read in Elul on 9, 11, 13 or 14
+      // "Because Shabbat Re’eh was Rosh Ḥodesh, the usual 3rd haftarah of
+      // consolation was not read. Chant the haftarah of Ki tetse and then
+      // the haftarah of Re’eh as a single haftarah.
+      // In the book of Isaiah these two brief passages are adjacent."
+      // Source: Luaḥ Hashanah, Rabbi Miles B. Cohen and Leslie Rubin
+      handleSpecial('Ki Teitzei with 3rd Haftarah of Consolation');
+    } else if (hd.getMonth() !== months.AV) {
+      // Parashat Re'eh is always read in Av on 25, 27, 29 or 30.
+      // When it coincides with Erev Rosh Chodesh, the Haftarah is
+      // עניה סוערה (Isaiah 54:11-55:5) and not מחר חדש
       const tommorow = hd.next().getDate();
       if (tommorow === 30 || tommorow === 1) {
         handleSpecial('Shabbat Machar Chodesh');

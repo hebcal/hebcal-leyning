@@ -395,3 +395,39 @@ test('Shushan Purim (on Shabbat)', (t) => {
   };
   t.deepEqual(reading, expected);
 });
+
+test('Ki Teitzei with 3rd Haftarah of Consolation', (t) => {
+  const hd = new HDate(14, 'Elul', 5782);
+  const ev = new ParshaEvent(hd, ['Ki Teitzei'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.haftara, 'Isaiah 54:1-10, 54:11-55:5');
+  t.is(reading.reason.haftara, 'Ki Teitzei with 3rd Haftarah of Consolation');
+});
+
+test('yes-MacharChodesh-Bereshit', (t) => {
+  const hd = new HDate(29, 'Tishrei', 5784);
+  const ev = new ParshaEvent(hd, ['Bereshit'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.reason.haftara, 'Shabbat Machar Chodesh');
+});
+
+test('no-MacharChodesh-Reeh', (t) => {
+  const hd = new HDate(29, 'Av', 5781);
+  const ev = new ParshaEvent(hd, ['Re\'eh'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.reason, undefined);
+});
+
+test('ShabbatRoshChodesh-Korach', (t) => {
+  const hd = new HDate(30, 'Sivan', 5784);
+  const ev = new ParshaEvent(hd, ['Korach'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.reason.haftara, 'Shabbat Rosh Chodesh');
+});
+
+test('ShabbatRoshChodesh-Noach', (t) => {
+  const hd = new HDate(1, 'Cheshvan', 5785);
+  const ev = new ParshaEvent(hd, ['Noach'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.reason.haftara, 'Shabbat Rosh Chodesh');
+});

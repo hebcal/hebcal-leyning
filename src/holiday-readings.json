@@ -530,6 +530,10 @@
   {"k":"Isaiah","b":"66:1","e":"66:1"},
   {"k":"Isaiah","b":"66:23","e":"66:23"}]},
 "Matot-Masei on Shabbat Rosh Chodesh":{"alias":true,"key":"Masei on Shabbat Rosh Chodesh"},
+"Ki Teitzei with 3rd Haftarah of Consolation":{
+ "haft":[
+  {"k":"Isaiah","b":"54:1","e":"54:10"},
+  {"k":"Isaiah","b":"54:11","e":"55:5"}]},
 "Rosh Chodesh":{
  "fullkriyah":
   {"1":{"p":41,"k":4,"b":"28:1","e":"28:3"},
