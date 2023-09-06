@@ -316,14 +316,14 @@ test('Shabbat Shuva - Vayeilech', (t) => {
   t.deepEqual(reading, expected);
 });
 
-test('Shabbat Shuva - Ha\'Azinu', (t) => {
+test('Shabbat Shuva - Ha\'azinu', (t) => {
   const hd = new HDate(8, 'Tishrei', 5784);
-  const ev = new ParshaEvent(hd, ['Ha\'Azinu'], false);
+  const ev = new ParshaEvent(hd, ['Ha\'azinu'], false);
   const reading = getLeyningForParshaHaShavua(ev, false);
   delete reading.fullkriyah;
   const expected = {
-    name: {en: 'Ha\'Azinu', he: 'הַאֲזִינוּ'},
-    parsha: ['Ha\'Azinu'],
+    name: {en: 'Ha\'azinu', he: 'הַאֲזִינוּ'},
+    parsha: ['Ha\'azinu'],
     parshaNum: 53,
     summary: 'Deuteronomy 32:1-52',
     haft: [
@@ -332,14 +332,14 @@ test('Shabbat Shuva - Ha\'Azinu', (t) => {
         b: '14:2',
         e: '14:10',
         v: 9,
-        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+        reason: 'Shabbat Shuva (with Ha\'azinu)',
       },
       {
         k: 'Joel',
         b: '2:15',
         e: '2:27',
         v: 13,
-        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+        reason: 'Shabbat Shuva (with Ha\'azinu)',
       },
     ],
     haftara: 'Hosea 14:2-10; Joel 2:15-27',
@@ -350,21 +350,21 @@ test('Shabbat Shuva - Ha\'Azinu', (t) => {
         b: '14:2',
         e: '14:10',
         v: 9,
-        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+        reason: 'Shabbat Shuva (with Ha\'azinu)',
       },
       {
         k: 'Micah',
         b: '7:18',
         e: '7:20',
         v: 3,
-        reason: 'Shabbat Shuva (with Ha\'Azinu)',
+        reason: 'Shabbat Shuva (with Ha\'azinu)',
       },
     ],
     sephardic: 'Hosea 14:2-10; Micah 7:18-20',
     sephardicNumV: 12,
     reason: {
-      haftara: 'Shabbat Shuva (with Ha\'Azinu)',
-      sephardic: 'Shabbat Shuva (with Ha\'Azinu)',
+      haftara: 'Shabbat Shuva (with Ha\'azinu)',
+      sephardic: 'Shabbat Shuva (with Ha\'azinu)',
     },
   };
   t.deepEqual(reading, expected);

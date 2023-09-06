@@ -109,8 +109,8 @@ test('getLeyningOnDate-weekday-search1', (t) => {
   const hd = new HDate(28, 'Elul', 5783);
   const reading = getLeyningOnDate(hd, false);
   const expected = {
-    name: {en: 'Ha\'Azinu', he: 'הַאֲזִינוּ'},
-    parsha: ['Ha\'Azinu'],
+    name: {en: 'Ha\'azinu', he: 'הַאֲזִינוּ'},
+    parsha: ['Ha\'azinu'],
     parshaNum: 53,
     weekday: {
       '1': {k: 'Deuteronomy', b: '32:1', e: '32:3', v: 3},
