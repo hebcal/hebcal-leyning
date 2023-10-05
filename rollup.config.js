@@ -15,14 +15,14 @@ module.exports = [
     ],
     external: ['@hebcal/core'],
     plugins: [
-      json({compact: true}),
+      json({compact: true, preferConst: true}),
       babel({
         babelHelpers: 'bundled',
         presets: [
           ['@babel/preset-env', {
             modules: false,
             targets: {
-              node: '12.22.0',
+              node: '16.0.0',
             },
           }],
         ],
@@ -44,7 +44,7 @@ module.exports = [
           ['@babel/preset-env', {
             modules: false,
             targets: {
-              node: '12.22.0',
+              node: '16.0.0',
             },
           }],
         ],
@@ -78,7 +78,7 @@ module.exports = [
     ],
     external: ['@hebcal/core'],
     plugins: [
-      json({compact: true}),
+      json({compact: true, preferConst: true}),
       nodeResolve(),
       commonjs(),
       babel({
@@ -111,8 +111,9 @@ module.exports = [
             ],
             targets: {
               chrome: '103',
-              ie: '11',
-              safari: '13.1',
+              firefox: '91',
+              edge: '84',
+              safari: '15.6',
             },
             useBuiltIns: 'usage',
             corejs: 3,
