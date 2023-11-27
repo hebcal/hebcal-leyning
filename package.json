@@ -31,7 +31,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^5.0.0-rc2"
+    "@hebcal/core": "^5.0.0-rc6"
   },
   "scripts": {
     "build": "rollup -c",
@@ -61,6 +61,6 @@
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^4.0.2",
     "jsdoc-to-markdown": "^8.0.0",
-    "rollup": "^4.5.1"
+    "rollup": "^4.6.0"
   }
 }
