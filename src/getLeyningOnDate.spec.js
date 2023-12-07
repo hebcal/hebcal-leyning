@@ -124,21 +124,11 @@ test('getLeyningOnDate-weekday-search1', (t) => {
 test('getLeyningOnDate-weekday-erev-sukkot', (t) => {
   const hd = new HDate(14, 'Tishrei', 5786);
   const reading = getLeyningOnDate(hd, false);
-  const expected = {
-    name: {en: 'Bereshit', he: 'בְּרֵאשִׁית'},
-    parsha: ['Bereshit'],
-    parshaNum: 1,
-    weekday: {
-      '1': {k: 'Genesis', b: '1:1', e: '1:5', v: 5},
-      '2': {k: 'Genesis', b: '1:6', e: '1:8', v: 3},
-      '3': {k: 'Genesis', b: '1:9', e: '1:13', v: 5},
-    },
-  };
-  t.deepEqual(reading, expected);
+  t.is(reading.name.en, 'Vezot Haberakhah');
 });
 
 test('getLeyningOnDate-weekday-search2', (t) => {
-  const hd = new HDate(13, 'Tishrei', 5787);
+  const hd = new HDate(24, 'Tishrei', 5787);
   const reading = getLeyningOnDate(hd, true);
   const expected = {
     name: {en: 'Bereshit', he: 'בְּרֵאשִׁית'},

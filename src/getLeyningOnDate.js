@@ -16,6 +16,18 @@ function findParshaHaShavua(saturday, il) {
   if (!parsha.chag) {
     return parsha;
   }
+  // Special case between YK and Simchat Torah
+  if (saturday.getMonth() === months.TISHREI) {
+    const dd = saturday.getDate();
+    const simchatTorah = il ? 22 : 23;
+    if (dd > 10 && dd <= simchatTorah) {
+      return {
+        parsha: ['Vezot Haberakhah'],
+        chag: false,
+        num: 54,
+      };
+    }
+  }
   // Search for next regular parsha, which could even spill into next year
   const endOfYear = new HDate(1, months.TISHREI, hyear + 1).abs() - 1;
   const endAbs = endOfYear + 30;
