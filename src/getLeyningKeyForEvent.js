@@ -38,30 +38,21 @@ export function getLeyningKeyForEvent(ev, il = false) {
     }
     return desc;
   }
+  const cholHaMoedDay = ev.cholHaMoedDay;
   if (day == 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
-  } else if (ev.cholHaMoedDay) {
+  } else if (cholHaMoedDay) {
     // Sukkot or Pesach
     if (isShabbat) {
       return holiday + ' Shabbat Chol ha-Moed';
     } else if (desc == 'Sukkot VII (Hoshana Raba)') {
       return 'Sukkot Final Day (Hoshana Raba)';
     }
-    if (isPesach && ev.cholHaMoedDay) {
+    if (isPesach && cholHaMoedDay) {
       if (dow === 0 && desc === 'Pesach IV (CH\'\'M)') {
         return 'Pesach Chol ha-Moed Day 2 on Sunday';
       } else if (dow === 1 && desc === 'Pesach V (CH\'\'M)') {
         return 'Pesach Chol ha-Moed Day 3 on Monday';
-      }
-    }
-    // If Shabbat falls on the third day of Chol ha-Moed Pesach,
-    // the readings for the third, fourth, and fifth days are moved ahead
-    let cholHaMoedDay = ev.cholHaMoedDay;
-    if (isPesach && cholHaMoedDay >= 3) {
-      if (dow == 0 && cholHaMoedDay == 4) {
-        cholHaMoedDay = 3;
-      } else if (dow == 1 && cholHaMoedDay == 5) {
-        cholHaMoedDay = 4;
       }
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;

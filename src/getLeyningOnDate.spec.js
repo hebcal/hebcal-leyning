@@ -206,3 +206,59 @@ test('getLeyningOnDate-no-wantarray', (t) => {
   const readings = getLeyningOnDate(hd, false, false);
   t.is(readings, undefined);
 });
+
+test('getLeyningOnDate-pesach-disaspora', (t) => {
+  const actual = [];
+  for (let i = 15; i <= 22; i++) {
+    const hd = new HDate(i, 'Nisan', 5784);
+    const reading = getLeyningOnDate(hd, false);
+    actual.push({
+      d: hd.greg().toISOString().substring(0, 10),
+      n: reading.name.en,
+      s: reading.summary,
+    });
+  }
+  const expected = [
+    {
+      d: '2024-04-23',
+      n: 'Pesach I',
+      s: 'Exodus 12:21-51; Numbers 28:16-25',
+    },
+    {
+      d: '2024-04-24',
+      n: 'Pesach II',
+      s: 'Leviticus 22:26-23:44; Numbers 28:16-25',
+    },
+    {
+      d: '2024-04-25',
+      n: 'Pesach Chol ha-Moed Day 1',
+      s: 'Exodus 13:1-16; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-26',
+      n: 'Pesach Chol ha-Moed Day 2',
+      s: 'Exodus 22:24-23:19; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-27',
+      n: 'Pesach Shabbat Chol ha-Moed',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-28',
+      n: 'Pesach Chol ha-Moed Day 4',
+      s: 'Numbers 9:1-14, 28:19-25',
+    },
+    {
+      d: '2024-04-29',
+      n: 'Pesach VII',
+      s: 'Exodus 13:17-15:26; Numbers 28:19-25',
+    },
+    {
+      d: '2024-04-30',
+      n: 'Pesach VIII',
+      s: 'Deuteronomy 15:19-16:17; Numbers 28:19-25',
+    },
+  ];
+  t.deepEqual(actual, expected);
+});

@@ -77,7 +77,7 @@ test('pesach-shabbat-chm-on-3rd-day', (t) => {
     {
       d: '2024-04-28',
       h: 'Pesach VI (CH\'\'M)',
-      k: 'Pesach Chol ha-Moed Day 3',
+      k: 'Pesach Chol ha-Moed Day 4',
       s: 'Numbers 9:1-14, 28:19-25',
     },
     {
