@@ -108,6 +108,9 @@ of full kriyah aliyot, special Maftir, special Haftarah</p>
 <dd><p>Looks up leyning for a given holiday. Returns some
 of full kriyah aliyot, special Maftir, special Haftarah</p>
 </dd>
+<dt><a href="#makeLeyningNames">makeLeyningNames(parsha)</a> ⇒ <code><a href="#LeyningNames">LeyningNames</a></code></dt>
+<dd><p>Transliterated English and Hebrew names of this parsha</p>
+</dd>
 <dt><a href="#getWeekdayReading">getWeekdayReading(parsha)</a> ⇒ <code>Object.&lt;string, Aliyah&gt;</code></dt>
 <dd><p>Looks up Monday/Thursday aliyot for a regular parsha</p>
 </dd>
@@ -357,6 +360,17 @@ of full kriyah aliyot, special Maftir, special Haftarah
 | ev | <code>Event</code> |  | the Hebcal event associated with this leyning |
 | [il] | <code>boolean</code> | <code>false</code> | true if Israel holiday scheme |
 
+<a name="makeLeyningNames"></a>
+
+## makeLeyningNames(parsha) ⇒ [<code>LeyningNames</code>](#LeyningNames)
+Transliterated English and Hebrew names of this parsha
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| parsha | <code>string</code> \| <code>Array.&lt;string&gt;</code> | untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei'] |
+
 <a name="getWeekdayReading"></a>
 
 ## getWeekdayReading(parsha) ⇒ <code>Object.&lt;string, Aliyah&gt;</code>
@@ -501,7 +515,7 @@ Leyning for a parsha hashavua or holiday
 | --- | --- | --- |
 | name | [<code>LeyningNames</code>](#LeyningNames) |  |
 | [parsha] | <code>Array.&lt;string&gt;</code> | An array of either 1 (regular) or 2 (doubled parsha).    `undefined` for holiday readings |
-| [parshaNum] | <code>number</code> | 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings |
+| [parshaNum] | <code>number</code> \| <code>Array.&lt;number&gt;</code> | 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings |
 | summary | <code>string</code> | Such as `Genesis 1:1 - 6:8` |
 | haft | [<code>Aliyah</code>](#Aliyah) \| [<code>Array.&lt;Aliyah&gt;</code>](#Aliyah) | Haftarah object(s) |
 | haftara | <code>string</code> | Haftarah, such as `Isaiah 42:5 – 43:11` |

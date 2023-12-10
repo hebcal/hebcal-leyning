@@ -1,7 +1,7 @@
 import {HebrewCalendar, HDate, months, ParshaEvent} from '@hebcal/core';
 import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-import {getLeyningForParshaHaShavua, getLeyningForParsha} from './leyning';
+import {getLeyningForParshaHaShavua, makeLeyningNames, getWeekdayReading} from './leyning';
 
 /**
  * @private
@@ -62,48 +62,44 @@ function findParshaHaShavua(saturday, il) {
  */
 export function getLeyningOnDate(hdate, il, wantarray = false) {
   const dow = hdate.getDay();
-  const hyear = hdate.getFullYear();
-  const sedra = HebrewCalendar.getSedra(hyear, il);
-  const parsha = sedra.lookup(hdate);
-  if (dow === 6 && !parsha.chag) {
-    const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
-    const reading = getLeyningForParshaHaShavua(parshaEvent, il);
-    return wantarray ? [reading] : reading;
+  if (dow === 6) {
+    const hyear = hdate.getFullYear();
+    const sedra = HebrewCalendar.getSedra(hyear, il);
+    const parsha = sedra.lookup(hdate);
+    if (!parsha.chag) {
+      const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
+      const reading = getLeyningForParshaHaShavua(parshaEvent, il);
+      return wantarray ? [reading] : reading;
+    }
   }
   const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
   const arr = [];
-  for (let i = 0; i < events.length; i++) {
-    const ev = events[i];
+  let hasFullKriyah = false;
+  for (const ev of events) {
     const reading = getLeyningForHoliday(ev, il);
     if (reading) {
-      if (wantarray) {
-        arr.push(reading);
-        const mincha = getMincha(ev, il);
-        if (mincha) {
-          arr.push(mincha);
-        }
-      } else {
-        return reading;
+      arr.push(reading);
+      if (reading.fullkriyah) {
+        hasFullKriyah = true;
+      }
+      const mincha = getMincha(ev, il);
+      if (mincha) {
+        arr.push(mincha);
       }
     }
   }
-  if (wantarray && arr.length !== 0) {
-    return arr;
-  }
-  if (dow === 1 || dow === 4) {
+  if (!hasFullKriyah && (dow === 1 || dow === 4)) {
     const saturday = hdate.onOrAfter(6);
-    const parsha2 = findParshaHaShavua(saturday);
-    const reading = getLeyningForParsha(parsha2.parsha);
-    const result = {
-      name: reading.name,
-      parsha: reading.parsha,
-      parshaNum: reading.parshaNum,
-      weekday: reading.weekday,
+    const parsha = findParshaHaShavua(saturday);
+    const reading = {
+      name: makeLeyningNames(parsha.parsha),
+      parsha: parsha.parsha,
+      parshaNum: parsha.num,
+      weekday: getWeekdayReading(parsha.parsha),
     };
-    return wantarray ? [result] : result;
+    arr.unshift(reading);
   }
-  // no reading today: it's not Shabbat, Mon/Thu, or a Torah-reading holiday
-  return wantarray ? [] : undefined;
+  return wantarray ? arr : arr[0];
 }
 
 const minchaSuffix = ' (Mincha)';

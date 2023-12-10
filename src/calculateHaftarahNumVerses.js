@@ -9,7 +9,7 @@ export function calculateHaftarahNumVerses(haftara) {
   const sections = haftara.split(/[;,]/);
   let total = 0;
   let prevBook;
-  sections.forEach((haft) => {
+  for (const haft of sections) {
     const matches = haft.trim().match(/^(([^\d]+)\s+)?(\d.+)$/);
     if (matches !== null) {
       const hbook = matches[2] ? matches[2].trim() : prevBook;
@@ -27,6 +27,6 @@ export function calculateHaftarahNumVerses(haftara) {
       }
       prevBook = hbook;
     }
-  });
+  }
   return total || undefined;
 }

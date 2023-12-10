@@ -29,11 +29,11 @@ export function lookupFestival(holiday) {
   }
   const result = src.fullkriyah ? clone(src) : src;
   if (result.fullkriyah) {
-    Object.values(result.fullkriyah).forEach((aliyah) => {
+    for (const aliyah of Object.values(result.fullkriyah)) {
       if (typeof aliyah.k === 'number') {
         aliyah.k = BOOK[aliyah.k];
       }
-    });
+    }
   }
   if (src.note) {
     result.note = src.note;

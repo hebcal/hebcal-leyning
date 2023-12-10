@@ -95,7 +95,7 @@ test('getLeyningOnDate-weekday2', (t) => {
   const expected = {
     name: {en: 'Vayakhel-Pekudei', he: 'וַיַּקְהֵל־פְקוּדֵי'},
     parsha: ['Vayakhel', 'Pekudei'],
-    parshaNum: 101,
+    parshaNum: [22, 23],
     weekday: {
       '1': {k: 'Exodus', b: '35:1', e: '35:3', v: 3},
       '2': {k: 'Exodus', b: '35:4', e: '35:10', v: 7},
@@ -261,4 +261,12 @@ test('getLeyningOnDate-pesach-disaspora', (t) => {
     },
   ];
   t.deepEqual(actual, expected);
+});
+
+test('getLeyningOnDate-weekday-erev9av', (t) => {
+  const hd = new HDate(8, 'Av', 5784);
+  const readings = getLeyningOnDate(hd, false, true);
+  t.is(readings.length, 2);
+  t.is(readings[0].name.en, 'Vaetchanan');
+  t.is(readings[1].name.en, 'Erev Tish\'a B\'Av');
 });

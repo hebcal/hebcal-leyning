@@ -30,7 +30,7 @@ import {makeLeyningParts} from './summary';
  * @property {LeyningNames} name
  * @property {string[]} [parsha] - An array of either 1 (regular) or 2 (doubled parsha).
  *    `undefined` for holiday readings
- * @property {number} [parshaNum] - 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings
+ * @property {number|number[]} [parshaNum] - 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings
  * @property {string} summary - Such as `Genesis 1:1 - 6:8`
  * @property {Aliyah|Aliyah[]} haft - Haftarah object(s)
  * @property {string} haftara - Haftarah, such as `Isaiah 42:5 – 43:11`
@@ -65,6 +65,19 @@ function getHaftaraKey(parsha) {
 }
 
 /**
+ * Transliterated English and Hebrew names of this parsha
+ * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * @return {LeyningNames}
+ */
+export function makeLeyningNames(parsha) {
+  const name = parshaToString(parsha);
+  return {
+    en: name,
+    he: parsha.map((s) => Locale.lookupTranslation(s, 'he')).join('־'),
+  };
+}
+
+/**
  * Looks up regular leyning for a weekly parsha with no special readings
  * @private
  * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
@@ -74,22 +87,18 @@ function getLeyningForParshaShabbatOnly(parsha) {
   const raw = lookupParsha(parsha);
   const fullkriyah = {};
   const book = BOOK[raw.book];
-  Object.keys(raw.fullkriyah).forEach((num) => {
-    const src = raw.fullkriyah[num];
-    const reading = {k: book, b: src[0], e: src[1]};
-    fullkriyah[num] = reading;
-  });
-  Object.values(fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
+  for (const [num, src] of Object.entries(raw.fullkriyah)) {
+    const aliyah = {k: book, b: src[0], e: src[1]};
+    calculateNumVerses(aliyah);
+    fullkriyah[num] = aliyah;
+  }
   const name = parshaToString(parsha);
   const parshaNameArray = raw.combined ? [raw.p1, raw.p2] : [name];
   const parts = makeLeyningParts(fullkriyah);
   const summary = makeSummaryFromParts(parts);
   /** @type {Leyning} */
   const result = {
-    name: {
-      en: name,
-      he: parshaNameArray.map((s) => Locale.lookupTranslation(s, 'he')).join('־'),
-    },
+    name: makeLeyningNames(parshaNameArray),
     parsha: parshaNameArray,
     parshaNum: raw.num,
     summary,
@@ -187,18 +196,20 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
   const reasons = Object.keys(reason);
   if (reasons.length !== 0) {
     result.reason = reason;
-    reasons.forEach((num) => {
+    for (const num of reasons) {
       if (num === 'haftara' || num === 'sephardic') {
         const haftObj = result[num === 'haftara' ? 'haft' : 'seph'];
         const hafts = Array.isArray(haftObj) ? haftObj : [haftObj];
-        hafts.forEach((haft) => haft.reason = reason[num]);
+        for (const haft of hafts) {
+          haft.reason = reason[num];
+        }
       } else {
         const aliyah = result.fullkriyah[num];
         if (typeof aliyah === 'object') {
           aliyah.reason = reason[num];
         }
       }
-    });
+    }
   }
   return result;
 }

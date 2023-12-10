@@ -28,17 +28,26 @@ declare module '@hebcal/leyning' {
         [key: string]: Aliyah;
     }
 
+    /** Name of the parsha hashavua or holiday */
+    export type LeyningNames = {
+        /** English */
+        en: string;
+        /** Hebrew (with nikud) */
+        he: string;
+    }
+
+    /**
+     * Transliterated English and Hebrew names of this parsha
+     * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+     */
+    export function makeLeyningNames(parsha: string | string[]): LeyningNames;
+
     /**
      * Leyning for a parsha hashavua or holiday
      */
     export type Leyning = {
         /** Name of the parsha hashavua or holiday */
-        name: {
-            /** English */
-            en: string;
-            /** Hebrew (with nikud) */
-            he: string;
-        };
+        name: LeyningNames;
         /** An array of either 1 (regular) or 2 (doubled parsha). `undefined` for holiday readings */
         parsha?: string[];
         /** 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings */

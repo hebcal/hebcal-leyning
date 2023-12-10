@@ -95,7 +95,9 @@ export function specialReadings2(parsha, hd, il, aliyot) {
     if (special.fullkriyah) {
       const aliyotMap = clone(aliyot);
       mergeAliyotWithSpecial(aliyotMap, special.fullkriyah);
-      Object.keys(special.fullkriyah).map((k) => reason[k] = key);
+      for (const num of Object.keys(special.fullkriyah)) {
+        reason[num] = key;
+      }
       aliyot = aliyotMap;
     }
   }
@@ -103,7 +105,7 @@ export function specialReadings2(parsha, hd, il, aliyot) {
   const parshaName = parshaToString(parsha);
   const events0 = HebrewCalendar.getHolidaysOnDate(hd, il) || [];
   const events = events0.filter((ev) => !(ev.getFlags() & flags.ROSH_CHODESH));
-  events.forEach((ev) => {
+  for (const ev of events) {
     if (ev.getDesc() === 'Shabbat Shuva') {
       handleSpecial(`Shabbat Shuva (with ${parshaName})`);
     } else {
@@ -112,7 +114,7 @@ export function specialReadings2(parsha, hd, il, aliyot) {
         handleSpecial(key);
       }
     }
-  });
+  }
   if (!haft) {
     const day = hd.getDate();
     if (parshaName === 'Pinchas' && day > 17) {

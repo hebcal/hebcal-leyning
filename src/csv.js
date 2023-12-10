@@ -48,11 +48,11 @@ export function writeFullKriyahCsv(stream, hyear, il) {
   const events = events0.filter((ev) => ev.getDesc() !== 'Rosh Chodesh Tevet');
   const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
-  events.forEach((ev) => {
+  for (const ev of events) {
     if (ev.getFlags() === flags.PARSHA_HASHAVUA || !parshaDates[ev.getDate().toString()]) {
       writeFullKriyahEvent(stream, ev, il);
     }
-  });
+  }
 }
 
 /**
@@ -122,13 +122,13 @@ export function writeCsvLines(stream, ev, reading, il, isParsha) {
   const parsha = isParsha ? ev.basename() : getLeyningKeyForEvent(ev, il) || ev.render();
   const date = fmtDate(ev.getDate().greg());
   const lines = getFullKriyahLines(reading);
-  lines.forEach((s) => {
+  for (const s of lines) {
     const code = s[0].charCodeAt(0);
     if (code < 48 || code > 57) {
       s[0] = `"${s[0]}"`;
     }
     stream.write(`${date},"${parsha}",${s[0]},"${s[1]}",${s[2]}\r\n`);
-  });
+  }
   stream.write('\r\n');
 }
 
@@ -140,8 +140,7 @@ export function writeCsvLines(stream, ev, reading, il, isParsha) {
 function getFullKriyahLines(reading) {
   const lines = [];
   if (reading.fullkriyah) {
-    Object.keys(reading.fullkriyah).forEach((num) => {
-      const a = reading.fullkriyah[num];
+    for (const [num, a] of Object.entries(reading.fullkriyah)) {
       if (typeof a !== 'undefined') {
         const k = num == 'M' ? 'maf' : num;
         let aliyah = formatAliyahWithBook(a);
@@ -150,7 +149,7 @@ function getFullKriyahLines(reading) {
         }
         lines.push([k, aliyah, a.v || '']);
       }
-    });
+    }
   }
   let specialHaftara = false;
   if (reading.haftara) {
@@ -170,13 +169,12 @@ function getFullKriyahLines(reading) {
     lines.push(['Alternate Haftara', haftara, reading.triHaftaraNumV || '']);
   }
   if (reading.megillah) {
-    Object.keys(reading.megillah).forEach((num) => {
-      const a = reading.megillah[num];
+    for (const [num, a] of Object.entries(reading.megillah)) {
       if (typeof a !== 'undefined') {
         const aliyah = formatAliyahWithBook(a);
         lines.push([`Megillah Ch. ${num}`, aliyah, a.v || '']);
       }
-    });
+    }
   }
   return lines;
 }
