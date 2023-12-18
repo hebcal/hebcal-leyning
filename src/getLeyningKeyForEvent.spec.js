@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HebrewCalendar} from '@hebcal/core';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
 
 // eslint-disable-next-line require-jsdoc
 function dateDescKey(ev) {

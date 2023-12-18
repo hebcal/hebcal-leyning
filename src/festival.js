@@ -1,5 +1,5 @@
-import festivals from './holiday-readings.json';
-import {BOOK, clone} from './common';
+import {BOOK, clone} from './common.js';
+import festivals from './holiday-readings.json.js';
 
 /**
  * Is there a special festival Torah Reading for `holiday`?

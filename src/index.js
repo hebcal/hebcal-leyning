@@ -1,9 +1,9 @@
-export * from './common';
-export * from './summary';
-export * from './festival';
-export {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-export * from './specialReadings';
-export * from './getLeyningForHoliday';
-export * from './leyning';
-export {getLeyningOnDate} from './getLeyningOnDate';
-export {writeFullKriyahCsv, writeCsvLines, writeHolidayMincha, getParshaDates} from './csv';
+export * from './common.js';
+export * from './summary.js';
+export * from './festival.js';
+export {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+export * from './specialReadings.js';
+export * from './getLeyningForHoliday.js';
+export * from './leyning.js';
+export {getLeyningOnDate} from './getLeyningOnDate.js';
+export {writeFullKriyahCsv, writeCsvLines, writeHolidayMincha, getParshaDates} from './csv.js';

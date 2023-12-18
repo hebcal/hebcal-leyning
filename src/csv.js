@@ -1,8 +1,8 @@
-import {HebrewCalendar, flags, Event} from '@hebcal/core';
-import {getLeyningForParshaHaShavua} from './leyning';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-import {formatAliyahWithBook} from './common';
+import {Event, HebrewCalendar, flags} from '@hebcal/core';
+import {formatAliyahWithBook} from './common.js';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import {getLeyningForParshaHaShavua} from './leyning.js';
 
 const fmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric', month: 'short', day: '2-digit',

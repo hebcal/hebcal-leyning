@@ -1,5 +1,5 @@
 import test from 'ava';
-import {hasFestival, lookupFestival} from './festival';
+import {hasFestival, lookupFestival} from './festival.js';
 
 test('lookupFestival-fk', (t) => {
   const src = lookupFestival('Pesach VIII');

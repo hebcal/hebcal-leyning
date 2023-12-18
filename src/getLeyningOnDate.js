@@ -1,7 +1,7 @@
-import {HebrewCalendar, HDate, months, ParshaEvent} from '@hebcal/core';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-import {getLeyningForParshaHaShavua, makeLeyningNames, getWeekdayReading} from './leyning';
+import {HDate, HebrewCalendar, ParshaEvent, months} from '@hebcal/core';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import {getLeyningForParshaHaShavua, getWeekdayReading, makeLeyningNames} from './leyning.js';
 
 /**
  * @private

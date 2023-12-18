@@ -1,6 +1,6 @@
 import test from 'ava';
 import {parshiot} from '@hebcal/core';
-import {getLeyningForParsha} from './leyning';
+import {getLeyningForParsha} from './leyning.js';
 
 test('getLeyningForParsha-1', (t) => {
   const reading = getLeyningForParsha('Pinchas');

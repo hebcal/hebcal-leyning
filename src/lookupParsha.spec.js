@@ -1,5 +1,5 @@
 import test from 'ava';
-import {lookupParsha} from './leyning';
+import {lookupParsha} from './leyning.js';
 
 test('lookupParsha', (t) => {
   const meta = lookupParsha('Bereshit');

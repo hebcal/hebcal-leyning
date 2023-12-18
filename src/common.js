@@ -1,4 +1,4 @@
-import numverses from './numverses.json';
+import numverses from './numverses.json.js';
 
 /**
  * Names of the books of the Torah. BOOK[1] === 'Genesis'

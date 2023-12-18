@@ -1,10 +1,10 @@
 import {flags, Locale} from '@hebcal/core';
 import {BOOK, calculateNumVerses, cloneHaftara,
-  parshaToString, sumVerses} from './common';
-import {makeSummaryFromParts} from './summary';
-import parshiyotObj from './aliyot.json';
-import {specialReadings2} from './specialReadings';
-import {makeLeyningParts} from './summary';
+  parshaToString, sumVerses} from './common.js';
+import {makeSummaryFromParts} from './summary.js';
+import parshiyotObj from './aliyot.json.js';
+import {specialReadings2} from './specialReadings.js';
+import {makeLeyningParts} from './summary.js';
 
 /**
  * Represents an aliyah

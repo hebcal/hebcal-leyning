@@ -1,9 +1,16 @@
 /* eslint-disable require-jsdoc */
 import test from 'ava';
 import {Writable} from 'stream';
-import {HDate, HolidayEvent, RoshChodeshEvent, ParshaEvent,
-  HebrewCalendar, months, flags} from '@hebcal/core';
-import {writeFullKriyahEvent} from './csv';
+import {
+  HDate,
+  HebrewCalendar,
+  HolidayEvent,
+  ParshaEvent,
+  RoshChodeshEvent,
+  flags,
+  months,
+} from '@hebcal/core';
+import {writeFullKriyahEvent} from './csv.js';
 
 class StringWritable extends Writable {
   constructor(options) {

@@ -1,8 +1,8 @@
 import test from 'ava';
 import {HDate, HebrewCalendar, Event, months, flags, HolidayEvent} from '@hebcal/core';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-import {formatAliyahWithBook} from './common';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import {formatAliyahWithBook} from './common.js';
 
 
 test('pesach-il', (t) => {

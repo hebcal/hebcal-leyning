@@ -1,4 +1,4 @@
-import {calculateNumVerses} from './common';
+import {calculateNumVerses} from './common.js';
 
 /**
  * @private

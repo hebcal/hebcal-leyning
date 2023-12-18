@@ -1,7 +1,7 @@
 import test from 'ava';
 import {HDate, HebrewCalendar, ParshaEvent} from '@hebcal/core';
-import {getLeyningForParshaHaShavua} from './leyning';
-import {formatAliyahWithBook} from './common';
+import {getLeyningForParshaHaShavua} from './leyning.js';
+import {formatAliyahWithBook} from './common.js';
 
 /*
 7/18/1981 16th of Tamuz, 5741

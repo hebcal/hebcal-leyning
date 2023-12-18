@@ -1,5 +1,5 @@
 import test from 'ava';
-import {calculateHaftarahNumVerses} from './calculateHaftarahNumVerses';
+import {calculateHaftarahNumVerses} from './calculateHaftarahNumVerses.js';
 
 test('calculateHaftarahNumVerses', (t) => {
   t.is(calculateHaftarahNumVerses('Ezekiel 1:1 - 1:28'), 28);

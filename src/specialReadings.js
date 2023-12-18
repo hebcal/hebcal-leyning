@@ -1,7 +1,7 @@
 import {HebrewCalendar, flags, months} from '@hebcal/core';
-import {calculateNumVerses, clone, cloneHaftara, parshaToString} from './common';
-import {lookupFestival} from './festival';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
+import {calculateNumVerses, clone, cloneHaftara, parshaToString} from './common.js';
+import {lookupFestival} from './festival.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
 
 /**
  * Leyning for a parsha hashavua or holiday

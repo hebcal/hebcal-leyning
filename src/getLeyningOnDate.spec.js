@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HDate} from '@hebcal/core';
-import {getLeyningOnDate} from './getLeyningOnDate';
+import {getLeyningOnDate} from './getLeyningOnDate.js';
 
 test('getLeyningOnDate-parsha', (t) => {
   const hd = new HDate(16, 'Av', 5782);

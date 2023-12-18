@@ -1,4 +1,4 @@
-import {formatAliyahShort} from './common';
+import {formatAliyahShort} from './common.js';
 
 /**
  * @private

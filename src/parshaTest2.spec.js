@@ -1,6 +1,6 @@
 import test from 'ava';
 import {HDate, ParshaEvent} from '@hebcal/core';
-import {getLeyningForParshaHaShavua} from './leyning';
+import {getLeyningForParshaHaShavua} from './leyning.js';
 
 test('Shabbat Zachor', (t) => {
   const hd = new HDate(new Date(2024, 2, 23));

@@ -1,5 +1,5 @@
 import test from 'ava';
-import {makeLeyningSummary, makeLeyningParts} from './summary';
+import {makeLeyningSummary, makeLeyningParts} from './summary.js';
 
 test('mls-Noach', (t) => {
   const fullkriyah = {

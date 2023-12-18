@@ -1,10 +1,9 @@
 import {Locale, flags} from '@hebcal/core';
-import {calculateNumVerses, clone, cloneHaftara, sumVerses} from './common';
-import {makeSummaryFromParts} from './summary';
-import {lookupFestival} from './festival';
-import {makeLeyningParts} from './summary';
-import {getLeyningKeyForEvent, HOLIDAY_IGNORE_MASK} from './getLeyningKeyForEvent';
-import numverses from './numverses.json';
+import {calculateNumVerses, clone, cloneHaftara, sumVerses} from './common.js';
+import {lookupFestival} from './festival.js';
+import {HOLIDAY_IGNORE_MASK, getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import numverses from './numverses.json.js';
+import {makeLeyningParts, makeSummaryFromParts} from './summary.js';
 
 /**
  * Looks up leyning for a given holiday key. Key should be an

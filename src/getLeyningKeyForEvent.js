@@ -1,5 +1,5 @@
-import {HDate, months, flags} from '@hebcal/core';
-import {hasFestival} from './festival';
+import {HDate, flags, months} from '@hebcal/core';
+import {hasFestival} from './festival.js';
 
 export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_MEVARCHIM |
   flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE | flags.MISHNA_YOMI |

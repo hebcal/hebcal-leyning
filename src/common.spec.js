@@ -1,5 +1,5 @@
 import test from 'ava';
-import {calculateNumVerses, parshaToString} from './common';
+import {calculateNumVerses, parshaToString} from './common.js';
 
 test('calculateNumVerses', (t) => {
   t.is(calculateNumVerses({k: 'Genesis', b: '1:1', e: '1:1'}), 1);

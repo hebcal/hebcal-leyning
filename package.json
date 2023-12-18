@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -12,8 +12,13 @@
     "triennial"
   ],
   "description": "Torah Reading API for Parashat HaShavua and holidays",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/hebcal/hebcal-leyning.git"
@@ -34,23 +39,16 @@
     "@hebcal/core": "^5.0.3"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build:rollup": "rollup -c",
+    "build:json2js": "for f in src/*.json; do echo 'export default' > $f.js && cat $f >> $f.js; done",
+    "build": "npm run build:json2js && npm run build:rollup",
     "prepublish": "npm run build",
     "readme": "npx jsdoc2md dist/index.js",
     "pretest": "npm run build",
     "test": "ava"
   },
   "license": "BSD-2-Clause",
-  "ava": {
-    "require": [
-      "@babel/register"
-    ]
-  },
   "devDependencies": {
-    "@babel/core": "^7.23.6",
-    "@babel/preset-env": "^7.23.6",
-    "@babel/register": "^7.22.15",
-    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
