@@ -42,8 +42,6 @@ function findParshaHaShavua(saturday, il) {
   return null;
 }
 
-const __cache = new Map();
-
 /**
  * Looks up leyning for a regular Shabbat, Monday/Thursday weekday or holiday.
  *
@@ -63,12 +61,6 @@ const __cache = new Map();
  * @return {Leyning|Leyning[]} map of aliyot
  */
 export function getLeyningOnDate(hdate, il, wantarray = false) {
-  const hdStr = hdate.toString();
-  const cacheKey = `${hdStr}/${il ? 1 : 0}`;
-  const cached = __cache.get(cacheKey);
-  if (cached) {
-    return wantarray ? cached : cached[0];
-  }
   const dow = hdate.getDay();
   if (dow === 6) {
     const hyear = hdate.getFullYear();
@@ -77,7 +69,6 @@ export function getLeyningOnDate(hdate, il, wantarray = false) {
     if (!parsha.chag) {
       const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
       const reading = getLeyningForParshaHaShavua(parshaEvent, il);
-      __cache.set(cacheKey, [reading]);
       return wantarray ? [reading] : reading;
     }
   }
@@ -108,7 +99,6 @@ export function getLeyningOnDate(hdate, il, wantarray = false) {
     };
     arr.unshift(reading);
   }
-  __cache.set(cacheKey, arr);
   return wantarray ? arr : arr[0];
 }
 
