@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hebcal/hebcal-leyning.git"
+    "url": "git+https://github.com/hebcal/hebcal-leyning.git"
   },
   "bugs": {
     "url": "https://github.com/hebcal/hebcal-leyning/issues"
