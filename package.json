@@ -17,7 +17,8 @@
   "type": "module",
   "exports": {
     "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
+    "require": "./dist/index.cjs",
+    "types": "./leyning.d.ts"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^5.0.4"
+    "@hebcal/core": "^5.0.7"
   },
   "scripts": {
     "build:rollup": "rollup -c",
@@ -54,11 +55,10 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "ava": "^6.0.1",
-    "core-js": "^3.34.0",
     "eslint": "^8.56.0",
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^4.0.2",
     "jsdoc-to-markdown": "^8.0.0",
-    "rollup": "^4.9.1"
+    "rollup": "^4.9.2"
   }
 }
