@@ -151,17 +151,19 @@ function getFullKriyahLines(reading) {
       }
     }
   }
-  let specialHaftara = false;
   if (reading.haftara) {
     let haftara = reading.haftara.replace(/,/g, ';');
     if (reading.reason?.haftara) {
-      specialHaftara = true;
       haftara += ' | ' + reading.reason.haftara;
     }
-    lines.push(['Haftara', haftara, reading.haftaraNumV || '']);
+    const title = reading.sephardic ? 'Haftara for Ashkenazim' : 'Haftara';
+    lines.push([title, haftara, reading.haftaraNumV || '']);
   }
-  if (reading.sephardic && !specialHaftara) {
-    const sephardic = reading.sephardic.replace(/,/g, ';');
+  if (reading.sephardic) {
+    let sephardic = reading.sephardic.replace(/,/g, ';');
+    if (reading.reason?.sephardic) {
+      sephardic += ' | ' + reading.reason.sephardic;
+    }
     lines.push(['Haftara for Sephardim', sephardic, reading.sephardicNumV || '']);
   }
   if (reading.triHaftara) {

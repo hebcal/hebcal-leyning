@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const {HDate} = require('@hebcal/core');
-const {writeFullKriyahCsv} = require('../dist/index');
+import fs from 'fs';
+import {HDate} from '@hebcal/core';
+import {writeFullKriyahCsv} from '../dist/index.mjs';
 
 const today = new HDate();
 const hyear = today.getFullYear();

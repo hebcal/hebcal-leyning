@@ -124,3 +124,24 @@ test.skip('writeFullKriyahEvent-SimchatTorah', (t) => {
     '', ''];
   t.deepEqual(lines, expected);
 });
+
+test('writeFullKriyahEvent-shekalim', (t) => {
+  const hd = new HDate(29, 'Adar I', 5784);
+  const ev = new ParshaEvent(hd, ['Vayakhel'], false);
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, false);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    '09-Mar-2024,"Vayakhel",1,"Exodus 35:1-35:20",20',
+    '09-Mar-2024,"Vayakhel",2,"Exodus 35:21-35:29",9',
+    '09-Mar-2024,"Vayakhel",3,"Exodus 35:30-36:7",13',
+    '09-Mar-2024,"Vayakhel",4,"Exodus 36:8-36:19",12',
+    '09-Mar-2024,"Vayakhel",5,"Exodus 36:20-37:16",35',
+    '09-Mar-2024,"Vayakhel",6,"Exodus 37:17-37:29",13',
+    '09-Mar-2024,"Vayakhel",7,"Exodus 38:1-38:20",20',
+    '09-Mar-2024,"Vayakhel","maf","Exodus 30:11-30:16 | Shabbat Shekalim",6',
+    '09-Mar-2024,"Vayakhel","Haftara for Ashkenazim","II Kings 12:1-17 | Shabbat Shekalim",17',
+    '09-Mar-2024,"Vayakhel","Haftara for Sephardim","II Kings 11:17-12:17 | Shabbat Shekalim",21',
+    '', ''];
+  t.deepEqual(lines, expected);
+});
