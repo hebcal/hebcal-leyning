@@ -37,11 +37,24 @@ test('Shabbat Zachor', (t) => {
     },
     haftara: 'I Samuel 15:2-34',
     haftaraNumV: 33,
+    seph: {
+      k: 'I Samuel',
+      b: '15:1',
+      e: '15:34',
+      v: 34,
+      reason: 'Shabbat Zachor',
+    },
+    sephardic: 'I Samuel 15:1-34',
+    sephardicNumV: 34,
     summaryParts: [
       {k: 'Leviticus', b: '1:1', e: '5:26'},
       {k: 'Deuteronomy', b: '25:17', e: '25:19'},
     ],
-    reason: {haftara: 'Shabbat Zachor', M: 'Shabbat Zachor'},
+    reason: {
+      haftara: 'Shabbat Zachor',
+      sephardic: 'Shabbat Zachor',
+      M: 'Shabbat Zachor',
+    },
   };
   t.deepEqual(reading, expected);
 });

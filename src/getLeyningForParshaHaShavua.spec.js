@@ -431,3 +431,12 @@ test('ShabbatRoshChodesh-Noach', (t) => {
   const reading = getLeyningForParshaHaShavua(ev, false);
   t.is(reading.reason.haftara, 'Shabbat Rosh Chodesh');
 });
+
+test('Shabbat Shekalim-seph', (t) => {
+  const hd = new HDate(29, 'Adar I', 5784);
+  const ev = new ParshaEvent(hd, ['Vayakhel'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.reason.haftara, 'Shabbat Shekalim');
+  t.is(reading.haftara, 'II Kings 12:1-17');
+  t.is(reading.sephardic, 'II Kings 11:17-12:17');
+});

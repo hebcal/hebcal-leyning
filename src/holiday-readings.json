@@ -1,5 +1,11 @@
 {"Pesach I":{
- "haft":{"k":"Joshua","b":"5:2","e":"6:1"},
+ "haft":[
+  {"k":"Joshua","b":"3:5","e":"3:7"},
+  {"k":"Joshua","b":"5:2","e":"6:1"},
+  {"k":"Joshua","b":"6:27","e":"6:27"}],
+ "seph":[
+  {"k":"Joshua","b":"5:2","e":"6:1"},
+  {"k":"Joshua","b":"6:27","e":"6:27"}],
  "fullkriyah":
   {"1":{"p":15,"k":2,"b":"12:21","e":"12:24"},
   "2":{"p":15,"k":2,"b":"12:25","e":"12:28"},
@@ -8,7 +14,13 @@
   "5":{"p":15,"k":2,"b":"12:43","e":"12:51"},
   "M":{"p":41,"k":4,"b":"28:16","e":"28:25"}}},
 "Pesach I (on Shabbat)":{
- "haft":{"k":"Joshua","b":"5:2","e":"6:1"},
+ "haft":[
+  {"k":"Joshua","b":"3:5","e":"3:7"},
+  {"k":"Joshua","b":"5:2","e":"6:1"},
+  {"k":"Joshua","b":"6:27","e":"6:27"}],
+ "seph":[
+  {"k":"Joshua","b":"5:2","e":"6:1"},
+  {"k":"Joshua","b":"6:27","e":"6:27"}],
  "fullkriyah":
   {"1":{"p":15,"k":2,"b":"12:21","e":"12:24"},
   "2":{"p":15,"k":2,"b":"12:25","e":"12:28"},
@@ -144,6 +156,7 @@
 "Shavuot II":{
  "megillah":"Ruth",
  "haft":{"k":"Habakkuk","b":"3:1","e":"3:19"},
+ "seph":{"k":"Habakkuk","b":"2:20","e":"3:19"},
  "fullkriyah":
   {"1":{"p":47,"k":5,"b":"15:19","e":"15:23"},
   "2":{"p":47,"k":5,"b":"16:1","e":"16:3"},
@@ -154,6 +167,7 @@
 "Shavuot II (on Shabbat)":{
  "megillah":"Ruth",
  "haft":{"k":"Habakkuk","b":"3:1","e":"3:19"},
+ "seph":{"k":"Habakkuk","b":"2:20","e":"3:19"},
  "fullkriyah":
   {"1":{"p":47,"k":5,"b":"14:22","e":"14:29"},
   "2":{"p":47,"k":5,"b":"15:1","e":"15:18"},
@@ -483,10 +497,12 @@
  "note":"Jerusalem & walled cities only: special maftir Exodus 17:8-16, same Haftara as Shabbat Zachor"},
 "Shabbat HaChodesh":{
  "haft":{"k":"Ezekiel","b":"45:16","e":"46:18"},
+ "seph":{"k":"Ezekiel","b":"45:18","e":"46:15"},
  "fullkriyah":
   {"M":{"p":15,"k":2,"b":"12:1","e":"12:20"}}},
 "Shabbat HaChodesh (on Rosh Chodesh)":{
  "haft":{"k":"Ezekiel","b":"45:16","e":"46:18"},
+ "seph":{"k":"Ezekiel","b":"45:18","e":"46:15"},
  "fullkriyah":
   {"7":{"p":41,"k":4,"b":"28:9","e":"28:15"},
   "M":{"p":15,"k":2,"b":"12:1","e":"12:20"}}},
@@ -494,14 +510,17 @@
  "haft":{"k":"Malachi","b":"3:4","e":"3:24"}},
 "Shabbat Parah":{
  "haft":{"k":"Ezekiel","b":"36:16","e":"36:38"},
+ "seph":{"k":"Ezekiel","b":"36:16","e":"36:36"},
  "fullkriyah":
   {"M":{"p":39,"k":4,"b":"19:1","e":"19:22"}}},
 "Shabbat Shekalim":{
  "haft":{"k":"II Kings","b":"12:1","e":"12:17"},
+ "seph":{"k":"II Kings","b":"11:17","e":"12:17"},
  "fullkriyah":
   {"M":{"p":21,"k":2,"b":"30:11","e":"30:16"}}},
 "Shabbat Shekalim (on Rosh Chodesh)":{
  "haft":{"k":"II Kings","b":"12:1","e":"12:17"},
+ "seph":{"k":"II Kings","b":"11:17","e":"12:17"},
  "fullkriyah":
   {"7":{"p":41,"k":4,"b":"28:9","e":"28:15"},
   "M":{"p":21,"k":2,"b":"30:11","e":"30:16"}}},
@@ -519,6 +538,7 @@
   {"k":"Joel","b":"2:15","e":"2:27"}]},
 "Shabbat Zachor":{
  "haft":{"k":"I Samuel","b":"15:2","e":"15:34"},
+ "seph":{"k":"I Samuel","b":"15:1","e":"15:34"},
  "fullkriyah":
   {"M":{"p":49,"k":5,"b":"25:17","e":"25:19"}}},
 "Pinchas occurring after 17 Tammuz":{

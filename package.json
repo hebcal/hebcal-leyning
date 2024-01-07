@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "8.1.2",
+  "version": "8.1.3",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -9,7 +9,11 @@
     "sedrot",
     "leyning",
     "kriyah",
-    "triennial"
+    "leining",
+    "sidra",
+    "parsha",
+    "parasha",
+    "parashah"
   ],
   "description": "Torah Reading API for Parashat HaShavua and holidays",
   "main": "./dist/index.cjs",
@@ -59,6 +63,6 @@
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^4.0.2",
     "jsdoc-to-markdown": "^8.0.0",
-    "rollup": "^4.9.2"
+    "rollup": "^4.9.4"
   }
 }
