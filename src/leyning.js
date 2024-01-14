@@ -185,6 +185,10 @@ export function getLeyningForParshaHaShavua(ev, il=false) {
       const seph = result.seph = cloneHaftara(special.seph);
       result.sephardic = makeSummaryFromParts(seph);
       result.sephardicNumV = sumVerses(seph);
+    } else if (result.seph) {
+      delete result.seph;
+      delete result.sephardic;
+      delete result.sephardicNumV;
     }
   }
   if (reason['7'] || reason['M']) {

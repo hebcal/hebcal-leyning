@@ -440,3 +440,13 @@ test('Shabbat Shekalim-seph', (t) => {
   t.is(reading.haftara, 'II Kings 12:1-17');
   t.is(reading.sephardic, 'II Kings 11:17-12:17');
 });
+
+test('special-deletes-seph', (t) => {
+  const hd = new HDate(29, 'Tishrei', 5784);
+  const ev = new ParshaEvent(hd, ['Bereshit'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.reason.haftara, 'Shabbat Machar Chodesh');
+  t.is(reading.reason.sephardic, undefined);
+  t.is(reading.haftara, 'I Samuel 20:18-42');
+  t.is(reading.sephardic, undefined);
+});
