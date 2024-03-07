@@ -261,25 +261,33 @@ test('longest-regular-haftarah', (t) => {
 test('masei-rosh-chodesh', (t) => {
   const ev1 = new ParshaEvent(new HDate(1, 'Av', 5781), ['Matot', 'Masei'], false);
   const obj1 = getLeyningForParshaHaShavua(ev1);
-  t.is(obj1.haftara, 'Jeremiah 2:4-28, 3:4; Isaiah 66:1, 66:23');
+  t.is(obj1.haftara, 'Jeremiah 2:4-28, 3:4');
   t.is(obj1.reason.haftara, 'Matot-Masei on Shabbat Rosh Chodesh');
+  t.is(obj1.sephardic, 'Jeremiah 2:4-28, 4:1-2; Isaiah 66:1, 66:23');
+  t.is(obj1.reason.sephardic, 'Matot-Masei on Shabbat Rosh Chodesh');
+  t.is(obj1.summary, 'Numbers 30:2-36:13, 28:9-15');
 
   const ev2 = new ParshaEvent(new HDate(2, 'Av', 5782), ['Matot', 'Masei'], false);
   const obj2 = getLeyningForParshaHaShavua(ev2);
   t.is(obj2.haftara, 'Jeremiah 2:4-28, 3:4');
   t.is(obj2.reason, undefined);
+  t.is(obj2.summary, 'Numbers 30:2-36:13');
 
   const ev3 = new ParshaEvent(new HDate(1, 'Av', 5812), ['Masei'], false);
   const obj3 = getLeyningForParshaHaShavua(ev3);
-  t.is(obj3.haftara, 'Jeremiah 2:4-28, 3:4; Isaiah 66:1, 66:23');
-  t.is(obj3.haftaraNumV, 28);
+  t.is(obj3.haftara, 'Jeremiah 2:4-28, 3:4');
+  t.is(obj3.sephardic, 'Jeremiah 2:4-28, 4:1-2; Isaiah 66:1, 66:23');
+  t.is(obj3.haftaraNumV, 26);
+  t.is(obj3.sephardicNumV, 29);
   t.is(obj3.reason.haftara, 'Masei on Shabbat Rosh Chodesh');
+  t.is(obj3.summary, 'Numbers 33:1-36:13, 28:9-15');
 
   const ev4 = new ParshaEvent(new HDate(28, 'Tamuz', 5822), ['Masei'], false);
   const obj4 = getLeyningForParshaHaShavua(ev4);
   t.is(obj4.haftara, 'Jeremiah 2:4-28, 3:4');
   t.is(obj4.haftaraNumV, 26);
   t.is(obj4.reason, undefined);
+  t.is(obj4.summary, 'Numbers 33:1-36:13');
 });
 
 

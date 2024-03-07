@@ -546,9 +546,14 @@
 "Masei on Shabbat Rosh Chodesh":{
  "haft":[
   {"k":"Jeremiah","b":"2:4","e":"2:28"},
-  {"k":"Jeremiah","b":"3:4","e":"3:4"},
+  {"k":"Jeremiah","b":"3:4","e":"3:4"}],
+ "seph":[
+  {"k":"Jeremiah","b":"2:4","e":"2:28"},
+  {"k":"Jeremiah","b":"4:1","e":"4:2"},
   {"k":"Isaiah","b":"66:1","e":"66:1"},
-  {"k":"Isaiah","b":"66:23","e":"66:23"}]},
+  {"k":"Isaiah","b":"66:23","e":"66:23"}],
+ "fullkriyah":
+  {"M":{"p":41,"k":4,"b":"28:9","e":"28:15"}}},
 "Matot-Masei on Shabbat Rosh Chodesh":{"alias":true,"key":"Masei on Shabbat Rosh Chodesh"},
 "Ki Teitzei with 3rd Haftarah of Consolation":{
  "haft":[
