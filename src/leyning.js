@@ -114,8 +114,9 @@ function getLeyningForParshaShabbatOnly(parsha) {
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
   }
-  if (raw.seph) {
-    const seph = result.seph = cloneHaftara(raw.seph);
+  const seph0 = parshiyotObj[hkey].seph;
+  if (seph0) {
+    const seph = result.seph = cloneHaftara(seph0);
     result.sephardic = makeSummaryFromParts(seph);
     result.sephardicNumV = sumVerses(seph);
   }

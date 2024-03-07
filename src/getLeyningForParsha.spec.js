@@ -75,6 +75,22 @@ test('getLeyningForParsha-2', (t) => {
       e: '3:4',
       v: 1,
     }],
+    seph: [
+      {
+        b: '2:4',
+        e: '2:28',
+        k: 'Jeremiah',
+        v: 25,
+      },
+      {
+        b: '4:1',
+        e: '4:2',
+        k: 'Jeremiah',
+        v: 2,
+      },
+    ],
+    sephardic: 'Jeremiah 2:4-28, 4:1-2',
+    sephardicNumV: 27,
     haftara: 'Jeremiah 2:4-28, 3:4',
     haftaraNumV: 26,
     weekday: {
