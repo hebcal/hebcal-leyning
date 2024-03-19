@@ -1,4 +1,4 @@
-import {HDate, HebrewCalendar, ParshaEvent, months} from '@hebcal/core';
+import {HDate, HebrewCalendar, ParshaEvent, flags, months} from '@hebcal/core';
 import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
 import {getLeyningForParshaHaShavua, getWeekdayReading, makeLeyningNames} from './leyning.js';
@@ -62,6 +62,8 @@ function findParshaHaShavua(saturday, il) {
  */
 export function getLeyningOnDate(hdate, il, wantarray = false) {
   const dow = hdate.getDay();
+  const arr = [];
+  let hasParshaHaShavua = false;
   if (dow === 6) {
     const hyear = hdate.getFullYear();
     const sedra = HebrewCalendar.getSedra(hyear, il);
@@ -69,13 +71,20 @@ export function getLeyningOnDate(hdate, il, wantarray = false) {
     if (!parsha.chag) {
       const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
       const reading = getLeyningForParshaHaShavua(parshaEvent, il);
-      return wantarray ? [reading] : reading;
+      if (wantarray) {
+        hasParshaHaShavua = true;
+        arr.push(reading);
+      } else {
+        return reading;
+      }
     }
   }
   const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
-  const arr = [];
   let hasFullKriyah = false;
   for (const ev of events) {
+    if (hasParshaHaShavua && (ev.getFlags() & flags.SPECIAL_SHABBAT)) {
+      continue;
+    }
     const reading = getLeyningForHoliday(ev, il);
     if (reading) {
       arr.push(reading);

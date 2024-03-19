@@ -270,3 +270,28 @@ test('getLeyningOnDate-weekday-erev9av', (t) => {
   t.is(readings[0].name.en, 'Vaetchanan');
   t.is(readings[1].name.en, 'Erev Tish\'a B\'Av');
 });
+
+test('getLeyningOnDate-erev9av-sat-nite', (t) => {
+  const hd = new HDate(8, 'Av', 5785);
+  const readings = getLeyningOnDate(hd, false, true);
+  t.is(readings.length, 2);
+  t.is(readings[0].name.en, 'Devarim');
+  t.is(readings[1].name.en, 'Erev Tish\'a B\'Av');
+});
+
+test('erev-purim-wed-nite', (t) => {
+  const hd = new HDate(13, 'Adar 2', 5782);
+  const readings = getLeyningOnDate(hd, false, true);
+  t.is(readings.length, 3);
+  t.is(readings[0].name.en, 'Ta\'anit Esther');
+  t.is(readings[1].name.en, 'Ta\'anit Esther (Mincha)');
+  t.is(readings[2].name.en, 'Erev Purim');
+});
+
+test('erev-purim-sat-nite', (t) => {
+  const hd = new HDate(13, 'Adar', 5784);
+  const readings = getLeyningOnDate(hd, false, true);
+  t.is(readings.length, 2);
+  t.is(readings[0].name.en, 'Vayikra');
+  t.is(readings[1].name.en, 'Erev Purim');
+});

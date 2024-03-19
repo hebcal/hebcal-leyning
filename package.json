@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "8.1.7",
+  "version": "8.1.8",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -63,6 +63,6 @@
     "eslint-config-google": "^0.14.0",
     "jsdoc": "^4.0.2",
     "jsdoc-to-markdown": "^8.0.1",
-    "rollup": "^4.12.1"
+    "rollup": "^4.13.0"
   }
 }
