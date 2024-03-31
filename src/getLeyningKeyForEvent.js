@@ -38,10 +38,11 @@ export function getLeyningKeyForEvent(ev, il = false) {
     }
     return desc;
   }
-  const cholHaMoedDay = ev.cholHaMoedDay;
   if (day == 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
-  } else if (cholHaMoedDay) {
+  }
+  const cholHaMoedDay = ev.cholHaMoedDay;
+  if (typeof cholHaMoedDay === 'number') {
     // Sukkot or Pesach
     if (isShabbat) {
       return holiday + ' Shabbat Chol ha-Moed';
@@ -56,15 +57,17 @@ export function getLeyningKeyForEvent(ev, il = false) {
       }
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
-  } else if (ev.chanukahDay) {
+  }
+  const chanukahDay = ev.chanukahDay;
+  if (typeof chanukahDay === 'number') {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
-    } else if (isRoshChodesh && ev.chanukahDay == 7) {
+    } else if (isRoshChodesh && chanukahDay == 7) {
       return `Chanukah Day 7 (on Rosh Chodesh)`;
     } else if (isShabbat) {
-      return `Chanukah Day ${ev.chanukahDay} (on Shabbat)`;
+      return `Chanukah Day ${chanukahDay} (on Shabbat)`;
     } else {
-      return `Chanukah Day ${ev.chanukahDay}`;
+      return `Chanukah Day ${chanukahDay}`;
     }
   }
 
