@@ -458,3 +458,80 @@ test('special-deletes-seph', (t) => {
   t.is(reading.haftara, 'I Samuel 20:18-42');
   t.is(reading.sephardic, undefined);
 });
+
+test('Kedoshim following Shabbat HaGadol', (t) => {
+  const hd1 = new HDate(14, 'Nisan', 5714);
+  const ev1 = new ParshaEvent(hd1, ['Achrei Mot'], false);
+  const reading1 = getLeyningForParshaHaShavua(ev1, false);
+  t.is(reading1.haftara, 'Malachi 3:4-24');
+  t.is(reading1.reason.haftara, 'Shabbat HaGadol');
+  t.is(reading1.sephardic, undefined);
+
+  const hd2 = new HDate(28, 'Nisan', 5714);
+  const ev2 = new ParshaEvent(hd2, ['Kedoshim'], false);
+  const reading2 = getLeyningForParshaHaShavua(ev2, false);
+  t.is(reading2.haftara, 'Amos 9:7-15');
+  t.is(reading2.reason.haftara, 'Kedoshim following Special Shabbat');
+  t.is(reading2.sephardic, 'Ezekiel 20:2-20');
+
+  const hd3 = new HDate(12, 'Nisan', 5774);
+  const ev3 = new ParshaEvent(hd3, ['Achrei Mot'], false);
+  const reading3 = getLeyningForParshaHaShavua(ev3, false);
+  t.is(reading3.haftara, 'Malachi 3:4-24');
+  t.is(reading3.reason.haftara, 'Shabbat HaGadol');
+  t.is(reading3.sephardic, undefined);
+
+  const hd4 = new HDate(26, 'Nisan', 5774);
+  const ev4 = new ParshaEvent(hd4, ['Kedoshim'], false);
+  const reading4 = getLeyningForParshaHaShavua(ev4, false);
+  t.is(reading4.haftara, 'Amos 9:7-15');
+  t.is(reading4.reason.haftara, 'Kedoshim following Special Shabbat');
+  t.is(reading4.sephardic, 'Ezekiel 20:2-20');
+});
+
+test('Kedoshim following Shabbat Machar Chodesh', (t) => {
+  const hd1 = new HDate(29, 'Nisan', 5782);
+  const ev1 = new ParshaEvent(hd1, ['Achrei Mot'], false);
+  const reading1 = getLeyningForParshaHaShavua(ev1, false);
+  t.is(reading1.haftara, 'I Samuel 20:18-42');
+  t.is(reading1.reason.haftara, 'Shabbat Machar Chodesh');
+  t.is(reading1.sephardic, undefined);
+
+  const hd2 = new HDate(6, 'Iyyar', 5782);
+  const ev2 = new ParshaEvent(hd2, ['Kedoshim'], false);
+  const reading2 = getLeyningForParshaHaShavua(ev2, false);
+  t.is(reading2.haftara, 'Amos 9:7-15');
+  t.is(reading2.reason.haftara, 'Kedoshim following Special Shabbat');
+  t.is(reading2.sephardic, 'Ezekiel 20:2-20');
+});
+
+test('Achrei Mot-Kedoshim combined', (t) => {
+  const hd = new HDate(8, 'Iyyar', 5783);
+  const ev = new ParshaEvent(hd, ['Achrei Mot', 'Kedoshim'], false);
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  t.is(reading.haftara, 'Amos 9:7-15');
+  t.is(reading.sephardic, 'Ezekiel 20:2-20');
+});
+
+test('Achrei Mot-Kedoshim separate', (t) => {
+  const hd1 = new HDate(26, 'Nisan', 5784);
+  const ev1 = new ParshaEvent(hd1, ['Achrei Mot'], false);
+  const reading1 = getLeyningForParshaHaShavua(ev1, false);
+  t.is(reading1.haftara, 'Amos 9:7-15');
+  t.is(reading1.sephardic, 'Ezekiel 22:1-16');
+
+  const hd2 = new HDate(3, 'Iyyar', 5784);
+  const ev2 = new ParshaEvent(hd2, ['Kedoshim'], false);
+  const reading2 = getLeyningForParshaHaShavua(ev2, false);
+  t.is(reading2.haftara, 'Ezekiel 22:1-19');
+  t.is(reading2.sephardic, 'Ezekiel 20:2-20');
+});
+
+test('Kedoshim on Rosh Chodesh', (t) => {
+  const hd1 = new HDate(1, 'Iyyar', 5763);
+  const ev1 = new ParshaEvent(hd1, ['Kedoshim'], false);
+  const reading1 = getLeyningForParshaHaShavua(ev1, false);
+  t.is(reading1.haftara, 'Isaiah 66:1-24');
+  t.is(reading1.reason.haftara, 'Shabbat Rosh Chodesh');
+  t.is(reading1.sephardic, undefined);
+});

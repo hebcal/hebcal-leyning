@@ -134,6 +134,17 @@ export function specialReadings2(parsha, hd, il, aliyot) {
       // In the book of Isaiah these two brief passages are adjacent."
       // Source: Luaḥ Hashanah, Rabbi Miles B. Cohen and Leslie Rubin
       handleSpecial('Ki Teitzei with 3rd Haftarah of Consolation');
+    } else if (parshaName === 'Kedoshim' && (day === 26 || day === 28 || day === 6)) {
+      // Kedoshim is read separately from Achrei Mot in ~37% of years.
+      // When this happens, it is will be read on
+      // 26th or 28th of Nisan (Achrei Mot was Shabbat HaGadol, ~10%),
+      // or 1st of Iyyar (Rosh Chodesh, ~10%),
+      // or 6th of Iyyar (~10%, immediately after Shabbat Machar Chodesh)
+      // or 3rd of Iyyar (~6%, "the nominal situation — in which both parashiyyot
+      // are read separately and no overriding occasions coincide")
+      // http://www.scholar.davidesstein.name/Articles/HaftarotOfEtzHayim--Stein.pdf
+      // "The Haftarot of Etz Hayim," David E. S. Stein, Conservative Judaism 54/3 (Spring 2002)
+      handleSpecial('Kedoshim following Special Shabbat');
     } else if (hd.getMonth() !== months.AV) {
       // Parashat Re'eh is always read in Av on 25, 27, 29 or 30.
       // When it coincides with Erev Rosh Chodesh, the Haftarah is

@@ -50,14 +50,18 @@ import {specialReadings2} from './specialReadings.js';
 
 /**
  * on doubled parshiot, read only the second Haftarah
- * except for Nitzavim-Vayelech
+ * except for Nitzavim-Vayelech and Achrei Mot-Kedoshim
  * @private
  * @param {string[]} parsha
  * @return {string}
  */
 function getHaftaraKey(parsha) {
-  if (parsha.length == 1 || parsha[0] == 'Nitzavim') {
-    return parsha[0];
+  const first = parsha[0];
+  if (parsha.length === 2 && first == 'Achrei Mot') {
+    return parshaToString(parsha); // 'Achrei Mot-Kedoshim'
+  }
+  if (parsha.length === 1 || first == 'Nitzavim') {
+    return first;
   } else {
     return parsha[1];
   }

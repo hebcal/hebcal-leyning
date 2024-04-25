@@ -543,6 +543,9 @@
   {"M":{"p":49,"k":5,"b":"25:17","e":"25:19"}}},
 "Pinchas occurring after 17 Tammuz":{
  "haft": {"k": "Jeremiah", "b": "1:1", "e": "2:3"}},
+"Kedoshim following Special Shabbat":{
+ "haft":{"k":"Amos","b":"9:7","e":"9:15"},
+ "seph":{"k":"Ezekiel","b":"20:2","e":"20:20"}},
 "Masei on Shabbat Rosh Chodesh":{
  "haft":[
   {"k":"Jeremiah","b":"2:4","e":"2:28"},
