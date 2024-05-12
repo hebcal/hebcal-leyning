@@ -41,7 +41,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^5.3.6"
+    "@hebcal/core": "^5.3.8"
   },
   "scripts": {
     "build:rollup": "rollup -c",
