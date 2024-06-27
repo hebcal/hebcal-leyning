@@ -1,18 +1,17 @@
-import numverses from './numverses.json.js';
+import numverses from './numverses.json';
+import { Aliyah } from './types';
 
 /**
  * Names of the books of the Torah. BOOK[1] === 'Genesis'
  * @readonly
- * @const {string[]}
  */
 export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
 
 /**
  * Formats parsha as a string
- * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
- * @return {string}
+ * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  */
-export function parshaToString(parsha) {
+export function parshaToString(parsha: string | string[]): string {
   if (typeof parsha === 'string') {
     return parsha;
   } else if (!Array.isArray(parsha) || parsha.length === 0 || parsha.length > 2) {
@@ -25,33 +24,16 @@ export function parshaToString(parsha) {
   return s;
 }
 
-/**
- * Represents an aliyah
- * @typedef {Object} Aliyah
- * @property {string} k - Book (e.g. "Numbers")
- * @property {string} b - beginning verse (e.g. "28:9")
- * @property {string} e - ending verse (e.g. "28:15")
- * @property {number} [v] - number of verses
- * @property {number} [p] - parsha number (1=Bereshit, 54=Vezot HaBracha)
- */
-
-/**
- * Makes a deep copy of the src object using JSON stringify and parse
- * @param {any} src
- * @return {any}
- */
-export function clone(src) {
-  return JSON.parse(JSON.stringify(src));
-}
+type NumVerses = {
+  [key: string]: number[],
+};
 
 /**
  * Calculates the number of verses in an aliyah or haftara based on
  * the `b` (begin verse), `e` (end verse) and `k` (book).
  * Modifies `aliyah` by setting the `v` field.
- * @param {Aliyah} aliyah
- * @return {number}
  */
-export function calculateNumVerses(aliyah) {
+export function calculateNumVerses(aliyah: Aliyah): number {
   if (aliyah.v) {
     return aliyah.v;
   }
@@ -64,7 +46,7 @@ export function calculateNumVerses(aliyah) {
   if (c1 === c2) {
     aliyah.v = v2 - v1 + 1;
   } else if (typeof aliyah.k === 'string') {
-    const numv = numverses[aliyah.k];
+    const numv = (numverses as NumVerses)[aliyah.k];
     if (typeof numv !== 'object' || !numv.length) {
       throw new ReferenceError(`Can't find numverses for ${aliyah.k}`);
     }
@@ -75,25 +57,20 @@ export function calculateNumVerses(aliyah) {
     total += v2;
     aliyah.v = total;
   }
-  return aliyah.v;
+  return aliyah.v!;
 }
 
 /**
  * Formats an aliyah object like "Numbers 28:9-28:15"
- * @param {Aliyah} a aliyah
- * @return {string}
  */
-export function formatAliyahWithBook(a) {
+export function formatAliyahWithBook(a: Aliyah): string {
   return `${a.k} ${a.b}-${a.e}`;
 }
 
 /**
  * Formats an aliyah object like "Numbers 28:9-15"
- * @param {Aliyah} aliyah
- * @param {boolean} showBook
- * @return {string}
  */
-export function formatAliyahShort(aliyah, showBook) {
+export function formatAliyahShort(aliyah: Aliyah, showBook: boolean): string {
   const begin = aliyah.b;
   const end0 = aliyah.e;
   const prefix = showBook ? aliyah.k + ' ' : '';
@@ -106,29 +83,3 @@ export function formatAliyahShort(aliyah, showBook) {
   return `${prefix}${begin}-${end}`;
 }
 
-/**
- * Returns the total number of verses in an array of Aliyah (or haftarah) objects
- * @param {Aliyah|Aliyah[]} aliyot
- * @return {number}
- */
-export function sumVerses(aliyot) {
-  return Array.isArray(aliyot) ? aliyot.reduce((prev, cur) => prev + cur.v, 0) : aliyot.v;
-}
-
-/**
- * @private
- * @param {Aliyah|Aliyah[]} haft
- * @return {Aliyah|Aliyah[]}
- */
-export function cloneHaftara(haft) {
-  if (!haft) {
-    return haft;
-  }
-  const dest = clone(haft);
-  if (Array.isArray(dest)) {
-    dest.map(calculateNumVerses);
-  } else {
-    calculateNumVerses(dest);
-  }
-  return dest;
-}

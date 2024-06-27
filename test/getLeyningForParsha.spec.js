@@ -1,8 +1,7 @@
-import test from 'ava';
 import {parshiot} from '@hebcal/core';
-import {getLeyningForParsha} from './leyning.js';
+import {getLeyningForParsha} from '../src/leyning';
 
-test('getLeyningForParsha-1', (t) => {
+test('getLeyningForParsha-1', () => {
   const reading = getLeyningForParsha('Pinchas');
   const expected = {
     name: {
@@ -38,10 +37,10 @@ test('getLeyningForParsha-1', (t) => {
       '3': {k: 'Numbers', b: '25:16', e: '26:4', v: 8},
     },
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 });
 
-test('getLeyningForParsha-2', (t) => {
+test('getLeyningForParsha-2', () => {
   const reading2 = getLeyningForParsha(['Matot', 'Masei']);
   const expected2 = {
     name: {
@@ -99,13 +98,13 @@ test('getLeyningForParsha-2', (t) => {
       '3': {k: 'Numbers', b: '30:14', e: '30:17', v: 4},
     },
   };
-  t.deepEqual(reading2, expected2);
+  expect(reading2).toEqual(expected2);
 
   const reading2b = getLeyningForParsha('Matot-Masei');
-  t.deepEqual(reading2, reading2b);
+  expect(reading2).toEqual(reading2b);
 });
 
-test('getLeyningForParsha-3', (t) => {
+test('getLeyningForParsha-3', () => {
   const reading3 = getLeyningForParsha(['Masei']);
   const expected3 = {
     name: {
@@ -159,10 +158,10 @@ test('getLeyningForParsha-3', (t) => {
       '3': {k: 'Numbers', b: '33:7', e: '33:10', v: 4},
     },
   };
-  t.deepEqual(reading3, expected3);
+  expect(reading3).toEqual(expected3);
 });
 
-test('no-aliyot-lessthan-three', (t) => {
+test('no-aliyot-lessthan-three', () => {
   const toTest = [].concat(parshiot, [
     'Vayakhel-Pekudei',
     'Tazria-Metzora',
@@ -174,13 +173,11 @@ test('no-aliyot-lessthan-three', (t) => {
   ]);
   for (const parsha of toTest) {
     const reading = getLeyningForParsha(parsha);
-    for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
-      t.is(aliyah.v >= 3, true,
-          `${parsha} fullkriyah ${num}: ${aliyah.b}-${aliyah.e} is < 3 verses`);
+    for (const aliyah of Object.values(reading.fullkriyah)) {
+      expect(aliyah.v).toBeGreaterThanOrEqual(3);
     }
-    for (const [num, aliyah] of Object.entries(reading.weekday)) {
-      t.is(aliyah.v >= 3, true,
-          `${parsha} weekday ${num}: ${aliyah.b}-${aliyah.e} is < 3 verses`);
+    for (const aliyah of Object.values(reading.weekday)) {
+      expect(aliyah.v).toBeGreaterThanOrEqual(3);
     }
   }
 });

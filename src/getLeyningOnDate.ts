@@ -1,15 +1,14 @@
-import {HDate, HebrewCalendar, ParshaEvent, flags, months} from '@hebcal/core';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
-import {getLeyningForParshaHaShavua, getWeekdayReading, makeLeyningNames} from './leyning.js';
+import {
+  HDate, HebrewCalendar, HolidayEvent, ParshaEvent,
+  SedraResult, flags, months
+} from '@hebcal/core';
+import { getLeyningForHoliday, getLeyningForHolidayKey } from './getLeyningForHoliday';
+import { getLeyningKeyForEvent } from './getLeyningKeyForEvent';
+import { getLeyningForParshaHaShavua, getWeekdayReading, makeLeyningNames } from './leyning';
+import { makeLeyningParts, makeSummaryFromParts } from './summary';
+import { Leyning, LeyningWeekday } from './types';
 
-/**
- * @private
- * @param {HDate} saturday
- * @param {boolean} il
- * @return {Leyning}
- */
-function findParshaHaShavua(saturday, il) {
+function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();
   const sedra = HebrewCalendar.getSedra(hyear, il);
   const parsha = sedra.lookup(saturday);
@@ -39,7 +38,7 @@ function findParshaHaShavua(saturday, il) {
     }
   }
   /* NOTREACHED */
-  return null;
+  throw new Error(`can't findParshaHaShavua for ${saturday}/${il}`);
 }
 
 /**
@@ -58,11 +57,10 @@ function findParshaHaShavua(saturday, il) {
  * @param {HDate} hdate Hebrew Date
  * @param {boolean} il in Israel
  * @param {boolean} [wantarray] to return an array of 0 or more readings
- * @return {Leyning|Leyning[]} map of aliyot
  */
-export function getLeyningOnDate(hdate, il, wantarray = false) {
+export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean = false): (Leyning | LeyningWeekday) | (Leyning | LeyningWeekday)[] | undefined {
   const dow = hdate.getDay();
-  const arr = [];
+  const arr: (Leyning | LeyningWeekday)[] = [];
   let hasParshaHaShavua = false;
   if (dow === 6) {
     const hyear = hdate.getFullYear();
@@ -100,12 +98,15 @@ export function getLeyningOnDate(hdate, il, wantarray = false) {
   }
   if (!hasFullKriyah && (dow === 1 || dow === 4)) {
     const saturday = hdate.onOrAfter(6);
-    const parsha = findParshaHaShavua(saturday);
-    const reading = {
+    const parsha = findParshaHaShavua(saturday, il);
+    const aliyot = getWeekdayReading(parsha.parsha);
+    const parts = makeLeyningParts(aliyot);
+    const reading: LeyningWeekday = {
       name: makeLeyningNames(parsha.parsha),
       parsha: parsha.parsha,
       parshaNum: parsha.num,
-      weekday: getWeekdayReading(parsha.parsha),
+      weekday: aliyot,
+      summary: makeSummaryFromParts(parts),
     };
     arr.unshift(reading);
   }
@@ -114,13 +115,7 @@ export function getLeyningOnDate(hdate, il, wantarray = false) {
 
 const minchaSuffix = ' (Mincha)';
 
-/**
- * @private
- * @param {Event} ev
- * @param {boolean} il
- * @return {Leyning}
- */
-function getMincha(ev, il) {
+function getMincha(ev: HolidayEvent, il: boolean): Leyning | undefined {
   const desc = ev.getDesc() + minchaSuffix;
   const reading1 = getLeyningForHolidayKey(desc, ev.cholHaMoedDay, il);
   if (reading1) {

@@ -1,7 +1,6 @@
-import test from 'ava';
-import {hasFestival, lookupFestival} from './festival.js';
+import {hasFestival, lookupFestival} from '../src/festival';
 
-test('lookupFestival-fk', (t) => {
+test('lookupFestival-fk', () => {
   const src = lookupFestival('Pesach VIII');
   const expected = {
     haft: {k: 'Isaiah', b: '10:32', e: '12:6'},
@@ -14,10 +13,10 @@ test('lookupFestival-fk', (t) => {
       'M': {p: 41, k: 'Numbers', b: '28:19', e: '28:25'},
     },
   };
-  t.deepEqual(src, expected);
+  expect(src).toEqual(expected);
 });
 
-test('lookupFestival-alias', (t) => {
+test('lookupFestival-alias', () => {
   const src = lookupFestival('Asara B\'Tevet');
   const expected = {
     fullkriyah: {
@@ -26,15 +25,15 @@ test('lookupFestival-alias', (t) => {
       '3': {p: 21, k: 'Exodus', b: '34:4', e: '34:10'},
     },
   };
-  t.deepEqual(src, expected);
+  expect(src).toEqual(expected);
 });
 
-test('lookupFestival-note', (t) => {
+test('lookupFestival-note', () => {
   const src = lookupFestival('Shushan Purim');
-  t.is(src.note, 'Jerusalem & walled cities only');
+  expect(src.note).toBe('Jerusalem & walled cities only');
 });
 
-test('hasFestival', (t) => {
-  t.is(hasFestival('Foo'), false);
-  t.is(hasFestival('Shavuot'), true);
+test('hasFestival', () => {
+  expect(hasFestival('Foo')).toBe(false);
+  expect(hasFestival('Shavuot')).toBe(true);
 });

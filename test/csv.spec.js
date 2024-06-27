@@ -1,5 +1,4 @@
 /* eslint-disable require-jsdoc */
-import test from 'ava';
 import {Writable} from 'stream';
 import {
   HDate,
@@ -10,7 +9,7 @@ import {
   flags,
   months,
 } from '@hebcal/core';
-import {writeFullKriyahEvent} from './csv.js';
+import {writeFullKriyahEvent} from '../src/csv';
 
 class StringWritable extends Writable {
   constructor(options) {
@@ -26,7 +25,7 @@ class StringWritable extends Writable {
   }
 }
 
-test('writeFullKriyahEvent-parsha', (t) => {
+test('writeFullKriyahEvent-parsha', () => {
   const ev = new ParshaEvent(new HDate(new Date(2020, 4, 16)), ['Behar', 'Bechukotai']);
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
@@ -42,10 +41,10 @@ test('writeFullKriyahEvent-parsha', (t) => {
     '16-May-2020,"Behar-Bechukotai","maf","Leviticus 27:32-27:34",3',
     '16-May-2020,"Behar-Bechukotai","Haftara","Jeremiah 16:19-17:14",17',
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });
 
-test('writeFullKriyahEvent-holiday', (t) => {
+test('writeFullKriyahEvent-holiday', () => {
   const ev = new HolidayEvent(new HDate(18, months.NISAN, 5764),
       'Pesach IV (CH\'\'M)', flags.CHUL_ONLY, {cholHaMoedDay: 2});
   const stream = new StringWritable();
@@ -57,10 +56,10 @@ test('writeFullKriyahEvent-holiday', (t) => {
     '09-Apr-2004,"Pesach Chol ha-Moed Day 2",3,"Exodus 23:6-23:19",14',
     '09-Apr-2004,"Pesach Chol ha-Moed Day 2",4,"Numbers 28:19-28:25",7',
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });
 
-test('writeFullKriyahEvent-holiday-il', (t) => {
+test('writeFullKriyahEvent-holiday-il', () => {
   const ev = new HolidayEvent(new HDate(18, months.NISAN, 5764),
       'Pesach IV (CH\'\'M)', flags.IL_ONLY, {cholHaMoedDay: 3});
   const stream = new StringWritable();
@@ -72,10 +71,10 @@ test('writeFullKriyahEvent-holiday-il', (t) => {
     `09-Apr-2004,"Pesach IV (CH''M)",3,"Exodus 23:6-23:19",14`,
     `09-Apr-2004,"Pesach IV (CH''M)",4,"Numbers 28:19-28:25",7`,
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });
 
-test('writeFullKriyahEvent-RoshChodesh', (t) => {
+test('writeFullKriyahEvent-RoshChodesh', () => {
   const ev = new RoshChodeshEvent(new HDate(1, months.SIVAN, 5782), 'Sivan');
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
@@ -86,10 +85,10 @@ test('writeFullKriyahEvent-RoshChodesh', (t) => {
     '31-May-2022,"Rosh Chodesh Sivan",3,"Numbers 28:6-28:10",5',
     '31-May-2022,"Rosh Chodesh Sivan",4,"Numbers 28:11-28:15",5',
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });
 
-test('writeFullKriyahEvent-9av', (t) => {
+test('writeFullKriyahEvent-9av', () => {
   const ev = new HolidayEvent(new HDate(9, months.AV, 5783), 'Tish\'a B\'Av', flags.MAJOR_FAST);
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
@@ -105,16 +104,16 @@ test('writeFullKriyahEvent-9av', (t) => {
     `27-Jul-2023,"Tish'a B'Av (Mincha)","maf","Exodus 34:4-34:10",7`,
     `27-Jul-2023,"Tish'a B'Av (Mincha)","Haftara","Isaiah 55:6-56:8",16`,
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });
 
-test.skip('writeFullKriyahEvent-SimchatTorah', (t) => {
+test.skip('writeFullKriyahEvent-SimchatTorah', () => {
   const events = HebrewCalendar.calendar({
     start: new HDate(22, months.TISHREI, 5784),
     end: new HDate(23, months.TISHREI, 5784),
     il: false,
   });
-  t.is(events.length, 2);
+  expect(events.length).toBe(2);
   const stream = new StringWritable();
   events.forEach((ev) => writeFullKriyahEvent(stream, ev, false));
   const lines = stream.toString().split('\r\n');
@@ -122,10 +121,10 @@ test.skip('writeFullKriyahEvent-SimchatTorah', (t) => {
   // Erev Simchat Torah
   const expected = [
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });
 
-test('writeFullKriyahEvent-shekalim', (t) => {
+test('writeFullKriyahEvent-shekalim', () => {
   const hd = new HDate(29, 'Adar I', 5784);
   const ev = new ParshaEvent(hd, ['Vayakhel'], false);
   const stream = new StringWritable();
@@ -143,5 +142,5 @@ test('writeFullKriyahEvent-shekalim', (t) => {
     '09-Mar-2024,"Vayakhel","Haftara for Ashkenazim","II Kings 12:1-17 | Shabbat Shekalim",17',
     '09-Mar-2024,"Vayakhel","Haftara for Sephardim","II Kings 11:17-12:17 | Shabbat Shekalim",21',
     '', ''];
-  t.deepEqual(lines, expected);
+  expect(lines).toEqual(expected);
 });

@@ -1,14 +1,9 @@
-import {calculateNumVerses} from './common.js';
+import { calculateNumVerses } from './common';
 
-/**
- * @private
- * @param {string} haftara
- * @return {number}
- */
-export function calculateHaftarahNumVerses(haftara) {
+export function calculateHaftarahNumVerses(haftara: string): number | undefined {
   const sections = haftara.split(/[;,]/);
   let total = 0;
-  let prevBook;
+  let prevBook = '';
   for (const haft of sections) {
     const matches = haft.trim().match(/^(([^\d]+)\s+)?(\d.+)$/);
     if (matches !== null) {

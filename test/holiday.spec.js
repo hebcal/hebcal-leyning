@@ -1,11 +1,10 @@
-import test from 'ava';
 import {HDate, HebrewCalendar, Event, months, flags, HolidayEvent} from '@hebcal/core';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
-import {formatAliyahWithBook} from './common.js';
+import {getLeyningForHoliday, getLeyningForHolidayKey} from '../src/getLeyningForHoliday';
+import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';
+import {formatAliyahWithBook} from '../src/common';
 
 
-test('pesach-il', (t) => {
+test('pesach-il', () => {
   const events0 = HebrewCalendar.calendar({year: 5782, isHebrewYear: true, il: true});
   const events = events0.filter((ev) => ev.basename() === 'Pesach');
   const actual = [];
@@ -26,10 +25,10 @@ test('pesach-il', (t) => {
     {h: 'Pesach VI (CH\'\'M)', s: 'Numbers 9:1-14, 28:19-25'},
     {h: 'Pesach VII', s: 'Exodus 13:17-15:26; Numbers 28:19-25'},
   ];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('pesach-shabbat-chm-on-3rd-day', (t) => {
+test('pesach-shabbat-chm-on-3rd-day', () => {
   const events0 = HebrewCalendar.calendar({year: 5784, isHebrewYear: true, il: false});
   const events = events0.filter((ev) => ev.basename() === 'Pesach');
   const actual = [];
@@ -93,7 +92,7 @@ test('pesach-shabbat-chm-on-3rd-day', (t) => {
       s: 'Deuteronomy 15:19-16:17; Numbers 28:19-25',
     },
   ];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
 // eslint-disable-next-line require-jsdoc
@@ -101,51 +100,51 @@ function formatAliyah(aliyot, num) {
   return formatAliyahWithBook(aliyot.fullkriyah[num]);
 }
 
-test('getLeyningForHoliday-il', (t) => {
+test('getLeyningForHoliday-il', () => {
   const options = {year: 5757, isHebrewYear: true, il: true};
   const events = HebrewCalendar.calendar(options);
 
   const sukkot1 = events.find((e) => e.getDesc() == 'Sukkot I');
   const sukkot1a = getLeyningForHoliday(sukkot1);
-  t.is(sukkot1a.fullkriyah['7'].p, 31);
-  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44; Numbers 29:12-16');
+  expect(sukkot1a.fullkriyah['7'].p).toBe(31);
+  expect(sukkot1a.summary).toBe('Leviticus 22:26-23:44; Numbers 29:12-16');
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
-  t.is(getLeyningForHoliday(sukkot2, true).fullkriyah['4'].p, 41);
+  expect(getLeyningForHoliday(sukkot2, true).fullkriyah['4'].p).toBe(41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
-  t.is(getLeyningForHoliday(shminiAtzeret, true).fullkriyah['7'].p, 1);
+  expect(getLeyningForHoliday(shminiAtzeret, true).fullkriyah['7'].p).toBe(1);
   const tevet17 = events.find((e) => e.getDesc() == 'Asara B\'Tevet');
-  t.is(getLeyningForHoliday(tevet17, true).fullkriyah['3'].e, '34:10');
+  expect(getLeyningForHoliday(tevet17, true).fullkriyah['3'].e).toBe('34:10');
   const pesach5 = events.find((e) => e.getDesc() == 'Pesach V (CH\'\'M)');
-  t.is(getLeyningForHoliday(pesach5, true).fullkriyah['4'].p, 21);
+  expect(getLeyningForHoliday(pesach5, true).fullkriyah['4'].p).toBe(21);
   const shavuot = events.find((e) => e.getDesc() == 'Shavuot');
-  t.is(getLeyningForHoliday(shavuot, true).fullkriyah['4'].p, 17);
+  expect(getLeyningForHoliday(shavuot, true).fullkriyah['4'].p).toBe(17);
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
-  t.is(getLeyningForHoliday(av9, true).haftara, 'Jeremiah 8:13-9:23');
+  expect(getLeyningForHoliday(av9, true).haftara).toBe('Jeremiah 8:13-9:23');
 });
 
-test('getLeyningForHoliday-diaspora', (t) => {
+test('getLeyningForHoliday-diaspora', () => {
   const events = HebrewCalendar.calendar({year: 5757, isHebrewYear: true, il: false});
 
   const sukkot1 = events.find((e) => e.getDesc() == 'Sukkot I');
   const sukkot1a = getLeyningForHoliday(sukkot1);
-  t.is(sukkot1a.fullkriyah['7'].p, 31);
-  t.is(sukkot1a.summary, 'Leviticus 22:26-23:44; Numbers 29:12-16');
+  expect(sukkot1a.fullkriyah['7'].p).toBe(31);
+  expect(sukkot1a.summary).toBe('Leviticus 22:26-23:44; Numbers 29:12-16');
   const sukkot3 = events.find((e) => e.getDesc() == 'Sukkot III (CH\'\'M)');
-  t.is(getLeyningForHoliday(sukkot3, false).fullkriyah['4'].p, 41);
+  expect(getLeyningForHoliday(sukkot3, false).fullkriyah['4'].p).toBe(41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
-  t.is(getLeyningForHoliday(shminiAtzeret, false).fullkriyah['7'].p, 47);
+  expect(getLeyningForHoliday(shminiAtzeret, false).fullkriyah['7'].p).toBe(47);
   const tevet17 = events.find((e) => e.getDesc() == 'Asara B\'Tevet');
-  t.is(getLeyningForHoliday(tevet17, false).fullkriyah['3'].e, '34:10');
+  expect(getLeyningForHoliday(tevet17, false).fullkriyah['3'].e).toBe('34:10');
   const pesach5 = events.find((e) => e.getDesc() == 'Pesach V (CH\'\'M)');
-  t.is(getLeyningForHoliday(pesach5, false).fullkriyah['4'].p, 21);
+  expect(getLeyningForHoliday(pesach5, false).fullkriyah['4'].p).toBe(21);
   const shavuot = events.find((e) => e.getDesc() == 'Shavuot I');
-  t.is(getLeyningForHoliday(shavuot, false).fullkriyah['4'].p, 17);
+  expect(getLeyningForHoliday(shavuot, false).fullkriyah['4'].p).toBe(17);
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
-  t.is(getLeyningForHoliday(av9, false).haftara, 'Jeremiah 8:13-9:23');
+  expect(getLeyningForHoliday(av9, false).haftara).toBe('Jeremiah 8:13-9:23');
 });
 
 
-test('getLeyningForHoliday-Chanukah', (t) => {
+test('getLeyningForHoliday-Chanukah', () => {
   const options = {year: 5757, isHebrewYear: true, il: true};
   const events = HebrewCalendar.calendar(options);
   const chanukah3 = events.find((e) => e.getDesc() == 'Chanukah: 3 Candles');
@@ -157,10 +156,10 @@ test('getLeyningForHoliday-Chanukah', (t) => {
     haftara: 'Zechariah 2:14-4:7',
     haftaraNumV: 21,
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 });
 
-test('getLeyningForHoliday-RoshChodesh', (t) => {
+test('getLeyningForHoliday-RoshChodesh', () => {
   const ev = new Event(new HDate(1, months.SIVAN, 5782),
       'Rosh Chodesh Sivan', flags.ROSH_CHODESH);
   const expected = {
@@ -177,10 +176,10 @@ test('getLeyningForHoliday-RoshChodesh', (t) => {
     },
   };
   const actual = getLeyningForHoliday(ev);
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('Rosh Chodesh Tevet', (t) => {
+test('Rosh Chodesh Tevet', () => {
   const expectedDay6 = {
     name: {
       en: 'Chanukah Day 6',
@@ -201,12 +200,12 @@ test('Rosh Chodesh Tevet', (t) => {
   const rchTevet = new Event(new HDate(1, months.TEVET, 5784),
       'Rosh Chodesh Tevet', flags.ROSH_CHODESH);
   const reading2 = getLeyningForHoliday(rchTevet);
-  t.deepEqual(reading2, expectedDay6);
+  expect(reading2).toEqual(expectedDay6);
 
   const rchTevet30kis = new Event(new HDate(30, months.KISLEV, 5787),
       'Rosh Chodesh Tevet', flags.ROSH_CHODESH);
   const reading3 = getLeyningForHoliday(rchTevet30kis);
-  t.deepEqual(reading3, expectedDay6);
+  expect(reading3).toEqual(expectedDay6);
 
   const expectedDay7rch = {
     name: {
@@ -228,10 +227,10 @@ test('Rosh Chodesh Tevet', (t) => {
   const rchTevet1tev = new Event(new HDate(1, months.TEVET, 5787),
       'Rosh Chodesh Tevet', flags.ROSH_CHODESH);
   const reading4 = getLeyningForHoliday(rchTevet1tev);
-  t.deepEqual(reading4, expectedDay7rch);
+  expect(reading4).toEqual(expectedDay7rch);
 });
 
-test('getLeyningForHoliday-9av-obvs', (t) => {
+test('getLeyningForHoliday-9av-obvs', () => {
   const ev = new Event(new HDate(10, months.AV, 5782),
       'Tish\'a B\'Av (observed)', flags.MAJOR_FAST, {observed: true});
   const expected = {
@@ -255,48 +254,48 @@ test('getLeyningForHoliday-9av-obvs', (t) => {
     haftaraNumV: 34,
   };
   const actual = getLeyningForHoliday(ev);
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('shmini-atzeret', (t) => {
+test('shmini-atzeret', () => {
   const diaspora = HebrewCalendar.calendar({year: 2019, month: 10, il: false});
   const shminiDiaspora = diaspora.find((e) => e.getDesc() == 'Shmini Atzeret');
-  t.is(getLeyningForHoliday(shminiDiaspora, false).haftara, 'I Kings 8:54-66');
+  expect(getLeyningForHoliday(shminiDiaspora, false).haftara).toBe('I Kings 8:54-66');
 
   const israel = HebrewCalendar.calendar({year: 2019, month: 10, il: true});
   const shminiIsrael = israel.find((e) => e.getDesc() == 'Shmini Atzeret');
-  t.is(getLeyningForHoliday(shminiIsrael, true).haftara, 'Joshua 1:1-18');
+  expect(getLeyningForHoliday(shminiIsrael, true).haftara).toBe('Joshua 1:1-18');
 });
 
-test('sukkot-shabbat-chm', (t) => {
+test('sukkot-shabbat-chm', () => {
   const diaspora = HebrewCalendar.calendar({year: 2019, month: 10, il: false});
   const sukkotShabbatD = diaspora.find((e) => e.getDesc() == 'Sukkot VI (CH\'\'M)');
   const a1 = getLeyningForHoliday(sukkotShabbatD);
-  t.is(a1.haftara, 'Ezekiel 38:18-39:16');
-  t.is(formatAliyah(a1, 'M'), 'Numbers 29:26-29:31');
+  expect(a1.haftara).toBe('Ezekiel 38:18-39:16');
+  expect(formatAliyah(a1, 'M')).toBe('Numbers 29:26-29:31');
 
   const israel = HebrewCalendar.calendar({year: 2017, month: 10, il: true});
   const sukkotShabbatIL = israel.find((e) => e.getDesc() == 'Sukkot III (CH\'\'M)');
   const a2 = getLeyningForHoliday(sukkotShabbatIL);
-  t.is(a2.haftara, 'Ezekiel 38:18-39:16');
-  t.is(formatAliyah(a2, 'M'), 'Numbers 29:20-29:25');
+  expect(a2.haftara).toBe('Ezekiel 38:18-39:16');
+  expect(formatAliyah(a2, 'M')).toBe('Numbers 29:20-29:25');
 });
 
-test('no-leyning-on-holiday', (t) => {
+test('no-leyning-on-holiday', () => {
   const options = {year: 5757, isHebrewYear: true, il: true};
   const events = HebrewCalendar.calendar(options);
   const tuBiShvat = events.find((e) => e.getDesc() == 'Tu BiShvat');
   const a = getLeyningForHoliday(tuBiShvat);
-  t.is(a, undefined);
+  expect(a).toBe(undefined);
 });
 
-test('ignoreUserEvent-getLeyningForHoliday', (t) => {
+test('ignoreUserEvent-getLeyningForHoliday', () => {
   const ev = new Event(new HDate(20, months.TISHREI, 5780), 'Birthday', flags.USER_EVENT);
   const a = getLeyningForHoliday(ev);
-  t.is(a, undefined);
+  expect(a).toBe(undefined);
 });
 
-test('pesach-days-567', (t) => {
+test('pesach-days-567', () => {
   const april20 = new Date(2022, 3, 20);
   const april22 = new Date(2022, 3, 22);
   const events = HebrewCalendar.calendar({start: april20, end: april22});
@@ -362,17 +361,17 @@ test('pesach-days-567', (t) => {
     haftara: 'II Samuel 22:1-51',
     haftaraNumV: 51,
   }];
-  t.deepEqual(result, expected);
+  expect(result).toEqual(expected);
 });
 
-test('israel-sukkot-chm-day5', (t) => {
+test('israel-sukkot-chm-day5', () => {
   const october8 = new Date(2020, 9, 8);
   const israel = HebrewCalendar.calendar({
     il: true, start: october8, end: october8,
   });
-  t.is(israel[0].getDesc(), 'Sukkot VI (CH\'\'M)');
+  expect(israel[0].getDesc()).toBe('Sukkot VI (CH\'\'M)');
   const sukkotChmDay5 = getLeyningForHoliday(israel[0], true);
-  t.deepEqual(sukkotChmDay5, {
+  expect(sukkotChmDay5).toEqual({
     name: {
       en: 'Sukkot Chol ha-Moed Day 5',
       he: 'סוּכּוֹת חוֹל הַמּוֹעֵד יוֹם ה׳',
@@ -391,7 +390,7 @@ test('israel-sukkot-chm-day5', (t) => {
   });
 });
 
-test('longest-holiday-haftarah', (t) => {
+test('longest-holiday-haftarah', () => {
   const events = HebrewCalendar.calendar({
     year: 2023,
     numYears: 19,
@@ -407,11 +406,11 @@ test('longest-holiday-haftarah', (t) => {
       holiday = ev.getDesc();
     }
   }
-  t.is(numverses, 51);
-  t.is(holiday, 'Pesach VII');
+  expect(numverses).toBe(51);
+  expect(holiday).toBe('Pesach VII');
 });
 
-test('Sukkot Shabbat Chol ha-Moed', (t) => {
+test('Sukkot Shabbat Chol ha-Moed', () => {
   const hd = new HDate(20, 'Tishrei', 5783);
   const events = HebrewCalendar.calendar({
     start: hd,
@@ -456,10 +455,10 @@ test('Sukkot Shabbat Chol ha-Moed', (t) => {
     haftara: 'Ezekiel 38:18-39:16',
     haftaraNumV: 22,
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 });
 
-test('17tamuz', (t) => {
+test('17tamuz', () => {
   const hd = new HDate(17, 'Tamuz', 5783);
   const events = HebrewCalendar.calendar({
     start: hd,
@@ -479,10 +478,10 @@ test('17tamuz', (t) => {
       {k: 'Exodus', b: '34:1', e: '34:10'},
     ],
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 });
 
-test('9av', (t) => {
+test('9av', () => {
   const hd = new HDate(9, 'Av', 5783);
   const events = HebrewCalendar.calendar({
     start: hd,
@@ -501,10 +500,10 @@ test('9av', (t) => {
     haftara: 'Jeremiah 8:13-9:23',
     haftaraNumV: 34,
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 });
 
-test('fast day mincha', (t) => {
+test('fast day mincha', () => {
   const reading = getLeyningForHolidayKey('Tish\'a B\'Av (Mincha)');
   const expected = {
     name: {en: 'Tish\'a B\'Av (Mincha)', he: 'תִּשְׁעָה בְּאָב מִנחָה'},
@@ -522,18 +521,18 @@ test('fast day mincha', (t) => {
     haftara: 'Isaiah 55:6-56:8',
     haftaraNumV: 16,
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 
   const reading2 = getLeyningForHolidayKey('Tzom Gedaliah (Mincha)');
   expected.name = {en: 'Tzom Gedaliah (Mincha)', he: 'צוֹם גְּדַלְיָה מִנחָה'};
-  t.deepEqual(reading2, expected);
+  expect(reading2).toEqual(expected);
 
   const reading3 = getLeyningForHolidayKey('Ta\'anit Esther (Mincha)');
   expected.name = {en: 'Ta\'anit Esther (Mincha)', he: 'תַּעֲנִית אֶסְתֵּר מִנחָה'};
-  t.deepEqual(reading3, expected);
+  expect(reading3).toEqual(expected);
 });
 
-test('pesach-diaspora-chm-day2-sunday', (t) => {
+test('pesach-diaspora-chm-day2-sunday', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
   const events = events0.filter((ev) => ev.basename() === 'Pesach' && ev.cholHaMoedDay);
   const actual = events.map((ev) => {
@@ -571,10 +570,10 @@ test('pesach-diaspora-chm-day2-sunday', (t) => {
       s: 'Numbers 9:1-14, 28:19-25',
     },
   ];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('Shavuot Israel', (t) => {
+test('Shavuot Israel', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: true});
   const events = events0.filter((ev) => ev.getDesc() === 'Shavuot');
   const actual = getLeyningForHoliday(events[0], true);
@@ -584,18 +583,18 @@ test('Shavuot Israel', (t) => {
     '3': {k: 'Ruth', b: '3:1', e: '3:18', v: 18},
     '4': {k: 'Ruth', b: '4:1', e: '4:22', v: 22},
   };
-  t.deepEqual(actual.megillah, expected);
+  expect(actual.megillah).toEqual(expected);
 });
 
-test('Shavuot Diaspora', (t) => {
+test('Shavuot Diaspora', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
   const events = events0.filter((ev) => ev.basename() === 'Shavuot');
-  t.is(events[0].getDesc(), 'Erev Shavuot');
-  t.is(getLeyningForHoliday(events[0]), undefined);
-  t.is(events[1].getDesc(), 'Shavuot I');
-  t.is(getLeyningForHoliday(events[1]).megillah, undefined);
-  t.is(events[2].getDesc(), 'Shavuot II');
-  t.deepEqual(getLeyningForHoliday(events[2]).megillah, {
+  expect(events[0].getDesc()).toBe('Erev Shavuot');
+  expect(getLeyningForHoliday(events[0])).toBe(undefined);
+  expect(events[1].getDesc()).toBe('Shavuot I');
+  expect(getLeyningForHoliday(events[1]).megillah).toBe(undefined);
+  expect(events[2].getDesc()).toBe('Shavuot II');
+  expect(getLeyningForHoliday(events[2]).megillah).toEqual({
     '1': {k: 'Ruth', b: '1:1', e: '1:22', v: 22},
     '2': {k: 'Ruth', b: '2:1', e: '2:23', v: 23},
     '3': {k: 'Ruth', b: '3:1', e: '3:18', v: 18},
@@ -603,7 +602,7 @@ test('Shavuot Diaspora', (t) => {
   });
 });
 
-test('Erev Purim', (t) => {
+test('Erev Purim', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
   const events = events0.filter((ev) => ev.getDesc() === 'Erev Purim');
   const actual = getLeyningForHoliday(events[0]);
@@ -622,17 +621,17 @@ test('Erev Purim', (t) => {
       '10': {k: 'Esther', b: '10:1', e: '10:3', v: 3},
     },
   };
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('getLeyningForHoliday-note', (t) => {
+test('getLeyningForHoliday-note', () => {
   const ev = new HolidayEvent(new HDate(15, months.ADAR_II, 5784),
       'Shushan Purim', flags.MINOR_HOLIDAY);
   const reading = getLeyningForHoliday(ev, true);
-  t.is(reading.note, 'Jerusalem & walled cities only');
+  expect(reading.note).toBe('Jerusalem & walled cities only');
 });
 
-test('getLeyningForHolidayKey-note', (t) => {
+test('getLeyningForHolidayKey-note', () => {
   const reading = getLeyningForHolidayKey('Shushan Purim', undefined, true);
-  t.is(reading.note, 'Jerusalem & walled cities only');
+  expect(reading.note).toBe('Jerusalem & walled cities only');
 });

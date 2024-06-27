@@ -1,9 +1,8 @@
-import test from 'ava';
 import {HebrewCalendar, flags} from '@hebcal/core';
-import {getLeyningForHoliday} from './getLeyningForHoliday.js';
-import {getLeyningForParshaHaShavua} from './leyning.js';
+import {getLeyningForHoliday} from '../src/getLeyningForHoliday';
+import {getLeyningForParshaHaShavua} from '../src/leyning';
 
-test('Chanukah', (t) => {
+test('Chanukah', () => {
   const events = HebrewCalendar.calendar({
     start: new Date(2022, 11, 17),
     end: new Date(2022, 11, 27),
@@ -123,5 +122,5 @@ test('Chanukah', (t) => {
     n: 'Chanukah Day 8',
     s: 'Numbers 7:54-8:4',
   }];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });

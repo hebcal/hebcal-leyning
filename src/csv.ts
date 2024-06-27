@@ -1,44 +1,35 @@
-import {Event, HebrewCalendar, flags} from '@hebcal/core';
-import {formatAliyahWithBook} from './common.js';
-import {getLeyningForHoliday, getLeyningForHolidayKey} from './getLeyningForHoliday.js';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
-import {getLeyningForParshaHaShavua} from './leyning.js';
+import { Event, HebrewCalendar, HolidayEvent, flags } from '@hebcal/core';
+import { WriteStream } from 'node:fs';
+import { formatAliyahWithBook } from './common';
+import { getLeyningForHoliday, getLeyningForHolidayKey } from './getLeyningForHoliday';
+import { getLeyningKeyForEvent } from './getLeyningKeyForEvent';
+import { getLeyningForParshaHaShavua } from './leyning';
+import { Leyning } from './types';
 
 const fmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric', month: 'short', day: '2-digit',
 });
 
-/**
- * @private
- * @param {Date} dt
- * @return {string}
- */
-function fmtDate(dt) {
+function fmtDate(dt: Date): string {
   const s = fmt.format(dt).split(' ');
   return s[1].substring(0, 2) + '-' + s[0] + '-' + s[2];
 }
 
-/**
- * @private
- * @param {Event[]} events
- * @return {Object<string,boolean>}
- */
-export function getParshaDates(events) {
+export interface StringToBoolMap {
+  [key: string]: boolean;
+}
+
+export function getParshaDates(events: Event[]): StringToBoolMap {
   const parshaEvents = events.filter((ev) => ev.getFlags() === flags.PARSHA_HASHAVUA);
+  const emptyMap: StringToBoolMap = {};
   const parshaDates = parshaEvents.reduce((set, ev) => {
     set[ev.getDate().toString()] = true;
     return set;
-  }, {});
+  }, emptyMap);
   return parshaDates;
 }
 
-/**
- * @private
- * @param {fs.WriteStream} stream
- * @param {number} hyear
- * @param {boolean} il
- */
-export function writeFullKriyahCsv(stream, hyear, il) {
+export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boolean) {
   const events0 = HebrewCalendar.calendar({
     year: hyear,
     isHebrewYear: true,
@@ -55,12 +46,7 @@ export function writeFullKriyahCsv(stream, hyear, il) {
   }
 }
 
-/**
- * @private
- * @param {Event} ev
- * @return {boolean}
- */
-function ignore(ev) {
+function ignore(ev: Event): boolean {
   const mask = ev.getFlags();
   if (mask === flags.SPECIAL_SHABBAT) {
     return true;
@@ -71,13 +57,7 @@ function ignore(ev) {
   return ev.getDate().getDay() === 6;
 }
 
-/**
- * @private
- * @param {fs.WriteStream} stream
- * @param {Event} ev
- * @param {boolean} il
- */
-export function writeFullKriyahEvent(stream, ev, il) {
+export function writeFullKriyahEvent(stream: WriteStream, ev: Event, il: boolean) {
   if (ignore(ev)) {
     return;
   }
@@ -87,18 +67,12 @@ export function writeFullKriyahEvent(stream, ev, il) {
   if (reading) {
     writeCsvLines(stream, ev, reading, il, isParsha);
     if (!isParsha) {
-      writeHolidayMincha(stream, ev, il);
+      writeHolidayMincha(stream, ev as HolidayEvent, il);
     }
   }
 }
 
-/**
- * @private
- * @param {fs.WriteStream} stream
- * @param {Event} ev
- * @param {boolean} il
- */
-export function writeHolidayMincha(stream, ev, il) {
+export function writeHolidayMincha(stream: WriteStream, ev: HolidayEvent, il: boolean) {
   const desc = ev.getDesc();
   const minchaDesc1 = desc + ' (Mincha)';
   const readingMincha1 = getLeyningForHolidayKey(minchaDesc1, ev.cholHaMoedDay, il);
@@ -112,13 +86,8 @@ export function writeHolidayMincha(stream, ev, il) {
 
 /**
  * Formats reading for CSV
- * @param {fs.WriteStream} stream
- * @param {Event} ev
- * @param {Leyning} reading
- * @param {boolean} il
- * @param {boolean} isParsha
  */
-export function writeCsvLines(stream, ev, reading, il, isParsha) {
+export function writeCsvLines(stream: WriteStream, ev: Event, reading: Leyning, il: boolean, isParsha: boolean) {
   const parsha = isParsha ? ev.basename() : getLeyningKeyForEvent(ev, il) || ev.render();
   const date = fmtDate(ev.getDate().greg());
   const lines = getFullKriyahLines(reading);
@@ -132,12 +101,7 @@ export function writeCsvLines(stream, ev, reading, il, isParsha) {
   stream.write('\r\n');
 }
 
-/**
- * @private
- * @param {any} reading
- * @return {any[]}
- */
-function getFullKriyahLines(reading) {
+function getFullKriyahLines(reading: Leyning): any[] {
   const lines = [];
   if (reading.fullkriyah) {
     for (const [num, a] of Object.entries(reading.fullkriyah)) {

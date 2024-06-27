@@ -1,20 +1,27 @@
-import {Locale, flags} from '@hebcal/core';
-import {calculateNumVerses, clone, cloneHaftara, sumVerses} from './common.js';
-import {lookupFestival} from './festival.js';
-import {HOLIDAY_IGNORE_MASK, getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
-import numverses from './numverses.json.js';
-import {makeLeyningParts, makeSummaryFromParts} from './summary.js';
+import { Event, Locale, flags } from '@hebcal/core';
+import { calculateNumVerses } from './common';
+import { clone, cloneHaftara, sumVerses } from './clone';
+import { lookupFestival } from './festival';
+import { HOLIDAY_IGNORE_MASK, getLeyningKeyForEvent } from './getLeyningKeyForEvent';
+import numverses from './numverses.json';
+import { makeLeyningParts, makeSummaryFromParts } from './summary';
+import {
+  Aliyah,
+  AliyotMap,
+  Leyning,
+} from './types';
+
+type NumVerses = {
+  [key: string]: number[],
+};
 
 /**
  * Looks up leyning for a given holiday key. Key should be an
  * (untranslated) string used in holiday-readings.json. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
- * @param {string} key name from `holiday-readings.json` to find
- * @param {number} [cholHaMoedDay]
- * @param {boolean} [il]
- * @return {Leyning} map of aliyot
+ * @param key name from `holiday-readings.json` to find
  */
-export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
+export function getLeyningForHolidayKey(key?: string, cholHaMoedDay?: number, il?: boolean): Leyning | undefined {
   if (typeof key !== 'string') {
     return undefined;
   }
@@ -22,13 +29,14 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
   if (typeof src === 'undefined') {
     return undefined;
   }
-  if (typeof src.il === 'boolean' && typeof il === 'boolean' && il !== src.il) {
+  const israelOnly = (src as any).il;
+  if (typeof israelOnly === 'boolean' && typeof il === 'boolean' && il !== israelOnly) {
     return undefined;
   }
-  const leyning = {
+  const leyning: any = {
     name: {
       en: key,
-      he: Locale.lookupTranslation(key, 'he'),
+      he: Locale.lookupTranslation(key, 'he')!,
     },
   };
   if (src.fullkriyah) {
@@ -46,7 +54,7 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
         leyning.summaryParts = parts;
       }
     }
-    Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah));
+    Object.values(leyning.fullkriyah).map((aliyah) => calculateNumVerses(aliyah as Aliyah));
   }
   if (src.haft) {
     const haft = leyning.haft = cloneHaftara(src.haft);
@@ -59,9 +67,9 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
     leyning.sephardicNumV = sumVerses(seph);
   }
   if (src.megillah) {
-    const book = src.megillah;
-    const chaps = numverses[book];
-    const m = {};
+    const book: string = (src as any).megillah;
+    const chaps = (numverses as NumVerses)[book];
+    const m: AliyotMap = {};
     for (let i = 1; i < chaps.length; i++) {
       const numv = chaps[i];
       m[`${i}`] = {k: book, b: `${i}:1`, e: `${i}:${numv}`, v: numv};
@@ -81,10 +89,10 @@ export function getLeyningForHolidayKey(key, cholHaMoedDay, il) {
  * @param {boolean} [il] true if Israel holiday scheme
  * @return {Leyning} map of aliyot
  */
-export function getLeyningForHoliday(ev, il = false) {
+export function getLeyningForHoliday(ev: Event, il: boolean = false): Leyning | undefined {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
-    throw new TypeError(`Bad event argument: ${ev}`);
-  } else if (typeof ev.eventTime !== 'undefined') {
+    throw new TypeError(`Bad event argument: ${JSON.stringify(ev)}`);
+  } else if (typeof (ev as any).eventTime !== 'undefined') {
     return undefined;
   } else if (ev.getFlags() & flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event should be a holiday: ${ev.getDesc()}`);
@@ -92,6 +100,6 @@ export function getLeyningForHoliday(ev, il = false) {
     return undefined;
   }
   const key = getLeyningKeyForEvent(ev, il);
-  const leyning = getLeyningForHolidayKey(key, ev.cholHaMoedDay, il);
+  const leyning = getLeyningForHolidayKey(key, (ev as any).cholHaMoedDay, il);
   return leyning;
 }

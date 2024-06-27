@@ -1,6 +1,5 @@
-import test from 'ava';
 import {HebrewCalendar} from '@hebcal/core';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';
 
 // eslint-disable-next-line require-jsdoc
 function dateDescKey(ev) {
@@ -11,7 +10,7 @@ function dateDescKey(ev) {
   };
 }
 
-test('getLeyningKeyForEvent', (t) => {
+test('getLeyningKeyForEvent', () => {
   const options = {year: 5757, isHebrewYear: true};
   const events = HebrewCalendar.calendar(options);
   const actual = events.map(dateDescKey);
@@ -105,10 +104,10 @@ test('getLeyningKeyForEvent', (t) => {
     {d: '1997-10-01', h: 'Erev Rosh Hashana', k: undefined},
 
   ];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('getLeyningKeyForEvent-pesach-il', (t) => {
+test('getLeyningKeyForEvent-pesach-il', () => {
   const events0 = HebrewCalendar.calendar({year: 5780, isHebrewYear: true, il: true, numYears: 3});
   const events = events0.filter((ev) => ev.basename() === 'Pesach');
   const actual = events.map(dateDescKey);
@@ -140,10 +139,10 @@ test('getLeyningKeyForEvent-pesach-il', (t) => {
     {d: '2022-04-21', h: 'Pesach VI (CH\'\'M)', k: 'Pesach VI (CH\'\'M)'},
     {d: '2022-04-22', h: 'Pesach VII', k: 'Pesach VII'},
   ];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });
 
-test('getLeyningKeyForEvent-pesach-diaspora', (t) => {
+test('getLeyningKeyForEvent-pesach-diaspora', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
   const events = events0.filter((ev) => ev.basename() === 'Pesach');
   const actual = events.map((ev) => {
@@ -164,5 +163,5 @@ test('getLeyningKeyForEvent-pesach-diaspora', (t) => {
     {d: '2023-04-12', h: 'Pesach VII', k: 'Pesach VII'},
     {d: '2023-04-13', h: 'Pesach VIII', k: 'Pesach VIII'},
   ];
-  t.deepEqual(actual, expected);
+  expect(actual).toEqual(expected);
 });

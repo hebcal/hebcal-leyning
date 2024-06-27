@@ -1,7 +1,6 @@
-import test from 'ava';
-import {makeLeyningSummary, makeLeyningParts} from './summary.js';
+import {makeLeyningSummary, makeLeyningParts} from '../src/summary';
 
-test('mls-Noach', (t) => {
+test('mls-Noach', () => {
   const fullkriyah = {
     '1': {k: 'Genesis', b: '6:9', e: '6:22'},
     '2': {k: 'Genesis', b: '7:1', e: '7:16'},
@@ -13,10 +12,10 @@ test('mls-Noach', (t) => {
     'M': {k: 'Genesis', b: '11:29', e: '11:32'},
   };
   const summary = makeLeyningSummary(fullkriyah, true);
-  t.is(summary, 'Genesis 6:9-11:32');
+  expect(summary).toBe('Genesis 6:9-11:32');
 });
 
-test('mls-Vayakhel-Pekudei on Shabbat HaChodesh', (t) => {
+test('mls-Vayakhel-Pekudei on Shabbat HaChodesh', () => {
   const fullkriyah = {
     '1': {k: 'Exodus', b: '35:1', e: '35:29', v: 29},
     '2': {k: 'Exodus', b: '35:30', e: '37:16', v: 60},
@@ -28,10 +27,10 @@ test('mls-Vayakhel-Pekudei on Shabbat HaChodesh', (t) => {
     'M': {p: 15, k: 'Exodus', b: '12:1', e: '12:20', v: 20},
   };
   const summary = makeLeyningSummary(fullkriyah, true);
-  t.is(summary, 'Exodus 35:1-40:38, 12:1-20');
+  expect(summary).toBe('Exodus 35:1-40:38, 12:1-20');
 });
 
-test('mls-Shmini Atzeret (on Shabbat)', (t) => {
+test('mls-Shmini Atzeret (on Shabbat)', () => {
   const fullkriyah = {
     '1': {'p': 47, 'k': 'Deuteronomy', 'b': '14:22', 'e': '14:29'},
     '2': {'p': 47, 'k': 'Deuteronomy', 'b': '15:1', 'e': '15:18'},
@@ -43,10 +42,10 @@ test('mls-Shmini Atzeret (on Shabbat)', (t) => {
     'M': {'p': 41, 'k': 'Numbers', 'b': '29:35', 'e': '30:1'},
   };
   const summary = makeLeyningSummary(fullkriyah, true);
-  t.is(summary, 'Deuteronomy 14:22-16:17; Numbers 29:35-30:1');
+  expect(summary).toBe('Deuteronomy 14:22-16:17; Numbers 29:35-30:1');
 });
 
-test('mls-Chanukah Day 6', (t) => {
+test('mls-Chanukah Day 6', () => {
   const fullkriyah = {
     '1': {'p': 41, 'k': 'Numbers', 'b': '28:1', 'e': '28:5'},
     '2': {'p': 41, 'k': 'Numbers', 'b': '28:6', 'e': '28:10'},
@@ -54,28 +53,28 @@ test('mls-Chanukah Day 6', (t) => {
     'M': {'p': 35, 'k': 'Numbers', 'b': '7:42', 'e': '7:47'},
   };
   const summary = makeLeyningSummary(fullkriyah, true);
-  t.is(summary, 'Numbers 28:1-15, 7:42-47');
+  expect(summary).toBe('Numbers 28:1-15, 7:42-47');
 });
 
-test('mls-Shabbat Shekalim', (t) => {
+test('mls-Shabbat Shekalim', () => {
   const fullkriyah = {
     'M': {'p': 21, 'k': 'Exodus', 'b': '30:11', 'e': '30:16'},
   };
   const summary = makeLeyningSummary(fullkriyah, true);
-  t.is(summary, 'Exodus 30:11-16');
+  expect(summary).toBe('Exodus 30:11-16');
 });
 
-test('mls-Tzom Gedaliah', (t) => {
+test('mls-Tzom Gedaliah', () => {
   const fullkriyah = {
     '1': {'p': 21, 'k': 'Exodus', 'b': '32:11', 'e': '32:14'},
     '2': {'p': 21, 'k': 'Exodus', 'b': '34:1', 'e': '34:3'},
     '3': {'p': 21, 'k': 'Exodus', 'b': '34:4', 'e': '34:10'},
   };
   const summary = makeLeyningSummary(fullkriyah, true);
-  t.is(summary, 'Exodus 32:11-14, 34:1-10');
+  expect(summary).toBe('Exodus 32:11-14, 34:1-10');
 });
 
-test('makeLeyningParts-megillah', (t) => {
+test('makeLeyningParts-megillah', () => {
   const aliyot = {
     '1': {
       'k': 'Esther',
@@ -140,5 +139,5 @@ test('makeLeyningParts-megillah', (t) => {
   };
   const parts = makeLeyningParts(aliyot);
   const expected = [{b: '1:1', e: '10:3', k: 'Esther'}];
-  t.deepEqual(parts, expected);
+  expect(parts).toEqual(expected);
 });

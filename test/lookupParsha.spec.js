@@ -1,7 +1,6 @@
-import test from 'ava';
-import {lookupParsha} from './leyning.js';
+import {lookupParsha} from '../src/leyning';
 
-test('lookupParsha', (t) => {
+test('lookupParsha', () => {
   const meta = lookupParsha('Bereshit');
   const expected = {
     'num': 1,
@@ -24,12 +23,13 @@ test('lookupParsha', (t) => {
       '3': ['1:9', '1:13'],
     },
   };
-  t.deepEqual(meta, expected);
+  expect(meta).toEqual(expected);
 });
 
-test('lookupParsha-combined', (t) => {
+test('lookupParsha-combined', () => {
   const meta = lookupParsha(['Tazria', 'Metzora']);
   const expected = {
+    'hebrew': 'תַזְרִיעַ־מְּצֹרָע',
     'num': 102,
     'combined': true,
     'p1': 'Tazria',
@@ -37,6 +37,11 @@ test('lookupParsha-combined', (t) => {
     'num1': 27,
     'num2': 28,
     'book': 3,
+    'haft': {
+      'b': '7:3',
+      'e': '7:20',
+      'k': 'II Kings',
+    },
     'fullkriyah': {
       '1': ['12:1', '13:23'],
       '2': ['13:24', '13:39'],
@@ -47,12 +52,11 @@ test('lookupParsha-combined', (t) => {
       '7': ['15:16', '15:33'],
       'M': ['15:31', '15:33']},
   };
-  t.deepEqual(meta, expected);
+  expect(meta).toEqual(expected);
 });
 
-test('throws', (t) => {
-  const error = t.throws(() => {
+test('throws', () => {
+  expect(() => {
     lookupParsha('Bogus');
-  }, {instanceOf: TypeError});
-  t.is(error.message, 'Bad parsha argument: Bogus');
+  }).toThrow('Bad parsha argument: Bogus');
 });

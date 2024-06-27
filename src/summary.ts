@@ -1,12 +1,10 @@
-import {formatAliyahShort} from './common.js';
+import { formatAliyahShort } from './common';
+import { Aliyah, AliyotMap } from './types';
 
 /**
  * @private
- * @param {string} a
- * @param {string} b
- * @return {boolean}
  */
-function isChapVerseBefore(a, b) {
+function isChapVerseBefore(a: string, b: string): boolean {
   const cv1 = a.split(':').map((x) => +x);
   const cv2 = b.split(':').map((x) => +x);
   return (cv1[0]*100 + cv1[1]) < (cv2[0]*100 + cv2[1]);
@@ -15,10 +13,8 @@ function isChapVerseBefore(a, b) {
 /**
  * Summarizes an `AliyotMap` by collapsing all adjacent aliyot.
  * Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
- * @param {Object<string,Aliyah>} aliyot
- * @return {Aliyah[]}
  */
-export function makeLeyningParts(aliyot) {
+export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
   const nums = Object.keys(aliyot).filter((x) => {
     if (x.length === 1) {
       return true;
@@ -56,10 +52,8 @@ export function makeLeyningParts(aliyot) {
  * by commas, e.g. `Isaiah 6:1-7:6, 9:5-6`.
  * Verse ranges from different books are separated by semicolons,
  * e.g. `Genesis 21:1-34; Numbers 29:1-6`.
- * @param {Aliyah|Aliyah[]} parts
- * @return {string}
  */
-export function makeSummaryFromParts(parts) {
+export function makeSummaryFromParts(parts: Aliyah | Aliyah[]): string {
   if (!Array.isArray(parts)) {
     parts = [parts];
   }
@@ -80,10 +74,8 @@ export function makeSummaryFromParts(parts) {
 
 /**
  * Makes a summary of the leyning, like "Genesis 6:9-11:32"
- * @param {Object<string,Aliyah>} aliyot
- * @return {string}
  */
-export function makeLeyningSummary(aliyot) {
+export function makeLeyningSummary(aliyot: AliyotMap): string {
   const parts = makeLeyningParts(aliyot);
   return makeSummaryFromParts(parts);
 }

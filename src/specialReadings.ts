@@ -1,23 +1,11 @@
-import {HebrewCalendar, flags, months} from '@hebcal/core';
-import {calculateNumVerses, clone, cloneHaftara, parshaToString} from './common.js';
-import {lookupFestival} from './festival.js';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import { HDate, HebrewCalendar, flags, months } from '@hebcal/core';
+import { clone, cloneHaftara } from './clone';
+import { calculateNumVerses, parshaToString } from './common';
+import { lookupFestival } from './festival';
+import { getLeyningKeyForEvent } from './getLeyningKeyForEvent';
+import { AliyotMap, SpecialReading, StringMap } from './types';
 
-/**
- * Leyning for a parsha hashavua or holiday
- * @typedef {Object} SpecialReading
- * @property {Object<string,Aliyah>} aliyot - Map of aliyot `1` through `7` plus `M` for maftir
- * @property {Object<string,string>} [reason] - Explanations for special readings,
- *    keyed by aliyah number, `M` for maftir or `haftara` for Haftarah
- * @property {Aliyah|Aliyah[]} haft - Haftarah object(s)
- * @property {Aliyah|Aliyah[]} seph - Haftarah object(s)
- */
-
-/**
- * @private
- * @param {Object<string,Aliyah>} aliyot
- */
-function aliyotCombine67(aliyot) {
+function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = clone(aliyot['6']);
   const a7 = aliyot['7'];
   if (a6.k !== a7.k) {
@@ -34,12 +22,7 @@ function aliyotCombine67(aliyot) {
   }
 }
 
-/**
- * @private
- * @param {Object<string,Aliyah>} aliyot
- * @param {Object<string,Aliyah>} special
- */
-function mergeAliyotWithSpecial(aliyot, special) {
+function mergeAliyotWithSpecial(aliyot: AliyotMap, special: AliyotMap) {
   if (special['7']) {
     aliyotCombine67(aliyot);
     aliyot['7'] = clone(special['7']);
@@ -62,20 +45,14 @@ function mergeAliyotWithSpecial(aliyot, special) {
  *
  * If a special Haftarah applies, the result will have a `haft` property
  * pointing to Haftarah object and sets `reason.haftara`.
- * @param {string[]} parsha
- * @param {HDate} hd
- * @param {boolean} il
- * @param {Object<string,Aliyah>} aliyot
- * @return {SpecialReading}
  */
-export function specialReadings2(parsha, hd, il, aliyot) {
+export function specialReadings2(parsha: string[], hd: HDate, il: boolean, aliyot: AliyotMap): SpecialReading {
   let haft;
   let seph;
   let specialHaft = false;
-  const reason = {};
+  const reason: StringMap = {};
 
-  // eslint-disable-next-line require-jsdoc
-  function handleSpecial(key) {
+  function handleSpecial(key: string): void {
     const special = lookupFestival(key);
     if (!special) {
       return;
@@ -94,7 +71,7 @@ export function specialReadings2(parsha, hd, il, aliyot) {
     }
     if (special.fullkriyah) {
       const aliyotMap = clone(aliyot);
-      mergeAliyotWithSpecial(aliyotMap, special.fullkriyah);
+      mergeAliyotWithSpecial(aliyotMap, special.fullkriyah as AliyotMap);
       for (const num of Object.keys(special.fullkriyah)) {
         reason[num] = key;
       }

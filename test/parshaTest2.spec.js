@@ -1,8 +1,7 @@
-import test from 'ava';
 import {HDate, ParshaEvent} from '@hebcal/core';
-import {getLeyningForParshaHaShavua} from './leyning.js';
+import {getLeyningForParshaHaShavua} from '../src/leyning';
 
-test('Shabbat Zachor', (t) => {
+test('Shabbat Zachor', () => {
   const hd = new HDate(new Date(2024, 2, 23));
   const pe = new ParshaEvent(hd, ['Vayikra'], false);
   const reading = getLeyningForParshaHaShavua(pe, false);
@@ -56,5 +55,5 @@ test('Shabbat Zachor', (t) => {
       M: 'Shabbat Zachor',
     },
   };
-  t.deepEqual(reading, expected);
+  expect(reading).toEqual(expected);
 });

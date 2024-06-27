@@ -1,5 +1,5 @@
-import {HDate, flags, months} from '@hebcal/core';
-import {hasFestival} from './festival.js';
+import { Event, HDate, flags, months } from '@hebcal/core';
+import { hasFestival } from './festival';
 
 export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_MEVARCHIM |
   flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE | flags.MISHNA_YOMI |
@@ -11,8 +11,8 @@ export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHA
  * @param {boolean} [il] true if Israel holiday scheme
  * @return {string} key to look up in holiday-reading.json
  */
-export function getLeyningKeyForEvent(ev, il = false) {
-  if (typeof ev.eventTime !== 'undefined') {
+export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | undefined {
+  if (typeof (ev as any).eventTime !== 'undefined') {
     return undefined;
   }
   const mask = ev.getFlags();
@@ -41,7 +41,7 @@ export function getLeyningKeyForEvent(ev, il = false) {
   if (day == 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
   }
-  const cholHaMoedDay = ev.cholHaMoedDay;
+  const cholHaMoedDay = (ev as any).cholHaMoedDay;
   if (typeof cholHaMoedDay === 'number') {
     // Sukkot or Pesach
     if (isShabbat) {
@@ -58,7 +58,7 @@ export function getLeyningKeyForEvent(ev, il = false) {
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
   }
-  const chanukahDay = ev.chanukahDay;
+  const chanukahDay = (ev as any).chanukahDay;
   if (typeof chanukahDay === 'number') {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
