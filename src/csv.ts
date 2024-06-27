@@ -68,6 +68,12 @@ export function writeFullKriyahEvent(stream: WriteStream, ev: Event, il: boolean
     writeCsvLines(stream, ev, reading, il, isParsha);
     if (!isParsha) {
       writeHolidayMincha(stream, ev as HolidayEvent, il);
+      const desc = ev.getDesc();
+      if ((il && desc === 'Sukkot VII (Hoshana Raba)') ||
+          (!il && desc === 'Shmini Atzeret')) {
+        const ev2 = new HolidayEvent(ev.getDate(), 'Erev Simchat Torah', flags.EREV);
+        writeFullKriyahEvent(stream, ev2, il);
+      }
     }
   }
 }

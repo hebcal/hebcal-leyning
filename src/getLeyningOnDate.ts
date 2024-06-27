@@ -94,6 +94,13 @@ export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean =
       if (mincha) {
         arr.push(mincha);
       }
+      // Special case for Erev Simchat Torah - the only time we read Torah at night
+      const desc = ev.getDesc();
+      if ((il && desc === 'Sukkot VII (Hoshana Raba)') ||
+          (!il && desc === 'Shmini Atzeret')) {
+        const erevST = getLeyningForHolidayKey('Erev Simchat Torah');
+        arr.push(erevST!);
+      }
     }
   }
   if (!hasFullKriyah && (dow === 1 || dow === 4)) {

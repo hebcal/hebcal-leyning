@@ -36,7 +36,7 @@ export type LeyningNames = {
  */
 export type ParshaMeta = {
   /** 1 for Bereshit, 2 for Noach, etc. `undefined` for holiday readings */
-  num: number;
+  num: number | number[];
   /** parsha name in Hebrew with niqud */
   hebrew: string;
   /** 1 for Genesis, 2 for Exodus, 5 for Deuteronomy */

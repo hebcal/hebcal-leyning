@@ -1,4 +1,4 @@
-import {HDate, HebrewCalendar, Event, months, flags, HolidayEvent} from '@hebcal/core';
+import {Event, HDate, HebrewCalendar, HolidayEvent, flags, months} from '@hebcal/core';
 import {getLeyningForHoliday, getLeyningForHolidayKey} from '../src/getLeyningForHoliday';
 import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';
 import {formatAliyahWithBook} from '../src/common';
@@ -634,4 +634,27 @@ test('getLeyningForHoliday-note', () => {
 test('getLeyningForHolidayKey-note', () => {
   const reading = getLeyningForHolidayKey('Shushan Purim', undefined, true);
   expect(reading.note).toBe('Jerusalem & walled cities only');
+});
+
+test('Erev Simchat Torah', () => {
+  // Disapora
+  const ev = new HolidayEvent(new HDate(22, months.TISHREI, 5783),
+      'Erev Simchat Torah', flags.EREV);
+  const reading = getLeyningForHoliday(ev, false);
+  const expected = {
+    name: {en: 'Erev Simchat Torah', he: 'עֶרֶב שִׂמְחַת תּוֹרָה'},
+    fullkriyah: {
+      '1': {p: 54, k: 'Deuteronomy', b: '33:1', e: '33:7', v: 7},
+      '2': {p: 54, k: 'Deuteronomy', b: '33:8', e: '33:12', v: 5},
+      '3': {p: 54, k: 'Deuteronomy', b: '33:13', e: '33:17', v: 5},
+    },
+    summary: 'Deuteronomy 33:1-17',
+  };
+  expect(reading).toEqual(expected);
+
+  // Israel
+  const ev2 = new HolidayEvent(new HDate(21, months.TISHREI, 5783),
+      'Erev Simchat Torah', flags.EREV);
+  const reading2 = getLeyningForHoliday(ev2, true);
+  expect(reading2).toEqual(expected);
 });

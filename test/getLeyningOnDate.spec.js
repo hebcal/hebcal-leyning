@@ -299,3 +299,17 @@ test('erev-purim-sat-nite', () => {
   expect(readings[0].name.en).toBe('Vayikra');
   expect(readings[1].name.en).toBe('Erev Purim');
 });
+
+test('Erev Simchat Torah Diaspora', () => {
+  const hd = new HDate(22, 'Tishrei', 5783);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(2);
+  expect(readings[1].name.en).toBe('Erev Simchat Torah');
+});
+
+test('Erev Simchat Torah Israel', () => {
+  const hd = new HDate(21, 'Tishrei', 5783);
+  const readings = getLeyningOnDate(hd, true, true);
+  expect(readings.length).toBe(2);
+  expect(readings[1].name.en).toBe('Erev Simchat Torah');
+});

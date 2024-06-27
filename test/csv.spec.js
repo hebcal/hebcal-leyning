@@ -107,19 +107,39 @@ test('writeFullKriyahEvent-9av', () => {
   expect(lines).toEqual(expected);
 });
 
-test.skip('writeFullKriyahEvent-SimchatTorah', () => {
+test('writeFullKriyahEvent-SimchatTorah', () => {
   const events = HebrewCalendar.calendar({
-    start: new HDate(22, months.TISHREI, 5784),
-    end: new HDate(23, months.TISHREI, 5784),
+    start: new HDate(22, months.TISHREI, 5783),
+    end: new HDate(23, months.TISHREI, 5783),
     il: false,
   });
   expect(events.length).toBe(2);
   const stream = new StringWritable();
   events.forEach((ev) => writeFullKriyahEvent(stream, ev, false));
   const lines = stream.toString().split('\r\n');
-  console.log(lines);
   // Erev Simchat Torah
   const expected = [
+    '17-Oct-2022,"Shmini Atzeret",1,"Deuteronomy 14:22-14:29",8',
+    '17-Oct-2022,"Shmini Atzeret",2,"Deuteronomy 15:1-15:18",18',
+    '17-Oct-2022,"Shmini Atzeret",3,"Deuteronomy 15:19-16:3",8',
+    '17-Oct-2022,"Shmini Atzeret",4,"Deuteronomy 16:4-16:8",5',
+    '17-Oct-2022,"Shmini Atzeret",5,"Deuteronomy 16:9-16:17",9',
+    '17-Oct-2022,"Shmini Atzeret","maf","Numbers 29:35-30:1",6',
+    '17-Oct-2022,"Shmini Atzeret","Haftara","I Kings 8:54-66",13',
+    '',
+    '17-Oct-2022,"Erev Simchat Torah",1,"Deuteronomy 33:1-33:7",7',
+    '17-Oct-2022,"Erev Simchat Torah",2,"Deuteronomy 33:8-33:12",5',
+    '17-Oct-2022,"Erev Simchat Torah",3,"Deuteronomy 33:13-33:17",5',
+    '',
+    '18-Oct-2022,"Simchat Torah",1,"Deuteronomy 33:1-33:7",7',
+    '18-Oct-2022,"Simchat Torah",2,"Deuteronomy 33:8-33:12",5',
+    '18-Oct-2022,"Simchat Torah",3,"Deuteronomy 33:13-33:17",5',
+    '18-Oct-2022,"Simchat Torah",4,"Deuteronomy 33:18-33:21",4',
+    '18-Oct-2022,"Simchat Torah",5,"Deuteronomy 33:22-33:26",5',
+    '18-Oct-2022,"Simchat Torah",6,"Deuteronomy 33:27-34:12",15',
+    '18-Oct-2022,"Simchat Torah",7,"Genesis 1:1-2:3",34',
+    '18-Oct-2022,"Simchat Torah","maf","Numbers 29:35-30:1",6',
+    '18-Oct-2022,"Simchat Torah","Haftara","Joshua 1:1-18",18',
     '', ''];
   expect(lines).toEqual(expected);
 });

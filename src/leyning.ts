@@ -21,7 +21,7 @@ type JsonParshaMap = {
 }
 
 type JsonParsha = {
-  num: number;
+  num: number | number[];
   hebrew?: string;
   book: number;
   haft?: JsonAliyah | JsonAliyah[];
@@ -107,7 +107,7 @@ function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
   const hkey = getHaftaraKey(parshaNameArray);
   const haft0 = parshiyotObj[hkey].haft;
   if (haft0) {
-    const haft = result.haft = cloneHaftara(haft0!);
+    const haft = result.haft = cloneHaftara(haft0);
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
   }

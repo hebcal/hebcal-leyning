@@ -1040,7 +1040,8 @@
    "3":["33:13","33:17"]
  }},
 "Vayakhel-Pekudei":{
- "num":101,"combined":true,
+ "num":[22,23],
+ "combined":true,
  "p1":"Vayakhel",
  "p2":"Pekudei",
  "num1":22,
@@ -1057,7 +1058,8 @@
    "M":["40:34","40:38"]}
  },
 "Tazria-Metzora":{
- "num":102,"combined":true,
+ "num":[27,28],
+ "combined":true,
  "p1":"Tazria",
  "p2":"Metzora",
  "num1":27,
@@ -1074,7 +1076,8 @@
    "M":["15:31","15:33"]}
  },
 "Achrei Mot-Kedoshim":{
- "num":103,"combined":true,
+ "num":[29,30],
+ "combined":true,
  "p1":"Achrei Mot",
  "p2":"Kedoshim",
  "num1":29,
@@ -1092,7 +1095,8 @@
    "7":["20:8","20:27"],
    "M":["20:25","20:27"]}},
 "Behar-Bechukotai":{
- "num":104,"combined":true,
+ "num":[32,33],
+ "combined":true,
  "p1":"Behar",
  "p2":"Bechukotai",
  "num1":32,
@@ -1109,7 +1113,8 @@
    "M":["27:32","27:34"]}
  },
 "Chukat-Balak":{
- "num":105,"combined":true,
+ "num":[39,40],
+ "combined":true,
  "p1":"Chukat",
  "p2":"Balak",
  "num1":39,
@@ -1126,7 +1131,8 @@
    "M":["25:7","25:9"]}
  },
 "Matot-Masei":{
- "num":106,"combined":true,
+ "num":[42,43],
+ "combined":true,
  "p1":"Matot",
  "p2":"Masei",
  "num1":42,
@@ -1143,7 +1149,8 @@
    "M":["36:11","36:13"]}
  },
 "Nitzavim-Vayeilech":{
- "num":107,"combined":true,
+ "num":[51,52],
+ "combined":true,
  "p1":"Nitzavim",
  "p2":"Vayeilech",
  "num1":51,

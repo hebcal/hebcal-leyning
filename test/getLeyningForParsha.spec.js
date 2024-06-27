@@ -51,7 +51,7 @@ test('getLeyningForParsha-2', () => {
       'Matot',
       'Masei',
     ],
-    parshaNum: 106,
+    parshaNum: [42, 43],
     summary: 'Numbers 30:2-36:13',
     fullkriyah: {
       '1': {k: 'Numbers', b: '30:2', e: '31:12', v: 28},
