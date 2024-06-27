@@ -9,3 +9,5 @@ export * from './leyning';
 export { getLeyningOnDate } from './getLeyningOnDate';
 export { writeFullKriyahCsv, writeCsvLines, writeHolidayMincha,
   StringToBoolMap, getParshaDates } from './csv';
+// Needed by @hebcal/triennial
+export * from './clone';
