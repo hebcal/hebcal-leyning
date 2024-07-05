@@ -20,4 +20,4 @@ Formats an aliyah object like "Numbers 28:9-28:15"
 
 ## Defined in
 
-[common.ts:66](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/common.ts#L66)
+[common.ts:66](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/common.ts#L66)

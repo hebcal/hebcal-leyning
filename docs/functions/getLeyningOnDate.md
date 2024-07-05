@@ -40,4 +40,4 @@ to return an array of 0 or more readings
 
 ## Defined in
 
-[getLeyningOnDate.ts:61](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/getLeyningOnDate.ts#L61)
+[getLeyningOnDate.ts:61](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/getLeyningOnDate.ts#L61)

@@ -37,3 +37,55 @@ for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
   console.log(`${number}: ${str}`);
 }
 ```
+
+## Interfaces
+
+- [StringToBoolMap](_media/StringToBoolMap.md)
+
+## Type Aliases
+
+- [Aliyah](_media/Aliyah.md)
+- [AliyotMap](_media/AliyotMap.md)
+- [Haftarah](_media/Haftarah.md)
+- [Leyning](_media/Leyning.md)
+- [LeyningBase](_media/LeyningBase.md)
+- [LeyningNames](_media/LeyningNames.md)
+- [LeyningParshaHaShavua](_media/LeyningParshaHaShavua.md)
+- [LeyningShabbatHoliday](_media/LeyningShabbatHoliday.md)
+- [LeyningWeekday](_media/LeyningWeekday.md)
+- [ParshaMeta](_media/ParshaMeta.md)
+- [SpecialReading](_media/SpecialReading.md)
+- [StringMap](_media/StringMap.md)
+
+## Variables
+
+- [BOOK](_media/BOOK.md)
+
+## Functions
+
+- [calculateNumVerses](_media/calculateNumVerses.md)
+- [clone](_media/clone.md)
+- [cloneHaftara](_media/cloneHaftara.md)
+- [formatAliyahShort](_media/formatAliyahShort.md)
+- [formatAliyahWithBook](_media/formatAliyahWithBook.md)
+- [getLeyningForHoliday](_media/getLeyningForHoliday.md)
+- [getLeyningForHolidayKey](_media/getLeyningForHolidayKey.md)
+- [getLeyningForParsha](_media/getLeyningForParsha.md)
+- [getLeyningForParshaHaShavua](_media/getLeyningForParshaHaShavua.md)
+- [getLeyningKeyForEvent](_media/getLeyningKeyForEvent.md)
+- [getLeyningOnDate](_media/getLeyningOnDate.md)
+- [getParshaDates](_media/getParshaDates.md)
+- [getWeekdayReading](_media/getWeekdayReading.md)
+- [hasFestival](_media/hasFestival.md)
+- [lookupFestival](_media/lookupFestival.md)
+- [lookupParsha](_media/lookupParsha.md)
+- [makeLeyningNames](_media/makeLeyningNames.md)
+- [makeLeyningParts](_media/makeLeyningParts.md)
+- [makeLeyningSummary](_media/makeLeyningSummary.md)
+- [makeSummaryFromParts](_media/makeSummaryFromParts.md)
+- [parshaToString](_media/parshaToString.md)
+- [specialReadings2](_media/specialReadings2.md)
+- [sumVerses](_media/sumVerses.md)
+- [writeCsvLines](_media/writeCsvLines.md)
+- [writeFullKriyahCsv](_media/writeFullKriyahCsv.md)
+- [writeHolidayMincha](_media/writeHolidayMincha.md)

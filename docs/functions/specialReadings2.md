@@ -35,4 +35,4 @@ pointing to Haftarah object and sets `reason.haftara`.
 
 ## Defined in
 
-[specialReadings.ts:49](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/specialReadings.ts#L49)
+[specialReadings.ts:49](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/specialReadings.ts#L49)

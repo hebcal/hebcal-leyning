@@ -22,4 +22,4 @@ untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
 
 ## Defined in
 
-[leyning.ts:218](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/leyning.ts#L218)
+[leyning.ts:218](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/leyning.ts#L218)

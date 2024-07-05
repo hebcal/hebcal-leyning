@@ -28,4 +28,4 @@ name from `holiday-readings.json` to find
 
 ## Defined in
 
-[getLeyningForHoliday.ts:24](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/getLeyningForHoliday.ts#L24)
+[getLeyningForHoliday.ts:24](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/getLeyningForHoliday.ts#L24)

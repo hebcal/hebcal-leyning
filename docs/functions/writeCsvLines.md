@@ -28,4 +28,4 @@ Formats reading for CSV
 
 ## Defined in
 
-[csv.ts:96](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/csv.ts#L96)
+[csv.ts:96](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/csv.ts#L96)

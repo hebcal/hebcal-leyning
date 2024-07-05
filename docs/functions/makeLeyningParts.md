@@ -21,4 +21,4 @@ Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
 
 ## Defined in
 
-[summary.ts:17](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/summary.ts#L17)
+[summary.ts:17](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/summary.ts#L17)

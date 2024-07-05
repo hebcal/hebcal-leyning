@@ -20,4 +20,4 @@ Optional map of weekday Torah Readings aliyot `1` through `3` for Monday and Thu
 
 ## Defined in
 
-[types.ts:106](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/types.ts#L106)
+[types.ts:106](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/types.ts#L106)

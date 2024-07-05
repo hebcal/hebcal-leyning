@@ -29,4 +29,4 @@ map of aliyot
 
 ## Defined in
 
-[leyning.ts:160](https://github.com/hebcal/hebcal-leyning/blob/40b5eb1606b3ea086311ad0bbcf740bb6031ecb8/src/leyning.ts#L160)
+[leyning.ts:160](https://github.com/hebcal/hebcal-leyning/blob/686daf91ca80e1487976aba775587a09727384c4/src/leyning.ts#L160)
