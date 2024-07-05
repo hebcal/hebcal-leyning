@@ -7,9 +7,9 @@ export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHA
 
 /**
  * Based on the event date, type and title, finds the relevant leyning key
- * @param {Event} ev event
- * @param {boolean} [il] true if Israel holiday scheme
- * @return {string} key to look up in holiday-reading.json
+ * @param ev event
+ * @param [il] true if Israel holiday scheme
+ * @returns key to look up in holiday-reading.json
  */
 export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | undefined {
   if (typeof (ev as any).eventTime !== 'undefined') {

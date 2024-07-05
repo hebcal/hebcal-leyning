@@ -9,7 +9,7 @@ export function clone(src: any): any {
   return JSON.parse(JSON.stringify(src));
 }
 
-type Haftarah = Aliyah | Aliyah[] | JsonFestivalAliyah | JsonFestivalAliyah[];
+export type Haftarah = Aliyah | Aliyah[] | JsonFestivalAliyah | JsonFestivalAliyah[];
 
 export function cloneHaftara(haft: Haftarah): Aliyah | Aliyah[] {
   if (!haft) {

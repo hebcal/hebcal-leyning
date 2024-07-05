@@ -45,8 +45,6 @@ const parshiyotObj: Parshiyot = parshiyotObj0 as Parshiyot;
  * on doubled parshiot, read only the second Haftarah
  * except for Nitzavim-Vayelech and Achrei Mot-Kedoshim
  * @private
- * @param {string[]} parsha
- * @return {string}
  */
 function getHaftaraKey(parsha: string[]): string {
   const first = parsha[0];
@@ -75,8 +73,8 @@ export function makeLeyningNames(parsha: string[]): LeyningNames {
 /**
  * Looks up regular leyning for a weekly parsha with no special readings
  * @private
- * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
- * @return {Leyning} map of aliyot
+ * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * @returns map of aliyot
  */
 function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
   const raw = lookupParsha(parsha);
@@ -91,7 +89,6 @@ function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
   const parshaNameArray: string[] = raw.combined ? [raw.p1!, raw.p2!] : [name];
   const parts = makeLeyningParts(fullkriyah);
   const summary = makeSummaryFromParts(parts);
-  /** @type {Leyning} */
   const result: Leyning = {
     name: makeLeyningNames(parshaNameArray),
     parsha: parshaNameArray,
@@ -156,9 +153,9 @@ export function getLeyningForParsha(parsha: string | string[]): Leyning {
 /**
  * Looks up leyning for a regular Shabbat parsha, including any special
  * maftir or Haftara.
- * @param {Event} ev the Hebcal event associated with this leyning
- * @param {boolean} [il] in Israel
- * @return {Leyning} map of aliyot
+ * @param ev the Hebcal event associated with this leyning
+ * @param [il] in Israel
+ * @returns map of aliyot
  */
 export function getLeyningForParshaHaShavua(ev: Event, il: boolean=false): Leyning {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
@@ -216,8 +213,7 @@ export function getLeyningForParshaHaShavua(ev: Event, il: boolean=false): Leyni
 
 /**
  * Returns the parsha metadata
- * @param {string|string[]} parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
- * @return {ParshaMeta}
+ * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  */
 export function lookupParsha(parsha: string | string[]): ParshaMeta {
   const name = parshaToString(parsha);

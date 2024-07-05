@@ -85,9 +85,9 @@ export function getLeyningForHolidayKey(key?: string, cholHaMoedDay?: number, il
 /**
  * Looks up leyning for a given holiday. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
- * @param {Event} ev the Hebcal event associated with this leyning
- * @param {boolean} [il] true if Israel holiday scheme
- * @return {Leyning} map of aliyot
+ * @param ev the Hebcal event associated with this leyning
+ * @param [il] true if Israel holiday scheme
+ * @returns map of aliyot
  */
 export function getLeyningForHoliday(ev: Event, il: boolean = false): Leyning | undefined {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
