@@ -108,18 +108,21 @@ export type LeyningWeekday = LeyningParshaHaShavua & {
   weekday?: AliyotMap;
 };
 
-/**
- * Shabbat and holiday leyning always has full kriyah and haftarah
- */
-export type LeyningShabbatHoliday = LeyningBase & {
-  /** Map of aliyot `1` through `7` plus `M` for maftir */
-  fullkriyah: AliyotMap;
+export type HaftarahProps = {
   /** Haftarah object */
   haft: Aliyah | Aliyah[];
   /** Haftarah, such as `Isaiah 42:5 – 43:11` */
   haftara: string;
   /** Number of verses in the Haftarah */
   haftaraNumV?: number;
+};
+
+/**
+ * Shabbat and holiday leyning always has full kriyah and haftarah
+ */
+export type LeyningShabbatHoliday = LeyningBase & HaftarahProps & {
+  /** Map of aliyot `1` through `7` plus `M` for maftir */
+  fullkriyah: AliyotMap;
   /** Haftarah object for Sephardim */
   seph?: Aliyah | Aliyah[];
   /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */

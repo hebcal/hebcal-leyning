@@ -36,7 +36,7 @@ export function writeFullKriyahCsv(stream: WriteStream, hyear: number, il: boole
     sedrot: true,
     il: il,
   });
-  const events = events0.filter((ev) => ev.getDesc() !== 'Rosh Chodesh Tevet');
+  const events = events0.filter((ev: Event) => ev.getDesc() !== 'Rosh Chodesh Tevet');
   const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
   for (const ev of events) {
