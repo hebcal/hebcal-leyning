@@ -49,8 +49,10 @@ test('getLeyningOnDate-holiday1', () => {
       {k: 'Genesis', b: '22:1', e: '22:24'},
       {k: 'Numbers', b: '29:1', e: '29:6'},
     ],
-    haft: {k: 'Jeremiah', b: '31:1', e: '31:19', v: 19},
-    haftara: 'Jeremiah 31:1-19',
+    haft: {k: 'Jeremiah', b: '31:2', e: '31:20', v: 19,
+      "note": "labeled 31:1–19 in some books",
+    },
+    haftara: 'Jeremiah 31:2-20',
     haftaraNumV: 19,
   };
   expect(reading).toEqual(expected);
