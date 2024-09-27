@@ -16,10 +16,13 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
     return parsha;
   }
   // Special case between YK and Simchat Torah
+  // If Vayeilech or Ha'azinu occurs between RH and YK, the following block for
+  // Monday/Thursday weekday isn't executed because the above sedra.lookup()
+  // would have already found the regular Saturday parsha.
   if (saturday.getMonth() === months.TISHREI) {
     const dd = saturday.getDate();
     const simchatTorah = il ? 22 : 23;
-    if (dd > 10 && dd <= simchatTorah) {
+    if (dd > 2 && dd <= simchatTorah) {
       return {
         parsha: ['Vezot Haberakhah'],
         chag: false,

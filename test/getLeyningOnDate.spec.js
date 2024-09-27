@@ -315,3 +315,17 @@ test('Erev Simchat Torah Israel', () => {
   expect(readings.length).toBe(2);
   expect(readings[1].name.en).toBe('Erev Simchat Torah');
 });
+
+test('getLeyningOnDate-weekday-search3', () => {
+  const hd = new HDate(5, 'Tishrei', 5785);
+  expect(hd.getDay()).toBe(1); // this is a Monday
+  const reading = getLeyningOnDate(hd, false);
+  expect(reading.name.en).toBe('Vezot Haberakhah');
+});
+
+test('getLeyningOnDate-weekday-search4', () => {
+  const hd = new HDate(6, 'Tishrei', 5787);
+  expect(hd.getDay()).toBe(4); // this is a Thursday
+  const reading = getLeyningOnDate(hd, false);
+  expect(reading.name.en).toBe('Ha\'azinu');
+});
