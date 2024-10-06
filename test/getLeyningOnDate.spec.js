@@ -1,4 +1,4 @@
-import {HDate} from '@hebcal/core';
+import {HDate, months} from '@hebcal/core';
 import {getLeyningOnDate} from '../src/getLeyningOnDate';
 
 test('getLeyningOnDate-parsha', () => {
@@ -181,10 +181,12 @@ test('getLeyningOnDate-15av-Monday', () => {
 test('getLeyningOnDate-multiple-holidays', () => {
   // Shabbat Zachor, Erev Purim, Parashat Vayikra
   const hd = new HDate(new Date(2024, 2, 23));
-  const reading = getLeyningOnDate(hd, false);
-  expect(reading.name.en).toBe('Vayikra');
-  expect(reading.summary).toBe('Leviticus 1:1-5:26; Deuteronomy 25:17-19');
-  expect(reading.reason.M).toBe('Shabbat Zachor');
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(2);
+  expect(readings[0].name.en).toBe('Vayikra');
+  expect(readings[0].summary).toBe('Leviticus 1:1-5:26; Deuteronomy 25:17-19');
+  expect(readings[0].reason.M).toBe('Shabbat Zachor');
+  expect(readings[1].name.en).toBe('Erev Purim');
 
   // Ignore Rosh Hashana LaBehemot and continue to Rosh Chodesh
   const hd2 = new HDate(1, 'Elul', 5784);
@@ -199,6 +201,53 @@ test('getLeyningOnDate-Erev-Purim', () => {
   expect(readings[0].name.en).toBe('Ta\'anit Esther');
   expect(readings[1].name.en).toBe('Ta\'anit Esther (Mincha)');
   expect(readings[2].name.en).toBe('Erev Purim');
+});
+
+test('getLeyningOnDate-Shabbat-Rosh-Chodesh', () => {
+  const hd = new HDate(1, months.CHESHVAN, 5785);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(1);
+  expect(readings[0].name.en).toBe('Noach');
+  expect(readings[0].reason).toEqual({
+    "M": "Shabbat Rosh Chodesh",
+    "haftara": "Shabbat Rosh Chodesh",
+  });
+});
+
+test('getLeyningOnDate-Shabbat-Chanukah', () => {
+  const hd = new HDate(27, months.KISLEV, 5785);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(1);
+  expect(readings[0].name.en).toBe('Miketz');
+  expect(readings[0].reason).toEqual({
+    "M": "Chanukah Day 3 (on Shabbat)",
+    "haftara": "Chanukah Day 3 (on Shabbat)",
+  });
+});
+
+test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Chanukah', () => {
+  const hd = new HDate(30, months.KISLEV, 5782);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(1);
+  expect(readings[0].name.en).toBe('Miketz');
+  expect(readings[0].reason).toEqual({
+    "7": "Shabbat Rosh Chodesh Chanukah",
+    "M": "Shabbat Rosh Chodesh Chanukah",
+    "haftara": "Shabbat Rosh Chodesh Chanukah",
+  });
+});
+
+test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Shekalim', () => {
+  const hd = new HDate(1, months.ADAR_I, 5785);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(1);
+  expect(readings[0].name.en).toBe('Terumah');
+  expect(readings[0].reason).toEqual({
+    "7": "Shabbat Shekalim (on Rosh Chodesh)",
+    "M": "Shabbat Shekalim (on Rosh Chodesh)",
+    "haftara": "Shabbat Shekalim (on Rosh Chodesh)",
+    "sephardic": "Shabbat Shekalim (on Rosh Chodesh)",
+  });
 });
 
 test('getLeyningOnDate-wantarray-empty', () => {
