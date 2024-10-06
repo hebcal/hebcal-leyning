@@ -83,15 +83,19 @@ export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean =
   const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
   let hasFullKriyah = false;
   for (const ev of events) {
-    const specialShabbat = Boolean(ev.getFlags() & flags.SPECIAL_SHABBAT);
+    const specialShabbat = Boolean(ev.getFlags() & (flags.SPECIAL_SHABBAT | flags.ROSH_CHODESH));
     if (hasParshaHaShavua && specialShabbat) {
       continue;
     }
     const reading = getLeyningForHoliday(ev, il);
     if (reading) {
-      arr.push(reading);
-      if (reading.fullkriyah) {
+      const fk = reading.fullkriyah;
+      if (fk) {
         hasFullKriyah = true;
+      }
+      const specialMaftirOnly = hasParshaHaShavua && hasFullKriyah && fk.M && !fk['1'];
+      if (!specialMaftirOnly) {
+        arr.push(reading);
       }
       const mincha = getMincha(ev, il);
       if (mincha) {
