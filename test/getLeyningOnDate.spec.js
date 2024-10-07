@@ -378,3 +378,17 @@ test('getLeyningOnDate-weekday-search4', () => {
   const reading = getLeyningOnDate(hd, false);
   expect(reading.name.en).toBe('Ha\'azinu');
 });
+
+test('no duplicates on Shabbat Rosh Chodesh Chanukah', () => {
+  const hd = new HDate(30, 'Kislev', 5782);
+  const result = getLeyningOnDate(hd, false, true);
+  expect(result.length).toBe(1);
+});
+
+test('Yom Kippur Mincha on Shabbat', () => {
+  const hd = new HDate(10, 'Tishrei', 5785);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(2);
+  expect(readings[0].name.en).toBe('Yom Kippur (on Shabbat)');
+  expect(readings[1].name.en).toBe('Yom Kippur (Mincha)');
+});
