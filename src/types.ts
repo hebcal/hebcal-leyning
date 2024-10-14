@@ -17,11 +17,11 @@ export type Aliyah = {
 
 export type StringMap = {
   [key: string]: string;
-}
+};
 
 export type AliyotMap = {
   [key: string]: Aliyah;
-}
+};
 
 /** Name of the parsha hashavua or holiday */
 export type LeyningNames = {
@@ -29,7 +29,7 @@ export type LeyningNames = {
   en: string;
   /** Hebrew (with nikud) */
   he: string;
-}
+};
 
 /**
  * Parsha metadata (underlying JSON object)
@@ -77,7 +77,6 @@ export type SpecialReading = {
   seph?: Aliyah | Aliyah[];
 };
 
-
 /**
  * Leyning base - weekday, parsha hashavua or holiday
  */
@@ -120,27 +119,27 @@ export type HaftarahProps = {
 /**
  * Shabbat and holiday leyning always has full kriyah and haftarah
  */
-export type LeyningShabbatHoliday = LeyningBase & HaftarahProps & {
-  /** Map of aliyot `1` through `7` plus `M` for maftir */
-  fullkriyah: AliyotMap;
-  /** Haftarah object for Sephardim */
-  seph?: Aliyah | Aliyah[];
-  /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */
-  sephardic?: string;
-  /** Number of verses in the Haftarah for Sephardim */
-  sephardicNumV?: number;
-  /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `haftara` for Haftarah */
-  reason?: StringMap;
-  /** Song of Songs is read on the sabbath of Passover week, the Book of Ruth on Shavuot, Lamentations on Tisha be-Av, Ecclesiastes on the sabbath of the week of Sukkoth, and the Book of Esther on Purim */
-  megillah?: AliyotMap;
-  /** Triennial alternate Haftara */
-  triHaftara?: string;
-  /** Triennial alternate Haftara number of verses */
-  triHaftaraNumV?: number;
-};
+export type LeyningShabbatHoliday = LeyningBase &
+  HaftarahProps & {
+    /** Map of aliyot `1` through `7` plus `M` for maftir */
+    fullkriyah: AliyotMap;
+    /** Haftarah object for Sephardim */
+    seph?: Aliyah | Aliyah[];
+    /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */
+    sephardic?: string;
+    /** Number of verses in the Haftarah for Sephardim */
+    sephardicNumV?: number;
+    /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `haftara` for Haftarah */
+    reason?: StringMap;
+    /** Song of Songs is read on the sabbath of Passover week, the Book of Ruth on Shavuot, Lamentations on Tisha be-Av, Ecclesiastes on the sabbath of the week of Sukkoth, and the Book of Esther on Purim */
+    megillah?: AliyotMap;
+    /** Triennial alternate Haftara */
+    triHaftara?: string;
+    /** Triennial alternate Haftara number of verses */
+    triHaftaraNumV?: number;
+  };
 
-export type Leyning =
-  LeyningBase &
+export type Leyning = LeyningBase &
   LeyningParshaHaShavua &
   LeyningShabbatHoliday &
   LeyningWeekday;

@@ -1,15 +1,17 @@
-import { HDate, HebrewCalendar, flags, months } from '@hebcal/core';
-import { clone, cloneHaftara } from './clone';
-import { calculateNumVerses, parshaToString } from './common';
-import { lookupFestival } from './festival';
-import { getLeyningKeyForEvent } from './getLeyningKeyForEvent';
-import { AliyotMap, SpecialReading, StringMap } from './types';
+import {HDate, HebrewCalendar, flags, months} from '@hebcal/core';
+import {clone, cloneHaftara} from './clone';
+import {calculateNumVerses, parshaToString} from './common';
+import {lookupFestival} from './festival';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
+import {AliyotMap, SpecialReading, StringMap} from './types';
 
 function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = clone(aliyot['6']);
   const a7 = aliyot['7'];
   if (a6.k !== a7.k) {
-    throw new Error('Impossible to combine aliyot 6 & 7: ' + JSON.stringify(aliyot));
+    throw new Error(
+      'Impossible to combine aliyot 6 & 7: ' + JSON.stringify(aliyot)
+    );
   }
   delete aliyot['7'];
   aliyot['6'] = {
@@ -46,7 +48,12 @@ function mergeAliyotWithSpecial(aliyot: AliyotMap, special: AliyotMap) {
  * If a special Haftarah applies, the result will have a `haft` property
  * pointing to Haftarah object and sets `reason.haftara`.
  */
-export function specialReadings2(parsha: string[], hd: HDate, il: boolean, aliyot: AliyotMap): SpecialReading {
+export function specialReadings2(
+  parsha: string[],
+  hd: HDate,
+  il: boolean,
+  aliyot: AliyotMap
+): SpecialReading {
   let haft;
   let seph;
   let specialHaft = false;
@@ -81,7 +88,7 @@ export function specialReadings2(parsha: string[], hd: HDate, il: boolean, aliyo
 
   const parshaName = parshaToString(parsha);
   const events0 = HebrewCalendar.getHolidaysOnDate(hd, il) || [];
-  const events = events0.filter((ev) => !(ev.getFlags() & flags.ROSH_CHODESH));
+  const events = events0.filter(ev => !(ev.getFlags() & flags.ROSH_CHODESH));
   for (const ev of events) {
     if (ev.getDesc() === 'Shabbat Shuva') {
       handleSpecial(`Shabbat Shuva (with ${parshaName})`);
@@ -99,9 +106,10 @@ export function specialReadings2(parsha: string[], hd: HDate, il: boolean, aliyo
       // either on the 14, 16, 17 (in Israel), 19, 21, 23, 24
       handleSpecial('Pinchas occurring after 17 Tammuz');
     } else if (day === 30 || day === 1) {
-      const key = (parshaName === 'Masei' || parshaName === 'Matot-Masei') ?
-        `${parshaName} on Shabbat Rosh Chodesh` :
-        'Shabbat Rosh Chodesh';
+      const key =
+        parshaName === 'Masei' || parshaName === 'Matot-Masei'
+          ? `${parshaName} on Shabbat Rosh Chodesh`
+          : 'Shabbat Rosh Chodesh';
       handleSpecial(key);
     } else if (parshaName === 'Ki Teitzei' && day === 14) {
       // Ki Teitzei is always read in Elul on 9, 11, 13 or 14
@@ -111,7 +119,10 @@ export function specialReadings2(parsha: string[], hd: HDate, il: boolean, aliyo
       // In the book of Isaiah these two brief passages are adjacent."
       // Source: Luaḥ Hashanah, Rabbi Miles B. Cohen and Leslie Rubin
       handleSpecial('Ki Teitzei with 3rd Haftarah of Consolation');
-    } else if (parshaName === 'Kedoshim' && (day === 26 || day === 28 || day === 6)) {
+    } else if (
+      parshaName === 'Kedoshim' &&
+      (day === 26 || day === 28 || day === 6)
+    ) {
       // Kedoshim is read separately from Achrei Mot in ~37% of years.
       // When this happens, it is will be read on
       // 26th or 28th of Nisan (Achrei Mot was Shabbat HaGadol, ~10%),

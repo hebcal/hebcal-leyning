@@ -1,12 +1,24 @@
 import {
-  HDate, HebrewCalendar, HolidayEvent, ParshaEvent,
-  SedraResult, flags, months
+  HDate,
+  HebrewCalendar,
+  HolidayEvent,
+  ParshaEvent,
+  SedraResult,
+  flags,
+  months,
 } from '@hebcal/core';
-import { getLeyningForHoliday, getLeyningForHolidayKey } from './getLeyningForHoliday';
-import { getLeyningKeyForEvent } from './getLeyningKeyForEvent';
-import { getLeyningForParshaHaShavua, getWeekdayReading, makeLeyningNames } from './leyning';
-import { makeLeyningParts, makeSummaryFromParts } from './summary';
-import { Leyning, LeyningWeekday } from './types';
+import {
+  getLeyningForHoliday,
+  getLeyningForHolidayKey,
+} from './getLeyningForHoliday';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
+import {
+  getLeyningForParshaHaShavua,
+  getWeekdayReading,
+  makeLeyningNames,
+} from './leyning';
+import {makeLeyningParts, makeSummaryFromParts} from './summary';
+import {Leyning, LeyningWeekday} from './types';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();
@@ -34,7 +46,8 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const endOfYear = new HDate(1, months.TISHREI, hyear + 1).abs() - 1;
   const endAbs = endOfYear + 30;
   for (let sat2 = saturday.abs() + 7; sat2 <= endAbs; sat2 += 7) {
-    const sedra2 = sat2 > endOfYear ? HebrewCalendar.getSedra(hyear + 1, il) : sedra;
+    const sedra2 =
+      sat2 > endOfYear ? HebrewCalendar.getSedra(hyear + 1, il) : sedra;
     const parsha2 = sedra2.lookup(sat2);
     if (!parsha2.chag) {
       return parsha2;
@@ -61,7 +74,11 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
  * @param {boolean} il in Israel
  * @param {boolean} [wantarray] to return an array of 0 or more readings
  */
-export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean = false): (Leyning | LeyningWeekday) | (Leyning | LeyningWeekday)[] | undefined {
+export function getLeyningOnDate(
+  hdate: HDate,
+  il: boolean,
+  wantarray = false
+): (Leyning | LeyningWeekday) | (Leyning | LeyningWeekday)[] | undefined {
   const dow = hdate.getDay();
   const arr: (Leyning | LeyningWeekday)[] = [];
   let hasParshaHaShavua = false;
@@ -83,7 +100,9 @@ export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean =
   const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
   let hasFullKriyah = false;
   for (const ev of events) {
-    const specialShabbat = Boolean(ev.getFlags() & (flags.SPECIAL_SHABBAT | flags.ROSH_CHODESH));
+    const specialShabbat = Boolean(
+      ev.getFlags() & (flags.SPECIAL_SHABBAT | flags.ROSH_CHODESH)
+    );
     if (hasParshaHaShavua && specialShabbat) {
       continue;
     }
@@ -93,7 +112,8 @@ export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean =
       if (fk) {
         hasFullKriyah = true;
       }
-      const specialMaftirOnly = hasParshaHaShavua && hasFullKriyah && fk.M && !fk['1'];
+      const specialMaftirOnly =
+        hasParshaHaShavua && hasFullKriyah && fk.M && !fk['1'];
       if (!specialMaftirOnly) {
         arr.push(reading);
       }
@@ -103,8 +123,10 @@ export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean =
       }
       // Special case for Erev Simchat Torah - the only time we read Torah at night
       const desc = ev.getDesc();
-      if ((il && desc === 'Sukkot VII (Hoshana Raba)') ||
-          (!il && desc === 'Shmini Atzeret')) {
+      if (
+        (il && desc === 'Sukkot VII (Hoshana Raba)') ||
+        (!il && desc === 'Shmini Atzeret')
+      ) {
         const erevST = getLeyningForHolidayKey('Erev Simchat Torah');
         arr.push(erevST!);
       }
@@ -137,7 +159,11 @@ function getMincha(ev: HolidayEvent, il: boolean): Leyning | undefined {
   }
   const desc2 = getLeyningKeyForEvent(ev, il);
   if (desc2) {
-    const reading2 = getLeyningForHolidayKey(desc2 + minchaSuffix, ev.cholHaMoedDay, il);
+    const reading2 = getLeyningForHolidayKey(
+      desc2 + minchaSuffix,
+      ev.cholHaMoedDay,
+      il
+    );
     if (reading2) {
       return reading2;
     }

@@ -8,7 +8,7 @@ export type JsonFestivalAliyah = {
 
 export type JsonFestivalAliyotMap = {
   [key: string]: JsonFestivalAliyah;
-}
+};
 
 export type JsonFestivalLeyning = {
   haft?: JsonFestivalAliyah | JsonFestivalAliyah[];

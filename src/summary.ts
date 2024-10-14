@@ -1,13 +1,13 @@
-import { formatAliyahShort } from './common';
-import { Aliyah, AliyotMap } from './types';
+import {formatAliyahShort} from './common';
+import {Aliyah, AliyotMap} from './types';
 
 /**
  * @private
  */
 function isChapVerseBefore(a: string, b: string): boolean {
-  const cv1 = a.split(':').map((x) => +x);
-  const cv2 = b.split(':').map((x) => +x);
-  return (cv1[0]*100 + cv1[1]) < (cv2[0]*100 + cv2[1]);
+  const cv1 = a.split(':').map(x => +x);
+  const cv2 = b.split(':').map(x => +x);
+  return cv1[0] * 100 + cv1[1] < cv2[0] * 100 + cv2[1];
 }
 
 /**
@@ -15,7 +15,7 @@ function isChapVerseBefore(a: string, b: string): boolean {
  * Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
  */
 export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
-  const nums = Object.keys(aliyot).filter((x) => {
+  const nums = Object.keys(aliyot).filter(x => {
     if (x.length === 1) {
       return true;
     }
@@ -28,15 +28,20 @@ export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
   for (let i = 0; i < nums.length; i++) {
     const num = nums[i];
     const aliyah = aliyot[num];
-    if ((i === nums.length - 1) && (aliyah.k === end.k) && (aliyah.e === end.e)) {
+    if (i === nums.length - 1 && aliyah.k === end.k && aliyah.e === end.e) {
       // short-circuit when final aliyah is within the previous (e.g. M inside of 7)
       continue;
     }
-    const prevEndChap = +(end.e.split(':')[0]);
-    const curStartChap = +(aliyah.b.split(':')[0]);
-    const sameOrNextChap = curStartChap === prevEndChap || curStartChap === prevEndChap + 1;
-    if ((i !== 0) &&
-      (aliyah.k !== start.k || isChapVerseBefore(aliyah.b, start.e) || !sameOrNextChap)) {
+    const prevEndChap = +end.e.split(':')[0];
+    const curStartChap = +aliyah.b.split(':')[0];
+    const sameOrNextChap =
+      curStartChap === prevEndChap || curStartChap === prevEndChap + 1;
+    if (
+      i !== 0 &&
+      (aliyah.k !== start.k ||
+        isChapVerseBefore(aliyah.b, start.e) ||
+        !sameOrNextChap)
+    ) {
       parts.push({k: start.k, b: start.b, e: end.e});
       start = aliyah;
     }

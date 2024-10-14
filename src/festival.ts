@@ -1,7 +1,7 @@
-import { BOOK } from './common';
-import { clone } from './clone';
+import {BOOK} from './common';
+import {clone} from './clone';
 import festivals0 from './holiday-readings.json';
-import { JsonFestivalLeyning } from './internalTypes';
+import {JsonFestivalLeyning} from './internalTypes';
 
 type Festivals = {
   [key: string]: JsonFestivalLeyning;
@@ -19,7 +19,9 @@ export function hasFestival(holiday: string): boolean {
 /**
  * Returns the raw metadata for festival reading for `holiday`
  */
-export function lookupFestival(holiday: string): JsonFestivalLeyning | undefined {
+export function lookupFestival(
+  holiday: string
+): JsonFestivalLeyning | undefined {
   let src = festivals[holiday];
   if (typeof src === 'undefined') {
     return undefined;
