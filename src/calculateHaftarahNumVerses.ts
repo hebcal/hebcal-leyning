@@ -1,6 +1,8 @@
-import { calculateNumVerses } from './common';
+import {calculateNumVerses} from './common';
 
-export function calculateHaftarahNumVerses(haftara: string): number | undefined {
+export function calculateHaftarahNumVerses(
+  haftara: string
+): number | undefined {
   const sections = haftara.split(/[;,]/);
   let total = 0;
   let prevBook = '';

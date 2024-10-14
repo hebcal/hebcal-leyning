@@ -1,12 +1,10 @@
-import { Event, Locale, ParshaEvent, flags } from '@hebcal/core';
+import {Event, Locale, ParshaEvent, flags} from '@hebcal/core';
 import parshiyotObj0 from './aliyot.json';
-import {
-  BOOK, calculateNumVerses, 
-  parshaToString} from './common';
-import { cloneHaftara, sumVerses } from './clone';
-import { specialReadings2 } from './specialReadings';
-import { makeLeyningParts, makeSummaryFromParts } from './summary';
-import { Aliyah, AliyotMap, Leyning, LeyningNames, ParshaMeta } from './types';
+import {BOOK, calculateNumVerses, parshaToString} from './common';
+import {cloneHaftara, sumVerses} from './clone';
+import {specialReadings2} from './specialReadings';
+import {makeLeyningParts, makeSummaryFromParts} from './summary';
+import {Aliyah, AliyotMap, Leyning, LeyningNames, ParshaMeta} from './types';
 
 type JsonAliyah = {
   k: number | string;
@@ -18,7 +16,7 @@ type JsonAliyah = {
 
 type JsonParshaMap = {
   [key: string]: string[];
-}
+};
 
 type JsonParsha = {
   num: number | number[];
@@ -66,7 +64,7 @@ export function makeLeyningNames(parsha: string[]): LeyningNames {
   const name = parshaToString(parsha);
   return {
     en: name,
-    he: parsha.map((s) => Locale.lookupTranslation(s, 'he')).join('־'),
+    he: parsha.map(s => Locale.lookupTranslation(s, 'he')).join('־'),
   };
 }
 
@@ -104,13 +102,13 @@ function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
   const hkey = getHaftaraKey(parshaNameArray);
   const haft0 = parshiyotObj[hkey].haft;
   if (haft0) {
-    const haft = result.haft = cloneHaftara(haft0);
+    const haft = (result.haft = cloneHaftara(haft0));
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
   }
   const seph0 = parshiyotObj[hkey].seph;
   if (seph0) {
-    const seph = result.seph = cloneHaftara(seph0);
+    const seph = (result.seph = cloneHaftara(seph0));
     result.sephardic = makeSummaryFromParts(seph);
     result.sephardicNumV = sumVerses(seph);
   }
@@ -157,7 +155,7 @@ export function getLeyningForParsha(parsha: string | string[]): Leyning {
  * @param [il] in Israel
  * @returns map of aliyot
  */
-export function getLeyningForParshaHaShavua(ev: Event, il: boolean=false): Leyning {
+export function getLeyningForParshaHaShavua(ev: Event, il = false): Leyning {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${ev}`);
   } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
@@ -171,11 +169,11 @@ export function getLeyningForParshaHaShavua(ev: Event, il: boolean=false): Leyni
   const special = specialReadings2(parsha, hd, il, result.fullkriyah);
   const reason = special.reason;
   if (special.haft) {
-    const haft = result.haft = cloneHaftara(special.haft);
+    const haft = (result.haft = cloneHaftara(special.haft));
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
     if (special.seph) {
-      const seph = result.seph = cloneHaftara(special.seph);
+      const seph = (result.seph = cloneHaftara(special.seph));
       result.sephardic = makeSummaryFromParts(seph);
       result.sephardicNumV = sumVerses(seph);
     } else if (result.seph) {
@@ -224,11 +222,11 @@ export function lookupParsha(parsha: string | string[]): ParshaMeta {
   if (raw.combined) {
     const [p1, p2] = name.split('-');
     if (!raw.hebrew) {
-      raw.hebrew = Locale.gettext(p1, 'he') + '־' + Locale.gettext(p2, 'he');  
+      raw.hebrew = Locale.gettext(p1, 'he') + '־' + Locale.gettext(p2, 'he');
     }
     if (!raw.haft) {
       const haftKey = p1 === 'Nitzavim' ? p1 : p2;
-      raw.haft = lookupParsha(haftKey).haft;  
+      raw.haft = lookupParsha(haftKey).haft;
     }
   }
   return raw as ParshaMeta;

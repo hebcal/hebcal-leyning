@@ -1,11 +1,18 @@
 import numverses from './numverses.json';
-import { Aliyah } from './types';
+import {Aliyah} from './types';
 
 /**
  * Names of the books of the Torah. BOOK[1] === 'Genesis'
  * @readonly
  */
-export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
+export const BOOK = [
+  '',
+  'Genesis',
+  'Exodus',
+  'Leviticus',
+  'Numbers',
+  'Deuteronomy',
+];
 
 /**
  * Formats parsha as a string
@@ -14,7 +21,11 @@ export const BOOK = ['', 'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuterono
 export function parshaToString(parsha: string | string[]): string {
   if (typeof parsha === 'string') {
     return parsha;
-  } else if (!Array.isArray(parsha) || parsha.length === 0 || parsha.length > 2) {
+  } else if (
+    !Array.isArray(parsha) ||
+    parsha.length === 0 ||
+    parsha.length > 2
+  ) {
     throw new TypeError(`Bad parsha argument: ${parsha}`);
   }
   let s = parsha[0];
@@ -25,7 +36,7 @@ export function parshaToString(parsha: string | string[]): string {
 }
 
 type NumVerses = {
-  [key: string]: number[],
+  [key: string]: number[];
 };
 
 /**
@@ -82,4 +93,3 @@ export function formatAliyahShort(aliyah: Aliyah, showBook: boolean): string {
   const end = cv1[0] === cv2[0] ? cv2[1] : end0;
   return `${prefix}${begin}-${end}`;
 }
-

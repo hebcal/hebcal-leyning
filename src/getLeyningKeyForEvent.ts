@@ -1,9 +1,16 @@
-import { Event, HDate, flags, months } from '@hebcal/core';
-import { hasFestival } from './festival';
+import {Event, HDate, flags, months} from '@hebcal/core';
+import {hasFestival} from './festival';
 
-export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHABBAT_MEVARCHIM |
-  flags.MOLAD | flags.USER_EVENT | flags.HEBREW_DATE | flags.MISHNA_YOMI |
-  flags.MODERN_HOLIDAY | flags.YERUSHALMI_YOMI;
+export const HOLIDAY_IGNORE_MASK =
+  flags.DAF_YOMI |
+  flags.OMER_COUNT |
+  flags.SHABBAT_MEVARCHIM |
+  flags.MOLAD |
+  flags.USER_EVENT |
+  flags.HEBREW_DATE |
+  flags.MISHNA_YOMI |
+  flags.MODERN_HOLIDAY |
+  flags.YERUSHALMI_YOMI;
 
 /**
  * Based on the event date, type and title, finds the relevant leyning key
@@ -11,7 +18,10 @@ export const HOLIDAY_IGNORE_MASK = flags.DAF_YOMI | flags.OMER_COUNT | flags.SHA
  * @param [il] true if Israel holiday scheme
  * @returns key to look up in holiday-reading.json
  */
-export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | undefined {
+export function getLeyningKeyForEvent(
+  ev: Event,
+  il = false
+): string | undefined {
   if (typeof (ev as any).eventTime !== 'undefined') {
     return undefined;
   }
@@ -28,13 +38,15 @@ export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | 
   const day = hd.getDate();
   const dow = hd.abs() % 7;
   const month = hd.getMonth();
-  const isShabbat = (dow == 6);
-  const isRoshChodesh = (day == 1 || day == 30);
+  const isShabbat = dow == 6;
+  const isRoshChodesh = day == 1 || day == 30;
   const holiday = ev.basename();
   const isPesach = holiday === 'Pesach';
   if (il && isPesach) {
     if (isShabbat) {
-      return day === 15 || day === 21 ? desc + ' (on Shabbat)' : 'Pesach Shabbat Chol ha-Moed';
+      return day === 15 || day === 21
+        ? desc + ' (on Shabbat)'
+        : 'Pesach Shabbat Chol ha-Moed';
     }
     return desc;
   }
@@ -50,9 +62,9 @@ export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | 
       return 'Sukkot Final Day (Hoshana Raba)';
     }
     if (isPesach && cholHaMoedDay) {
-      if (dow === 0 && desc === 'Pesach IV (CH\'\'M)') {
+      if (dow === 0 && desc === "Pesach IV (CH''M)") {
         return 'Pesach Chol ha-Moed Day 2 on Sunday';
-      } else if (dow === 1 && desc === 'Pesach V (CH\'\'M)') {
+      } else if (dow === 1 && desc === "Pesach V (CH''M)") {
         return 'Pesach Chol ha-Moed Day 3 on Monday';
       }
     }
@@ -63,7 +75,7 @@ export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | 
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
     } else if (isRoshChodesh && chanukahDay == 7) {
-      return `Chanukah Day 7 (on Rosh Chodesh)`;
+      return 'Chanukah Day 7 (on Rosh Chodesh)';
     } else if (isShabbat) {
       return `Chanukah Day ${chanukahDay} (on Shabbat)`;
     } else {
@@ -71,7 +83,10 @@ export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | 
     }
   }
 
-  if (isRoshChodesh && (desc == 'Shabbat HaChodesh' || desc == 'Shabbat Shekalim')) {
+  if (
+    isRoshChodesh &&
+    (desc == 'Shabbat HaChodesh' || desc == 'Shabbat Shekalim')
+  ) {
     return desc + ' (on Rosh Chodesh)';
   }
 
@@ -126,8 +141,8 @@ export function getLeyningKeyForEvent(ev: Event, il: boolean = false): string | 
     return desc;
   }
 
-  if (desc === 'Tish\'a B\'Av (observed)') {
-    return 'Tish\'a B\'Av';
+  if (desc === "Tish'a B'Av (observed)") {
+    return "Tish'a B'Av";
   }
 
   return undefined;
