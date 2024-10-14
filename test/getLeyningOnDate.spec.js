@@ -225,6 +225,14 @@ test('getLeyningOnDate-Shabbat-Chanukah', () => {
   });
 });
 
+test('getLeyningOnDate-Rosh-Chodesh-Chanukah', () => {
+  const hd = new HDate(30, months.KISLEV, 5787);
+  const readings = getLeyningOnDate(hd, false, true);
+  expect(readings.length).toBe(1);
+  expect(readings[0].name.en).toBe('Chanukah Day 6');
+  expect(readings[0].summary).toEqual("Numbers 28:1-15, 7:42-47")
+});
+
 test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Chanukah', () => {
   const hd = new HDate(30, months.KISLEV, 5782);
   const readings = getLeyningOnDate(hd, false, true);

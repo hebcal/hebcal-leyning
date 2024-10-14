@@ -89,6 +89,8 @@ export function getLeyningOnDate(hdate: HDate, il: boolean, wantarray: boolean =
     }
     const reading = getLeyningForHoliday(ev, il);
     if (reading) {
+      // Skip duplicate readings from overlapping events (eg, Rosh Chodesh + Chanukah)
+      if (arr.some(r => r.name.en === reading.name.en)) continue;
       const fk = reading.fullkriyah;
       if (fk) {
         hasFullKriyah = true;
