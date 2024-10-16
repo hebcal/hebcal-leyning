@@ -12,7 +12,7 @@ export const BOOK = [
   'Leviticus',
   'Numbers',
   'Deuteronomy',
-];
+] as const;
 
 /**
  * Formats parsha as a string
