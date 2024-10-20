@@ -46,10 +46,10 @@ const parshiyotObj: Parshiyot = parshiyotObj0 as Parshiyot;
  */
 function getHaftaraKey(parsha: string[]): string {
   const first = parsha[0];
-  if (parsha.length === 2 && first == 'Achrei Mot') {
+  if (parsha.length === 2 && first === 'Achrei Mot') {
     return parshaToString(parsha); // 'Achrei Mot-Kedoshim'
   }
-  if (parsha.length === 1 || first == 'Nitzavim') {
+  if (parsha.length === 1 || first === 'Nitzavim') {
     return first;
   } else {
     return parsha[1];
@@ -158,7 +158,7 @@ export function getLeyningForParsha(parsha: string | string[]): Leyning {
 export function getLeyningForParshaHaShavua(ev: Event, il = false): Leyning {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${ev}`);
-  } else if (ev.getFlags() != flags.PARSHA_HASHAVUA) {
+  } else if (ev.getFlags() !== flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
   }
   // first, collect the default aliyot and haftara

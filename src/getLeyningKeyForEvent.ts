@@ -38,8 +38,8 @@ export function getLeyningKeyForEvent(
   const day = hd.getDate();
   const dow = hd.abs() % 7;
   const month = hd.getMonth();
-  const isShabbat = dow == 6;
-  const isRoshChodesh = day == 1 || day == 30;
+  const isShabbat = dow === 6;
+  const isRoshChodesh = day === 1 || day === 30;
   const holiday = ev.basename();
   const isPesach = holiday === 'Pesach';
   if (il && isPesach) {
@@ -50,7 +50,7 @@ export function getLeyningKeyForEvent(
     }
     return desc;
   }
-  if (day == 1 && month === months.TISHREI) {
+  if (day === 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
   }
   const cholHaMoedDay = (ev as any).cholHaMoedDay;
@@ -58,7 +58,7 @@ export function getLeyningKeyForEvent(
     // Sukkot or Pesach
     if (isShabbat) {
       return holiday + ' Shabbat Chol ha-Moed';
-    } else if (desc == 'Sukkot VII (Hoshana Raba)') {
+    } else if (desc === 'Sukkot VII (Hoshana Raba)') {
       return 'Sukkot Final Day (Hoshana Raba)';
     }
     if (isPesach && cholHaMoedDay) {
@@ -74,7 +74,7 @@ export function getLeyningKeyForEvent(
   if (typeof chanukahDay === 'number') {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
-    } else if (isRoshChodesh && chanukahDay == 7) {
+    } else if (isRoshChodesh && chanukahDay === 7) {
       return 'Chanukah Day 7 (on Rosh Chodesh)';
     } else if (isShabbat) {
       return `Chanukah Day ${chanukahDay} (on Shabbat)`;
@@ -85,12 +85,12 @@ export function getLeyningKeyForEvent(
 
   if (
     isRoshChodesh &&
-    (desc == 'Shabbat HaChodesh' || desc == 'Shabbat Shekalim')
+    (desc === 'Shabbat HaChodesh' || desc === 'Shabbat Shekalim')
   ) {
     return desc + ' (on Rosh Chodesh)';
   }
 
-  if (il && desc == 'Shmini Atzeret') {
+  if (il && desc === 'Shmini Atzeret') {
     return 'Simchat Torah';
   }
 
@@ -98,7 +98,7 @@ export function getLeyningKeyForEvent(
     return undefined;
   }
 
-  if (isShabbat && 'Shabbat' != desc.substring(0, 7)) {
+  if (isShabbat && 'Shabbat' !== desc.substring(0, 7)) {
     if (isRoshChodesh) {
       if (desc === 'Rosh Chodesh Tevet') {
         return 'Shabbat Rosh Chodesh Chanukah';

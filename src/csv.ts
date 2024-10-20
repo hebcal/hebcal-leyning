@@ -156,12 +156,14 @@ export function writeCsvLines(
   stream.write('\r\n');
 }
 
-function getFullKriyahLines(reading: Leyning): any[] {
-  const lines = [];
+type CsvLine = [string, string, string | number];
+
+function getFullKriyahLines(reading: Leyning): CsvLine[] {
+  const lines: CsvLine[] = [];
   if (reading.fullkriyah) {
     for (const [num, a] of Object.entries(reading.fullkriyah)) {
       if (typeof a !== 'undefined') {
-        const k = num == 'M' ? 'maf' : num;
+        const k = num === 'M' ? 'maf' : num;
         let aliyah = formatAliyahWithBook(a);
         if (reading.reason?.[num]) {
           aliyah += ' | ' + reading.reason[num];

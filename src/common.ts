@@ -29,7 +29,7 @@ export function parshaToString(parsha: string | string[]): string {
     throw new TypeError(`Bad parsha argument: ${parsha}`);
   }
   let s = parsha[0];
-  if (parsha.length == 2) {
+  if (parsha.length === 2) {
     s += '-' + parsha[1];
   }
   return s;
