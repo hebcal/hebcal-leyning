@@ -1,18 +1,13 @@
 import {Event, Locale, flags} from '@hebcal/core';
-import {calculateNumVerses} from './common';
+import {calculateNumVerses, NUM_VERSES} from './common';
 import {clone, cloneHaftara, sumVerses} from './clone';
 import {lookupFestival} from './festival';
 import {
   HOLIDAY_IGNORE_MASK,
   getLeyningKeyForEvent,
 } from './getLeyningKeyForEvent';
-import numverses from './numverses.json';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {Aliyah, AliyotMap, Leyning} from './types';
-
-type NumVerses = {
-  [key: string]: number[];
-};
 
 /**
  * Looks up leyning for a given holiday key. Key should be an
@@ -77,7 +72,7 @@ export function getLeyningForHolidayKey(
   }
   if (src.megillah) {
     const book: string = (src as any).megillah;
-    const chaps = (numverses as NumVerses)[book];
+    const chaps = NUM_VERSES[book];
     const m: AliyotMap = {};
     for (let i = 1; i < chaps.length; i++) {
       const numv = chaps[i];

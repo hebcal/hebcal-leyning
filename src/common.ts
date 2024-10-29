@@ -15,6 +15,16 @@ export const BOOK = [
 ] as const;
 
 /**
+ * The number of verses in each book of the Tanakh.
+ * @readonly
+ */
+export const NUM_VERSES: NumVerses = numverses;
+export type NumVerses = {
+  readonly [book: string]: readonly number[];
+};
+
+
+/**
  * Formats parsha as a string
  * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  */
@@ -35,10 +45,6 @@ export function parshaToString(parsha: string | string[]): string {
   return s;
 }
 
-type NumVerses = {
-  [key: string]: number[];
-};
-
 /**
  * Calculates the number of verses in an aliyah or haftara based on
  * the `b` (begin verse), `e` (end verse) and `k` (book).
@@ -57,7 +63,7 @@ export function calculateNumVerses(aliyah: Aliyah): number {
   if (c1 === c2) {
     aliyah.v = v2 - v1 + 1;
   } else if (typeof aliyah.k === 'string') {
-    const numv = (numverses as NumVerses)[aliyah.k];
+    const numv = NUM_VERSES[aliyah.k];
     if (typeof numv !== 'object' || !numv.length) {
       throw new ReferenceError(`Can't find numverses for ${aliyah.k}`);
     }
