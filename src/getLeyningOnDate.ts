@@ -77,7 +77,17 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
 export function getLeyningOnDate(
   hdate: HDate,
   il: boolean,
-  wantarray = false
+  wantarray?: false,
+): Leyning | LeyningWeekday | undefined;
+export function getLeyningOnDate(
+  hdate: HDate,
+  il: boolean,
+  wantarray: true,
+): (Leyning | LeyningWeekday)[];
+export function getLeyningOnDate(
+  hdate: HDate,
+  il: boolean,
+  wantarray = false,
 ): (Leyning | LeyningWeekday) | (Leyning | LeyningWeekday)[] | undefined {
   const dow = hdate.getDay();
   const arr: (Leyning | LeyningWeekday)[] = [];
