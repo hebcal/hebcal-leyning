@@ -23,7 +23,6 @@ export type NumVerses = {
   readonly [book: string]: readonly number[];
 };
 
-
 /**
  * Formats parsha as a string
  * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
