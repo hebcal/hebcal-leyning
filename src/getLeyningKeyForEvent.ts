@@ -91,7 +91,7 @@ export function getLeyningKeyForEvent(
   }
 
   if (il && desc === 'Shmini Atzeret') {
-    return 'Simchat Torah';
+    return 'Simchat Torah' + (isShabbat ? ' (on Shabbat)' : '');
   }
 
   if (desc === 'Chag HaBanot') {

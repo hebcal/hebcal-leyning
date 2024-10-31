@@ -658,3 +658,42 @@ test('Erev Simchat Torah', () => {
   const reading2 = getLeyningForHoliday(ev2, true);
   expect(reading2).toEqual(expected);
 });
+
+const megillahCases = [
+  {
+    name: 'Pesach',
+    startDate: [15, months.NISAN],
+    numDays: 7,
+    expectedMegillah: 'Song of Songs',
+  },
+  {
+    name: 'Sukkot',
+    startDate: [15, months.TISHREI],
+    numDays: 8,
+    expectedMegillah: 'Ecclesiastes',
+  },
+];
+
+for (const testCase of megillahCases) {
+  for (const il of [true, false]) {
+    for (let year = 5780; year < 5830; year++) {
+      test(`${testCase.name} on ${year} in ${il ? 'Israel' : 'disaspora'}`, () => {
+        const start = new HDate(...testCase.startDate, year);
+        const events = HebrewCalendar.calendar({
+          start,
+          end: start.add(testCase.numDays + (il ? 0 : 1) - 1, 'days'),
+          il,
+        });
+        const leynings = events.map(e => getLeyningForHoliday(e, il));
+
+        const megillahLeynings = leynings.filter(o => o.megillah);
+        expect(megillahLeynings).toHaveLength(1);
+        expect(megillahLeynings[0].name.en).toContain('Shabbat');
+
+        // Megillah is rarely leined on the first day.
+        if (!il || testCase.name !== 'Pesach')
+          expect(megillahLeynings[0]).not.toBe(leynings[0]);
+      });
+    }
+  }
+}
