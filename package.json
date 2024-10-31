@@ -40,7 +40,7 @@
     "leyning-csv": "bin/leyning-csv"
   },
   "dependencies": {
-    "@hebcal/core": "^5.5.2",
+    "@hebcal/core": "^5.6.0",
     "tslib": "^2.8.0"
   },
   "scripts": {

@@ -39,6 +39,7 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
         parsha: ['Vezot Haberakhah'],
         chag: false,
         num: 54,
+        hdate: saturday,
       };
     }
   }
