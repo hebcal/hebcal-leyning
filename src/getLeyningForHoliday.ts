@@ -70,13 +70,14 @@ export function getLeyningForHolidayKey(
     leyning.sephardic = makeSummaryFromParts(seph);
     leyning.sephardicNumV = sumVerses(seph);
   }
-  if (src.megillah) {
-    const book: string = (src as any).megillah;
-    const chaps = NUM_VERSES[book];
+  let megillah = src.megillah;
+  if (il && key === 'Pesach I (on Shabbat)') megillah = 'Song of Songs';
+  if (megillah) {
+    const chaps = NUM_VERSES[megillah];
     const m: AliyotMap = {};
     for (let i = 1; i < chaps.length; i++) {
       const numv = chaps[i];
-      m[`${i}`] = {k: book, b: `${i}:1`, e: `${i}:${numv}`, v: numv};
+      m[`${i}`] = {k: megillah, b: `${i}:1`, e: `${i}:${numv}`, v: numv};
     }
     leyning.megillah = m;
   }

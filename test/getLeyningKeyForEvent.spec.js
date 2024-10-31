@@ -30,7 +30,7 @@ test('getLeyningKeyForEvent', () => {
     {d: '1996-10-02', h: 'Sukkot V (CH\'\'M)', k: 'Sukkot Chol ha-Moed Day 3'},
     {d: '1996-10-03', h: 'Sukkot VI (CH\'\'M)', k: 'Sukkot Chol ha-Moed Day 4'},
     {d: '1996-10-04', h: 'Sukkot VII (Hoshana Raba)', k: 'Sukkot Final Day (Hoshana Raba)'},
-    {d: '1996-10-05', h: 'Shmini Atzeret', k: 'Simchat Torah'},
+    {d: '1996-10-05', h: 'Shmini Atzeret', k: 'Simchat Torah (on Shabbat)'},
     {d: '1996-10-06', h: 'Simchat Torah', k: 'Simchat Torah'},
     {d: '1996-10-13', h: 'Rosh Chodesh Cheshvan', k: 'Rosh Chodesh Cheshvan'},
     {d: '1996-10-14', h: 'Rosh Chodesh Cheshvan', k: 'Rosh Chodesh Cheshvan'},
