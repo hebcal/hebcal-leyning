@@ -111,7 +111,7 @@ test('getLeyningForHoliday-il', () => {
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
   expect(getLeyningForHoliday(sukkot2, true).fullkriyah['4'].p).toBe(41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
-  expect(getLeyningForHoliday(shminiAtzeret, true).fullkriyah['7'].p).toBe(1);
+  expect(getLeyningForHoliday(shminiAtzeret, true).fullkriyah['8'].p).toBe(1);
   const tevet17 = events.find((e) => e.getDesc() == 'Asara B\'Tevet');
   expect(getLeyningForHoliday(tevet17, true).fullkriyah['3'].e).toBe('34:10');
   const pesach5 = events.find((e) => e.getDesc() == 'Pesach V (CH\'\'M)');
