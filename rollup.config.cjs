@@ -25,7 +25,8 @@ module.exports = defineConfig([
   {
     input: 'src/index.ts',
     output: [{file: pkg.main, format: 'cjs', name: pkg.name, banner}],
-    external: ['@hebcal/core'],
+    // Explicitly exclude @hebcal packages for use with `npm link`.
+    external: [/node_modules/, /@hebcal/],
     plugins: [
       typescript(tsOptions),
       nodeResolve(),
@@ -37,7 +38,7 @@ module.exports = defineConfig([
   {
     input: 'src/index.ts',
     output: [{file: pkg.module, format: 'es', name: pkg.name, banner}],
-    external: ['@hebcal/core'],
+    external: [/node_modules/, /@hebcal/],
     plugins: [
       typescript(tsOptions),
       commonjs(),
