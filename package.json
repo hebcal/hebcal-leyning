@@ -41,10 +41,17 @@
   },
   "dependencies": {
     "@hebcal/core": "^5.6.1",
+    "@hebcal/hdate": "^0.11.5",
+    "@rollup/plugin-babel": "^6.0.4",
+    "pretty-bytes": "^6.1.1",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-visualizer": "^5.12.0",
     "tslib": "^2.8.1"
   },
   "scripts": {
     "po2json": "node ./po2json.cjs po/he.po",
+    "size-demo:rollup": "rollup -c size-demo/rollup.config.ts --configPlugin typescript",
+    "size-demo": "npm run build && npm run size-demo:rollup",
     "build:rollup": "rollup -c",
     "build": "npm run po2json && npm run build:rollup",
     "prepublish": "npm run build",
