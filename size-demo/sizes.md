@@ -1,6 +1,6 @@
 # Bundle sizes
 
-- `getLeyningForParsha.mjs`: 199 kB
-- `getLeyningForParsha.min.mjs`: 116 kB
-- `getLeyningOnDate.mjs`: 534 kB
-- `getLeyningOnDate.min.mjs`: 208 kB
+- `getLeyningForParsha.mjs`: 69.1 kB
+- `getLeyningForParsha.min.mjs`: 45.1 kB
+- `getLeyningOnDate.mjs`: 256 kB
+- `getLeyningOnDate.min.mjs`: 106 kB

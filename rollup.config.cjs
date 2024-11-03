@@ -10,6 +10,15 @@ const {defineConfig} = require('rollup');
 
 const banner = '/*! ' + pkg.name + ' v' + pkg.version + ' */';
 
+const iifeGlobals = {
+  '@hebcal/core': 'hebcal',
+  '@hebcal/core/dist/es/locale': 'hebcal',
+  '@hebcal/core/dist/es/holidays': 'hebcal',
+  '@hebcal/core/dist/es/sedra': 'hebcal',
+  '@hebcal/core/dist/es/event': 'hebcal',
+  '@hebcal/core/dist/es/ParshaEvent': 'hebcal',
+};
+
 // Override tsconfig.json, which includes ./size-demo.
 const tsOptions = {rootDir: './src'};
 module.exports = defineConfig([
@@ -19,6 +28,8 @@ module.exports = defineConfig([
     external: ['@hebcal/core'],
     plugins: [
       typescript(tsOptions),
+      nodeResolve(),
+      commonjs(),
       json({compact: true, preferConst: true}),
       bundleSize(),
     ],
@@ -29,6 +40,8 @@ module.exports = defineConfig([
     external: ['@hebcal/core'],
     plugins: [
       typescript(tsOptions),
+      commonjs(),
+      nodeResolve(),
       json({compact: true, preferConst: true}),
       bundleSize(),
     ],
@@ -40,9 +53,7 @@ module.exports = defineConfig([
         file: 'dist/bundle.js',
         format: 'iife',
         name: 'hebcal__leyning',
-        globals: {
-          '@hebcal/core': 'hebcal',
-        },
+        globals: iifeGlobals,
         indent: false,
         banner,
       },
@@ -50,14 +61,12 @@ module.exports = defineConfig([
         file: 'dist/bundle.min.js',
         format: 'iife',
         name: 'hebcal__leyning',
-        globals: {
-          '@hebcal/core': 'hebcal',
-        },
+        globals: iifeGlobals,
         plugins: [terser()],
         banner,
       },
     ],
-    external: ['@hebcal/core'],
+    external: [/@hebcal\/core/],
     plugins: [
       typescript(tsOptions),
       json({compact: true, preferConst: true}),

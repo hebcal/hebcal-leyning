@@ -1,4 +1,6 @@
-import {Event, Locale, flags} from '@hebcal/core';
+import '@hebcal/core/dist/es/locale';
+import {Event, flags} from '@hebcal/core/dist/es/event';
+import {Locale} from '@hebcal/hdate';
 import {calculateNumVerses, NUM_VERSES} from './common';
 import {clone, cloneHaftara, sumVerses} from './clone';
 import {lookupFestival} from './festival';

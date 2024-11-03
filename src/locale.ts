@@ -1,4 +1,4 @@
-import {Locale, LocaleData, StringArrayMap} from '@hebcal/core';
+import {Locale, LocaleData, StringArrayMap} from '@hebcal/hdate';
 import poHe from './he.po';
 
 Locale.addTranslations('he', poHe);
