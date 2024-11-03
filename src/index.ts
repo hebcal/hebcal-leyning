@@ -1,4 +1,5 @@
 export * from './types';
+import './locale';
 export * from './common';
 export * from './summary';
 export * from './festival';

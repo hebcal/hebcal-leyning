@@ -44,9 +44,10 @@
     "tslib": "^2.8.1"
   },
   "scripts": {
+    "po2json": "node ./po2json.cjs po/*.po",
     "build:rollup": "rollup -c",
     "build:json2js": "for f in src/*.json; do echo 'export default' > $f.ts && cat $f >> $f.ts; done",
-    "build": "npm run build:json2js && npm run build:rollup",
+    "build": "npm run po2json && npm run build:json2js && npm run build:rollup",
     "prepublish": "npm run build",
     "docs": "typedoc",
     "pretest": "npm run build",
@@ -57,6 +58,11 @@
     "fix": "gts fix"
   },
   "license": "BSD-2-Clause",
+  "overrides": {
+    "babel-plugin-ttag@1.8.16": {
+      "babel-plugin-macros": "3.1.0"
+    }
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
@@ -67,11 +73,12 @@
     "@rollup/plugin-typescript": "^12.1.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.8.7",
-    "gts": "^6.0.2",
+    "gts": "^5.3.1",
     "jest": "^29.7.0",
     "rollup": "^4.24.3",
     "rollup-plugin-dts": "^6.1.1",
     "ts-jest": "^29.2.5",
+    "ttag-cli": "^1.10.12",
     "typedoc": "^0.26.11",
     "typescript": "^5.6.3"
   }
