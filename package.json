@@ -44,10 +44,9 @@
     "tslib": "^2.8.1"
   },
   "scripts": {
-    "po2json": "node ./po2json.cjs po/*.po",
+    "po2json": "node ./po2json.cjs po/he.po",
     "build:rollup": "rollup -c",
-    "build:json2js": "for f in src/*.json; do echo 'export default' > $f.ts && cat $f >> $f.ts; done",
-    "build": "npm run po2json && npm run build:json2js && npm run build:rollup",
+    "build": "npm run po2json && npm run build:rollup",
     "prepublish": "npm run build",
     "docs": "typedoc",
     "pretest": "npm run build",
