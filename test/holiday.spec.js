@@ -2,7 +2,7 @@ import {Event, HDate, HebrewCalendar, HolidayEvent, flags, months} from '@hebcal
 import {getLeyningForHoliday, getLeyningForHolidayKey} from '../src/getLeyningForHoliday';
 import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';
 import {formatAliyahWithBook} from '../src/common';
-
+import '../src/locale';
 
 test('pesach-il', () => {
   const events0 = HebrewCalendar.calendar({year: 5782, isHebrewYear: true, il: true});
