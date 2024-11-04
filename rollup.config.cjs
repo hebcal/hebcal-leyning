@@ -37,14 +37,22 @@ module.exports = defineConfig([
   },
   {
     input: 'src/index.ts',
-    output: [{file: pkg.module, format: 'es', name: pkg.name, banner}],
+    output: [
+      {
+        dir: 'dist/es',
+        format: 'es',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        name: pkg.name,
+        banner,
+      },
+    ],
     external: [/node_modules/, /@hebcal/],
     plugins: [
-      typescript(tsOptions),
+      typescript({...tsOptions, outDir: 'dist/es'}),
       commonjs(),
       nodeResolve(),
       json({compact: true, preferConst: true}),
-      bundleSize(),
     ],
   },
   {
