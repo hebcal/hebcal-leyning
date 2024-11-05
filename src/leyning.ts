@@ -1,7 +1,6 @@
-import '@hebcal/core/dist/es/locale';
 import {Event, flags} from '@hebcal/core/dist/es/event';
 import {ParshaEvent} from '@hebcal/core/dist/es/ParshaEvent';
-import {Locale} from '@hebcal/hdate';
+import {Locale} from './locale';
 import parshiyotObj0 from './aliyot.json';
 import {BOOK, calculateNumVerses, parshaToString} from './common';
 import {cloneHaftara, sumVerses} from './clone';
