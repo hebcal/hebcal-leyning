@@ -1,11 +1,11 @@
 import {HDate, months} from '@hebcal/hdate';
-import {flags} from '@hebcal/core/dist/es/event';
+import {flags} from '@hebcal/core/dist/esm/event';
 import {clone, cloneHaftara} from './clone';
 import {calculateNumVerses, parshaToString} from './common';
 import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {AliyotMap, SpecialReading, StringMap} from './types';
-import {getHolidaysOnDate} from '@hebcal/core/dist/es/holidays';
+import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
 
 function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = clone(aliyot['6']);

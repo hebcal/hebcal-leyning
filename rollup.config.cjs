@@ -11,11 +11,11 @@ const banner = '/*! ' + pkg.name + ' v' + pkg.version + ' */';
 
 const iifeGlobals = {
   '@hebcal/core': 'hebcal',
-  '@hebcal/core/dist/es/locale': 'hebcal',
-  '@hebcal/core/dist/es/holidays': 'hebcal',
-  '@hebcal/core/dist/es/sedra': 'hebcal',
-  '@hebcal/core/dist/es/event': 'hebcal',
-  '@hebcal/core/dist/es/ParshaEvent': 'hebcal',
+  '@hebcal/core/dist/esm/locale': 'hebcal',
+  '@hebcal/core/dist/esm/holidays': 'hebcal',
+  '@hebcal/core/dist/esm/sedra': 'hebcal',
+  '@hebcal/core/dist/esm/event': 'hebcal',
+  '@hebcal/core/dist/esm/ParshaEvent': 'hebcal',
 };
 
 // Override tsconfig.json, which includes ./size-demo.

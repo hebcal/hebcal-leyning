@@ -1,5 +1,5 @@
 import {HDate, months} from '@hebcal/hdate';
-import {flags} from '@hebcal/core/dist/es/event';
+import {flags} from '@hebcal/core/dist/esm/event';
 import {
   getLeyningForHoliday,
   getLeyningForHolidayKey,
@@ -12,10 +12,10 @@ import {
 } from './leyning';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {Leyning, LeyningWeekday} from './types';
-import {getSedra, SedraResult} from '@hebcal/core/dist/es/sedra';
-import {getHolidaysOnDate} from '@hebcal/core/dist/es/holidays';
-import {ParshaEvent} from '@hebcal/core/dist/es/ParshaEvent';
-import {HolidayEvent} from '@hebcal/core/dist/es/HolidayEvent';
+import {getSedra, SedraResult} from '@hebcal/core/dist/esm/sedra';
+import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
+import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
+import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();

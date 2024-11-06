@@ -1,5 +1,5 @@
-import {Event, flags} from '@hebcal/core/dist/es/event';
-import {ParshaEvent} from '@hebcal/core/dist/es/ParshaEvent';
+import {Event, flags} from '@hebcal/core/dist/esm/event';
+import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
 import {Locale} from './locale';
 import parshiyotObj0 from './aliyot.json';
 import {BOOK, calculateNumVerses, parshaToString} from './common';

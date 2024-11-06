@@ -1,4 +1,4 @@
-import {Locale} from '@hebcal/core/dist/es/locale';
+import {Locale} from '@hebcal/core/dist/esm/locale';
 import {LocaleData, StringArrayMap} from '@hebcal/hdate';
 import poHe from './he.po';
 
