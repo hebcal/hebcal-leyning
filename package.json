@@ -21,11 +21,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/es/index.js",
+      "import": "./dist/esm/index.js",
       "require": "./dist/index.cjs",
-      "types": "./dist/module.d.ts"
+      "types": "./dist/esm/index.d.ts"
     },
-    "./dist/es/*": "./dist/es/*.js"
+    "./dist/esm/*": "./dist/esm/*.js"
   },
   "repository": {
     "type": "git",

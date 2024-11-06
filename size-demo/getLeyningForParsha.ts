@@ -1,2 +1,2 @@
-import {getLeyningForParsha} from '../dist/es/leyning';
+import {getLeyningForParsha} from '../dist/esm/leyning';
 console.log(getLeyningForParsha('Noach'));
