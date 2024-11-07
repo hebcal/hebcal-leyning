@@ -1,4 +1,5 @@
-import {Event, HDate, flags, months} from '@hebcal/core';
+import {HDate, months} from '@hebcal/hdate';
+import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {hasFestival} from './festival';
 
 export const HOLIDAY_IGNORE_MASK =

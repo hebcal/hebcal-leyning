@@ -1,12 +1,5 @@
-import {
-  HDate,
-  HebrewCalendar,
-  HolidayEvent,
-  ParshaEvent,
-  SedraResult,
-  flags,
-  months,
-} from '@hebcal/core';
+import {HDate, months} from '@hebcal/hdate';
+import {flags} from '@hebcal/core/dist/esm/event';
 import {
   getLeyningForHoliday,
   getLeyningForHolidayKey,
@@ -19,10 +12,14 @@ import {
 } from './leyning';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {Leyning, LeyningWeekday} from './types';
+import {getSedra, SedraResult} from '@hebcal/core/dist/esm/sedra';
+import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
+import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
+import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();
-  const sedra = HebrewCalendar.getSedra(hyear, il);
+  const sedra = getSedra(hyear, il);
   const parsha = sedra.lookup(saturday);
   if (!parsha.chag) {
     return parsha;
@@ -47,8 +44,7 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const endOfYear = new HDate(1, months.TISHREI, hyear + 1).abs() - 1;
   const endAbs = endOfYear + 30;
   for (let sat2 = saturday.abs() + 7; sat2 <= endAbs; sat2 += 7) {
-    const sedra2 =
-      sat2 > endOfYear ? HebrewCalendar.getSedra(hyear + 1, il) : sedra;
+    const sedra2 = sat2 > endOfYear ? getSedra(hyear + 1, il) : sedra;
     const parsha2 = sedra2.lookup(sat2);
     if (!parsha2.chag) {
       return parsha2;
@@ -95,7 +91,7 @@ export function getLeyningOnDate(
   let hasParshaHaShavua = false;
   if (dow === 6) {
     const hyear = hdate.getFullYear();
-    const sedra = HebrewCalendar.getSedra(hyear, il);
+    const sedra = getSedra(hyear, il);
     const parsha = sedra.lookup(hdate);
     if (!parsha.chag) {
       const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
@@ -108,7 +104,7 @@ export function getLeyningOnDate(
       }
     }
   }
-  const events = HebrewCalendar.getHolidaysOnDate(hdate, il) || [];
+  const events = getHolidaysOnDate(hdate, il) || [];
   let hasFullKriyah = false;
   for (const ev of events) {
     const specialShabbat = Boolean(

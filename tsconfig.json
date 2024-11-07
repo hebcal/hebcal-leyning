@@ -3,12 +3,14 @@
   "compilerOptions": {
     "module": "es6",
     "declaration": true,
-    "rootDir": "./src",
+    "rootDir": "./",
     "target": "ES2017",
     "sourceMap": false,
     "outDir": "dist",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "paths": {
       "*": ["./types/*"]

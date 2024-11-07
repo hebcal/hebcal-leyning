@@ -1,9 +1,11 @@
-import {HDate, HebrewCalendar, flags, months} from '@hebcal/core';
+import {HDate, months} from '@hebcal/hdate';
+import {flags} from '@hebcal/core/dist/esm/event';
 import {clone, cloneHaftara} from './clone';
 import {calculateNumVerses, parshaToString} from './common';
 import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {AliyotMap, SpecialReading, StringMap} from './types';
+import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
 
 function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = clone(aliyot['6']);
@@ -87,7 +89,7 @@ export function specialReadings2(
   }
 
   const parshaName = parshaToString(parsha);
-  const events0 = HebrewCalendar.getHolidaysOnDate(hd, il) || [];
+  const events0 = getHolidaysOnDate(hd, il) || [];
   const events = events0.filter(ev => !(ev.getFlags() & flags.ROSH_CHODESH));
   for (const ev of events) {
     if (ev.getDesc() === 'Shabbat Shuva') {
