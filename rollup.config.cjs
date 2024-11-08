@@ -22,20 +22,7 @@ const iifeGlobals = {
 const tsOptions = {rootDir: './src'};
 module.exports = defineConfig([
   {
-    input: 'src/index.ts',
-    output: [{file: pkg.main, format: 'cjs', name: pkg.name, banner}],
-    // Explicitly exclude @hebcal packages for use with `npm link`.
-    external: [/node_modules/, /@hebcal/],
-    plugins: [
-      typescript(tsOptions),
-      nodeResolve(),
-      commonjs(),
-      json({compact: true, preferConst: true}),
-      bundleSize(),
-    ],
-  },
-  {
-    input: 'src/index.ts',
+    input: ['src/index.ts', 'src/csv.ts'],
     output: [
       {
         dir: 'dist/esm',
