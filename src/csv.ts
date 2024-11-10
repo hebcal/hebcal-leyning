@@ -1,4 +1,7 @@
-import {Event, HebrewCalendar, HolidayEvent, flags} from '@hebcal/core';
+import {parshaYear} from '@hebcal/core/dist/esm/parshaYear';
+import {Event, flags} from '@hebcal/core/dist/esm/event';
+import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
+import {getHolidaysForYearArray} from '@hebcal/core/dist/esm/holidays';
 import {WriteStream} from 'node:fs';
 import {formatAliyahWithBook} from './common';
 import {
@@ -25,9 +28,7 @@ export interface StringToBoolMap {
 }
 
 export function getParshaDates(events: Event[]): StringToBoolMap {
-  const parshaEvents = events.filter(
-    ev => ev.getFlags() === flags.PARSHA_HASHAVUA
-  );
+  const parshaEvents = events.filter(ev => ev.getFlags() === PARSHA_HASHAVUA);
   const emptyMap: StringToBoolMap = {};
   const parshaDates = parshaEvents.reduce((set, ev) => {
     set[ev.getDate().toString()] = true;
@@ -36,17 +37,22 @@ export function getParshaDates(events: Event[]): StringToBoolMap {
   return parshaDates;
 }
 
+function getParshaAndHolidayEvents(year: number, il: boolean): Event[] {
+  let events: Event[] = parshaYear(year, il);
+  const holidays = getHolidaysForYearArray(year, il);
+  events = events.concat(holidays);
+  events.sort((a, b) => a.getDate().abs() - b.getDate().abs());
+  return events;
+}
+
+const PARSHA_HASHAVUA = flags.PARSHA_HASHAVUA;
+
 export function writeFullKriyahCsv(
   stream: WriteStream,
   hyear: number,
   il: boolean
 ) {
-  const events0 = HebrewCalendar.calendar({
-    year: hyear,
-    isHebrewYear: true,
-    sedrot: true,
-    il: il,
-  });
+  const events0 = getParshaAndHolidayEvents(hyear, il);
   const events = events0.filter(
     (ev: Event) => ev.getDesc() !== 'Rosh Chodesh Tevet'
   );
@@ -54,7 +60,7 @@ export function writeFullKriyahCsv(
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
   for (const ev of events) {
     if (
-      ev.getFlags() === flags.PARSHA_HASHAVUA ||
+      ev.getFlags() === PARSHA_HASHAVUA ||
       !parshaDates[ev.getDate().toString()]
     ) {
       writeFullKriyahEvent(stream, ev, il);
@@ -82,7 +88,7 @@ export function writeFullKriyahEvent(
     return;
   }
   const mask = ev.getFlags();
-  const isParsha = mask === flags.PARSHA_HASHAVUA;
+  const isParsha = mask === PARSHA_HASHAVUA;
   const reading = isParsha
     ? getLeyningForParshaHaShavua(ev, il)
     : getLeyningForHoliday(ev, il);
