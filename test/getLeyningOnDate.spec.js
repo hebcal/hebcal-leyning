@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {HDate, months} from '@hebcal/core';
 import {getLeyningOnDate} from '../src/getLeyningOnDate';
 

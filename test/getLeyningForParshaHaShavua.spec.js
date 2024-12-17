@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {HDate, HebrewCalendar, ParshaEvent} from '@hebcal/core';
 import {getLeyningForParshaHaShavua} from '../src/leyning';
 import {formatAliyahWithBook} from '../src/common';

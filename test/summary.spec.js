@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {makeLeyningSummary, makeLeyningParts} from '../src/summary';
 
 test('mls-Noach', () => {

@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {Event, HDate, HebrewCalendar, HolidayEvent, flags, months} from '@hebcal/core';
 import {getLeyningForHoliday, getLeyningForHolidayKey} from '../src/getLeyningForHoliday';
 import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';

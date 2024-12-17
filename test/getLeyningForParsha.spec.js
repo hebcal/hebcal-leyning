@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {parshiot} from '@hebcal/core';
 import {getLeyningForParsha} from '../src/leyning';
 

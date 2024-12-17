@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {HebrewCalendar, flags} from '@hebcal/core';
 import {getLeyningForHoliday} from '../src/getLeyningForHoliday';
 import {getLeyningForParshaHaShavua} from '../src/leyning';

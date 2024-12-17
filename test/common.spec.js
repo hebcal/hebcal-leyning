@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {calculateNumVerses, parshaToString} from '../src/common';
 
 test('calculateNumVerses', () => {

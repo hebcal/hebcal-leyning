@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {HDate, ParshaEvent} from '@hebcal/core';
 import {getLeyningForParshaHaShavua} from '../src/leyning';
 

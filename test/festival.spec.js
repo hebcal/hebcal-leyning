@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {hasFestival, lookupFestival} from '../src/festival';
 
 test('lookupFestival-fk', () => {

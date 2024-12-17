@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {lookupParsha} from '../src/leyning';
 
 test('lookupParsha', () => {

@@ -1,3 +1,4 @@
+import {expect, test} from 'vitest';
 import {calculateHaftarahNumVerses} from '../src/calculateHaftarahNumVerses';
 
 test('calculateHaftarahNumVerses', () => {
