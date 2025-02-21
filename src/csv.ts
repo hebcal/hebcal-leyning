@@ -167,29 +167,31 @@ type CsvLine = [string, string, string | number];
 function getFullKriyahLines(reading: Leyning): CsvLine[] {
   const lines: CsvLine[] = [];
   if (reading.fullkriyah) {
-    for (const [num, a] of Object.entries(reading.fullkriyah)) {
-      if (typeof a !== 'undefined') {
+    for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
+      if (typeof aliyah !== 'undefined') {
         const k = num === 'M' ? 'maf' : num;
-        let aliyah = formatAliyahWithBook(a);
-        if (reading.reason?.[num]) {
-          aliyah += ' | ' + reading.reason[num];
+        let str = formatAliyahWithBook(aliyah);
+        if (aliyah.reason) {
+          str += ' | ' + aliyah.reason;
         }
-        lines.push([k, aliyah, a.v || '']);
+        lines.push([k, str, aliyah.v || '']);
       }
     }
   }
   if (reading.haftara) {
     let haftara = reading.haftara.replace(/,/g, ';');
-    if (reading.reason?.haftara) {
-      haftara += ' | ' + reading.reason.haftara;
+    const note = reading.reason?.haftara;
+    if (note) {
+      haftara += ' | ' + note;
     }
     const title = reading.sephardic ? 'Haftara for Ashkenazim' : 'Haftara';
     lines.push([title, haftara, reading.haftaraNumV || '']);
   }
   if (reading.sephardic) {
     let sephardic = reading.sephardic.replace(/,/g, ';');
-    if (reading.reason?.sephardic) {
-      sephardic += ' | ' + reading.reason.sephardic;
+    const note = reading.reason?.sephardic;
+    if (note) {
+      sephardic += ' | ' + note;
     }
     lines.push([
       'Haftara for Sephardim',

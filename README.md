@@ -27,8 +27,8 @@ console.log(`Haftara: ${reading.haftara}`);
 for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
   const number = num == 'M' ? 'maftir' : `aliyah ${num}`;
   let str = formatAliyahWithBook(aliyah);
-  if (reading.reason[num]) {
-      str += ' | ' + reading.reason[num];
+  if (aliyah.reason) {
+      str += ' | ' + aliyah.reason;
   }
   str += ` (${aliyah.v} verses)`;
   console.log(`${number}: ${str}`);
