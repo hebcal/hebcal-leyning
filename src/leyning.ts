@@ -81,7 +81,10 @@ function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
   const fullkriyah: AliyotMap = {};
   const book = BOOK[raw.book];
   for (const [num, src] of Object.entries(raw.fullkriyah)) {
-    const aliyah = {k: book, b: src[0], e: src[1]};
+    const aliyah: Aliyah = {k: book, b: src[0], e: src[1]};
+    if (src.length === 3) {
+      aliyah.reason = src[2];
+    }
     calculateNumVerses(aliyah);
     fullkriyah[num] = aliyah;
   }

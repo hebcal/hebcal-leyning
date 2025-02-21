@@ -257,6 +257,13 @@ test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Shekalim', () => {
     "haftara": "Shabbat Shekalim (on Rosh Chodesh)",
     "sephardic": "Shabbat Shekalim (on Rosh Chodesh)",
   });
+  expect(readings[0].fullkriyah[2]).toEqual({
+    "b": "25:17",
+    "e": "25:40",
+    "k": "Exodus",
+    "v": 24,
+    "reason": "some sources use 25:17-30",
+  });
 });
 
 test('getLeyningOnDate-wantarray-empty', () => {

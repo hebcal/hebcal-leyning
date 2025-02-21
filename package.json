@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "9.0.3",
+  "version": "9.0.4",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -23,6 +23,7 @@
     ".": "./dist/esm/index.js",
     "./dist/esm/*": "./dist/esm/*.js"
   },
+  "homepage": "https://hebcal.github.io/api/leyning/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hebcal/hebcal-leyning.git"
@@ -39,7 +40,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^5.8.13",
+    "@hebcal/core": "^5.9.0",
     "@hebcal/hdate": "^0.13.5",
     "tslib": "^2.8.1"
   },
@@ -64,15 +65,15 @@
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.10.6",
+    "@types/node": "^22.13.4",
     "gettext-parser": "^8.0.0",
     "gts": "^5.3.1",
     "pretty-bytes": "^6.1.1",
-    "rollup": "^4.30.1",
+    "rollup": "^4.34.8",
     "rollup-plugin-bundle-size": "^1.0.3",
     "rollup-plugin-visualizer": "^5.14.0",
-    "typedoc": "^0.27.6",
+    "typedoc": "^0.27.7",
     "typescript": "^5.7.3",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.6"
   }
 }
