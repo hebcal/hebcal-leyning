@@ -313,7 +313,7 @@ test('getLeyningOnDate-pesach-disaspora', () => {
     {
       d: '2024-04-27',
       n: 'Pesach Shabbat Chol ha-Moed',
-      s: 'Exodus 33:12-34:26; Numbers 28:19-25',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs',
     },
     {
       d: '2024-04-28',
