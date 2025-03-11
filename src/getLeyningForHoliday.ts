@@ -81,6 +81,9 @@ export function getLeyningForHolidayKey(
       m[`${i}`] = {k: megillah, b: `${i}:1`, e: `${i}:${numv}`, v: numv};
     }
     leyning.megillah = m;
+    leyning.summary = leyning.summary
+      ? leyning.summary + '; ' + megillah
+      : megillah;
   }
   if (src.note) {
     leyning.note = src.note;
