@@ -28,7 +28,7 @@ export function getLeyningForHolidayKey(
   if (typeof src === 'undefined') {
     return undefined;
   }
-  const israelOnly = (src as any).il;
+  const israelOnly = src.il;
   if (
     typeof israelOnly === 'boolean' &&
     typeof il === 'boolean' &&
@@ -53,9 +53,7 @@ export function getLeyningForHolidayKey(
     if (typeof leyning.fullkriyah['1'] === 'object') {
       const parts = makeLeyningParts(leyning.fullkriyah);
       leyning.summary = makeSummaryFromParts(parts);
-      if (parts.length > 1) {
-        leyning.summaryParts = parts;
-      }
+      leyning.summaryParts = parts;
     }
     Object.values(leyning.fullkriyah).map(aliyah =>
       calculateNumVerses(aliyah as Aliyah)
@@ -81,9 +79,14 @@ export function getLeyningForHolidayKey(
       m[`${i}`] = {k: megillah, b: `${i}:1`, e: `${i}:${numv}`, v: numv};
     }
     leyning.megillah = m;
+    const parts = makeLeyningParts(m);
+    if (leyning.summaryParts) {
+      leyning.summaryParts.push(...parts);
+    }
+    const megillahSummary = makeSummaryFromParts(parts);
     leyning.summary = leyning.summary
-      ? leyning.summary + '; ' + megillah
-      : megillah;
+      ? leyning.summary + '; ' + megillahSummary
+      : megillahSummary;
   }
   if (src.note) {
     leyning.note = src.note;

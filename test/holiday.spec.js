@@ -18,7 +18,7 @@ test('pesach-il', () => {
   }
   const expected = [
     {h: 'Erev Pesach', s: undefined},
-    {h: 'Pesach I', s: 'Exodus 12:21-51; Numbers 28:16-25; Song of Songs'},
+    {h: 'Pesach I', s: 'Exodus 12:21-51; Numbers 28:16-25; Song of Songs 1:1-8:14'},
     {h: 'Pesach II (CH\'\'M)', s: 'Leviticus 22:26-23:44; Numbers 28:19-25'},
     {h: 'Pesach III (CH\'\'M)', s: 'Exodus 13:1-16; Numbers 28:19-25'},
     {h: 'Pesach IV (CH\'\'M)', s: 'Exodus 22:24-23:19; Numbers 28:19-25'},
@@ -72,7 +72,7 @@ test('pesach-shabbat-chm-on-3rd-day', () => {
       d: '2024-04-27',
       h: 'Pesach V (CH\'\'M)',
       k: 'Pesach Shabbat Chol ha-Moed',
-      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs 1:1-8:14',
     },
     {
       d: '2024-04-28',
@@ -169,6 +169,7 @@ test('getLeyningForHoliday-RoshChodesh', () => {
       he: 'רֹאשׁ חוֹדֶשׁ סִיוָן',
     },
     summary: 'Numbers 28:1-15',
+    summaryParts: [{k: 'Numbers', b: '28:1', e: '28:15'}],
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:3', v: 3},
       '2': {p: 41, k: 'Numbers', b: '28:3', e: '28:5', v: 3},
@@ -240,6 +241,7 @@ test('getLeyningForHoliday-9av-obvs', () => {
       he: 'תִּשְׁעָה בְּאָב',
     },
     summary: 'Deuteronomy 4:25-40',
+    summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}],
     fullkriyah: {
       '1': {p: 45, k: 'Deuteronomy', b: '4:25', e: '4:29', v: 5},
       '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
@@ -433,10 +435,11 @@ test('Sukkot Shabbat Chol ha-Moed', () => {
       '7': {p: 21, k: 'Exodus', b: '34:18', e: '34:26', v: 9},
       'M': {p: 41, k: 'Numbers', b: '29:26', e: '29:31', v: 6},
     },
-    summary: 'Exodus 33:12-34:26; Numbers 29:26-31; Ecclesiastes',
+    summary: 'Exodus 33:12-34:26; Numbers 29:26-31; Ecclesiastes 1:1-12:14',
     summaryParts: [
       {k: 'Exodus', b: '33:12', e: '34:26'},
       {k: 'Numbers', b: '29:26', e: '29:31'},
+      {k: 'Ecclesiastes', b: '1:1', e: '12:14'},
     ],
     megillah: {
       '1': {k: 'Ecclesiastes', b: '1:1', e: '1:18', v: 18},
@@ -497,6 +500,7 @@ test('9av', () => {
       '3': {p: 45, k: 'Deuteronomy', b: '4:36', e: '4:40', v: 5},
     },
     summary: 'Deuteronomy 4:25-40',
+    summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}],
     haft: {k: 'Jeremiah', b: '8:13', e: '9:23', v: 34},
     haftara: 'Jeremiah 8:13-9:23',
     haftaraNumV: 34,
@@ -550,7 +554,7 @@ test('pesach-diaspora-chm-day2-sunday', () => {
       d: '2023-04-08',
       h: 'Pesach III (CH\'\'M)',
       n: 'Pesach Shabbat Chol ha-Moed',
-      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs 1:1-8:14',
     },
     {
       d: '2023-04-09',
@@ -621,7 +625,7 @@ test('Erev Purim', () => {
       '9': {k: 'Esther', b: '9:1', e: '9:32', v: 32},
       '10': {k: 'Esther', b: '10:1', e: '10:3', v: 3},
     },
-    summary: 'Esther',
+    summary: 'Esther 1:1-10:3',
   };
   expect(actual).toEqual(expected);
 });
@@ -651,6 +655,7 @@ test('Erev Simchat Torah', () => {
       '3': {p: 54, k: 'Deuteronomy', b: '33:13', e: '33:17', v: 5},
     },
     summary: 'Deuteronomy 33:1-17',
+    summaryParts: [{k: 'Deuteronomy', b: '33:1', e: '33:17'}],
   };
   expect(reading).toEqual(expected);
 

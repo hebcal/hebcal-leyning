@@ -65,6 +65,7 @@ test('getLeyningOnDate-holiday2', () => {
   const expected = {
     name: {en: 'Rosh Chodesh Cheshvan', he: 'רֹאשׁ חוֹדֶשׁ חֶשְׁוָן'},
     summary: 'Numbers 28:1-15',
+    summaryParts: [{k: 'Numbers', b: '28:1', e: '28:15'}],
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:3', v: 3},
       '2': {p: 41, k: 'Numbers', b: '28:3', e: '28:5', v: 3},
@@ -313,7 +314,7 @@ test('getLeyningOnDate-pesach-disaspora', () => {
     {
       d: '2024-04-27',
       n: 'Pesach Shabbat Chol ha-Moed',
-      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs',
+      s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs 1:1-8:14',
     },
     {
       d: '2024-04-28',
