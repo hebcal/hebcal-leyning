@@ -88,7 +88,32 @@ export function subtractVerses(book: string, from: string, to: string) {
   return result;
 }
 
-export 
+/**
+ * Calculates the next verse after adding a number of verses to a given location.
+ * @param book The English name of the book (e.g. "Numbers")
+ * @param from The starting verse (e.g. "28:9")
+ * @param numVerses The number of verses to add; must be nonnegative.
+ * @returns The next verse after adding the specified number of verses,
+ *          or null if the resulting verse exceeds the number of verses
+ *          in the book.
+ */
+export function addVerses(book: string, from: string, numVerses: number) {
+  const chapVerseBegin = from.split(':');
+  const c1 = parseInt(chapVerseBegin[0], 10);
+  const v1 = parseInt(chapVerseBegin[1], 10);
+  const numv = NUM_VERSES[book];
+  if (typeof numv !== 'object' || !numv.length) {
+    throw new ReferenceError(`Can't find numverses for ${book}`);
+  }
+  let total = v1 + numVerses;
+  let c2 = c1;
+  while (total > numv[c2]) {
+    total -= numv[c2];
+    c2++;
+    if (!numv[c2]) return null;
+  }
+  return `${c2}:${total}`;
+}
 
 /**
  * Formats an aliyah object like "Numbers 28:9-28:15"
