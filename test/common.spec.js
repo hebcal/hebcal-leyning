@@ -1,5 +1,9 @@
 import {expect, test} from 'vitest';
-import {calculateNumVerses, parshaToString} from '../src/common';
+import {
+  calculateNumVerses,
+  parshaToString,
+  subtractVerses,
+} from '../src/common';
 
 test('calculateNumVerses', () => {
   expect(calculateNumVerses({k: 'Genesis', b: '1:1', e: '1:1'})).toBe(1);
@@ -15,6 +19,22 @@ test('calculateNumVerses', () => {
   expect(calculateNumVerses({k: 'Zechariah', b: '2:14', e: '4:7'})).toBe(21);
   expect(calculateNumVerses({k: 'Ezekiel', b: '1:1', e: '1:28'})).toBe(28);
   expect(calculateNumVerses({k: 'Deuteronomy', b: '5:25', e: '6:3'})).toBe(9);
+});
+
+test('subtractVerses', () => {
+  expect(subtractVerses('Genesis', '1:1', '1:1')).toBe(0);
+  expect(subtractVerses('Genesis', '1:1', '1:2')).toBe(1);
+  expect(subtractVerses('Genesis', '1:1', '2:3')).toBe(33);
+  expect(subtractVerses('Genesis', '2:4', '2:19')).toBe(15);
+  expect(subtractVerses('Genesis', '2:20', '3:21')).toBe(26);
+  expect(subtractVerses('Genesis', '3:22', '4:18')).toBe(20);
+  expect(subtractVerses('Genesis', '1:1', '3:21')).toBe(76);
+  expect(subtractVerses('II Kings', '12:1', '12:17')).toBe(16);
+  expect(subtractVerses('Ezekiel', '45:16', '46:18')).toBe(27);
+  expect(subtractVerses('Isaiah', '54:11', '55:5')).toBe(11);
+  expect(subtractVerses('Zechariah', '2:14', '4:7')).toBe(20);
+  expect(subtractVerses('Ezekiel', '1:1', '1:28')).toBe(27);
+  expect(subtractVerses('Deuteronomy', '5:25', '6:3')).toBe(8);
 });
 
 test('parshaToString', () => {
