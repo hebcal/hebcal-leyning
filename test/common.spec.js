@@ -52,7 +52,12 @@ test('addVerses', () => {
   expect(addVerses('Zechariah', '2:14', 20)).toBe('4:7');
   expect(addVerses('Ezekiel', '1:1', 27)).toBe('1:28');
   expect(addVerses('Deuteronomy', '5:25', 8)).toBe('6:3');
+
   expect(addVerses('Deuteronomy', '5:25', 999)).toBeNull();
+  expect(addVerses('Genesis', '50:25', 1)).toBe('50:26');
+  expect(addVerses('Genesis', '50:25', 2)).toBeNull();
+  expect(addVerses('Genesis', '1:30', 1)).toBe('1:31');
+  expect(addVerses('Exodus', '20:23', 1)).toBe('21:1');
 });
 
 test('add and subtract', () => {
