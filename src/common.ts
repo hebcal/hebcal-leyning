@@ -53,28 +53,42 @@ export function calculateNumVerses(aliyah: Aliyah): number {
   if (aliyah.v) {
     return aliyah.v;
   }
-  const chapVerseBegin = aliyah.b.split(':');
-  const chapVerseEnd = aliyah.e.split(':');
+  aliyah.v = subtractVerses(aliyah.k, aliyah.b, aliyah.e) + 1;
+  return aliyah.v;
+}
+
+/**
+ * Finds the number of verses between two locations in the same book.
+ * @param book The English name of the book (e.g. "Numbers")
+ * @param from The starting verse (e.g. "28:9")
+ * @param to The ending verse (e.g. "28:15")
+ * @returns The number of verses between the two locations, excluding the `to` verse.
+ */
+export function subtractVerses(book: string, from: string, to: string) {
+  const chapVerseBegin = from.split(':');
+  const chapVerseEnd = to.split(':');
   const c1 = parseInt(chapVerseBegin[0], 10);
   const c2 = parseInt(chapVerseEnd[0], 10);
   const v1 = parseInt(chapVerseBegin[1], 10);
   const v2 = parseInt(chapVerseEnd[1], 10);
+  let result = 0;
   if (c1 === c2) {
-    aliyah.v = v2 - v1 + 1;
-  } else if (typeof aliyah.k === 'string') {
-    const numv = NUM_VERSES[aliyah.k];
-    if (typeof numv !== 'object' || !numv.length) {
-      throw new ReferenceError(`Can't find numverses for ${aliyah.k}`);
-    }
-    let total = numv[c1] - v1 + 1;
-    for (let chap = c1 + 1; chap < c2; chap++) {
-      total += numv[chap];
-    }
-    total += v2;
-    aliyah.v = total;
+    return v2 - v1;
   }
-  return aliyah.v!;
+  const numv = NUM_VERSES[book];
+  if (typeof numv !== 'object' || !numv.length) {
+    throw new ReferenceError(`Can't find numverses for ${book}`);
+  }
+  let total = numv[c1] - v1;
+  for (let chap = c1 + 1; chap < c2; chap++) {
+    total += numv[chap];
+  }
+  total += v2;
+  result = total;
+  return result;
 }
+
+export 
 
 /**
  * Formats an aliyah object like "Numbers 28:9-28:15"
