@@ -14,6 +14,7 @@ export type JsonFestivalLeyning = {
   haft?: JsonFestivalAliyah | JsonFestivalAliyah[];
   seph?: JsonFestivalAliyah | JsonFestivalAliyah[];
   fullkriyah?: JsonFestivalAliyotMap;
+  alt?: JsonFestivalAliyotMap;
   megillah?: string;
   alias?: boolean;
   key?: string;

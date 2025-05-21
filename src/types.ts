@@ -123,6 +123,8 @@ export type LeyningShabbatHoliday = LeyningBase &
   HaftarahProps & {
     /** Map of aliyot `1` through `7` plus `M` for maftir */
     fullkriyah: AliyotMap;
+    /** Alternate full kriyah */
+    alt?: AliyotMap;
     /** Haftarah object for Sephardim */
     seph?: Aliyah | Aliyah[];
     /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */

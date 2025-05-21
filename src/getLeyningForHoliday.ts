@@ -58,6 +58,12 @@ export function getLeyningForHolidayKey(
     Object.values(leyning.fullkriyah).map(aliyah =>
       calculateNumVerses(aliyah as Aliyah)
     );
+    if (src.alt) {
+      leyning.alt = clone(src.alt);
+      for (const aliyah of Object.values(leyning.alt)) {
+        calculateNumVerses(aliyah as Aliyah);
+      }
+    }
   }
   if (src.haft) {
     const haft = (leyning.haft = cloneHaftara(src.haft));

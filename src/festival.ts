@@ -1,7 +1,7 @@
 import {BOOK} from './common';
 import {clone} from './clone';
 import festivals0 from './holiday-readings.json';
-import {JsonFestivalLeyning} from './internalTypes';
+import {JsonFestivalAliyotMap, JsonFestivalLeyning} from './internalTypes';
 
 type Festivals = {
   [key: string]: JsonFestivalLeyning;
@@ -14,6 +14,16 @@ const festivals: Festivals = festivals0 as Festivals;
  */
 export function hasFestival(holiday: string): boolean {
   return typeof festivals[holiday] === 'object';
+}
+
+function aliyotBookNumToStr(aliyot?: JsonFestivalAliyotMap) {
+  if (aliyot) {
+    for (const aliyah of Object.values(aliyot)) {
+      if (typeof aliyah.k === 'number') {
+        aliyah.k = BOOK[aliyah.k];
+      }
+    }
+  }
 }
 
 /**
@@ -34,13 +44,8 @@ export function lookupFestival(
     src = tmp;
   }
   const result: JsonFestivalLeyning = src.fullkriyah ? clone(src) : src;
-  if (result.fullkriyah) {
-    for (const aliyah of Object.values(result.fullkriyah)) {
-      if (typeof aliyah.k === 'number') {
-        aliyah.k = BOOK[aliyah.k];
-      }
-    }
-  }
+  aliyotBookNumToStr(result.fullkriyah);
+  aliyotBookNumToStr(result.alt);
   if (src.note) {
     result.note = src.note;
   }

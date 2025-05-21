@@ -704,3 +704,23 @@ for (const testCase of megillahCases) {
     }
   }
 }
+
+test('alt', () => {
+  const reading = getLeyningForHolidayKey('Chanukah Day 1');
+  const expected = {
+    name: { en: 'Chanukah Day 1', he: 'חֲנוּכָּה יוֹם א׳' },
+    fullkriyah: {
+      '1': { p: 35, k: 'Numbers', b: '7:1', e: '7:11', v: 11 },
+      '2': { p: 35, k: 'Numbers', b: '7:12', e: '7:14', v: 3 },
+      '3': { p: 35, k: 'Numbers', b: '7:15', e: '7:17', v: 3 }
+    },
+    summary: 'Numbers 7:1-17',
+    summaryParts: [ { k: 'Numbers', b: '7:1', e: '7:17' } ],
+    alt: {
+      '1': { p: 35, k: 'Numbers', b: '7:1', e: '7:3', v: 3 },
+      '2': { p: 35, k: 'Numbers', b: '7:4', e: '7:11', v: 8 },
+      '3': { p: 35, k: 'Numbers', b: '7:12', e: '7:17', v: 6 }
+    }
+  };
+  expect(reading).toEqual(expected);
+});
