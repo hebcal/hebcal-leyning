@@ -10,6 +10,7 @@ test('getLeyningOnDate-parsha', () => {
       en: 'Vaetchanan',
       he: 'וָאֶתְחַנַּן',
     },
+    type: 'shabbat',
     parsha: [
       'Vaetchanan',
     ],
@@ -37,6 +38,7 @@ test('getLeyningOnDate-holiday1', () => {
   const reading = getLeyningOnDate(hd, false);
   const expected = {
     name: {en: 'Rosh Hashana II', he: 'רֹאשׁ הַשָּׁנָה ב׳'},
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 4, k: 'Genesis', b: '22:1', e: '22:3', v: 3},
       '2': {p: 4, k: 'Genesis', b: '22:4', e: '22:8', v: 5},
@@ -64,6 +66,7 @@ test('getLeyningOnDate-holiday2', () => {
   const reading = getLeyningOnDate(hd, false);
   const expected = {
     name: {en: 'Rosh Chodesh Cheshvan', he: 'רֹאשׁ חוֹדֶשׁ חֶשְׁוָן'},
+    type: 'holiday',
     summary: 'Numbers 28:1-15',
     summaryParts: [{k: 'Numbers', b: '28:1', e: '28:15'}],
     fullkriyah: {
@@ -81,6 +84,7 @@ test('getLeyningOnDate-weekday1', () => {
   const reading = getLeyningOnDate(hd, false);
   const expected = {
     name: {en: 'Eikev', he: 'עֵקֶב'},
+    type: 'weekday',
     parsha: ['Eikev'],
     parshaNum: 46,
     summary: 'Deuteronomy 7:12-8:10',
@@ -98,6 +102,7 @@ test('getLeyningOnDate-weekday2', () => {
   const reading = getLeyningOnDate(hd, false);
   const expected = {
     name: {en: 'Vayakhel-Pekudei', he: 'וַיַּקְהֵל־פְקוּדֵי'},
+    type: 'weekday',
     parsha: ['Vayakhel', 'Pekudei'],
     parshaNum: [22, 23],
     summary: 'Exodus 35:1-20',
@@ -115,6 +120,7 @@ test('getLeyningOnDate-weekday-search1', () => {
   const reading = getLeyningOnDate(hd, false);
   const expected = {
     name: {en: 'Ha\'azinu', he: 'הַאֲזִינוּ'},
+    type: 'weekday',
     parsha: ['Ha\'azinu'],
     parshaNum: 53,
     summary: 'Deuteronomy 32:1-12',
@@ -138,6 +144,7 @@ test('getLeyningOnDate-weekday-search2', () => {
   const reading = getLeyningOnDate(hd, true);
   const expected = {
     name: {en: 'Bereshit', he: 'בְּרֵאשִׁית'},
+    type: 'weekday',
     parsha: ['Bereshit'],
     parshaNum: 1,
     summary: 'Genesis 1:1-13',
@@ -168,6 +175,7 @@ test('getLeyningOnDate-15av-Monday', () => {
   const reading = getLeyningOnDate(hd, false);
   const expected = {
     name: {en: 'Eikev', he: 'עֵקֶב'},
+    type: 'weekday',
     parsha: ['Eikev'],
     parshaNum: 46,
     summary: 'Deuteronomy 7:12-8:10',

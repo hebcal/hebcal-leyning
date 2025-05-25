@@ -8,6 +8,7 @@ test('Shabbat Zachor', () => {
   const reading = getLeyningForParshaHaShavua(pe, false);
   const expected = {
     name: {en: 'Vayikra', he: 'וַיִּקְרָא'},
+    type: 'shabbat',
     parsha: ['Vayikra'],
     parshaNum: 24,
     summary: 'Leviticus 1:1-5:26; Deuteronomy 25:17-19',

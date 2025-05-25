@@ -41,6 +41,7 @@ export function getLeyningForHolidayKey(
       en: key,
       he: Locale.lookupTranslation(key, 'he')!,
     },
+    type: 'holiday',
   };
   if (src.fullkriyah) {
     leyning.fullkriyah = clone(src.fullkriyah);

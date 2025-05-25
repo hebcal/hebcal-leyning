@@ -9,6 +9,7 @@ test('getLeyningForParsha-1', () => {
       en: 'Pinchas',
       he: 'פִּינְחָס',
     },
+    type: 'shabbat',
     parsha: [
       'Pinchas',
     ],
@@ -48,6 +49,7 @@ test('getLeyningForParsha-2', () => {
       en: 'Matot-Masei',
       he: 'מַּטּוֹת־מַסְעֵי',
     },
+    type: 'shabbat',
     parsha: [
       'Matot',
       'Masei',
@@ -112,6 +114,7 @@ test('getLeyningForParsha-3', () => {
       en: 'Masei',
       he: 'מַסְעֵי',
     },
+    type: 'shabbat',
     parsha: [
       'Masei',
     ],

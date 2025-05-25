@@ -152,6 +152,7 @@ test('getLeyningForHoliday-Chanukah', () => {
   const reading = getLeyningForHoliday(chanukah3);
   const expected = {
     name: {en: 'Chanukah Day 2 (on Shabbat)', he: 'חֲנוּכָּה יוֹם ב׳ (בְּשַׁבָּת)'},
+    type: 'holiday',
     fullkriyah: {M: {p: 35, k: 'Numbers', b: '7:18', e: '7:23', v: 6}},
     haft: {k: 'Zechariah', b: '2:14', e: '4:7', v: 21},
     haftara: 'Zechariah 2:14-4:7',
@@ -168,6 +169,7 @@ test('getLeyningForHoliday-RoshChodesh', () => {
       en: 'Rosh Chodesh Sivan',
       he: 'רֹאשׁ חוֹדֶשׁ סִיוָן',
     },
+    type: 'holiday',
     summary: 'Numbers 28:1-15',
     summaryParts: [{k: 'Numbers', b: '28:1', e: '28:15'}],
     fullkriyah: {
@@ -187,6 +189,7 @@ test('Rosh Chodesh Tevet', () => {
       en: 'Chanukah Day 6',
       he: 'חֲנוּכָּה יוֹם ו׳',
     },
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:5', v: 5},
       '2': {p: 41, k: 'Numbers', b: '28:6', e: '28:10', v: 5},
@@ -214,6 +217,7 @@ test('Rosh Chodesh Tevet', () => {
       en: 'Chanukah Day 7 (on Rosh Chodesh)',
       he: 'חֲנוּכָּה יוֹם ז׳ (רֹאשׁ חוֹדֶשׁ)',
     },
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '28:1', e: '28:5', v: 5},
       '2': {p: 41, k: 'Numbers', b: '28:6', e: '28:10', v: 5},
@@ -240,6 +244,7 @@ test('getLeyningForHoliday-9av-obvs', () => {
       en: 'Tish\'a B\'Av',
       he: 'תִּשְׁעָה בְּאָב',
     },
+    type: 'holiday',
     summary: 'Deuteronomy 4:25-40',
     summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}],
     fullkriyah: {
@@ -308,6 +313,7 @@ test('pesach-days-567', () => {
       en: 'Pesach Chol ha-Moed Day 3',
       he: 'פֶּסַח חוֹל הַמּוֹעֵד יוֹם ג׳',
     },
+    type: 'holiday',
     summary: 'Exodus 34:1-26; Numbers 28:19-25',
     summaryParts: [
       {k: 'Exodus', b: '34:1', e: '34:26'},
@@ -325,6 +331,7 @@ test('pesach-days-567', () => {
       en: 'Pesach Chol ha-Moed Day 4',
       he: 'פֶּסַח חוֹל הַמּוֹעֵד יוֹם ד׳',
     },
+    type: 'holiday',
     summary: 'Numbers 9:1-14, 28:19-25',
     summaryParts: [
       {k: 'Numbers', b: '9:1', e: '9:14'},
@@ -342,6 +349,7 @@ test('pesach-days-567', () => {
       en: 'Pesach VII',
       he: 'פֶּסַח ז׳',
     },
+    type: 'holiday',
     summary: 'Exodus 13:17-15:26; Numbers 28:19-25',
     summaryParts: [
       {k: 'Exodus', b: '13:17', e: '15:26'},
@@ -379,6 +387,7 @@ test('israel-sukkot-chm-day5', () => {
       en: 'Sukkot Chol ha-Moed Day 5',
       he: 'סוּכּוֹת חוֹל הַמּוֹעֵד יוֹם ה׳',
     },
+    type: 'holiday',
     summary: 'Numbers 29:29-37, 29:29-34',
     summaryParts: [
       {k: 'Numbers', b: '29:29', e: '29:37'},
@@ -425,6 +434,7 @@ test('Sukkot Shabbat Chol ha-Moed', () => {
       en: 'Sukkot Shabbat Chol ha-Moed',
       he: 'סוּכּוֹת שַׁבָּת חוֹל הַמּוֹעֵד',
     },
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '33:12', e: '33:16', v: 5},
       '2': {p: 21, k: 'Exodus', b: '33:17', e: '33:19', v: 3},
@@ -471,6 +481,7 @@ test('17tamuz', () => {
   const reading = getLeyningForHoliday(events[0]);
   const expected = {
     name: {en: 'Tzom Tammuz', he: 'צוֹם תָּמוּז'},
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
       '2': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
@@ -494,6 +505,7 @@ test('9av', () => {
   const reading = getLeyningForHoliday(events[0]);
   const expected = {
     name: {en: 'Tish\'a B\'Av', he: 'תִּשְׁעָה בְּאָב'},
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 45, k: 'Deuteronomy', b: '4:25', e: '4:29', v: 5},
       '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
@@ -512,6 +524,7 @@ test('fast day mincha', () => {
   const reading = getLeyningForHolidayKey('Tish\'a B\'Av (Mincha)');
   const expected = {
     name: {en: 'Tish\'a B\'Av (Mincha)', he: 'תִּשְׁעָה בְּאָב מִנחָה'},
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
       '2': {p: 21, k: 'Exodus', b: '34:1', e: '34:3', v: 3},
@@ -613,6 +626,7 @@ test('Erev Purim', () => {
   const actual = getLeyningForHoliday(events[0]);
   const expected = {
     name: {en: 'Erev Purim', he: 'עֶרֶב פּוּרִים'},
+    type: 'holiday',
     megillah: {
       '1': {k: 'Esther', b: '1:1', e: '1:22', v: 22},
       '2': {k: 'Esther', b: '2:1', e: '2:23', v: 23},
@@ -649,6 +663,7 @@ test('Erev Simchat Torah', () => {
   const reading = getLeyningForHoliday(ev, false);
   const expected = {
     name: {en: 'Erev Simchat Torah', he: 'עֶרֶב שִׂמְחַת תּוֹרָה'},
+    type: 'holiday',
     fullkriyah: {
       '1': {p: 54, k: 'Deuteronomy', b: '33:1', e: '33:7', v: 7},
       '2': {p: 54, k: 'Deuteronomy', b: '33:8', e: '33:12', v: 5},
@@ -709,6 +724,7 @@ test('alt', () => {
   const reading = getLeyningForHolidayKey('Chanukah Day 1');
   const expected = {
     name: { en: 'Chanukah Day 1', he: 'חֲנוּכָּה יוֹם א׳' },
+    type: 'holiday',
     fullkriyah: {
       '1': { p: 35, k: 'Numbers', b: '7:1', e: '7:11', v: 11 },
       '2': { p: 35, k: 'Numbers', b: '7:12', e: '7:14', v: 3 },

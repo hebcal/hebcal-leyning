@@ -148,6 +148,7 @@ export function getLeyningOnDate(
     const parts = makeLeyningParts(aliyot);
     const reading: LeyningWeekday = {
       name: makeLeyningNames(parsha.parsha),
+      type: 'weekday',
       parsha: parsha.parsha,
       parshaNum: parsha.num,
       weekday: aliyot,

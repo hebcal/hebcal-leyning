@@ -94,6 +94,7 @@ function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
   const summary = makeSummaryFromParts(parts);
   const result: Leyning = {
     name: makeLeyningNames(parshaNameArray),
+    type: 'shabbat',
     parsha: parshaNameArray,
     parshaNum: raw.num,
     summary,

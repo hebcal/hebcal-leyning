@@ -85,6 +85,7 @@ export type LeyningBase = {
   name: LeyningNames;
   /** Such as `Genesis 1:1 - 6:8` */
   summary: string;
+  type: 'shabbat' | 'holiday' | 'weekday';
   summaryParts?: Aliyah[];
   note?: string;
 };

@@ -55,6 +55,7 @@ test('2026', () => {
       en: 'Miketz',
       he: 'מִקֵּץ',
     },
+    type: 'shabbat',
     parsha: [
       'Miketz',
     ],
@@ -162,6 +163,7 @@ test('2021-12', () => {
       en: 'Miketz',
       he: 'מִקֵּץ',
     },
+    type: 'shabbat',
     parsha: [
       'Miketz',
     ],
@@ -298,6 +300,7 @@ test('Shabbat Shuva - Vayeilech', () => {
   delete reading.fullkriyah;
   const expected = {
     name: {en: 'Vayeilech', he: 'וַיֵּלֶךְ'},
+    type: 'shabbat',
     parsha: ['Vayeilech'],
     parshaNum: 52,
     summary: 'Deuteronomy 31:1-30',
@@ -331,6 +334,7 @@ test('Shabbat Shuva - Ha\'azinu', () => {
   delete reading.fullkriyah;
   const expected = {
     name: {en: 'Ha\'azinu', he: 'הַאֲזִינוּ'},
+    type: 'shabbat',
     parsha: ['Ha\'azinu'],
     parshaNum: 53,
     summary: 'Deuteronomy 32:1-52',
@@ -384,6 +388,7 @@ test('Shushan Purim (on Shabbat)', () => {
   const reading = getLeyningForParshaHaShavua(ev, false);
   const expected = {
     name: {en: 'Tetzaveh', he: 'תְּצַוֶּה'},
+    type: 'shabbat',
     parsha: ['Tetzaveh'],
     parshaNum: 20,
     summary: 'Exodus 27:20-30:10',
