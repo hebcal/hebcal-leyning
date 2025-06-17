@@ -60,20 +60,20 @@
   },
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-commonjs": "^28.0.5",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.15.21",
+    "@types/node": "^24.0.3",
     "gettext-parser": "^8.0.0",
     "gts": "^5.3.1",
     "pretty-bytes": "^7.0.0",
-    "rollup": "^4.41.1",
+    "rollup": "^4.43.0",
     "rollup-plugin-bundle-size": "^1.0.3",
-    "rollup-plugin-visualizer": "^6.0.0",
+    "rollup-plugin-visualizer": "^6.0.3",
     "typedoc": "^0.28.5",
     "typescript": "^5.8.3",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.3"
   }
 }
