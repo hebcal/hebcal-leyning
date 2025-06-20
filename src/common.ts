@@ -2,7 +2,9 @@ import numverses from './numverses.json';
 import {Aliyah} from './types';
 
 /**
- * Names of the books of the Torah. BOOK[1] === 'Genesis'
+ * Names of the books of the Torah.
+ *
+ * `BOOK[1] === 'Genesis'`
  * @readonly
  */
 export const BOOK = [
@@ -16,12 +18,17 @@ export const BOOK = [
 
 /**
  * The number of verses in each book of the Tanakh.
+ * Indexed by English transliterated name of book,
+ * and arrays are 1-based.
+ *
+ * There are 51 chapters in Genesis, so
+ * `NUM_VERSES['Genesis'].length === 51`.
+ *
+ * There are 26 verses in Genesis chapter 4,
+ * so `NUM_VERSES['Genesis'][4] === 26`.
  * @readonly
  */
-export const NUM_VERSES: NumVerses = numverses;
-export type NumVerses = {
-  readonly [book: string]: readonly number[];
-};
+export const NUM_VERSES: Record<string, readonly number[]> = numverses;
 
 /**
  * Formats parsha as a string
