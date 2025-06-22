@@ -8,7 +8,7 @@ import {
   getLeyningKeyForEvent,
 } from './getLeyningKeyForEvent';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
-import {Aliyah, AliyotMap, Leyning} from './types';
+import {Aliyah, AliyotMap, KetuvimBook, Leyning} from './types';
 
 /**
  * Looks up leyning for a given holiday key. Key should be an
@@ -56,7 +56,7 @@ export function getLeyningForHolidayKey(
       leyning.summary = makeSummaryFromParts(parts);
       leyning.summaryParts = parts;
     }
-    Object.values(leyning.fullkriyah).map(aliyah =>
+    Object.values(leyning.fullkriyah).forEach(aliyah =>
       calculateNumVerses(aliyah as Aliyah)
     );
     if (src.alt) {
@@ -76,7 +76,7 @@ export function getLeyningForHolidayKey(
     leyning.sephardic = makeSummaryFromParts(seph);
     leyning.sephardicNumV = sumVerses(seph);
   }
-  let megillah = src.megillah;
+  let megillah = src.megillah as KetuvimBook;
   if (il && key === 'Pesach I (on Shabbat)') megillah = 'Song of Songs';
   if (megillah) {
     const chaps = NUM_VERSES[megillah];

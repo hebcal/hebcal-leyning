@@ -21,7 +21,7 @@ export function cloneHaftara(haft: Haftarah): Aliyah | Aliyah[] {
   }
   const dest = clone(haft);
   if (Array.isArray(dest)) {
-    dest.map(calculateNumVerses);
+    dest.forEach(calculateNumVerses);
   } else {
     calculateNumVerses(dest);
   }

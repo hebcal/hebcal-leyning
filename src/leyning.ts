@@ -6,19 +6,25 @@ import {BOOK, calculateNumVerses, parshaToString} from './common';
 import {cloneHaftara, sumVerses} from './clone';
 import {specialReadings2} from './specialReadings';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
-import {Aliyah, AliyotMap, Leyning, LeyningNames, ParshaMeta} from './types';
+import {
+  Aliyah,
+  AliyotMap,
+  Leyning,
+  LeyningNames,
+  ParshaMeta,
+  TanakhBook,
+  TorahBook,
+} from './types';
 
 type JsonAliyah = {
-  k: number | string;
+  k: number | TanakhBook;
   b: string;
   e: string;
   v?: number;
   p?: number;
 };
 
-type JsonParshaMap = {
-  [key: string]: string[];
-};
+type JsonParshaMap = Record<string, string[]>;
 
 type JsonParsha = {
   num: number | number[];
@@ -35,9 +41,7 @@ type JsonParsha = {
   num2?: number;
 };
 
-type Parshiyot = {
-  [key: string]: JsonParsha;
-};
+type Parshiyot = Record<string, JsonParsha>;
 
 const parshiyotObj: Parshiyot = parshiyotObj0 as Parshiyot;
 
@@ -137,7 +141,7 @@ export function getWeekdayReading(parsha: string | string[]): AliyotMap {
   for (let i = 1; i <= 3; i++) {
     const num = '' + i;
     const src = aliyot[num];
-    const aliyah = {k: book, b: src[0], e: src[1]};
+    const aliyah: Aliyah = {k: book, b: src[0], e: src[1]};
     calculateNumVerses(aliyah);
     weekday[num] = aliyah;
   }

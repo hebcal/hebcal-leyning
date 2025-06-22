@@ -1,9 +1,59 @@
+/** English names of books of the Pentateuch */
+export type TorahBook =
+  | 'Genesis'
+  | 'Exodus'
+  | 'Leviticus'
+  | 'Numbers'
+  | 'Deuteronomy';
+
+/** English names of books of the Prophets */
+export type NeviimBook =
+  | 'Joshua'
+  | 'Judges'
+  | 'I Samuel'
+  | 'II Samuel'
+  | 'I Kings'
+  | 'II Kings'
+  | 'Isaiah'
+  | 'Jeremiah'
+  | 'Ezekiel'
+  | 'Hosea'
+  | 'Joel'
+  | 'Amos'
+  | 'Obadiah'
+  | 'Jonah'
+  | 'Micah'
+  | 'Nachum' // spelled Nahum at Sefaria
+  | 'Habakkuk'
+  | 'Zephaniah'
+  | 'Haggai'
+  | 'Zechariah'
+  | 'Malachi';
+
+/** English names of books of the Writings */
+export type KetuvimBook =
+  | 'Psalms'
+  | 'Proverbs'
+  | 'Job'
+  | 'Song of Songs'
+  | 'Ruth'
+  | 'Lamentations'
+  | 'Ecclesiastes'
+  | 'Esther'
+  | 'Daniel'
+  | 'Ezra'
+  | 'Nehemiah'
+  | 'I Chronicles'
+  | 'II Chronicles';
+
+export type TanakhBook = TorahBook | NeviimBook | KetuvimBook;
+
 /**
  * Represents an aliyah
  */
 export type Aliyah = {
   /** Book (e.g. "Numbers") */
-  k: string;
+  k: TanakhBook;
   /** beginning verse (e.g. "28:9") */
   b: string;
   /** ending verse (e.g. "28:15") */
@@ -15,13 +65,9 @@ export type Aliyah = {
   reason?: string;
 };
 
-export type StringMap = {
-  [key: string]: string;
-};
+export type StringMap = Record<string, string>;
 
-export type AliyotMap = {
-  [key: string]: Aliyah;
-};
+export type AliyotMap = Record<string, Aliyah>;
 
 /** Name of the parsha hashavua or holiday */
 export type LeyningNames = {
@@ -46,16 +92,12 @@ export type ParshaMeta = {
   /** Haftarah object(s) for Sephardim */
   seph?: Aliyah | Aliyah[];
   /** Map of Shabbat aliyot `1` through `7` plus `M` for maftir */
-  fullkriyah: {
-    [key: string]: string[];
-  };
+  fullkriyah: Record<string, string[]>;
   /**
    * Map of weekday Torah Readings
    *  aliyot `1` through `3` for Monday and Thursday
    */
-  weekday?: {
-    [key: string]: string[];
-  };
+  weekday?: Record<string, string[]>;
   combined?: boolean;
   p1?: string;
   p2?: string;

@@ -1,14 +1,14 @@
+import {TanakhBook} from './types';
+
 export type JsonFestivalAliyah = {
-  k: number | string;
+  k: number | TanakhBook;
   b: string;
   e: string;
   v?: number;
   p?: number;
 };
 
-export type JsonFestivalAliyotMap = {
-  [key: string]: JsonFestivalAliyah;
-};
+export type JsonFestivalAliyotMap = Record<string, JsonFestivalAliyah>;
 
 export type JsonFestivalLeyning = {
   haft?: JsonFestivalAliyah | JsonFestivalAliyah[];

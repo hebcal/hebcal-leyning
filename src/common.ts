@@ -1,5 +1,5 @@
 import numverses from './numverses.json';
-import {Aliyah} from './types';
+import {Aliyah, TanakhBook, TorahBook} from './types';
 
 /**
  * Names of the books of the Torah.
@@ -7,8 +7,8 @@ import {Aliyah} from './types';
  * `BOOK[1] === 'Genesis'`
  * @readonly
  */
-export const BOOK = [
-  '',
+export const BOOK: TorahBook[] = [
+  '' as TorahBook,
   'Genesis',
   'Exodus',
   'Leviticus',
@@ -71,7 +71,7 @@ export function calculateNumVerses(aliyah: Aliyah): number {
  * @param to The ending verse (e.g. "28:15")
  * @returns The number of verses between the two locations, excluding the `to` verse.
  */
-export function subtractVerses(book: string, from: string, to: string) {
+export function subtractVerses(book: TanakhBook, from: string, to: string) {
   const chapVerseBegin = from.split(':');
   const chapVerseEnd = to.split(':');
   const c1 = parseInt(chapVerseBegin[0], 10);
@@ -104,7 +104,7 @@ export function subtractVerses(book: string, from: string, to: string) {
  *          or null if the resulting verse exceeds the number of verses
  *          in the book.
  */
-export function addVerses(book: string, from: string, numVerses: number) {
+export function addVerses(book: TanakhBook, from: string, numVerses: number) {
   const chapVerseBegin = from.split(':');
   const c1 = parseInt(chapVerseBegin[0], 10);
   const v1 = parseInt(chapVerseBegin[1], 10);
