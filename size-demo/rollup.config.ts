@@ -1,7 +1,6 @@
 import prettyBytes from 'pretty-bytes';
 import {defineConfig, OutputChunk, Plugin, RollupOptions} from 'rollup';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import bundleSize from 'rollup-plugin-bundle-size';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
@@ -39,7 +38,6 @@ export default defineConfig(
           typescript({tsconfig: './size-demo/tsconfig.json'}),
           json({compact: true, preferConst: true}),
           nodeResolve(),
-          commonjs(),
           bundleSize(),
           {
             name: 'record-size-to-file',
