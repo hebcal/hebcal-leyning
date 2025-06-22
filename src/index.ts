@@ -1,4 +1,5 @@
 export * from './types';
+export * from './internalTypes';
 export * from './locale';
 export * from './common';
 export * from './summary';
