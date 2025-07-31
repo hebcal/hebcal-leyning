@@ -13,7 +13,6 @@ import {
   LeyningNames,
   ParshaMeta,
   TanakhBook,
-  TorahBook,
 } from './types';
 
 type JsonAliyah = {
@@ -238,6 +237,8 @@ export function lookupParsha(parsha: string | string[]): ParshaMeta {
       const haftKey = p1 === 'Nitzavim' ? p1 : p2;
       raw.haft = lookupParsha(haftKey).haft;
     }
+  } else {
+    raw.hebrew = Locale.gettext(name, 'he');
   }
   return raw as ParshaMeta;
 }

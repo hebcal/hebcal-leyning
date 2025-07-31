@@ -1,7 +1,6 @@
 import {BOOK} from './common';
 import {clone} from './clone';
 import festivals0 from './holiday-readings.json';
-import {TanakhBook, TorahBook} from './types';
 import {JsonFestivalAliyotMap, JsonFestivalLeyning} from './internalTypes';
 
 type Festivals = Record<string, JsonFestivalLeyning>;

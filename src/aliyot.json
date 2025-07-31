@@ -1,7 +1,6 @@
 {
 "Bereshit":{
  "num":1,
- "hebrew":"בְּרֵאשִׁית",
  "book":1,
  "haft":{"k":"Isaiah","b":"42:5","e":"43:10"},
  "seph":{"k":"Isaiah","b":"42:5","e":"42:21"},
@@ -21,7 +20,6 @@
  }},
 "Noach":{
  "num":2,
- "hebrew":"נֹחַ",
  "book":1,
  "haft":{"k":"Isaiah","b":"54:1","e":"55:5"},
  "seph":{"k":"Isaiah","b":"54:1","e":"54:10"},
@@ -41,7 +39,6 @@
  }},
 "Lech-Lecha":{
  "num":3,
- "hebrew":"לֶךְ־לְךָ",
  "book":1,
  "haft":{"k":"Isaiah","b":"40:27","e":"41:16"},
  "fullkriyah":{
@@ -60,7 +57,6 @@
  }},
 "Vayera":{
  "num":4,
- "hebrew":"וַיֵּרָא",
  "book":1,
  "haft":{"k":"II Kings","b":"4:1","e":"4:37"},
  "seph":{"k":"II Kings","b":"4:1","e":"4:23"},
@@ -80,7 +76,6 @@
  }},
 "Chayei Sara":{
  "num":5,
- "hebrew":"חַיֵּי שָֹרָה",
  "book":1,
  "haft":{"k":"I Kings","b":"1:1","e":"1:31"},
  "fullkriyah":{
@@ -99,7 +94,6 @@
  }},
 "Toldot":{
  "num":6,
- "hebrew":"תּוֹלְדוֹת",
  "book":1,
  "haft":{"k":"Malachi","b":"1:1","e":"2:7"},
  "fullkriyah":{
@@ -118,7 +112,6 @@
  }},
 "Vayetzei":{
  "num":7,
- "hebrew":"וַיֵּצֵא",
  "book":1,
  "haft":{"k":"Hosea","b":"12:13","e":"14:10"},
  "seph":{"k":"Hosea","b":"11:7","e":"12:12"},
@@ -138,7 +131,6 @@
  }},
 "Vayishlach":{
  "num":8,
- "hebrew":"וַיִּשְׁלַח",
  "book":1,
  "haft":{"k":"Obadiah","b":"1:1","e":"1:21"},
  "fullkriyah":{
@@ -157,7 +149,6 @@
  }},
 "Vayeshev":{
  "num":9,
- "hebrew":"וַיֵּשֶׁב",
  "book":1,
  "haft":{"k":"Amos","b":"2:6","e":"3:8"},
  "fullkriyah":{
@@ -176,7 +167,6 @@
  }},
 "Miketz":{
  "num":10,
- "hebrew":"מִקֵּץ",
  "book":1,
  "haft":{"k":"I Kings","b":"3:15","e":"4:1"},
  "fullkriyah":{
@@ -195,7 +185,6 @@
  }},
 "Vayigash":{
  "num":11,
- "hebrew":"וַיִּגַּשׁ",
  "book":1,
  "haft":{"k":"Ezekiel","b":"37:15","e":"37:28"},
  "fullkriyah":{
@@ -214,7 +203,6 @@
  }},
 "Vayechi":{
  "num":12,
- "hebrew":"וַיְחִי",
  "book":1,
  "haft":{"k":"I Kings","b":"2:1","e":"2:12"},
  "fullkriyah":{
@@ -233,7 +221,6 @@
  }},
 "Shemot":{
  "num":13,
- "hebrew":"שְׁמוֹת",
  "book":2,
  "haft":[{"k":"Isaiah","b":"27:6","e":"28:13"},{"k":"Isaiah","b":"29:22","e":"29:23"}],
  "seph":{"k":"Jeremiah","b":"1:1","e":"2:3"},
@@ -253,7 +240,6 @@
  }},
 "Vaera":{
  "num":14,
- "hebrew":"וָאֵרָא",
  "book":2,
  "haft":{"k":"Ezekiel","b":"28:25","e":"29:21"},
  "fullkriyah":{
@@ -272,7 +258,6 @@
  }},
 "Bo":{
  "num":15,
- "hebrew":"בֹּא",
  "book":2,
  "haft":{"k":"Jeremiah","b":"46:13","e":"46:28"},
  "fullkriyah":{
@@ -291,7 +276,6 @@
  }},
 "Beshalach":{
  "num":16,
- "hebrew":"בְּשַׁלַּח",
  "book":2,
  "haft":{"k":"Judges","b":"4:4","e":"5:31"},
  "seph":{"k":"Judges","b":"5:1","e":"5:31"},
@@ -311,7 +295,6 @@
  }},
 "Yitro":{
  "num":17,
- "hebrew":"יִתְרוֹ",
  "book":2,
  "haft":[{"k":"Isaiah","b":"6:1","e":"7:6"},{"k":"Isaiah","b":"9:5","e":"9:6"}],
  "seph":{"k":"Isaiah","b":"6:1","e":"6:13"},
@@ -331,7 +314,6 @@
  }},
 "Mishpatim":{
  "num":18,
- "hebrew":"מִּשְׁפָּטִים",
  "book":2,
  "haft":[{"k":"Jeremiah","b":"34:8","e":"34:22"},{"k":"Jeremiah","b":"33:25","e":"33:26"}],
  "fullkriyah":{
@@ -350,7 +332,6 @@
  }},
 "Terumah":{
  "num":19,
- "hebrew":"תְּרוּמָה",
  "book":2,
  "haft":{"k":"I Kings","b":"5:26","e":"6:13"},
  "fullkriyah":{
@@ -369,7 +350,6 @@
  }},
 "Tetzaveh":{
  "num":20,
- "hebrew":"תְּצַוֶּה",
  "book":2,
  "haft":{"k":"Ezekiel","b":"43:10","e":"43:27"},
  "fullkriyah":{
@@ -388,7 +368,6 @@
  }},
 "Ki Tisa":{
  "num":21,
- "hebrew":"כִּי תִשָּׂא",
  "book":2,
  "haft":{"k":"I Kings","b":"18:1","e":"18:39"},
  "seph":{"k":"I Kings","b":"18:20","e":"18:39"},
@@ -408,7 +387,6 @@
  }},
 "Vayakhel":{
  "num":22,
- "hebrew":"וַיַּקְהֵל",
  "book":2,
  "haft":{"k":"I Kings","b":"7:40","e":"7:50"},
  "seph":{"k":"I Kings","b":"7:13","e":"7:26"},
@@ -428,7 +406,6 @@
  }},
 "Pekudei":{
  "num":23,
- "hebrew":"פְקוּדֵי",
  "book":2,
  "haft":{"k":"I Kings","b":"7:51","e":"8:21"},
  "seph":{"k":"I Kings","b":"7:40","e":"7:50"},
@@ -448,7 +425,6 @@
  }},
 "Vayikra":{
  "num":24,
- "hebrew":"וַיִּקְרָא",
  "book":3,
  "haft":{"k":"Isaiah","b":"43:21","e":"44:23"},
  "fullkriyah":{
@@ -467,7 +443,6 @@
  }},
 "Tzav":{
  "num":25,
- "hebrew":"צַו",
  "book":3,
  "haft":[{"k":"Jeremiah","b":"7:21","e":"8:3"},{"k":"Jeremiah","b":"9:22","e":"9:23"}],
  "fullkriyah":{
@@ -486,7 +461,6 @@
  }},
 "Shmini":{
  "num":26,
- "hebrew":"שְּׁמִינִי",
  "book":3,
  "haft":{"k":"II Samuel","b":"6:1","e":"7:17"},
  "seph":{"k":"II Samuel","b":"6:1","e":"6:19"},
@@ -506,7 +480,6 @@
  }},
 "Tazria":{
  "num":27,
- "hebrew":"תַזְרִיעַ",
  "book":3,
  "haft":{"k":"II Kings","b":"4:42","e":"5:19"},
  "fullkriyah":{
@@ -525,7 +498,6 @@
  }},
 "Metzora":{
  "num":28,
- "hebrew":"מְּצֹרָע",
  "book":3,
  "haft":{"k":"II Kings","b":"7:3","e":"7:20"},
  "fullkriyah":{
@@ -544,7 +516,6 @@
  }},
 "Achrei Mot":{
  "num":29,
- "hebrew":"אַחֲרֵי מוֹת",
  "book":3,
  "haft":{"k":"Amos","b":"9:7","e":"9:15"},
  "seph":{"k":"Ezekiel","b":"22:1","e":"22:16"},
@@ -564,7 +535,6 @@
  }},
 "Kedoshim":{
  "num":30,
- "hebrew":"קְדשִׁים",
  "book":3,
  "haft":{"k":"Ezekiel","b":"22:1","e":"22:19"},
  "seph":{"k":"Ezekiel","b":"20:2","e":"20:20"},
@@ -584,7 +554,6 @@
  }},
 "Emor":{
  "num":31,
- "hebrew":"אֱמוֹר",
  "book":3,
  "haft":{"k":"Ezekiel","b":"44:15","e":"44:31"},
  "fullkriyah":{
@@ -603,7 +572,6 @@
  }},
 "Behar":{
  "num":32,
- "hebrew":"בְּהַר",
  "book":3,
  "haft":{"k":"Jeremiah","b":"32:6","e":"32:27"},
  "fullkriyah":{
@@ -622,7 +590,6 @@
  }},
 "Bechukotai":{
  "num":33,
- "hebrew":"בְּחֻקֹּתַי",
  "book":3,
  "haft":{"k":"Jeremiah","b":"16:19","e":"17:14"},
  "fullkriyah":{
@@ -641,7 +608,6 @@
  }},
 "Bamidbar":{
  "num":34,
- "hebrew":"בְּמִדְבַּר",
  "book":4,
  "haft":{"k":"Hosea","b":"2:1","e":"2:22"},
  "fullkriyah":{
@@ -660,7 +626,6 @@
  }},
 "Nasso":{
  "num":35,
- "hebrew":"נָשׂא",
  "book":4,
  "haft":{"k":"Judges","b":"13:2","e":"13:25"},
  "fullkriyah":{
@@ -679,7 +644,6 @@
  }},
 "Beha'alotcha":{
  "num":36,
- "hebrew":"בְּהַעֲלֹתְךָ",
  "book":4,
  "haft":{"k":"Zechariah","b":"2:14","e":"4:7"},
  "fullkriyah":{
@@ -698,7 +662,6 @@
  }},
 "Sh'lach":{
  "num":37,
- "hebrew":"שְׁלַח־לְךָ",
  "book":4,
  "haft":{"k":"Joshua","b":"2:1","e":"2:24"},
  "fullkriyah":{
@@ -717,7 +680,6 @@
  }},
 "Korach":{
  "num":38,
- "hebrew":"קֹרַח",
  "book":4,
  "haft":{"k":"I Samuel","b":"11:14","e":"12:22"},
  "fullkriyah":{
@@ -736,7 +698,6 @@
  }},
 "Chukat":{
  "num":39,
- "hebrew":"חֻקַּת",
  "book":4,
  "haft":{"k":"Judges","b":"11:1","e":"11:33"},
  "fullkriyah":{
@@ -755,7 +716,6 @@
  }},
 "Balak":{
  "num":40,
- "hebrew":"בָּלָק",
  "book":4,
  "haft":{"k":"Micah","b":"5:6","e":"6:8"},
  "fullkriyah":{
@@ -774,7 +734,6 @@
  }},
 "Pinchas":{
  "num":41,
- "hebrew":"פִּינְחָס",
  "book":4,
  "haft":{"k":"I Kings","b":"18:46","e":"19:21"},
  "fullkriyah":{
@@ -793,7 +752,6 @@
  }},
 "Matot":{
  "num":42,
- "hebrew":"מַּטּוֹת",
  "book":4,
  "haft":{"k":"Jeremiah","b":"1:1","e":"2:3"},
  "fullkriyah":{
@@ -812,7 +770,6 @@
  }},
 "Masei":{
  "num":43,
- "hebrew":"מַסְעֵי",
  "book":4,
  "haft":[{"k":"Jeremiah","b":"2:4","e":"2:28"},{"k":"Jeremiah","b":"3:4","e":"3:4"}],
  "seph":[{"k":"Jeremiah","b":"2:4","e":"2:28"},{"k":"Jeremiah","b":"4:1","e":"4:2"}],
@@ -832,7 +789,6 @@
  }},
 "Devarim":{
  "num":44,
- "hebrew":"דְּבָרִים",
  "book":5,
  "haft":{"k":"Isaiah","b":"1:1","e":"1:27"},
  "fullkriyah":{
@@ -851,7 +807,6 @@
  }},
 "Vaetchanan":{
  "num":45,
- "hebrew":"וָאֶתְחַנַּן",
  "book":5,
  "haft":{"k":"Isaiah","b":"40:1","e":"40:26"},
  "fullkriyah":{
@@ -870,7 +825,6 @@
  }},
 "Eikev":{
  "num":46,
- "hebrew":"עֵקֶב",
  "book":5,
  "haft":{"k":"Isaiah","b":"49:14","e":"51:3"},
  "fullkriyah":{
@@ -889,7 +843,6 @@
  }},
 "Re'eh":{
  "num":47,
- "hebrew":"רְאֵה",
  "book":5,
  "haft":{"k":"Isaiah","b":"54:11","e":"55:5"},
  "fullkriyah":{
@@ -908,7 +861,6 @@
  }},
 "Shoftim":{
  "num":48,
- "hebrew":"שׁוֹפְטִים",
  "book":5,
  "haft":{"k":"Isaiah","b":"51:12","e":"52:12"},
  "fullkriyah":{
@@ -927,7 +879,6 @@
  }},
 "Ki Teitzei":{
  "num":49,
- "hebrew":"כִּי־תֵצֵא",
  "book":5,
  "haft":{"k":"Isaiah","b":"54:1","e":"54:10"},
  "fullkriyah":{
@@ -946,7 +897,6 @@
  }},
 "Ki Tavo":{
  "num":50,
- "hebrew":"כִּי־תָבוֹא",
  "book":5,
  "haft":{"k":"Isaiah","b":"60:1","e":"60:22"},
  "fullkriyah":{
@@ -965,7 +915,6 @@
  }},
 "Nitzavim":{
  "num":51,
- "hebrew":"נִצָּבִים",
  "book":5,
  "haft":{"k":"Isaiah","b":"61:10","e":"63:9"},
  "fullkriyah":{
@@ -984,7 +933,6 @@
  }},
 "Vayeilech":{
  "num":52,
- "hebrew":"וַיֵּלֶךְ",
  "book":5,
  "haft":{"k":"Isaiah","b":"55:6","e":"56:8"},
  "fullkriyah":{
@@ -1003,7 +951,6 @@
  }},
 "Ha'azinu":{
  "num":53,
- "hebrew":"הַאֲזִינוּ",
  "book":5,
  "haft":{"k":"II Samuel","b":"22:1","e":"22:51"},
  "fullkriyah":{
@@ -1022,7 +969,6 @@
  }},
 "Vezot Haberakhah":{
  "num":54,
- "hebrew":"וְזֹאת הַבְּרָכָה",
  "book":5,
  "haft":{"k":"Joshua","b":"1:1","e":"1:18"},
  "seph":{"k":"Joshua","b":"1:1","e":"1:9"},

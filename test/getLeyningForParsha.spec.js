@@ -47,7 +47,7 @@ test('getLeyningForParsha-2', () => {
   const expected2 = {
     name: {
       en: 'Matot-Masei',
-      he: 'מַּטּוֹת־מַסְעֵי',
+      he: 'מַטּוֹת־מַסְעֵי',
     },
     type: 'shabbat',
     parsha: [

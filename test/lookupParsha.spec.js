@@ -30,7 +30,7 @@ test('lookupParsha', () => {
 test('lookupParsha-combined', () => {
   const meta = lookupParsha(['Tazria', 'Metzora']);
   const expected = {
-    'hebrew': 'תַזְרִיעַ־מְּצֹרָע',
+    "hebrew": "תַזְרִיעַ־מְצֹרָע",
     'num': [27, 28],
     'combined': true,
     'p1': 'Tazria',

@@ -480,7 +480,7 @@ test('17tamuz', () => {
   });
   const reading = getLeyningForHoliday(events[0]);
   const expected = {
-    name: {en: 'Tzom Tammuz', he: 'צוֹם תָּמוּז'},
+    name: {en: 'Tzom Tammuz', he: 'צוֹם י״ז בְּתַמּוּז'},
     type: 'holiday',
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
