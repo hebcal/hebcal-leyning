@@ -245,8 +245,8 @@ test('getLeyningForHoliday-9av-obvs', () => {
       he: 'תִּשְׁעָה בְּאָב',
     },
     type: 'holiday',
-    summary: 'Deuteronomy 4:25-40',
-    summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}],
+    summary: 'Deuteronomy 4:25-40; Lamentations 1:1-5:22',
+    summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}, {k: 'Lamentations', b: '1:1', e: '5:22'}],
     fullkriyah: {
       '1': {p: 45, k: 'Deuteronomy', b: '4:25', e: '4:29', v: 5},
       '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
@@ -260,6 +260,13 @@ test('getLeyningForHoliday-9av-obvs', () => {
     },
     haftara: 'Jeremiah 8:13-9:23',
     haftaraNumV: 34,
+    megillah: {
+      '1': { k: 'Lamentations', b: '1:1', e: '1:22', v: 22 },
+      '2': { k: 'Lamentations', b: '2:1', e: '2:22', v: 22 },
+      '3': { k: 'Lamentations', b: '3:1', e: '3:66', v: 66 },
+      '4': { k: 'Lamentations', b: '4:1', e: '4:22', v: 22 },
+      '5': { k: 'Lamentations', b: '5:1', e: '5:22', v: 22 }
+    },
   };
   const actual = getLeyningForHoliday(ev);
   expect(actual).toEqual(expected);
@@ -511,11 +518,18 @@ test('9av', () => {
       '2': {p: 45, k: 'Deuteronomy', b: '4:30', e: '4:35', v: 6},
       '3': {p: 45, k: 'Deuteronomy', b: '4:36', e: '4:40', v: 5},
     },
-    summary: 'Deuteronomy 4:25-40',
-    summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}],
+    summary: 'Deuteronomy 4:25-40; Lamentations 1:1-5:22',
+    summaryParts: [{k: 'Deuteronomy', b: '4:25', e: '4:40'}, {k: 'Lamentations', b: '1:1', e: '5:22'}],
     haft: {k: 'Jeremiah', b: '8:13', e: '9:23', v: 34},
     haftara: 'Jeremiah 8:13-9:23',
     haftaraNumV: 34,
+    megillah: {
+      '1': { k: 'Lamentations', b: '1:1', e: '1:22', v: 22 },
+      '2': { k: 'Lamentations', b: '2:1', e: '2:22', v: 22 },
+      '3': { k: 'Lamentations', b: '3:1', e: '3:66', v: 66 },
+      '4': { k: 'Lamentations', b: '4:1', e: '4:22', v: 22 },
+      '5': { k: 'Lamentations', b: '5:1', e: '5:22', v: 22 }
+    },
   };
   expect(reading).toEqual(expected);
 });

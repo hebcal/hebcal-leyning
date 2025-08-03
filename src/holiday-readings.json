@@ -204,7 +204,8 @@
  "fullkriyah":
   {"1":{"p":45,"k":5,"b":"4:25","e":"4:29"},
   "2":{"p":45,"k":5,"b":"4:30","e":"4:35"},
-  "3":{"p":45,"k":5,"b":"4:36","e":"4:40"}}},
+  "3":{"p":45,"k":5,"b":"4:36","e":"4:40"}},
+ "megillah":"Lamentations"},
 "Tish'a B'Av (Mincha)":{"alias":true,"key":"Fast Day (Afternoon)"},
 "Rosh Hashana I":{
  "haft":{"k":"I Samuel","b":"1:1","e":"2:10"},
