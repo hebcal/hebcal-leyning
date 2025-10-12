@@ -3,18 +3,20 @@ import {HebrewCalendar} from '@hebcal/core';
 import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';
 
 // eslint-disable-next-line require-jsdoc
-function dateDescKey(ev) {
-  return {
-    d: ev.getDate().greg().toISOString().substring(0, 10),
-    h: ev.getDesc(),
-    k: getLeyningKeyForEvent(ev, true),
-  };
+function dateDescKey(il) {
+  return function (ev) {
+    return {
+      d: ev.getDate().greg().toISOString().substring(0, 10),
+      h: ev.getDesc(),
+      k: getLeyningKeyForEvent(ev, il),
+    };
+  }
 }
 
 test('getLeyningKeyForEvent', () => {
   const options = {year: 5757, isHebrewYear: true};
   const events = HebrewCalendar.calendar(options);
-  const actual = events.map(dateDescKey);
+  const actual = events.map(dateDescKey(false));
   const expected = [
     {d: '1996-09-13', h: 'Erev Rosh Hashana', k: undefined},
     {d: '1996-09-14', h: 'Rosh Hashana 5757', k: 'Rosh Hashana I (on Shabbat)'},
@@ -31,7 +33,7 @@ test('getLeyningKeyForEvent', () => {
     {d: '1996-10-02', h: 'Sukkot V (CH\'\'M)', k: 'Sukkot Chol ha-Moed Day 3'},
     {d: '1996-10-03', h: 'Sukkot VI (CH\'\'M)', k: 'Sukkot Chol ha-Moed Day 4'},
     {d: '1996-10-04', h: 'Sukkot VII (Hoshana Raba)', k: 'Sukkot Final Day (Hoshana Raba)'},
-    {d: '1996-10-05', h: 'Shmini Atzeret', k: 'Simchat Torah (on Shabbat)'},
+    {d: '1996-10-05', h: 'Shmini Atzeret', k: 'Shmini Atzeret (on Shabbat)'},
     {d: '1996-10-06', h: 'Simchat Torah', k: 'Simchat Torah'},
     {d: '1996-10-13', h: 'Rosh Chodesh Cheshvan', k: 'Rosh Chodesh Cheshvan'},
     {d: '1996-10-14', h: 'Rosh Chodesh Cheshvan', k: 'Rosh Chodesh Cheshvan'},
@@ -71,10 +73,10 @@ test('getLeyningKeyForEvent', () => {
     {d: '1997-04-21', h: 'Erev Pesach', k: undefined},
     {d: '1997-04-22', h: 'Pesach I', k: 'Pesach I'},
     {d: '1997-04-23', h: 'Pesach II', k: 'Pesach II'},
-    {d: '1997-04-24', h: 'Pesach III (CH\'\'M)', k: 'Pesach III (CH\'\'M)'},
-    {d: '1997-04-25', h: 'Pesach IV (CH\'\'M)', k: 'Pesach IV (CH\'\'M)'},
+    {d: '1997-04-24', h: 'Pesach III (CH\'\'M)', k: 'Pesach Chol ha-Moed Day 1'},
+    {d: '1997-04-25', h: 'Pesach IV (CH\'\'M)', k: 'Pesach Chol ha-Moed Day 2'},
     {d: '1997-04-26', h: 'Pesach V (CH\'\'M)', k: 'Pesach Shabbat Chol ha-Moed'},
-    {d: '1997-04-27', h: 'Pesach VI (CH\'\'M)', k: 'Pesach VI (CH\'\'M)'},
+    {d: '1997-04-27', h: 'Pesach VI (CH\'\'M)', k: 'Pesach Chol ha-Moed Day 4'},
     {d: '1997-04-28', h: 'Pesach VII', k: 'Pesach VII'},
     {d: '1997-04-29', h: 'Pesach VIII', k: 'Pesach VIII'},
     {d: '1997-05-05', h: 'Yom HaShoah', k: undefined},
@@ -111,7 +113,7 @@ test('getLeyningKeyForEvent', () => {
 test('getLeyningKeyForEvent-pesach-il', () => {
   const events0 = HebrewCalendar.calendar({year: 5780, isHebrewYear: true, il: true, numYears: 3});
   const events = events0.filter((ev) => ev.basename() === 'Pesach');
-  const actual = events.map(dateDescKey);
+  const actual = events.map(dateDescKey(true));
   const expected = [
     {d: '2020-04-08', h: 'Erev Pesach', k: undefined},
     {d: '2020-04-09', h: 'Pesach I', k: 'Pesach I'},
