@@ -1,0 +1,95 @@
+#
+msgid ""
+msgstr ""
+"Language: en_CA@ashkenazi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Shabbat Machar Chodesh"
+msgstr "Shabbos Machar Chodesh"
+
+msgid "Shabbat Rosh Chodesh"
+msgstr "Shabbos Rosh Chodesh"
+
+msgid "Pesach I (on Shabbat)"
+msgstr "Pesach I (on Shabbos)"
+
+msgid "Pesach Shabbat Chol ha-Moed"
+msgstr "Pesach Shabbos Chol ha-Moed"
+
+msgid "Pesach VII (on Shabbat)"
+msgstr "Pesach VII (on Shabbos)"
+
+msgid "Pesach VIII (on Shabbat)"
+msgstr "Pesach VIII (on Shabbos)"
+
+msgid "Shavuot II (on Shabbat)"
+msgstr "Shavuos II (on Shabbos)"
+
+msgid "Rosh Hashana I (on Shabbat)"
+msgstr "Rosh Hashana I (on Shabbos)"
+
+msgid "Yom Kippur (on Shabbat)"
+msgstr "Yom Kippur (on Shabbos)"
+
+msgid "Sukkot I (on Shabbat)"
+msgstr "Sukkos I (on Shabbos)"
+
+msgid "Sukkot Chol ha-Moed Day 1"
+msgstr "Sukkos Chol ha-Moed Day 1"
+
+msgid "Sukkot Chol ha-Moed Day 2"
+msgstr "Sukkos Chol ha-Moed Day 2"
+
+msgid "Sukkot Chol ha-Moed Day 3"
+msgstr "Sukkos Chol ha-Moed Day 3"
+
+msgid "Sukkot Chol ha-Moed Day 4"
+msgstr "Sukkos Chol ha-Moed Day 4"
+
+msgid "Sukkot Chol ha-Moed Day 5"
+msgstr "Sukkos Chol ha-Moed Day 5"
+
+msgid "Sukkot Shabbat Chol ha-Moed"
+msgstr "Sukkos Shabbat Chol ha-Moed"
+
+msgid "Sukkot Final Day (Hoshana Raba)"
+msgstr "Sukkos Final Day (Hoshana Raba)"
+
+msgid "Shmini Atzeret (on Shabbat)"
+msgstr "Shmini Atzeres (on Shabbos)"
+
+msgid "Chanukah Day 1 (on Shabbat)"
+msgstr "Chanukah Day 1 (on Shabbos)"
+
+msgid "Chanukah Day 2 (on Shabbat)"
+msgstr "Chanukah Day 2 (on Shabbos)"
+
+msgid "Chanukah Day 3 (on Shabbat)"
+msgstr "Chanukah Day 3 (on Shabbos)"
+
+msgid "Chanukah Day 4 (on Shabbat)"
+msgstr "Chanukah Day 4 (on Shabbos)"
+
+msgid "Chanukah Day 5 (on Shabbat)"
+msgstr "Chanukah Day 5 (on Shabbos)"
+
+msgid "Chanukah Day 7 (on Shabbat)"
+msgstr "Chanukah Day 7 (on Shabbos)"
+
+msgid "Chanukah Day 8 (on Shabbat)"
+msgstr "Chanukah Day 8 (on Shabbos)"
+
+msgid "Shabbat Rosh Chodesh Chanukah"
+msgstr "Shabbos Rosh Chodesh Chanukah"
+
+msgid "Asara B'Tevet (Mincha)"
+msgstr "Asara B’Teves (Mincha)"
+
+msgid "Ta'anit Bechorot (Mincha)"
+msgstr "Ta’anis Bechorot (Mincha)"
+
+msgid "Ta'anit Esther (Mincha)"
+msgstr "Ta’anis Esther (Mincha)"

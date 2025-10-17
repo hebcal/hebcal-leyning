@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "9.2.6",
+  "version": "9.2.7",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -45,7 +45,7 @@
     "tslib": "^2.8.1"
   },
   "scripts": {
-    "po2json": "node ./po2json.js po/he.po",
+    "po2json": "node ./po2json.js po/he.po po/ashkenazi.po",
     "size-demo:rollup": "rollup -c size-demo/rollup.config.ts --configPlugin typescript",
     "size-demo": "npm run build && npm run size-demo:rollup",
     "build:rollup": "rollup -c",
