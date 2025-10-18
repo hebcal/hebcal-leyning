@@ -53,7 +53,7 @@ msgid "Sukkot Chol ha-Moed Day 5"
 msgstr "Sukkos Chol ha-Moed Day 5"
 
 msgid "Sukkot Shabbat Chol ha-Moed"
-msgstr "Sukkos Shabbat Chol ha-Moed"
+msgstr "Sukkos Shabbos Chol ha-Moed"
 
 msgid "Sukkot Final Day (Hoshana Raba)"
 msgstr "Sukkos Final Day (Hoshana Raba)"
