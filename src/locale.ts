@@ -1,5 +1,4 @@
 import {Locale} from '@hebcal/core/dist/esm/locale';
-import {LocaleData, StringArrayMap} from '@hebcal/hdate';
 import poHe from './he.po';
 import poAshkenazi from './ashkenazi.po';
 
@@ -10,13 +9,5 @@ Locale.addTranslations('ashkenazi', poAshkenazi);
 Locale.addTranslations('he', poHe);
 Locale.addTranslations('h', poHe);
 
-const heStrs = poHe.contexts[''];
-const heNoNikud: StringArrayMap = {};
-for (const [key, val] of Object.entries(heStrs)) {
-  heNoNikud[key] = [Locale.hebrewStripNikkud(val[0])];
-}
-const poHeNoNikud: LocaleData = {
-  headers: poHe.headers,
-  contexts: {'': heNoNikud},
-};
+const poHeNoNikud = Locale.copyLocaleNoNikud(poHe);
 Locale.addTranslations('he-x-NoNikud', poHeNoNikud);
