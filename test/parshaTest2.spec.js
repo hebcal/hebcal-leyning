@@ -4,7 +4,7 @@ import {getLeyningForParshaHaShavua} from '../src/leyning';
 
 test('Shabbat Zachor', () => {
   const hd = new HDate(new Date(2024, 2, 23));
-  const pe = new ParshaEvent(hd, ['Vayikra'], false);
+  const pe = new ParshaEvent({hdate: hd, parsha: ['Vayikra'], il: false});
   const reading = getLeyningForParshaHaShavua(pe, false);
   const expected = {
     name: {en: 'Vayikra', he: 'וַיִּקְרָא'},

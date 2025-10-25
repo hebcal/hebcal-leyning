@@ -171,7 +171,7 @@ export function getLeyningForParshaHaShavua(ev: Event, il = false): Leyning {
     throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
   }
   // first, collect the default aliyot and haftara
-  const parsha = (ev as ParshaEvent).parsha;
+  const parsha = (ev as ParshaEvent).p.parsha;
   const result = getLeyningForParshaShabbatOnly(parsha);
   const hd = ev.getDate();
   // Now, check for special maftir or haftara on same date

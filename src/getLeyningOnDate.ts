@@ -37,6 +37,7 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
         chag: false,
         num: 54,
         hdate: saturday,
+        il,
       };
     }
   }
@@ -94,7 +95,7 @@ export function getLeyningOnDate(
     const sedra = getSedra(hyear, il);
     const parsha = sedra.lookup(hdate);
     if (!parsha.chag) {
-      const parshaEvent = new ParshaEvent(hdate, parsha.parsha, il);
+      const parshaEvent = new ParshaEvent(parsha);
       const reading = getLeyningForParshaHaShavua(parshaEvent, il);
       if (wantarray) {
         hasParshaHaShavua = true;

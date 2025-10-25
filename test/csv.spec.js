@@ -26,7 +26,10 @@ class StringWritable extends Writable {
 }
 
 test('writeFullKriyahEvent-parsha', () => {
-  const ev = new ParshaEvent(new HDate(new Date(2020, 4, 16)), ['Behar', 'Bechukotai']);
+  const ev = new ParshaEvent({
+    hdate: new HDate(new Date(2020, 4, 16)),
+    parsha: ['Behar', 'Bechukotai'],
+  });
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
   const lines = stream.toString().split('\r\n');
@@ -151,7 +154,7 @@ test('writeFullKriyahEvent-SimchatTorah', () => {
 
 test('writeFullKriyahEvent-shekalim', () => {
   const hd = new HDate(29, 'Adar I', 5784);
-  const ev = new ParshaEvent(hd, ['Vayakhel'], false);
+  const ev = new ParshaEvent({hdate: hd, parsha: ['Vayakhel'], il: false});
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, ev, false);
   const lines = stream.toString().split('\r\n');

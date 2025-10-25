@@ -261,7 +261,9 @@ test('longest-regular-haftarah', () => {
 });
 
 test('masei-rosh-chodesh', () => {
-  const ev1 = new ParshaEvent(new HDate(1, 'Av', 5781), ['Matot', 'Masei'], false);
+  const ev1 = new ParshaEvent({
+    hdate: new HDate(1, 'Av', 5781),
+    parsha: ['Matot', 'Masei'], il: false});
   const obj1 = getLeyningForParshaHaShavua(ev1);
   expect(obj1.haftara).toBe('Jeremiah 2:4-28, 3:4');
   expect(obj1.reason.haftara).toBe('Matot-Masei on Shabbat Rosh Chodesh');
@@ -269,13 +271,17 @@ test('masei-rosh-chodesh', () => {
   expect(obj1.reason.sephardic).toBe('Matot-Masei on Shabbat Rosh Chodesh');
   expect(obj1.summary).toBe('Numbers 30:2-36:13, 28:9-15');
 
-  const ev2 = new ParshaEvent(new HDate(2, 'Av', 5782), ['Matot', 'Masei'], false);
+  const ev2 = new ParshaEvent({
+    hdate: new HDate(2, 'Av', 5782),
+    parsha: ['Matot', 'Masei'], il: false});
   const obj2 = getLeyningForParshaHaShavua(ev2);
   expect(obj2.haftara).toBe('Jeremiah 2:4-28, 3:4');
   expect(obj2.reason).toBe(undefined);
   expect(obj2.summary).toBe('Numbers 30:2-36:13');
 
-  const ev3 = new ParshaEvent(new HDate(1, 'Av', 5812), ['Masei'], false);
+  const ev3 = new ParshaEvent({
+    hdate: new HDate(1, 'Av', 5812),
+    parsha: ['Masei'], il: false});
   const obj3 = getLeyningForParshaHaShavua(ev3);
   expect(obj3.haftara).toBe('Jeremiah 2:4-28, 3:4');
   expect(obj3.sephardic).toBe('Jeremiah 2:4-28, 4:1-2; Isaiah 66:1, 66:23');
@@ -284,7 +290,9 @@ test('masei-rosh-chodesh', () => {
   expect(obj3.reason.haftara).toBe('Masei on Shabbat Rosh Chodesh');
   expect(obj3.summary).toBe('Numbers 33:1-36:13, 28:9-15');
 
-  const ev4 = new ParshaEvent(new HDate(28, 'Tamuz', 5822), ['Masei'], false);
+  const ev4 = new ParshaEvent({
+    hdate: new HDate(28, 'Tamuz', 5822),
+    parsha: ['Masei'], il: false});
   const obj4 = getLeyningForParshaHaShavua(ev4);
   expect(obj4.haftara).toBe('Jeremiah 2:4-28, 3:4');
   expect(obj4.haftaraNumV).toBe(26);
@@ -295,7 +303,9 @@ test('masei-rosh-chodesh', () => {
 
 test('Shabbat Shuva - Vayeilech', () => {
   const hd = new HDate(6, 'Tishrei', 5783);
-  const ev = new ParshaEvent(hd, ['Vayeilech'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Vayeilech'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   delete reading.fullkriyah;
   const expected = {
@@ -329,7 +339,9 @@ test('Shabbat Shuva - Vayeilech', () => {
 
 test('Shabbat Shuva - Ha\'azinu', () => {
   const hd = new HDate(8, 'Tishrei', 5784);
-  const ev = new ParshaEvent(hd, ['Ha\'azinu'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Ha\'azinu'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   delete reading.fullkriyah;
   const expected = {
@@ -384,7 +396,9 @@ test('Shabbat Shuva - Ha\'azinu', () => {
 
 test('Shushan Purim (on Shabbat)', () => {
   const hd = new HDate(15, 'Adar', 5781);
-  const ev = new ParshaEvent(hd, ['Tetzaveh'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Tetzaveh'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   const expected = {
     name: {en: 'Tetzaveh', he: 'תְּצַוֶּה'},
@@ -411,7 +425,9 @@ test('Shushan Purim (on Shabbat)', () => {
 
 test('Ki Teitzei with 3rd Haftarah of Consolation', () => {
   const hd = new HDate(14, 'Elul', 5782);
-  const ev = new ParshaEvent(hd, ['Ki Teitzei'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Ki Teitzei'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.haftara).toBe('Isaiah 54:1-10, 54:11-55:5');
   expect(reading.reason.haftara).toBe('Ki Teitzei with 3rd Haftarah of Consolation');
@@ -419,35 +435,45 @@ test('Ki Teitzei with 3rd Haftarah of Consolation', () => {
 
 test('yes-MacharChodesh-Bereshit', () => {
   const hd = new HDate(29, 'Tishrei', 5784);
-  const ev = new ParshaEvent(hd, ['Bereshit'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Bereshit'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Machar Chodesh');
 });
 
 test('no-MacharChodesh-Reeh', () => {
   const hd = new HDate(29, 'Av', 5781);
-  const ev = new ParshaEvent(hd, ['Re\'eh'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Re\'eh'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason).toBe(undefined);
 });
 
 test('ShabbatRoshChodesh-Korach', () => {
   const hd = new HDate(30, 'Sivan', 5784);
-  const ev = new ParshaEvent(hd, ['Korach'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Korach'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Rosh Chodesh');
 });
 
 test('ShabbatRoshChodesh-Noach', () => {
   const hd = new HDate(1, 'Cheshvan', 5785);
-  const ev = new ParshaEvent(hd, ['Noach'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Noach'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Rosh Chodesh');
 });
 
 test('Shabbat Shekalim-seph', () => {
   const hd = new HDate(29, 'Adar I', 5784);
-  const ev = new ParshaEvent(hd, ['Vayakhel'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Vayakhel'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Shekalim');
   expect(reading.haftara).toBe('II Kings 12:1-17');
@@ -456,7 +482,9 @@ test('Shabbat Shekalim-seph', () => {
 
 test('special-deletes-seph', () => {
   const hd = new HDate(29, 'Tishrei', 5784);
-  const ev = new ParshaEvent(hd, ['Bereshit'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Bereshit'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Machar Chodesh');
   expect(reading.reason.sephardic).toBe(undefined);
@@ -466,28 +494,36 @@ test('special-deletes-seph', () => {
 
 test('Kedoshim following Shabbat HaGadol', () => {
   const hd1 = new HDate(14, 'Nisan', 5714);
-  const ev1 = new ParshaEvent(hd1, ['Achrei Mot'], false);
+  const ev1 = new ParshaEvent({
+    hdate: hd1,
+    parsha: ['Achrei Mot'], il: false});
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('Malachi 3:4-24');
   expect(reading1.reason.haftara).toBe('Shabbat HaGadol');
   expect(reading1.sephardic).toBe(undefined);
 
   const hd2 = new HDate(28, 'Nisan', 5714);
-  const ev2 = new ParshaEvent(hd2, ['Kedoshim'], false);
+  const ev2 = new ParshaEvent({
+    hdate: hd2,
+    parsha: ['Kedoshim'], il: false});
   const reading2 = getLeyningForParshaHaShavua(ev2, false);
   expect(reading2.haftara).toBe('Amos 9:7-15');
   expect(reading2.reason.haftara).toBe('Kedoshim following Special Shabbat');
   expect(reading2.sephardic).toBe('Ezekiel 20:2-20');
 
   const hd3 = new HDate(12, 'Nisan', 5774);
-  const ev3 = new ParshaEvent(hd3, ['Achrei Mot'], false);
+  const ev3 = new ParshaEvent({
+    hdate: hd3,
+    parsha: ['Achrei Mot'], il: false});
   const reading3 = getLeyningForParshaHaShavua(ev3, false);
   expect(reading3.haftara).toBe('Malachi 3:4-24');
   expect(reading3.reason.haftara).toBe('Shabbat HaGadol');
   expect(reading3.sephardic).toBe(undefined);
 
   const hd4 = new HDate(26, 'Nisan', 5774);
-  const ev4 = new ParshaEvent(hd4, ['Kedoshim'], false);
+  const ev4 = new ParshaEvent({
+    hdate: hd4,
+    parsha: ['Kedoshim'], il: false});
   const reading4 = getLeyningForParshaHaShavua(ev4, false);
   expect(reading4.haftara).toBe('Amos 9:7-15');
   expect(reading4.reason.haftara).toBe('Kedoshim following Special Shabbat');
@@ -496,14 +532,18 @@ test('Kedoshim following Shabbat HaGadol', () => {
 
 test('Kedoshim following Shabbat Machar Chodesh', () => {
   const hd1 = new HDate(29, 'Nisan', 5782);
-  const ev1 = new ParshaEvent(hd1, ['Achrei Mot'], false);
+  const ev1 = new ParshaEvent({
+    hdate: hd1,
+    parsha: ['Achrei Mot'], il: false});
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('I Samuel 20:18-42');
   expect(reading1.reason.haftara).toBe('Shabbat Machar Chodesh');
   expect(reading1.sephardic).toBe(undefined);
 
   const hd2 = new HDate(6, 'Iyyar', 5782);
-  const ev2 = new ParshaEvent(hd2, ['Kedoshim'], false);
+  const ev2 = new ParshaEvent({
+    hdate: hd2,
+    parsha: ['Kedoshim'], il: false});
   const reading2 = getLeyningForParshaHaShavua(ev2, false);
   expect(reading2.haftara).toBe('Amos 9:7-15');
   expect(reading2.reason.haftara).toBe('Kedoshim following Special Shabbat');
@@ -512,7 +552,9 @@ test('Kedoshim following Shabbat Machar Chodesh', () => {
 
 test('Achrei Mot-Kedoshim combined', () => {
   const hd = new HDate(8, 'Iyyar', 5783);
-  const ev = new ParshaEvent(hd, ['Achrei Mot', 'Kedoshim'], false);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Achrei Mot', 'Kedoshim'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.haftara).toBe('Amos 9:7-15');
   expect(reading.sephardic).toBe('Ezekiel 20:2-20');
@@ -520,13 +562,17 @@ test('Achrei Mot-Kedoshim combined', () => {
 
 test('Achrei Mot-Kedoshim separate', () => {
   const hd1 = new HDate(26, 'Nisan', 5784);
-  const ev1 = new ParshaEvent(hd1, ['Achrei Mot'], false);
+  const ev1 = new ParshaEvent({
+    hdate: hd1,
+    parsha: ['Achrei Mot'], il: false});
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('Amos 9:7-15');
   expect(reading1.sephardic).toBe('Ezekiel 22:1-16');
 
   const hd2 = new HDate(3, 'Iyyar', 5784);
-  const ev2 = new ParshaEvent(hd2, ['Kedoshim'], false);
+  const ev2 = new ParshaEvent({
+    hdate: hd2,
+    parsha: ['Kedoshim'], il: false});
   const reading2 = getLeyningForParshaHaShavua(ev2, false);
   expect(reading2.haftara).toBe('Ezekiel 22:1-19');
   expect(reading2.sephardic).toBe('Ezekiel 20:2-20');
@@ -534,7 +580,9 @@ test('Achrei Mot-Kedoshim separate', () => {
 
 test('Kedoshim on Rosh Chodesh', () => {
   const hd1 = new HDate(1, 'Iyyar', 5763);
-  const ev1 = new ParshaEvent(hd1, ['Kedoshim'], false);
+  const ev1 = new ParshaEvent({
+    hdate: hd1,
+    parsha: ['Kedoshim'], il: false});
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('Isaiah 66:1-24');
   expect(reading1.reason.haftara).toBe('Shabbat Rosh Chodesh');

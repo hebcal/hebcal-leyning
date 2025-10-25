@@ -7,7 +7,6 @@ export {Locale};
 Locale.addTranslations('ashkenazi', poAshkenazi);
 
 Locale.addTranslations('he', poHe);
-Locale.addTranslations('h', poHe);
 
 const poHeNoNikud = Locale.copyLocaleNoNikud(poHe);
 Locale.addTranslations('he-x-NoNikud', poHeNoNikud);
