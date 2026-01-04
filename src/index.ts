@@ -2,7 +2,6 @@ export * from './types';
 export * from './internalTypes';
 export * from './locale';
 export * from './common';
-export * from './summary';
 export * from './festival';
 export {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 export * from './specialReadings';
