@@ -185,3 +185,150 @@ test('no-aliyot-lessthan-three', () => {
     }
   }
 });
+
+test('getLeyningForParsha-Hebrew-single', () => {
+  const reading = getLeyningForParsha('Pinchas', 'he');
+  expect(reading.name).toEqual({
+    en: 'Pinchas',
+    he: 'פִּינְחָס',
+  });
+  expect(reading.type).toBe('shabbat');
+  expect(reading.parsha).toEqual(['Pinchas']);
+  expect(reading.parshaNum).toBe(41);
+
+  expect(reading.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['1'].b).toBe('כה:י');
+  expect(reading.fullkriyah['1'].e).toBe('כו:ד');
+  expect(reading.fullkriyah['1'].v).toBe(14);
+
+  expect(reading.fullkriyah['2'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['2'].b).toBe('כו:ה');
+  expect(reading.fullkriyah['2'].e).toBe('כו:נא');
+
+  expect(reading.fullkriyah['7'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['7'].b).toBe('כט:יב');
+  expect(reading.fullkriyah['7'].e).toBe('ל:א');
+
+  expect(reading.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['M'].b).toBe('כט:לה');
+  expect(reading.fullkriyah['M'].e).toBe('ל:א');
+ 
+  expect(reading.summary).toBe('בְּמִדְבַּר כה:י-ל:א');
+
+  expect(reading.haft.k).toBe('מְלָכִים א');
+  expect(reading.haft.b).toBe('יח:מו');
+  expect(reading.haft.e).toBe('יט:כא');
+  expect(reading.haftara).toBe('מְלָכִים א יח:מו-יט:כא');
+  expect(reading.haftaraNumV).toBe(22);
+});
+
+test('getLeyningForParsha-Hebrew-combined', () => {
+  const reading =getLeyningForParsha(['Matot', 'Masei'], 'he');
+  expect(reading.name).toEqual({
+    en: 'Matot-Masei',
+    he: 'מַטּוֹת־מַסְעֵי',
+  });
+  expect(reading.type).toBe('shabbat');
+  expect(reading.parsha).toEqual(['Matot', 'Masei']);
+  expect(reading.parshaNum).toEqual([42, 43]);
+
+  expect(reading.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['1'].b).toBe('ל:ב');
+  expect(reading.fullkriyah['1'].e).toBe('לא:יב');
+  expect(reading.fullkriyah['1'].v).toBe(28);
+
+  expect(reading.fullkriyah['7'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['7'].b).toBe('לה:ט');
+  expect(reading.fullkriyah['7'].e).toBe('לו:יג');
+  expect(reading.fullkriyah['7'].v).toBe(39);
+
+  expect(reading.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['M'].b).toBe('לו:יא');
+  expect(reading.fullkriyah['M'].e).toBe('לו:יג');
+  expect(reading.fullkriyah['M'].v).toBe(3);
+
+  expect(reading.summary).toBe('בְּמִדְבַּר ל:ב-לו:יג');
+
+  expect(reading.haft).toHaveLength(2);
+  expect(reading.haft[0].k).toBe('יִרְמְיָהוּ');
+  expect(reading.haft[0].b).toBe('ב:ד');
+  expect(reading.haft[0].e).toBe('ב:כח');
+  expect(reading.haft[0].v).toBe(25);
+  expect(reading.haft[1].k).toBe('יִרְמְיָהוּ');
+  expect(reading.haft[1].b).toBe('ג:ד');
+  expect(reading.haft[1].e).toBe('ג:ד');
+  expect(reading.haft[1].v).toBe(1);
+  expect(reading.haftara).toBe('יִרְמְיָהוּ ב:ד-כח, ג:ד');
+  expect(reading.haftaraNumV).toBe(26);
+
+  expect(reading.seph).toHaveLength(2);
+  expect(reading.seph[0].k).toBe('יִרְמְיָהוּ');
+  expect(reading.seph[0].b).toBe('ב:ד');
+  expect(reading.seph[0].e).toBe('ב:כח');
+  expect(reading.seph[0].v).toBe(25);
+  expect(reading.seph[1].k).toBe('יִרְמְיָהוּ');
+  expect(reading.seph[1].b).toBe('ד:א');
+  expect(reading.seph[1].e).toBe('ד:ב');
+  expect(reading.seph[1].v).toBe(2);
+  expect(reading.sephardic).toBe('יִרְמְיָהוּ ב:ד-כח, ד:א-ב');
+  expect(reading.sephardicNumV).toBe(27);
+});
+
+test('getLeyningForParsha-Hebrew-Genesis', () => {
+  const reading = getLeyningForParsha('Masei', 'he');
+  expect(reading.name).toEqual({
+    en: 'Masei',
+    he: 'מַסְעֵי',
+  });
+
+  expect(reading.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
+  expect(reading.fullkriyah['1'].b).toBe('לג:א');
+  expect(reading.fullkriyah['1'].e).toBe('לג:י');
+  expect(reading.fullkriyah['1'].v).toBe(10);
+
+  expect(reading.summary).toBe('בְּמִדְבַּר לג:א-לו:יג');
+
+  expect(reading.haftara).toBe('יִרְמְיָהוּ ב:ד-כח, ג:ד');
+  expect(reading.haftaraNumV).toBe(26);
+  expect(reading.haft[0].k).toBe('יִרְמְיָהוּ');
+  expect(reading.haft[0].b).toBe('ב:ד');
+  expect(reading.haft[0].e).toBe('ב:כח');
+  expect(reading.haft[0].v).toBe(25);
+  expect(reading.haft[1].k).toBe('יִרְמְיָהוּ');
+  expect(reading.haft[1].b).toBe('ג:ד');
+  expect(reading.haft[1].e).toBe('ג:ד');
+  expect(reading.haft[1].v).toBe(1);
+  expect(reading.seph).toHaveLength(2);
+  expect(reading.seph[0].k).toBe('יִרְמְיָהוּ');
+  expect(reading.seph[0].b).toBe('ב:ד');
+  expect(reading.seph[0].e).toBe('ב:כח');
+  expect(reading.seph[0].v).toBe(25);
+  expect(reading.seph[1].k).toBe('יִרְמְיָהוּ');
+  expect(reading.seph[1].b).toBe('ד:א');
+  expect(reading.seph[1].e).toBe('ד:ב');
+  expect(reading.seph[1].v).toBe(2);
+
+  expect(reading.sephardic).toBe('יִרְמְיָהוּ ב:ד-כח, ד:א-ב');
+  expect(reading.sephardicNumV).toBe(27);
+});
+
+test('no-aliyot-lessthan-three-he', () => {
+  const toTest = [].concat(parshiot, [
+    'Vayakhel-Pekudei',
+    'Tazria-Metzora',
+    'Achrei Mot-Kedoshim',
+    'Behar-Bechukotai',
+    'Chukat-Balak',
+    'Matot-Masei',
+    'Nitzavim-Vayeilech',
+  ]);
+  for (const parsha of toTest) {
+    const reading = getLeyningForParsha(parsha, 'he');
+    for (const aliyah of Object.values(reading.fullkriyah)) {
+      expect(aliyah.v).toBeGreaterThanOrEqual(3);
+    }
+    for (const aliyah of Object.values(reading.weekday)) {
+      expect(aliyah.v).toBeGreaterThanOrEqual(3);
+    }
+  }
+});

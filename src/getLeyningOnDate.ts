@@ -10,12 +10,19 @@ import {
   getWeekdayReading,
   makeLeyningNames,
 } from './leyning';
-import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {Leyning, LeyningWeekday} from './types';
-import {getSedra, SedraResult} from '@hebcal/core/dist/esm/sedra';
-import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
-import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
-import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
+import {
+  getSedra,
+  SedraResult,
+  getHolidaysOnDate,
+  ParshaEvent,
+  HolidayEvent,
+} from '@hebcal/core';
+import {
+  makeLeyningParts,
+  makeSummaryFromParts,
+  translateLeyning,
+} from './common';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();
@@ -71,21 +78,25 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
  * @param {HDate} hdate Hebrew Date
  * @param {boolean} il in Israel
  * @param {boolean} [wantarray] to return an array of 0 or more readings
+ * @param {string} [language] language for summary (default 'en')
  */
 export function getLeyningOnDate(
   hdate: HDate,
   il: boolean,
-  wantarray?: false
+  wantarray?: false,
+  language?: string
 ): Leyning | LeyningWeekday | undefined;
 export function getLeyningOnDate(
   hdate: HDate,
   il: boolean,
-  wantarray: true
+  wantarray: true,
+  language?: string
 ): (Leyning | LeyningWeekday)[];
 export function getLeyningOnDate(
   hdate: HDate,
   il: boolean,
-  wantarray = false
+  wantarray = false,
+  language = 'en'
 ): (Leyning | LeyningWeekday) | (Leyning | LeyningWeekday)[] | undefined {
   const dow = hdate.getDay();
   const arr: (Leyning | LeyningWeekday)[] = [];
@@ -96,7 +107,7 @@ export function getLeyningOnDate(
     const parsha = sedra.lookup(hdate);
     if (!parsha.chag) {
       const parshaEvent = new ParshaEvent(parsha);
-      const reading = getLeyningForParshaHaShavua(parshaEvent, il);
+      const reading = getLeyningForParshaHaShavua(parshaEvent, il, language);
       if (wantarray) {
         hasParshaHaShavua = true;
         arr.push(reading);
@@ -157,7 +168,14 @@ export function getLeyningOnDate(
     };
     arr.unshift(reading);
   }
-  return wantarray ? arr : arr[0];
+  // call translateLeyning on arr or arr[0]
+  if (arr.length === 0) {
+    return wantarray ? arr : arr[0];
+  }
+  if (wantarray) {
+    return arr.map(reading => translateLeyning(reading as Leyning, language));
+  }
+  return translateLeyning(arr[0] as Leyning, language);
 }
 
 const minchaSuffix = ' (Mincha)';

@@ -61,3 +61,46 @@ test('throws', () => {
     lookupParsha('Bogus');
   }).toThrow('Bad parsha argument: Bogus');
 });
+
+test('lookupParsha-Hebrew', () => {
+  const meta = lookupParsha('Bereshit', 'he');
+  expect(meta.num).toBe(1);
+  expect(meta.hebrew).toBe('בְּרֵאשִׁית');
+  expect(meta.book).toBe(1);
+  expect(meta.haft.k).toBe('יְשַׁעְיָהוּ');
+  expect(meta.haft.b).toBe('מב:ה');
+  expect(meta.haft.e).toBe('מג:י');
+  expect(meta.seph.k).toBe('יְשַׁעְיָהוּ');
+  expect(meta.seph.b).toBe('מב:ה');
+  expect(meta.seph.e).toBe('מב:כא');
+  // Verify fullkriyah structure is unchanged
+  expect(meta.fullkriyah['1']).toEqual(['1:1', '2:3']);
+  expect(meta.fullkriyah['7']).toEqual(['5:25', '6:8']);
+});
+
+test('lookupParsha-Hebrew-combined', () => {
+  const meta = lookupParsha(['Tazria', 'Metzora'], 'he');
+  expect(meta.hebrew).toBe('תַזְרִיעַ־מְצֹרָע');
+  expect(meta.num).toEqual([27, 28]);
+  expect(meta.combined).toBe(true);
+  expect(meta.p1).toBe('Tazria');
+  expect(meta.p2).toBe('Metzora');
+  expect(meta.book).toBe(3);
+  expect(meta.haft.k).toBe('מְלָכִים ב');
+  expect(meta.haft.b).toBe('ז:ג');
+  expect(meta.haft.e).toBe('ז:כ');
+  // Verify fullkriyah structure is unchanged
+  expect(meta.fullkriyah['1']).toEqual(['12:1', '13:23']);
+  expect(meta.fullkriyah['M']).toEqual(['15:31', '15:33']);
+});
+
+test('lookupParsha-Hebrew-with-sephardic', () => {
+  const meta = lookupParsha('Vayakhel', 'he');
+  expect(meta.hebrew).toBe('וַיַּקְהֵל');
+  expect(meta.haft.k).toBe('מְלָכִים א');
+  expect(meta.haft.b).toBe('ז:מ');
+  expect(meta.haft.e).toBe('ז:נ');
+  expect(meta.seph.k).toBe('מְלָכִים א');
+  expect(meta.seph.b).toBe('ז:יג');
+  expect(meta.seph.e).toBe('ז:כו');
+});
