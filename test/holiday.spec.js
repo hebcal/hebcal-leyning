@@ -36,7 +36,7 @@ test('pesach-shabbat-chm-on-3rd-day', () => {
   for (const ev of events) {
     const reading = getLeyningForHoliday(ev, true);
     actual.push({
-      d: ev.getDate().greg().toISOString().substring(0, 10),
+      d: ev.getDate().greg().toLocaleDateString('en-CA').substring(0, 10),
       h: ev.getDesc(),
       k: getLeyningKeyForEvent(ev, false),
       s: reading && reading.summary,
@@ -570,7 +570,7 @@ test('pesach-diaspora-chm-day2-sunday', () => {
   const actual = events.map((ev) => {
     const reading = getLeyningForHoliday(ev);
     return {
-      d: ev.getDate().greg().toISOString().substring(0, 10),
+      d: ev.getDate().greg().toLocaleDateString('en-CA').substring(0, 10),
       h: ev.getDesc(),
       n: reading.name.en,
       s: reading.summary,

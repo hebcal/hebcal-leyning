@@ -6,7 +6,7 @@ import {getLeyningKeyForEvent} from '../src/getLeyningKeyForEvent';
 function dateDescKey(il) {
   return function (ev) {
     return {
-      d: ev.getDate().greg().toISOString().substring(0, 10),
+      d: ev.getDate().greg().toLocaleDateString('en-CA').substring(0, 10),
       h: ev.getDesc(),
       k: getLeyningKeyForEvent(ev, il),
     };
@@ -150,7 +150,7 @@ test('getLeyningKeyForEvent-pesach-diaspora', () => {
   const events = events0.filter((ev) => ev.basename() === 'Pesach');
   const actual = events.map((ev) => {
     return {
-      d: ev.getDate().greg().toISOString().substring(0, 10),
+      d: ev.getDate().greg().toLocaleDateString('en-CA').substring(0, 10),
       h: ev.getDesc(),
       k: getLeyningKeyForEvent(ev, false),
     };
