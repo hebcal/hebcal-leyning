@@ -293,7 +293,7 @@ test('getLeyningOnDate-pesach-disaspora', () => {
     const hd = new HDate(i, 'Nisan', 5784);
     const reading = getLeyningOnDate(hd, false);
     actual.push({
-      d: hd.greg().toISOString().substring(0, 10),
+      d: hd.greg().toLocaleDateString('en-CA').substring(0, 10),
       n: reading.name.en,
       s: reading.summary,
     });
