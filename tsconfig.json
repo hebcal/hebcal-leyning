@@ -1,6 +1,7 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
+    "composite": false,
     "module": "es6",
     "declaration": true,
     "rootDir": "./",
@@ -16,5 +17,6 @@
       "*": ["./types/*"]
     }
   },
+  "include": ["src/**/*.ts", "src/**/*.json"],
   "exclude": ["dist"]
 }

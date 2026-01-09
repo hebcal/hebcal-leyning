@@ -1,5 +1,5 @@
 import {calculateNumVerses} from './common';
-import {Aliyah, NeviimBook, TanakhBook} from './types';
+import {Aliyah, NeviimBook} from './types';
 
 export function calculateHaftarahNumVerses(
   haftara: string

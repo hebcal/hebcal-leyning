@@ -23,7 +23,8 @@ export function getLeyningKeyForEvent(
   ev: Event,
   il = false
 ): string | undefined {
-  if (typeof (ev as any).eventTime !== 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if ((ev as any).eventTime !== undefined) {
     return undefined;
   }
   const mask = ev.getFlags();
@@ -54,7 +55,8 @@ export function getLeyningKeyForEvent(
   if (day === 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
   }
-  const cholHaMoedDay = (ev as any).cholHaMoedDay;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cholHaMoedDay = (ev as any).cholHaMoedDay as number | undefined;
   if (typeof cholHaMoedDay === 'number') {
     // Sukkot or Pesach
     if (isShabbat) {
@@ -71,7 +73,8 @@ export function getLeyningKeyForEvent(
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
   }
-  const chanukahDay = (ev as any).chanukahDay;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const chanukahDay = (ev as any).chanukahDay as number | undefined;
   if (typeof chanukahDay === 'number') {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';

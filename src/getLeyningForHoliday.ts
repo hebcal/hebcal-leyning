@@ -36,7 +36,7 @@ export function getLeyningForHolidayKey(
   ) {
     return undefined;
   }
-  const leyning: any = {
+  const leyning: Partial<Leyning> = {
     name: {
       en: key,
       he: Locale.lookupTranslation(key, 'he')!,
@@ -44,7 +44,7 @@ export function getLeyningForHolidayKey(
     type: 'holiday',
   };
   if (src.fullkriyah) {
-    leyning.fullkriyah = clone(src.fullkriyah);
+    leyning.fullkriyah = clone(src.fullkriyah) as AliyotMap;
     if (key === 'Sukkot Shabbat Chol ha-Moed' && cholHaMoedDay) {
       leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${cholHaMoedDay}`];
       for (let day = 1; day <= 5; day++) {
@@ -60,7 +60,7 @@ export function getLeyningForHolidayKey(
       calculateNumVerses(aliyah as Aliyah)
     );
     if (src.alt) {
-      leyning.alt = clone(src.alt);
+      leyning.alt = clone(src.alt) as AliyotMap;
       for (const aliyah of Object.values(leyning.alt)) {
         calculateNumVerses(aliyah as Aliyah);
       }
@@ -98,7 +98,7 @@ export function getLeyningForHolidayKey(
   if (src.note) {
     leyning.note = src.note;
   }
-  return leyning;
+  return leyning as Leyning;
 }
 
 /**
@@ -114,7 +114,9 @@ export function getLeyningForHoliday(
 ): Leyning | undefined {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${JSON.stringify(ev)}`);
-  } else if (typeof (ev as any).eventTime !== 'undefined') {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } else if ((ev as any).eventTime !== undefined) {
+    // Events with eventTime are not supported for leyning lookup
     return undefined;
   } else if (ev.getFlags() & flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event should be a holiday: ${ev.getDesc()}`);
@@ -122,6 +124,7 @@ export function getLeyningForHoliday(
     return undefined;
   }
   const key = getLeyningKeyForEvent(ev, il);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const leyning = getLeyningForHolidayKey(key, (ev as any).cholHaMoedDay, il);
   return leyning;
 }

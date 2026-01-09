@@ -5,7 +5,7 @@ import {JsonFestivalAliyah} from './internalTypes';
 /**
  * Makes a deep copy of the src object using JSON stringify and parse
  */
-export function clone(src: any): any {
+export function clone<T>(src: T): T {
   return JSON.parse(JSON.stringify(src));
 }
 
@@ -19,7 +19,7 @@ export function cloneHaftara(haft: Haftarah): Aliyah | Aliyah[] {
   if (!haft) {
     return haft;
   }
-  const dest = clone(haft);
+  const dest = clone(haft) as Aliyah | Aliyah[];
   if (Array.isArray(dest)) {
     dest.forEach(calculateNumVerses);
   } else {
