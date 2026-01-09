@@ -150,7 +150,7 @@ export function writeCsvLines(
   const parsha = isParsha
     ? ev.basename()
     : getLeyningKeyForEvent(ev, il) || ev.render();
-  const date = fmtDate(ev.getDate().greg());
+  const date = fmtDate(ev.greg());
   const lines = getFullKriyahLines(reading);
   for (const s of lines) {
     const code = s[0].charCodeAt(0);

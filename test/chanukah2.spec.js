@@ -19,7 +19,7 @@ test('Chanukah', () => {
       getLeyningForHoliday(ev, true);
     actual.push({
       i: i++,
-      dt: ev.getDate().greg().toLocaleDateString('en-CA').substring(0, 10),
+      dt: ev.greg().toLocaleDateString('en-CA').substring(0, 10),
       d: ev.getDesc(),
       n: reading?.name.en,
       s: reading?.summary,
