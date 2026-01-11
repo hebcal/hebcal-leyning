@@ -49,32 +49,6 @@ export type KetuvimBook =
 export type TanakhBook = TorahBook | NeviimBook | KetuvimBook;
 
 /**
- * Hebrew letter values for gematria conversion
- */
-export const HEBREW_NUMERALS: Record<number, string> = {
-  1: 'א',
-  2: 'ב',
-  3: 'ג',
-  4: 'ד',
-  5: 'ה',
-  6: 'ו',
-  7: 'ז',
-  8: 'ח',
-  9: 'ט',
-  10: 'י',
-  15: 'טו',
-  16: 'טז',
-  20: 'כ',
-  30: 'ל',
-  40: 'מ',
-  50: 'נ',
-  60: 'ס',
-  70: 'ע',
-  80: 'פ',
-  90: 'צ',
-};
-
-/**
  * Represents an aliyah
  */
 export type Aliyah = {

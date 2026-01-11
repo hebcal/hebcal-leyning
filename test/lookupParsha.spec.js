@@ -68,11 +68,11 @@ test('lookupParsha-Hebrew', () => {
   expect(meta.hebrew).toBe('בְּרֵאשִׁית');
   expect(meta.book).toBe(1);
   expect(meta.haft.k).toBe('יְשַׁעְיָהוּ');
-  expect(meta.haft.b).toBe('מב:ה');
-  expect(meta.haft.e).toBe('מג:י');
+  expect(meta.haft.b).toBe('מ״ב:ה׳');
+  expect(meta.haft.e).toBe('מ״ג:י׳');
   expect(meta.seph.k).toBe('יְשַׁעְיָהוּ');
-  expect(meta.seph.b).toBe('מב:ה');
-  expect(meta.seph.e).toBe('מב:כא');
+  expect(meta.seph.b).toBe('מ״ב:ה׳');
+  expect(meta.seph.e).toBe('מ״ב:כ״א');
   // Verify fullkriyah structure is unchanged
   expect(meta.fullkriyah['1']).toEqual(['1:1', '2:3']);
   expect(meta.fullkriyah['7']).toEqual(['5:25', '6:8']);
@@ -87,8 +87,8 @@ test('lookupParsha-Hebrew-combined', () => {
   expect(meta.p2).toBe('Metzora');
   expect(meta.book).toBe(3);
   expect(meta.haft.k).toBe('מְלָכִים ב');
-  expect(meta.haft.b).toBe('ז:ג');
-  expect(meta.haft.e).toBe('ז:כ');
+  expect(meta.haft.b).toBe('ז׳:ג׳');
+  expect(meta.haft.e).toBe('ז׳:כ׳');
   // Verify fullkriyah structure is unchanged
   expect(meta.fullkriyah['1']).toEqual(['12:1', '13:23']);
   expect(meta.fullkriyah['M']).toEqual(['15:31', '15:33']);
@@ -98,9 +98,9 @@ test('lookupParsha-Hebrew-with-sephardic', () => {
   const meta = lookupParsha('Vayakhel', 'he');
   expect(meta.hebrew).toBe('וַיַּקְהֵל');
   expect(meta.haft.k).toBe('מְלָכִים א');
-  expect(meta.haft.b).toBe('ז:מ');
-  expect(meta.haft.e).toBe('ז:נ');
+  expect(meta.haft.b).toBe('ז׳:מ׳');
+  expect(meta.haft.e).toBe('ז׳:נ׳');
   expect(meta.seph.k).toBe('מְלָכִים א');
-  expect(meta.seph.b).toBe('ז:יג');
-  expect(meta.seph.e).toBe('ז:כו');
+  expect(meta.seph.b).toBe('ז׳:י״ג');
+  expect(meta.seph.e).toBe('ז׳:כ״ו');
 });

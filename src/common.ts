@@ -1,13 +1,7 @@
+import {gematriya} from '@hebcal/hdate/dist/esm/gematriya';
 import {Locale} from './locale';
 import numverses from './numverses.json';
-import {
-  Aliyah,
-  AliyotMap,
-  HEBREW_NUMERALS,
-  Leyning,
-  TanakhBook,
-  TorahBook,
-} from './types';
+import {Aliyah, AliyotMap, Leyning, TanakhBook, TorahBook} from './types';
 
 /**
  * Names of the books of the Torah.
@@ -255,36 +249,7 @@ export function formatVerseToHebrew(verse: string): string {
   if (isNaN(parseInt(cv[0], 10)) || isNaN(parseInt(cv[1], 10))) {
     return verse;
   }
-  return `${numberToHebrew(parseInt(cv[0], 10))}:${numberToHebrew(parseInt(cv[1], 10))}`;
-}
-
-/**
- * Converts a number (1-199) to its Hebrew letter equivalent (gematria)
- * Special handling for 15 and 16 to avoid spelling parts of God's name
- * @param num - Number to convert (1-199)
- * @returns Hebrew letter representation with gershayim (") between letters
- * @example
- * numberToHebrew(1)   // returns 'א'
- * numberToHebrew(15)  // returns 'טו' (not 'יה')
- * numberToHebrew(22)  // returns 'כ"ב'
- * numberToHebrew(100) // returns 'ק'
- * numberToHebrew(150) // returns 'ק"נ'
- */
-export function numberToHebrew(num: number): string {
-  if (num < 1 || num > 99) {
-    throw new Error('Number must be between 1 and 100');
-  }
-
-  // single values
-  const value = HEBREW_NUMERALS[num];
-  if (value) {
-    return value;
-  }
-
-  const tens = Math.floor(num / 10) * 10;
-  const ones = num % 10;
-  const result = HEBREW_NUMERALS[tens] + HEBREW_NUMERALS[ones];
-  return result;
+  return `${gematriya(parseInt(cv[0], 10))}:${gematriya(parseInt(cv[1], 10))}`;
 }
 
 /**
@@ -294,10 +259,7 @@ export function numberToHebrew(num: number): string {
  * @param language - The target language code (e.g., 'he' for Hebrew)
  * @param translateBook - Whether to translate the book name (default true)
  */
-export function translateAliyah(
-  aliyah: Aliyah,
-  language: string,
-): Aliyah {
+export function translateAliyah(aliyah: Aliyah, language: string): Aliyah {
   if (language === 'he') {
     aliyah.k = Locale.gettext(aliyah.k, language) as TanakhBook;
     aliyah.b = formatVerseToHebrew(aliyah.b);
@@ -317,7 +279,7 @@ export function translateAliyah(
  */
 export function translateAliyahOrArray<T extends Aliyah | Aliyah[] | AliyotMap>(
   aliyahOrArray: T,
-  language: string = 'en',
+  language: string = 'en'
 ): T {
   // Handle array of Aliyah objects
   if (Array.isArray(aliyahOrArray)) {
@@ -374,7 +336,7 @@ export function translateLeyning(leyning: Leyning, language: string): Leyning {
     const parts = makeLeyningParts(leyning.megillah);
     const megillahSummary = makeSummaryFromParts(parts, language);
     leyning.megillah = translateAliyahOrArray(leyning.megillah, language);
-      leyning.summary = megillahSummary;
+    leyning.summary = megillahSummary;
   }
   if (leyning.fullkriyah) {
     const parts = makeLeyningParts(leyning.fullkriyah);
