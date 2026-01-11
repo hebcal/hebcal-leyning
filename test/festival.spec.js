@@ -38,3 +38,9 @@ test('hasFestival', () => {
   expect(hasFestival('Foo')).toBe(false);
   expect(hasFestival('Shavuot')).toBe(true);
 });
+
+test('lookupFestival-hebrew', () => {
+  const src = lookupFestival('פסח');
+  // TODO: add support for hebrew festival names
+  expect(src).toEqual(undefined);
+});

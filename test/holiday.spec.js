@@ -11,22 +11,33 @@ test('pesach-il', () => {
   const actual = [];
   for (const ev of events) {
     const reading = getLeyningForHoliday(ev, true);
+    const readingHe = getLeyningForHoliday(ev, true, 'he');
     actual.push({
       h: ev.getDesc(),
       s: reading && reading.summary,
+      he: readingHe && readingHe.summary,
     });
   }
   const expected = [
-    {h: 'Erev Pesach', s: undefined},
-    {h: 'Pesach I', s: 'Exodus 12:21-51; Numbers 28:16-25; Song of Songs 1:1-8:14'},
-    {h: 'Pesach II (CH\'\'M)', s: 'Leviticus 22:26-23:44; Numbers 28:19-25'},
-    {h: 'Pesach III (CH\'\'M)', s: 'Exodus 13:1-16; Numbers 28:19-25'},
-    {h: 'Pesach IV (CH\'\'M)', s: 'Exodus 22:24-23:19; Numbers 28:19-25'},
-    {h: 'Pesach V (CH\'\'M)', s: 'Exodus 34:1-26; Numbers 28:19-25'},
-    {h: 'Pesach VI (CH\'\'M)', s: 'Numbers 9:1-14, 28:19-25'},
-    {h: 'Pesach VII', s: 'Exodus 13:17-15:26; Numbers 28:19-25'},
+    {h: 'Erev Pesach', s: undefined, he: undefined},
+    {h: 'Pesach I', s: 'Exodus 12:21-51; Numbers 28:16-25; Song of Songs 1:1-8:14', he: 'שְׁמוֹת יב:כא-נא; בְּמִדְבַּר כח:טז-כה; שִׁיר הַשִּׁירִים א:א-ח:יד'},
+    {h: 'Pesach II (CH\'\'M)', s: 'Leviticus 22:26-23:44; Numbers 28:19-25', he: 'וַיִּקְרָא כב:כו-כג:מד; בְּמִדְבַּר כח:יט-כה'},
+    {h: 'Pesach III (CH\'\'M)', s: 'Exodus 13:1-16; Numbers 28:19-25', he: 'שְׁמוֹת יג:א-טז; בְּמִדְבַּר כח:יט-כה'},
+    {h: 'Pesach IV (CH\'\'M)', s: 'Exodus 22:24-23:19; Numbers 28:19-25', he: 'שְׁמוֹת כב:כד-כג:יט; בְּמִדְבַּר כח:יט-כה'},
+    {h: 'Pesach V (CH\'\'M)', s: 'Exodus 34:1-26; Numbers 28:19-25', he: 'שְׁמוֹת לד:א-כו; בְּמִדְבַּר כח:יט-כה'},
+    {h: 'Pesach VI (CH\'\'M)', s: 'Numbers 9:1-14, 28:19-25', he: 'בְּמִדְבַּר ט:א-יד, כח:יט-כה'},
+    {h: 'Pesach VII', s: 'Exodus 13:17-15:26; Numbers 28:19-25', he: 'שְׁמוֹת יג:יז-טו:כו; בְּמִדְבַּר כח:יט-כה'},
   ];
   expect(actual).toEqual(expected);
+
+  // Test Hebrew summaries
+  const pesachI = events.find(ev => ev.getDesc() === 'Pesach I');
+  const readingHe = getLeyningForHoliday(pesachI, true, 'he');
+  expect(readingHe.name.he).toBe('פֶּסַח יוֹם א׳ (בְּשַׁבָּת)');
+  expect(readingHe.summary).toBe('שְׁמוֹת יב:כא-נא; בְּמִדְבַּר כח:טז-כה; שִׁיר הַשִּׁירִים א:א-ח:יד');
+  expect(readingHe.fullkriyah['1'].k).toBe('שְׁמוֹת');
+  expect(readingHe.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
+  expect(readingHe.megillah['1'].k).toBe('שִׁיר הַשִּׁירִים');
 });
 
 test('pesach-shabbat-chm-on-3rd-day', () => {
@@ -35,62 +46,72 @@ test('pesach-shabbat-chm-on-3rd-day', () => {
   const actual = [];
   for (const ev of events) {
     const reading = getLeyningForHoliday(ev, true);
+    const readingHe = getLeyningForHoliday(ev, true, 'he');
     actual.push({
       d: ev.greg().toLocaleDateString('en-CA').substring(0, 10),
       h: ev.getDesc(),
       k: getLeyningKeyForEvent(ev, false),
       s: reading && reading.summary,
+      he: readingHe && readingHe.summary,
     });
   }
   const expected = [
-    {d: '2024-04-22', h: 'Erev Pesach', k: undefined, s: undefined},
+    {d: '2024-04-22', h: 'Erev Pesach', k: undefined, s: undefined, he: undefined},
     {
       d: '2024-04-23',
       h: 'Pesach I',
       k: 'Pesach I',
       s: 'Exodus 12:21-51; Numbers 28:16-25',
+      he: 'שְׁמוֹת יב:כא-נא; בְּמִדְבַּר כח:טז-כה',
     },
     {
       d: '2024-04-24',
       h: 'Pesach II',
       k: 'Pesach II',
       s: 'Leviticus 22:26-23:44; Numbers 28:16-25',
+      he: 'וַיִּקְרָא כב:כו-כג:מד; בְּמִדְבַּר כח:טז-כה',
     },
     {
       d: '2024-04-25',
       h: 'Pesach III (CH\'\'M)',
       k: 'Pesach Chol ha-Moed Day 1',
       s: 'Exodus 13:1-16; Numbers 28:19-25',
+      he: 'שְׁמוֹת יג:א-טז; בְּמִדְבַּר כח:יט-כה',
     },
     {
       d: '2024-04-26',
       h: 'Pesach IV (CH\'\'M)',
       k: 'Pesach Chol ha-Moed Day 2',
       s: 'Exodus 22:24-23:19; Numbers 28:19-25',
+      he: 'שְׁמוֹת כב:כד-כג:יט; בְּמִדְבַּר כח:יט-כה',
     },
     {
       d: '2024-04-27',
       h: 'Pesach V (CH\'\'M)',
       k: 'Pesach Shabbat Chol ha-Moed',
       s: 'Exodus 33:12-34:26; Numbers 28:19-25; Song of Songs 1:1-8:14',
+      he: 'שְׁמוֹת לג:יב-לד:כו; בְּמִדְבַּר כח:יט-כה; שִׁיר הַשִּׁירִים א:א-ח:יד',
     },
     {
       d: '2024-04-28',
       h: 'Pesach VI (CH\'\'M)',
       k: 'Pesach Chol ha-Moed Day 4',
       s: 'Numbers 9:1-14, 28:19-25',
+      he: 'בְּמִדְבַּר ט:א-יד, כח:יט-כה',
     },
     {
       d: '2024-04-29',
       h: 'Pesach VII',
       k: 'Pesach VII',
       s: 'Exodus 13:17-15:26; Numbers 28:19-25',
+      he: 'שְׁמוֹת יג:יז-טו:כו; בְּמִדְבַּר כח:יט-כה',
     },
     {
       d: '2024-04-30',
       h: 'Pesach VIII',
       k: 'Pesach VIII',
       s: 'Deuteronomy 15:19-16:17; Numbers 28:19-25',
+      he: 'דְּבָרִים טו:יט-טז:יז; בְּמִדְבַּר כח:יט-כה',
     },
   ];
   expect(actual).toEqual(expected);
@@ -109,6 +130,13 @@ test('getLeyningForHoliday-il', () => {
   const sukkot1a = getLeyningForHoliday(sukkot1);
   expect(sukkot1a.fullkriyah['7'].p).toBe(31);
   expect(sukkot1a.summary).toBe('Leviticus 22:26-23:44; Numbers 29:12-16');
+
+  const sukkot1He = getLeyningForHoliday(sukkot1, true, 'he');
+  expect(sukkot1He.name.he).toBe('סוּכּוֹת יוֹם א׳ (בְּשַׁבָּת)');
+  expect(sukkot1He.summary).toBe('וַיִּקְרָא כב:כו-כג:מד; בְּמִדְבַּר כט:יב-טז');
+  expect(sukkot1He.fullkriyah['1'].k).toBe('וַיִּקְרָא');
+  expect(sukkot1He.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
+
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
   expect(getLeyningForHoliday(sukkot2, true).fullkriyah['4'].p).toBe(41);
   const shminiAtzeret = events.find((e) => e.getDesc() == 'Shmini Atzeret');
@@ -119,6 +147,11 @@ test('getLeyningForHoliday-il', () => {
   expect(getLeyningForHoliday(pesach5, true).fullkriyah['4'].p).toBe(21);
   const shavuot = events.find((e) => e.getDesc() == 'Shavuot');
   expect(getLeyningForHoliday(shavuot, true).fullkriyah['4'].p).toBe(17);
+
+  const shavuotHe = getLeyningForHoliday(shavuot, true, 'he');
+  expect(shavuotHe.name.he).toBe('שָׁבוּעוֹת');
+  expect(shavuotHe.fullkriyah['1'].k).toBe('שְׁמוֹת');
+
   const av9 = events.find((e) => e.getDesc() == 'Tish\'a B\'Av');
   expect(getLeyningForHoliday(av9, true).haftara).toBe('Jeremiah 8:13-9:23');
 });
@@ -159,6 +192,12 @@ test('getLeyningForHoliday-Chanukah', () => {
     haftaraNumV: 21,
   };
   expect(reading).toEqual(expected);
+
+  const readingHe = getLeyningForHoliday(chanukah3, true, 'he');
+  expect(readingHe.name).toEqual({en: 'Chanukah Day 2 (on Shabbat)', he: 'חֲנוּכָּה יוֹם ב׳ (בְּשַׁבָּת)'});
+  expect(readingHe.fullkriyah.M.k).toBe('בְּמִדְבַּר');
+  expect(readingHe.haft.k).toBe('זְכַרְיָה');
+  expect(readingHe.haftara).toBe('זְכַרְיָה ב:יד-ד:ז');
 });
 
 test('getLeyningForHoliday-RoshChodesh', () => {
@@ -181,6 +220,14 @@ test('getLeyningForHoliday-RoshChodesh', () => {
   };
   const actual = getLeyningForHoliday(ev);
   expect(actual).toEqual(expected);
+
+  const actualHe = getLeyningForHoliday(ev, false, 'he');
+  expect(actualHe.name).toEqual({
+    en: 'Rosh Chodesh Sivan',
+    he: 'רֹאשׁ חוֹדֶשׁ סִיוָן',
+  });
+  expect(actualHe.summary).toBe('בְּמִדְבַּר כח:א-טו');
+  expect(actualHe.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
 });
 
 test('Rosh Chodesh Tevet', () => {
@@ -270,6 +317,28 @@ test('getLeyningForHoliday-9av-obvs', () => {
   };
   const actual = getLeyningForHoliday(ev);
   expect(actual).toEqual(expected);
+
+  const actualHe = getLeyningForHoliday(ev, false, 'he');
+  expect(actualHe.type).toBe('holiday');
+  expect(actualHe.name).toEqual({
+    en: 'Tish\'a B\'Av',
+    he: 'תִּשְׁעָה בְּאָב',
+  });
+  expect(actualHe.summary).toBe('דְּבָרִים ד:כה-מ; אֵיכָה א:א-ה:כב');
+  expect(actualHe.summaryParts[0].k).toBe('דְּבָרִים');
+  expect(actualHe.summaryParts[0].b).toBe('ד:כה');
+  expect(actualHe.summaryParts[0].e).toBe('ד:מ');
+  expect(actualHe.summaryParts[1].k).toBe('אֵיכָה');
+  expect(actualHe.summaryParts[1].b).toBe('א:א');
+  expect(actualHe.summaryParts[1].e).toBe('ה:כב');
+  expect(actualHe.fullkriyah['1'].k).toBe('דְּבָרִים');
+  expect(actualHe.haft.k).toBe('יִרְמְיָהוּ');
+  expect(actualHe.haftara).toBe('יִרְמְיָהוּ ח:יג-ט:כג');
+  expect(actualHe.haftaraNumV).toBe(34);
+  expect(actualHe.megillah['1'].k).toBe('אֵיכָה');
+  expect(actualHe.megillah['1'].b).toBe('א:א');
+  expect(actualHe.megillah['1'].e).toBe('א:כב');
+  expect(actualHe.megillah['5'].k).toBe('אֵיכָה');
 });
 
 test('shmini-atzeret', () => {
@@ -354,7 +423,7 @@ test('pesach-days-567', () => {
   {
     name: {
       en: 'Pesach VII',
-      he: 'פֶּסַח ז׳',
+      he: 'פֶּסַח יוֹם ז׳',
     },
     type: 'holiday',
     summary: 'Exodus 13:17-15:26; Numbers 28:19-25',
@@ -537,7 +606,7 @@ test('9av', () => {
 test('fast day mincha', () => {
   const reading = getLeyningForHolidayKey('Tish\'a B\'Av (Mincha)');
   const expected = {
-    name: {en: 'Tish\'a B\'Av (Mincha)', he: 'תִּשְׁעָה בְּאָב מִנחָה'},
+    name: {en: 'Tish\'a B\'Av (Mincha)', he: 'תִּשְׁעָה בְּאָב (מִנְחָה)'},
     type: 'holiday',
     fullkriyah: {
       '1': {p: 21, k: 'Exodus', b: '32:11', e: '32:14', v: 4},
@@ -556,11 +625,11 @@ test('fast day mincha', () => {
   expect(reading).toEqual(expected);
 
   const reading2 = getLeyningForHolidayKey('Tzom Gedaliah (Mincha)');
-  expected.name = {en: 'Tzom Gedaliah (Mincha)', he: 'צוֹם גְּדַלְיָה מִנחָה'};
+  expected.name = {en: 'Tzom Gedaliah (Mincha)', he: 'צוֹם גְּדַלְיָה (מִנְחָה)'};
   expect(reading2).toEqual(expected);
 
   const reading3 = getLeyningForHolidayKey('Ta\'anit Esther (Mincha)');
-  expected.name = {en: 'Ta\'anit Esther (Mincha)', he: 'תַּעֲנִית אֶסְתֵּר מִנחָה'};
+  expected.name = {en: 'Ta\'anit Esther (Mincha)', he: 'תַּעֲנִית אֶסְתֵּר (מִנְחָה)'};
   expect(reading3).toEqual(expected);
 });
 
@@ -656,6 +725,12 @@ test('Erev Purim', () => {
     summary: 'Esther 1:1-10:3',
   };
   expect(actual).toEqual(expected);
+
+  const actualHe = getLeyningForHoliday(events[0], false, 'he');
+  expect(actualHe.name).toEqual({en: 'Erev Purim', he: 'עֶרֶב פּוּרִים'});
+  expect(actualHe.summary).toBe('אֶסְתֵּר א:א-י:ג');
+  expect(actualHe.megillah['1'].k).toBe('אֶסְתֵּר');
+  expect(actualHe.megillah['10'].k).toBe('אֶסְתֵּר');
 });
 
 test('getLeyningForHoliday-note', () => {

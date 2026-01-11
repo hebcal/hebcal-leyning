@@ -17,12 +17,17 @@ test('Chanukah', () => {
     const reading = (mask & flags.PARSHA_HASHAVUA) ?
       getLeyningForParshaHaShavua(ev, true) :
       getLeyningForHoliday(ev, true);
+    const readingHe = (mask & flags.PARSHA_HASHAVUA) ?
+      getLeyningForParshaHaShavua(ev, true, 'he') :
+      getLeyningForHoliday(ev, true, 'he');
     actual.push({
       i: i++,
       dt: ev.greg().toLocaleDateString('en-CA').substring(0, 10),
       d: ev.getDesc(),
       n: reading?.name.en,
       s: reading?.summary,
+      nHe: readingHe?.name.he,
+      sHe: readingHe?.summary,
     });
   }
   const expected = [{
@@ -31,6 +36,8 @@ test('Chanukah', () => {
     d: 'Parashat Vayeshev',
     n: 'Vayeshev',
     s: 'Genesis 37:1-40:23',
+    nHe: 'וַיֵּשֶׁב',
+    sHe: 'בְּרֵאשִׁית לז:א-מ:כג',
   },
   {
     i: 1,
@@ -38,6 +45,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 1 Candle',
     n: undefined,
     s: undefined,
+    nHe: undefined,
+    sHe: undefined,
   },
   {
     i: 2,
@@ -45,6 +54,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 2 Candles',
     n: 'Chanukah Day 1',
     s: 'Numbers 7:1-17',
+    nHe: 'חֲנוּכָּה יוֹם א׳',
+    sHe: 'בְּמִדְבַּר ז:א-יז',
   },
   {
     i: 3,
@@ -52,6 +63,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 3 Candles',
     n: 'Chanukah Day 2',
     s: 'Numbers 7:18-29',
+    nHe: 'חֲנוּכָּה יוֹם ב׳',
+    sHe: 'בְּמִדְבַּר ז:יח-כט',
   },
   {
     i: 4,
@@ -59,6 +72,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 4 Candles',
     n: 'Chanukah Day 3',
     s: 'Numbers 7:24-35',
+    nHe: 'חֲנוּכָּה יוֹם ג׳',
+    sHe: 'בְּמִדְבַּר ז:כד-לה',
   },
   {
     i: 5,
@@ -66,6 +81,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 5 Candles',
     n: 'Chanukah Day 4',
     s: 'Numbers 7:30-41',
+    nHe: 'חֲנוּכָּה יוֹם ד׳',
+    sHe: 'בְּמִדְבַּר ז:ל-מא',
   },
   {
     i: 6,
@@ -73,6 +90,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 6 Candles',
     n: 'Chanukah Day 5',
     s: 'Numbers 7:36-47',
+    nHe: 'חֲנוּכָּה יוֹם ה׳',
+    sHe: 'בְּמִדְבַּר ז:לו-מז',
   },
   {
     i: 7,
@@ -80,6 +99,8 @@ test('Chanukah', () => {
     d: 'Chag HaBanot',
     n: undefined,
     s: undefined,
+    nHe: undefined,
+    sHe: undefined,
   },
   {
     i: 8,
@@ -87,6 +108,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 7 Candles',
     n: 'Shabbat Rosh Chodesh Chanukah',
     s: undefined,
+    nHe: 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה',
+    sHe: undefined,
   },
   {
     i: 9,
@@ -94,6 +117,8 @@ test('Chanukah', () => {
     d: 'Rosh Chodesh Tevet',
     n: 'Shabbat Rosh Chodesh Chanukah',
     s: undefined,
+    nHe: 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה',
+    sHe: undefined,
   },
   {
     i: 10,
@@ -101,6 +126,8 @@ test('Chanukah', () => {
     d: 'Parashat Miketz',
     n: 'Miketz',
     s: 'Genesis 41:1-44:17; Numbers 28:9-15, 7:42-47',
+    nHe: 'מִקֵּץ',
+    sHe: 'בְּרֵאשִׁית מא:א-מד:יז; בְּמִדְבַּר כח:ט-טו, ז:מב-מז',
   },
   {
     i: 11,
@@ -108,6 +135,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 8 Candles',
     n: 'Chanukah Day 7 (on Rosh Chodesh)',
     s: 'Numbers 28:1-15, 7:48-53',
+    nHe: 'חֲנוּכָּה יוֹם ז׳ (רֹאשׁ חוֹדֶשׁ)',
+    sHe: 'בְּמִדְבַּר כח:א-טו, ז:מח-נג',
   },
   {
     i: 12,
@@ -115,6 +144,8 @@ test('Chanukah', () => {
     d: 'Rosh Chodesh Tevet',
     n: 'Chanukah Day 7 (on Rosh Chodesh)',
     s: 'Numbers 28:1-15, 7:48-53',
+    nHe: 'חֲנוּכָּה יוֹם ז׳ (רֹאשׁ חוֹדֶשׁ)',
+    sHe: 'בְּמִדְבַּר כח:א-טו, ז:מח-נג',
   },
   {
     i: 13,
@@ -122,6 +153,8 @@ test('Chanukah', () => {
     d: 'Chanukah: 8th Day',
     n: 'Chanukah Day 8',
     s: 'Numbers 7:54-8:4',
+    nHe: 'חֲנוּכָּה יוֹם ח׳',
+    sHe: 'בְּמִדְבַּר ז:נד-ח:ד',
   }];
   expect(actual).toEqual(expected);
 });
