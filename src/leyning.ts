@@ -2,10 +2,17 @@ import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
 import {Locale} from './locale';
 import parshiyotObj0 from './aliyot.json';
-import {BOOK, calculateNumVerses, parshaToString} from './common';
+import {
+  BOOK,
+  calculateNumVerses,
+  makeLeyningParts,
+  makeSummaryFromParts,
+  parshaToString,
+  translateAliyahOrArray,
+  translateLeyning,
+} from './common';
 import {cloneHaftara, sumVerses} from './clone';
 import {specialReadings2} from './specialReadings';
-import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {
   Aliyah,
   AliyotMap,
@@ -79,7 +86,10 @@ export function makeLeyningNames(parsha: string[]): LeyningNames {
  * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  * @returns map of aliyot
  */
-function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
+function getLeyningForParshaShabbatOnly(
+  parsha: string | string[],
+  language: string = 'en'
+): Leyning {
   const raw = lookupParsha(parsha);
   const fullkriyah: AliyotMap = {};
   const book = BOOK[raw.book];
@@ -121,14 +131,17 @@ function getLeyningForParshaShabbatOnly(parsha: string | string[]): Leyning {
     result.sephardic = makeSummaryFromParts(seph);
     result.sephardicNumV = sumVerses(seph);
   }
-  return result;
+  return translateLeyning(result, language);
 }
 
 /**
  * Looks up Monday/Thursday aliyot for a regular parsha
  * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  */
-export function getWeekdayReading(parsha: string | string[]): AliyotMap {
+export function getWeekdayReading(
+  parsha: string | string[],
+  language: string = 'en'
+): AliyotMap {
   const raw = lookupParsha(parsha);
   const parshaMeta = raw.combined ? lookupParsha(raw.p1!) : raw;
   const aliyot = parshaMeta.weekday;
@@ -144,15 +157,18 @@ export function getWeekdayReading(parsha: string | string[]): AliyotMap {
     calculateNumVerses(aliyah);
     weekday[num] = aliyah;
   }
-  return weekday;
+  return translateAliyahOrArray(weekday, language);
 }
 
 /**
  * Looks up regular leyning for a weekly parsha with no special readings
  * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  */
-export function getLeyningForParsha(parsha: string | string[]): Leyning {
-  const result = getLeyningForParshaShabbatOnly(parsha);
+export function getLeyningForParsha(
+  parsha: string | string[],
+  language: string = 'en'
+): Leyning {
+  const result = getLeyningForParshaShabbatOnly(parsha, language);
   result.weekday = getWeekdayReading(parsha);
   return result;
 }
@@ -164,7 +180,11 @@ export function getLeyningForParsha(parsha: string | string[]): Leyning {
  * @param [il] in Israel
  * @returns map of aliyot
  */
-export function getLeyningForParshaHaShavua(ev: Event, il = false): Leyning {
+export function getLeyningForParshaHaShavua(
+  ev: Event,
+  il = false,
+  language: string = 'en'
+): Leyning {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${ev}`);
   } else if (ev.getFlags() !== flags.PARSHA_HASHAVUA) {
@@ -199,30 +219,38 @@ export function getLeyningForParshaHaShavua(ev: Event, il = false): Leyning {
   }
   const reasons = Object.keys(reason);
   if (reasons.length !== 0) {
-    result.reason = reason;
+    // Translate reason strings to target language if not English
+    const translatedReason: Record<string, string> = {};
+    for (const [key, val] of Object.entries(reason)) {
+      translatedReason[key] = Locale.gettext(val, language);
+    }
+    result.reason = translatedReason;
     for (const num of reasons) {
       if (num === 'haftara' || num === 'sephardic') {
         const haftObj = result[num === 'haftara' ? 'haft' : 'seph'];
         const hafts: Aliyah[] = Array.isArray(haftObj) ? haftObj : [haftObj!];
         for (const haft of hafts) {
-          haft.reason = reason[num];
+          haft.reason = translatedReason[num];
         }
       } else {
         const aliyah = result.fullkriyah[num];
         if (typeof aliyah === 'object') {
-          aliyah.reason = reason[num];
+          aliyah.reason = translatedReason[num];
         }
       }
     }
   }
-  return result;
+  return translateLeyning(result, language);
 }
 
 /**
  * Returns the parsha metadata
  * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
  */
-export function lookupParsha(parsha: string | string[]): ParshaMeta {
+export function lookupParsha(
+  parsha: string | string[],
+  language: string = 'en'
+): ParshaMeta {
   const name = parshaToString(parsha);
   const raw = parshiyotObj[name];
   if (typeof raw !== 'object') {
@@ -235,10 +263,14 @@ export function lookupParsha(parsha: string | string[]): ParshaMeta {
     }
     if (!raw.haft) {
       const haftKey = p1 === 'Nitzavim' ? p1 : p2;
-      raw.haft = lookupParsha(haftKey).haft;
+      raw.haft = lookupParsha(haftKey, language).haft;
     }
   } else {
     raw.hebrew = Locale.gettext(name, 'he');
+  }
+  raw.haft = translateAliyahOrArray(raw.haft as Aliyah | Aliyah[], language);
+  if (raw.seph) {
+    raw.seph = translateAliyahOrArray(raw.seph as Aliyah | Aliyah[], language);
   }
   return raw as ParshaMeta;
 }

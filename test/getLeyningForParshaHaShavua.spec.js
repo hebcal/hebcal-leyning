@@ -1,7 +1,7 @@
-import {expect, test} from 'vitest';
+import {expect, test, describe} from 'vitest';
 import {HDate, HebrewCalendar, ParshaEvent} from '@hebcal/core';
 import {getLeyningForParshaHaShavua} from '../src/leyning';
-import {formatAliyahWithBook} from '../src/common';
+import {formatAliyahWithBook, formatAliyahShort} from '../src/common';
 
 /*
 7/18/1981 16th of Tamuz, 5741
@@ -17,6 +17,12 @@ test('pinchas17Tamuz', () => {
   let a = getLeyningForParshaHaShavua(ev, false);
   expect(a.reason).toBe(undefined);
   expect(a.haftara).toBe('I Kings 18:46-19:21');
+  expect(a.summary).toBe('Numbers 25:10-30:1');
+
+  let h = getLeyningForParshaHaShavua(ev, false, "he");
+  expect(h.reason).toBe(undefined);
+  expect(h.haftara).toBe('מְלָכִים א י״ח:מ״ו-י״ט:כ״א');
+  expect(h.summary).toBe('בְּמִדְבַּר כ״ה:י׳-ל׳:א׳');
 
   options.year = 1982;
   events = HebrewCalendar.calendar(options);
@@ -24,6 +30,12 @@ test('pinchas17Tamuz', () => {
   a = getLeyningForParshaHaShavua(ev, false);
   expect(a.haftara).toBe('Jeremiah 1:1-2:3');
   expect(a.reason.haftara).toBe('Pinchas occurring after 17 Tammuz');
+  expect(a.summary).toBe('Numbers 25:10-30:1');
+
+  h = getLeyningForParshaHaShavua(ev, false, "he");
+  expect(h.haftara).toBe('יִרְמְיָהוּ א׳:א׳-ב׳:ג׳');
+  expect(h.reason.haftara).toBe('פִּינְחָס מתרחש לאחר יז׳ בְּתַמּוּז');
+  expect(h.summary).toBe('בְּמִדְבַּר כ״ה:י׳-ל׳:א׳');
 
   options.year = 2022;
   options.il = true;
@@ -32,6 +44,9 @@ test('pinchas17Tamuz', () => {
   a = getLeyningForParshaHaShavua(ev, false);
   expect(a.reason).toBe(undefined);
   expect(a.haftara).toBe('I Kings 18:46-19:21');
+  h = getLeyningForParshaHaShavua(ev, false, "he");
+  expect(h.haftara).toBe('מְלָכִים א י״ח:מ״ו-י״ט:כ״א');
+  expect(h.reason).toBe(undefined);
 
   options.year = 2023;
   options.il = true;
@@ -39,6 +54,10 @@ test('pinchas17Tamuz', () => {
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   a = getLeyningForParshaHaShavua(ev, false);
   expect(a.haftara).toBe('Jeremiah 1:1-2:3');
+  expect(a.reason.haftara).toBe('Pinchas occurring after 17 Tammuz');
+  h = getLeyningForParshaHaShavua(ev, false, "he");
+  expect(h.haftara).toBe('יִרְמְיָהוּ א׳:א׳-ב׳:ג׳');
+  expect(h.reason.haftara).toBe('פִּינְחָס מתרחש לאחר יז׳ בְּתַמּוּז');
   expect(a.reason.haftara).toBe('Pinchas occurring after 17 Tammuz');
 });
 
@@ -90,48 +109,114 @@ test('2026', () => {
       M: 'Chanukah Day 8 (on Shabbat)',
     },
   };
+  const expectedHebrew = {
+    name: {
+      en: 'Miketz',
+      he: 'מִקֵּץ',
+    },
+    type: 'shabbat',
+    parsha: [
+      'Miketz',
+    ],
+    parshaNum: 10,
+    summary: 'בְּרֵאשִׁית מ״א:א׳-מ״ד:י״ז; בְּמִדְבַּר ז׳:נ״ד-ח׳:ד׳',
+    summaryParts: [
+      {k: 'בְּרֵאשִׁית', b: 'מ״א:א׳', e: 'מ״ד:י״ז'},
+      {k: 'בְּמִדְבַּר', b: 'ז׳:נ״ד', e: 'ח׳:ד׳'},
+    ],
+    fullkriyah: {
+      '1': {k: 'בְּרֵאשִׁית', b: 'מ״א:א׳', e: 'מ״א:י״ד', v: 14},
+      '2': {k: 'בְּרֵאשִׁית', b: 'מ״א:ט״ו', e: 'מ״א:ל״ח', v: 24},
+      '3': {k: 'בְּרֵאשִׁית', b: 'מ״א:ל״ט', e: 'מ״א:נ״ב', v: 14},
+      '4': {k: 'בְּרֵאשִׁית', b: 'מ״א:נ״ג', e: 'מ״ב:י״ח', v: 23},
+      '5': {k: 'בְּרֵאשִׁית', b: 'מ״ב:י״ט', e: 'מ״ג:ט״ו', v: 35},
+      '6': {k: 'בְּרֵאשִׁית', b: 'מ״ג:ט״ז', e: 'מ״ג:כ״ט', v: 14},
+      '7': {k: 'בְּרֵאשִׁית', b: 'מ״ג:ל׳', e: 'מ״ד:י״ז', v: 22},
+      'M': {p: 35, k: 'בְּמִדְבַּר', b: 'ז׳:נ״ד', e: 'ח׳:ד׳', v: 40,
+        reason: 'חֲנוּכָּה יוֹם ח׳ (בְּשַׁבָּת)'},
+    },
+    haft: {
+      k: 'מְלָכִים א',
+      b: 'ז׳:מ׳',
+      e: 'ז׳:נ׳',
+      v: 11,
+      reason: 'חֲנוּכָּה יוֹם ח׳ (בְּשַׁבָּת)',
+    },
+    haftara: 'מְלָכִים א ז׳:מ׳-נ׳',
+    haftaraNumV: 11,
+    reason: {
+      haftara: 'חֲנוּכָּה יוֹם ח׳ (בְּשַׁבָּת)',
+      M: 'חֲנוּכָּה יוֹם ח׳ (בְּשַׁבָּת)',
+    },
+  };
   for (const ev of events) {
     const a = getLeyningForParshaHaShavua(ev, false);
+    const h = getLeyningForParshaHaShavua(ev, false, 'he');
     switch (ev.getDesc()) {
       case 'Parashat Mishpatim':
         expect(a.reason.haftara).toBe('Shabbat Shekalim');
         expect(a.reason.M).toBe('Shabbat Shekalim');
         expect(a.haftara).toBe('II Kings 12:1-17');
         expect(formatAliyah(a, 'M')).toBe('Exodus 30:11-30:16');
+        expect(h.reason.M).toBe('שַׁבָּת שְׁקָלִים');
+        expect(h.haftara).toBe('מְלָכִים ב י״ב:א׳-י״ז');
+        expect(formatAliyah(h, 'M')).toBe('שְׁמוֹת ל׳:י״א-ל׳:ט״ז');
         break;
       case 'Parashat Tetzaveh':
         expect(a.reason.haftara).toBe('Shabbat Zachor');
         expect(a.reason.M).toBe('Shabbat Zachor');
         expect(a.haftara).toBe('I Samuel 15:2-34');
         expect(formatAliyah(a, 'M')).toBe('Deuteronomy 25:17-25:19');
+        expect(h.reason.haftara).toBe('שַׁבַּת זָכוֹר');
+        expect(h.reason.M).toBe('שַׁבַּת זָכוֹר');
+        expect(h.haftara).toBe('שְׁמוּאֵל א ט״ו:ב׳-ל״ד');
+        expect(formatAliyah(h, 'M')).toBe('דְּבָרִים כ״ה:י״ז-כ״ה:י״ט');
         break;
       case 'Parashat Ki Tisa':
         expect(a.reason.haftara).toBe('Shabbat Parah');
         expect(a.reason.M).toBe('Shabbat Parah');
         expect(a.haftara).toBe('Ezekiel 36:16-38');
         expect(formatAliyah(a, 'M')).toBe('Numbers 19:1-19:22');
+        expect(h.reason.haftara).toBe('שַׁבַּת פָּרָה');
+        expect(h.reason.M).toBe('שַׁבַּת פָּרָה');
+        expect(h.haftara).toBe('יְחֶזְקֵאל ל״ו:ט״ז-ל״ח');
+        expect(formatAliyah(h, 'M')).toBe('בְּמִדְבַּר י״ט:א׳-י״ט:כ״ב');
         break;
       case 'Parashat Tzav':
         expect(a.reason.haftara).toBe('Shabbat HaGadol');
         expect(a.haftara).toBe('Malachi 3:4-24');
+        expect(h.reason.haftara).toBe('שַׁבָּת הַגָּדוֹל');
+        expect(h.haftara).toBe('מַלְאָכִי ג׳:ד׳-כ״ד');
         break;
       case 'Parashat Tazria-Metzora':
         expect(a.reason.haftara).toBe('Shabbat Rosh Chodesh');
         expect(a.reason.M).toBe('Shabbat Rosh Chodesh');
         expect(a.haftara).toBe('Isaiah 66:1-24');
         expect(formatAliyah(a, 'M')).toBe('Numbers 28:9-28:15');
+        expect(h.reason.haftara).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
+        expect(h.reason.M).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
+        expect(h.haftara).toBe('יְשַׁעְיָהוּ ס״ו:א׳-כ״ד');
+        expect(formatAliyah(h, 'M')).toBe('בְּמִדְבַּר כ״ח:ט׳-כ״ח:ט״ו');
         break;
       case 'Parashat Bamidbar':
         expect(a.reason.haftara).toBe('Shabbat Machar Chodesh');
         expect(a.haftara).toBe('I Samuel 20:18-42');
+        expect(h.reason.haftara).toBe('שַׁבָּת מָחָר חוֹדֶשׁ');
+        expect(h.haftara).toBe('שְׁמוּאֵל א כ׳:י״ח-מ״ב');
         break;
       case 'Parashat Vayeshev':
         expect(a.reason.haftara).toBe('Chanukah Day 1 (on Shabbat)');
+        expect(a.reason.M).toBe('Chanukah Day 1 (on Shabbat)');
         expect(a.haftara).toBe('Zechariah 2:14-4:7');
         expect(formatAliyah(a, 'M')).toBe('Numbers 7:1-7:17');
+        expect(h.reason.haftara).toBe('חֲנוּכָּה יוֹם א׳ (בְּשַׁבָּת)');
+        expect(h.reason.M).toBe('חֲנוּכָּה יוֹם א׳ (בְּשַׁבָּת)');
+        expect(h.haftara).toBe('זְכַרְיָה ב׳:י״ד-ד׳:ז׳');
+        expect(formatAliyah(h, 'M')).toBe('בְּמִדְבַּר ז׳:א׳-ז׳:י״ז');
         break;
       case 'Parashat Miketz':
         expect(a).toEqual(expected);
+        expect(h).toEqual(expectedHebrew);
         break;
     }
   }
@@ -153,6 +238,16 @@ test('2020-12', () => {
     reason: 'Chanukah Day 2 (on Shabbat)',
   };
   expect(a.fullkriyah.M).toEqual(expected);
+
+  const h = getLeyningForParshaHaShavua(vayeshev, false, 'he');
+  expect(h.reason.haftara).toBe('חֲנוּכָּה יוֹם ב׳ (בְּשַׁבָּת)');
+  expect(h.reason['M']).toBe('חֲנוּכָּה יוֹם ב׳ (בְּשַׁבָּת)');
+  expect(h.haftara).toBe('זְכַרְיָה ב׳:י״ד-ד׳:ז׳');
+  expect(h.fullkriyah.M.k).toBe('בְּמִדְבַּר');
+  expect(h.fullkriyah.M.b).toBe('ז׳:י״ח');
+  expect(h.fullkriyah.M.e).toBe('ז׳:כ״ג');
+  expect(h.fullkriyah.M.v).toBe(6);
+  expect(h.summary).toContain('בְּרֵאשִׁית');
 });
 
 test('2021-12', () => {
@@ -203,6 +298,52 @@ test('2021-12', () => {
   };
   const a = getLeyningForParshaHaShavua(miketz);
   expect(a).toEqual(expected);
+
+  const expectedHebrew = {
+    name: {
+      en: 'Miketz',
+      he: 'מִקֵּץ',
+    },
+    type: 'shabbat',
+    parsha: [
+      'Miketz',
+    ],
+    parshaNum: 10,
+    summary: 'בְּרֵאשִׁית מ״א:א׳-מ״ד:י״ז; בְּמִדְבַּר כ״ח:ט׳-ט״ו, ז׳:מ״ב-מ״ז',
+    fullkriyah: {
+      '1': {k: 'בְּרֵאשִׁית', b: 'מ״א:א׳', e: 'מ״א:י״ד', v: 14},
+      '2': {k: 'בְּרֵאשִׁית', b: 'מ״א:ט״ו', e: 'מ״א:ל״ח', v: 24},
+      '3': {k: 'בְּרֵאשִׁית', b: 'מ״א:ל״ט', e: 'מ״א:נ״ב', v: 14},
+      '4': {k: 'בְּרֵאשִׁית', b: 'מ״א:נ״ג', e: 'מ״ב:י״ח', v: 23},
+      '5': {k: 'בְּרֵאשִׁית', b: 'מ״ב:י״ט', e: 'מ״ג:ט״ו', v: 35},
+      '6': {k: 'בְּרֵאשִׁית', b: 'מ״ג:ט״ז', e: 'מ״ד:י״ז', v: 36},
+      '7': {p: 41, k: 'בְּמִדְבַּר', b: 'כ״ח:ט׳', e: 'כ״ח:ט״ו', v: 7,
+        reason: 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה'},
+      'M': {p: 35, k: 'בְּמִדְבַּר', b: 'ז׳:מ״ב', e: 'ז׳:מ״ז', v: 6,
+        reason: 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה'},
+    },
+    summaryParts: [
+      {k: 'בְּרֵאשִׁית', b: 'מ״א:א׳', e: 'מ״ד:י״ז'},
+      {k: 'בְּמִדְבַּר', b: 'כ״ח:ט׳', e: 'כ״ח:ט״ו'},
+      {k: 'בְּמִדְבַּר', b: 'ז׳:מ״ב', e: 'ז׳:מ״ז'},
+    ],
+    haft: {
+      k: 'זְכַרְיָה',
+      b: 'ב׳:י״ד',
+      e: 'ד׳:ז׳',
+      v: 21,
+      reason: 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה',
+    },
+    haftara: 'זְכַרְיָה ב׳:י״ד-ד׳:ז׳',
+    haftaraNumV: 21,
+    reason: {
+      '7': 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה',
+      'haftara': 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה',
+      'M': 'שַׁבָּת רֹאשׁ חוֹדֶשׁ חֲנוּכָּה',
+    },
+  };
+  const h = getLeyningForParshaHaShavua(miketz, false, 'he');
+  expect(h).toEqual(expectedHebrew);
 });
 
 test('2019-04', () => {
@@ -215,6 +356,16 @@ test('2019-04', () => {
   expect(a.haftara).toBe('Ezekiel 45:16-46:18');
   expect(formatAliyah(a, '7')).toBe('Numbers 28:9-28:15');
   expect(formatAliyah(a, 'M')).toBe('Exodus 12:1-12:20');
+  expect(a.summary).toBe('Leviticus 12:1-13:59; Numbers 28:9-15; Exodus 12:1-20');
+
+  const h = getLeyningForParshaHaShavua(tazria, false, 'he');
+  expect(h.reason.haftara).toBe('שַׁבָּת הַחוֹדֶשׁ (בְּרֹאשׁ חוֹדֶשׁ)');
+  expect(h.reason['7']).toBe('שַׁבָּת הַחוֹדֶשׁ (בְּרֹאשׁ חוֹדֶשׁ)');
+  expect(h.reason['M']).toBe('שַׁבָּת הַחוֹדֶשׁ (בְּרֹאשׁ חוֹדֶשׁ)');
+  expect(h.haftara).toBe('יְחֶזְקֵאל מ״ה:ט״ז-מ״ו:י״ח');
+  expect(formatAliyah(h, '7')).toBe('בְּמִדְבַּר כ״ח:ט׳-כ״ח:ט״ו');
+  expect(formatAliyah(h, 'M')).toBe('שְׁמוֹת י״ב:א׳-י״ב:כ׳');
+  expect(h.summary).toBe('וַיִּקְרָא י״ב:א׳-י״ג:נ״ט; בְּמִדְבַּר כ״ח:ט׳-ט״ו; שְׁמוֹת י״ב:א׳-כ׳');
 });
 
 test('sephardic', () => {
@@ -224,6 +375,11 @@ test('sephardic', () => {
   const a = getLeyningForParshaHaShavua(bereshit);
   expect(a.haftara).toBe('Isaiah 42:5-43:10');
   expect(a.sephardic).toBe('Isaiah 42:5-21');
+
+  const h = getLeyningForParshaHaShavua(bereshit, false, 'he');
+  expect(h.haftara).toBe('יְשַׁעְיָהוּ מ״ב:ה׳-מ״ג:י׳');
+  expect(h.sephardic).toBe('יְשַׁעְיָהוּ מ״ב:ה׳-כ״א');
+  expect(h.summary).toBe('בְּרֵאשִׁית א׳:א׳-ו׳:ח׳');
 });
 
 test('israel-getLeyningForParshaHaShavua', () => {
@@ -240,6 +396,12 @@ test('israel-getLeyningForParshaHaShavua', () => {
   expect(israel[0].getDesc()).toBe('Parashat Nasso');
   const nassoIL = getLeyningForParshaHaShavua(israel[0], true);
   expect(nassoDiaspora).toEqual(nassoIL);
+
+  const nassoDiasporaHe = getLeyningForParshaHaShavua(diaspora[0], false, 'he');
+  const nassoILHe = getLeyningForParshaHaShavua(israel[0], true, 'he');
+  expect(nassoDiasporaHe.name.he).toBe('נָשׂא');
+  expect(nassoILHe.name.he).toBe('נָשׂא');
+  expect(nassoDiasporaHe.summary).toBe(nassoILHe.summary);
 });
 
 test('longest-regular-haftarah', () => {
@@ -271,6 +433,13 @@ test('masei-rosh-chodesh', () => {
   expect(obj1.reason.sephardic).toBe('Matot-Masei on Shabbat Rosh Chodesh');
   expect(obj1.summary).toBe('Numbers 30:2-36:13, 28:9-15');
 
+  const obj1he = getLeyningForParshaHaShavua(ev1, false, 'he');
+  expect(obj1he.haftara).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ג׳:ד׳');
+  expect(obj1he.reason.haftara).toBe('מַטּוֹת־מַסְעֵי בְּשַׁבָּת רֹאשׁ חוֹדֶשׁ');
+  expect(obj1he.sephardic).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ד׳:א׳-ב׳; יְשַׁעְיָהוּ ס״ו:א׳, ס״ו:כ״ג');
+  expect(obj1he.reason.sephardic).toBe('מַטּוֹת־מַסְעֵי בְּשַׁבָּת רֹאשׁ חוֹדֶשׁ');
+  expect(obj1he.summary).toBe('בְּמִדְבַּר ל׳:ב׳-ל״ו:י״ג, כ״ח:ט׳-ט״ו');
+
   const ev2 = new ParshaEvent({
     hdate: new HDate(2, 'Av', 5782),
     parsha: ['Matot', 'Masei'], il: false});
@@ -278,6 +447,11 @@ test('masei-rosh-chodesh', () => {
   expect(obj2.haftara).toBe('Jeremiah 2:4-28, 3:4');
   expect(obj2.reason).toBe(undefined);
   expect(obj2.summary).toBe('Numbers 30:2-36:13');
+
+  const obj2he = getLeyningForParshaHaShavua(ev2, false, 'he');
+  expect(obj2he.summary).toBe('בְּמִדְבַּר ל׳:ב׳-ל״ו:י״ג');
+  expect(obj2he.reason).toBe(undefined);
+  expect(obj2he.summary).toBe('בְּמִדְבַּר ל׳:ב׳-ל״ו:י״ג');
 
   const ev3 = new ParshaEvent({
     hdate: new HDate(1, 'Av', 5812),
@@ -290,6 +464,15 @@ test('masei-rosh-chodesh', () => {
   expect(obj3.reason.haftara).toBe('Masei on Shabbat Rosh Chodesh');
   expect(obj3.summary).toBe('Numbers 33:1-36:13, 28:9-15');
 
+  const obj3he = getLeyningForParshaHaShavua(ev3, false, 'he');
+  expect(obj3he.reason.haftara).toBe('מַסְעֵי בְּשַׁבָּת רֹאשׁ חוֹדֶשׁ');
+  expect(obj3he.sephardic).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ד׳:א׳-ב׳; יְשַׁעְיָהוּ ס״ו:א׳, ס״ו:כ״ג');
+  expect(obj3he.haftaraNumV).toBe(26);
+  expect(obj3he.sephardicNumV).toBe(29);
+  expect(obj3he.reason.haftara).toBe('מַסְעֵי בְּשַׁבָּת רֹאשׁ חוֹדֶשׁ');
+  expect(obj3he.reason.sephardic).toBe('מַסְעֵי בְּשַׁבָּת רֹאשׁ חוֹדֶשׁ');
+  expect(obj3he.summary).toBe('בְּמִדְבַּר ל״ג:א׳-ל״ו:י״ג, כ״ח:ט׳-ט״ו');
+
   const ev4 = new ParshaEvent({
     hdate: new HDate(28, 'Tamuz', 5822),
     parsha: ['Masei'], il: false});
@@ -298,6 +481,11 @@ test('masei-rosh-chodesh', () => {
   expect(obj4.haftaraNumV).toBe(26);
   expect(obj4.reason).toBe(undefined);
   expect(obj4.summary).toBe('Numbers 33:1-36:13');
+
+  const obj4he = getLeyningForParshaHaShavua(ev4, false, 'he');
+  expect(obj4he.summary).toBe('בְּמִדְבַּר ל״ג:א׳-ל״ו:י״ג');
+  expect(obj4he.reason).toBe(undefined);
+  expect(obj4he.summary).toBe('בְּמִדְבַּר ל״ג:א׳-ל״ו:י״ג');
 });
 
 
@@ -335,6 +523,18 @@ test('Shabbat Shuva - Vayeilech', () => {
     reason: {haftara: 'Shabbat Shuva (with Vayeilech)'},
   };
   expect(reading).toEqual(expected);
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.name).toEqual({en: 'Vayeilech', he: 'וַיֵּלֶךְ'});
+  expect(h.summary).toBe('דְּבָרִים ל״א:א׳-ל׳');
+  expect(h.haftara).toBe('הוֹשֵׁעַ י״ד:ב׳-י׳; מִיכָה ז׳:י״ח-כ׳');
+  expect(h.reason.haftara).toBe('שַׁבַּת שׁוּבָה (עם וַיֵּלֶךְ)');
+  expect(h.haft[0].reason).toBe('שַׁבַּת שׁוּבָה (עם וַיֵּלֶךְ)');
+  expect(h.haft[1].reason).toBe('שַׁבַּת שׁוּבָה (עם וַיֵּלֶךְ)');
+  expect(h.fullkriyah.M.k).toBe('דְּבָרִים');
+  expect(h.fullkriyah.M.b).toBe('ל״א:כ״ח');
+  expect(h.fullkriyah.M.e).toBe('ל״א:ל׳');
+  expect(h.fullkriyah.M.v).toBe(3);
 });
 
 test('Shabbat Shuva - Ha\'azinu', () => {
@@ -392,6 +592,21 @@ test('Shabbat Shuva - Ha\'azinu', () => {
     },
   };
   expect(reading).toEqual(expected);
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.name).toEqual({en: 'Ha\'azinu', he: 'הַאֲזִינוּ'});
+  expect(h.summary).toBe('דְּבָרִים ל״ב:א׳-נ״ב');
+  expect(h.haftara).toBe('הוֹשֵׁעַ י״ד:ב׳-י׳; יוֹאֵל ב׳:ט״ו-כ״ז');
+  expect(h.sephardic).toBe('הוֹשֵׁעַ י״ד:ב׳-י׳; מִיכָה ז׳:י״ח-כ׳');
+  expect(h.reason.haftara).toBe('שַׁבַּת שׁוּבָה (עם הַאֲזִינוּ)');
+  expect(h.seph[0].k).toBe('הוֹשֵׁעַ');
+  expect(h.seph[0].b).toBe('י״ד:ב׳');
+  expect(h.seph[0].e).toBe('י״ד:י׳');
+  expect(h.seph[0].v).toBe(9);
+  expect(h.seph[1].k).toBe('מִיכָה');
+  expect(h.seph[1].b).toBe('ז׳:י״ח');
+  expect(h.seph[1].e).toBe('ז׳:כ׳');
+  expect(h.seph[1].v).toBe(3);
 });
 
 test('Shushan Purim (on Shabbat)', () => {
@@ -421,6 +636,28 @@ test('Shushan Purim (on Shabbat)', () => {
     haftaraNumV: 18,
   };
   expect(reading).toEqual(expected);
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.name).toEqual({en: 'Tetzaveh', he: 'תְּצַוֶּה'});
+  expect(h.summary).toBe('שְׁמוֹת כ״ז:כ׳-ל׳:י׳');
+  expect(h.haftara).toBe('יְחֶזְקֵאל מ״ג:י׳-כ״ז');
+  expect(h.fullkriyah['1'].k).toBe('שְׁמוֹת');
+  // compare fullkriyah
+  for (const key in h.fullkriyah) {
+    expect(h.fullkriyah[key].k).toBe('שְׁמוֹת');
+  }
+  expect(h.fullkriyah['1'].b).toBe('כ״ז:כ׳');
+  expect(h.fullkriyah['1'].e).toBe('כ״ח:י״ב');
+  expect(h.fullkriyah['1'].v).toBe(14);
+  expect(h.fullkriyah['5'].b).toBe('כ״ט:י״ט');
+  expect(h.fullkriyah['5'].e).toBe('כ״ט:ל״ז');
+  expect(h.fullkriyah['5'].v).toBe(19);
+  expect(h.fullkriyah['7'].b).toBe('ל׳:א׳');
+  expect(h.fullkriyah['7'].e).toBe('ל׳:י׳');
+  expect(h.fullkriyah['7'].v).toBe(10);
+  expect(h.fullkriyah['M'].b).toBe('ל׳:ח׳');
+  expect(h.fullkriyah['M'].e).toBe('ל׳:י׳');
+  expect(h.fullkriyah['M'].v).toBe(3);
 });
 
 test('Ki Teitzei with 3rd Haftarah of Consolation', () => {
@@ -431,6 +668,10 @@ test('Ki Teitzei with 3rd Haftarah of Consolation', () => {
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.haftara).toBe('Isaiah 54:1-10, 54:11-55:5');
   expect(reading.reason.haftara).toBe('Ki Teitzei with 3rd Haftarah of Consolation');
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.haftara).toBe('יְשַׁעְיָהוּ נ״ד:א׳-י׳, נ״ד:י״א-נ״ה:ה׳');
+  expect(h.reason.haftara).toBe('כִּי־תֵצֵא עם הַפְטָרָה שְׁלִישִׁית שֶׁל נֶחָמָה');
 });
 
 test('yes-MacharChodesh-Bereshit', () => {
@@ -440,6 +681,10 @@ test('yes-MacharChodesh-Bereshit', () => {
     parsha: ['Bereshit'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Machar Chodesh');
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.reason.haftara).toBe('שַׁבָּת מָחָר חוֹדֶשׁ');
+  expect(h.name.he).toBe('בְּרֵאשִׁית');
 });
 
 test('no-MacharChodesh-Reeh', () => {
@@ -458,6 +703,9 @@ test('ShabbatRoshChodesh-Korach', () => {
     parsha: ['Korach'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Rosh Chodesh');
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.reason.haftara).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
 });
 
 test('ShabbatRoshChodesh-Noach', () => {
@@ -467,6 +715,9 @@ test('ShabbatRoshChodesh-Noach', () => {
     parsha: ['Noach'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Rosh Chodesh');
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.reason.haftara).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
 });
 
 test('Shabbat Shekalim-seph', () => {
@@ -478,6 +729,11 @@ test('Shabbat Shekalim-seph', () => {
   expect(reading.reason.haftara).toBe('Shabbat Shekalim');
   expect(reading.haftara).toBe('II Kings 12:1-17');
   expect(reading.sephardic).toBe('II Kings 11:17-12:17');
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.reason.haftara).toBe('שַׁבָּת שְׁקָלִים');
+  expect(h.haftara).toBe('מְלָכִים ב י״ב:א׳-י״ז');
+  expect(h.sephardic).toBe('מְלָכִים ב י״א:י״ז-י״ב:י״ז');
 });
 
 test('special-deletes-seph', () => {
@@ -490,6 +746,12 @@ test('special-deletes-seph', () => {
   expect(reading.reason.sephardic).toBe(undefined);
   expect(reading.haftara).toBe('I Samuel 20:18-42');
   expect(reading.sephardic).toBe(undefined);
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.reason.haftara).toBe('שַׁבָּת מָחָר חוֹדֶשׁ');
+  expect(h.reason.sephardic).toBe(undefined);
+  expect(h.haftara).toBe('שְׁמוּאֵל א כ׳:י״ח-מ״ב');
+  expect(h.sephardic).toBe(undefined);
 });
 
 test('Kedoshim following Shabbat HaGadol', () => {
@@ -502,6 +764,11 @@ test('Kedoshim following Shabbat HaGadol', () => {
   expect(reading1.reason.haftara).toBe('Shabbat HaGadol');
   expect(reading1.sephardic).toBe(undefined);
 
+  const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
+  expect(h1.haftara).toBe('מַלְאָכִי ג׳:ד׳-כ״ד');
+  expect(h1.reason.haftara).toBe('שַׁבָּת הַגָּדוֹל');
+  expect(h1.sephardic).toBe(undefined);
+
   const hd2 = new HDate(28, 'Nisan', 5714);
   const ev2 = new ParshaEvent({
     hdate: hd2,
@@ -510,6 +777,11 @@ test('Kedoshim following Shabbat HaGadol', () => {
   expect(reading2.haftara).toBe('Amos 9:7-15');
   expect(reading2.reason.haftara).toBe('Kedoshim following Special Shabbat');
   expect(reading2.sephardic).toBe('Ezekiel 20:2-20');
+
+  const h2 = getLeyningForParshaHaShavua(ev2, false, 'he');
+  expect(h2.reason.haftara).toBe('קְדֹשִׁים לאחר שַׁבָּת מיוחדת');
+  expect(h2.haftara).toBe('עָמוֹס ט׳:ז׳-ט״ו');
+  expect(h2.sephardic).toBe('יְחֶזְקֵאל כ׳:ב׳-כ׳');
 
   const hd3 = new HDate(12, 'Nisan', 5774);
   const ev3 = new ParshaEvent({
@@ -520,6 +792,11 @@ test('Kedoshim following Shabbat HaGadol', () => {
   expect(reading3.reason.haftara).toBe('Shabbat HaGadol');
   expect(reading3.sephardic).toBe(undefined);
 
+  const h3 = getLeyningForParshaHaShavua(ev3, false, 'he');
+  expect(h3.haftara).toBe('מַלְאָכִי ג׳:ד׳-כ״ד');
+  expect(h3.reason.haftara).toBe('שַׁבָּת הַגָּדוֹל');
+  expect(h3.sephardic).toBe(undefined);
+
   const hd4 = new HDate(26, 'Nisan', 5774);
   const ev4 = new ParshaEvent({
     hdate: hd4,
@@ -528,6 +805,10 @@ test('Kedoshim following Shabbat HaGadol', () => {
   expect(reading4.haftara).toBe('Amos 9:7-15');
   expect(reading4.reason.haftara).toBe('Kedoshim following Special Shabbat');
   expect(reading4.sephardic).toBe('Ezekiel 20:2-20');
+  const h4 = getLeyningForParshaHaShavua(ev4, false, 'he');
+  expect(h4.reason.haftara).toBe('קְדֹשִׁים לאחר שַׁבָּת מיוחדת');
+  expect(h4.haftara).toBe('עָמוֹס ט׳:ז׳-ט״ו');
+  expect(h4.sephardic).toBe('יְחֶזְקֵאל כ׳:ב׳-כ׳');
 });
 
 test('Kedoshim following Shabbat Machar Chodesh', () => {
@@ -540,6 +821,10 @@ test('Kedoshim following Shabbat Machar Chodesh', () => {
   expect(reading1.reason.haftara).toBe('Shabbat Machar Chodesh');
   expect(reading1.sephardic).toBe(undefined);
 
+  const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
+  expect(h1.reason.haftara).toBe('שַׁבָּת מָחָר חוֹדֶשׁ');
+  expect(h1.haftara).toBe('שְׁמוּאֵל א כ׳:י״ח-מ״ב');
+
   const hd2 = new HDate(6, 'Iyyar', 5782);
   const ev2 = new ParshaEvent({
     hdate: hd2,
@@ -548,6 +833,11 @@ test('Kedoshim following Shabbat Machar Chodesh', () => {
   expect(reading2.haftara).toBe('Amos 9:7-15');
   expect(reading2.reason.haftara).toBe('Kedoshim following Special Shabbat');
   expect(reading2.sephardic).toBe('Ezekiel 20:2-20');
+
+  const h2 = getLeyningForParshaHaShavua(ev2, false, 'he');
+  expect(h2.reason.haftara).toBe('קְדֹשִׁים לאחר שַׁבָּת מיוחדת');
+  expect(h2.haftara).toBe('עָמוֹס ט׳:ז׳-ט״ו');
+  expect(h2.sephardic).toBe('יְחֶזְקֵאל כ׳:ב׳-כ׳');
 });
 
 test('Achrei Mot-Kedoshim combined', () => {
@@ -558,6 +848,11 @@ test('Achrei Mot-Kedoshim combined', () => {
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.haftara).toBe('Amos 9:7-15');
   expect(reading.sephardic).toBe('Ezekiel 20:2-20');
+
+  const h = getLeyningForParshaHaShavua(ev, false, 'he');
+  expect(h.name.he).toBe('אַחֲרֵי מוֹת־קְדֹשִׁים');
+  expect(h.haftara).toBe('עָמוֹס ט׳:ז׳-ט״ו');
+  expect(h.sephardic).toBe('יְחֶזְקֵאל כ׳:ב׳-כ׳');
 });
 
 test('Achrei Mot-Kedoshim separate', () => {
@@ -569,6 +864,11 @@ test('Achrei Mot-Kedoshim separate', () => {
   expect(reading1.haftara).toBe('Amos 9:7-15');
   expect(reading1.sephardic).toBe('Ezekiel 22:1-16');
 
+  const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
+  expect(h1.name.he).toBe('אַחֲרֵי מוֹת');
+  expect(h1.haftara).toBe('עָמוֹס ט׳:ז׳-ט״ו');
+  expect(h1.sephardic).toBe('יְחֶזְקֵאל כ״ב:א׳-ט״ז');
+
   const hd2 = new HDate(3, 'Iyyar', 5784);
   const ev2 = new ParshaEvent({
     hdate: hd2,
@@ -576,6 +876,11 @@ test('Achrei Mot-Kedoshim separate', () => {
   const reading2 = getLeyningForParshaHaShavua(ev2, false);
   expect(reading2.haftara).toBe('Ezekiel 22:1-19');
   expect(reading2.sephardic).toBe('Ezekiel 20:2-20');
+
+  const h2 = getLeyningForParshaHaShavua(ev2, false, 'he');
+  expect(h2.name.he).toBe('קְדֹשִׁים');
+  expect(h2.haftara).toBe('יְחֶזְקֵאל כ״ב:א׳-י״ט');
+  expect(h2.sephardic).toBe('יְחֶזְקֵאל כ׳:ב׳-כ׳');
 });
 
 test('Kedoshim on Rosh Chodesh', () => {
@@ -587,4 +892,9 @@ test('Kedoshim on Rosh Chodesh', () => {
   expect(reading1.haftara).toBe('Isaiah 66:1-24');
   expect(reading1.reason.haftara).toBe('Shabbat Rosh Chodesh');
   expect(reading1.sephardic).toBe(undefined);
+
+  const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
+  expect(h1.haftara).toBe('יְשַׁעְיָהוּ ס״ו:א׳-כ״ד');
+  expect(h1.reason.haftara).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
+  expect(h1.sephardic).toBe(undefined);
 });

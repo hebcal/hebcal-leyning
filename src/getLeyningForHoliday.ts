@@ -1,13 +1,18 @@
 import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {Locale} from './locale';
-import {calculateNumVerses, NUM_VERSES} from './common';
+import {
+  calculateNumVerses,
+  makeLeyningParts,
+  makeSummaryFromParts,
+  NUM_VERSES,
+  translateLeyning,
+} from './common';
 import {clone, cloneHaftara, sumVerses} from './clone';
 import {lookupFestival} from './festival';
 import {
   HOLIDAY_IGNORE_MASK,
   getLeyningKeyForEvent,
 } from './getLeyningKeyForEvent';
-import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {Aliyah, AliyotMap, KetuvimBook, Leyning} from './types';
 
 /**
@@ -15,11 +20,15 @@ import {Aliyah, AliyotMap, KetuvimBook, Leyning} from './types';
  * (untranslated) string used in holiday-readings.json. Returns some
  * of full kriyah aliyot, special Maftir, special Haftarah
  * @param key name from `holiday-readings.json` to find
+ * @param cholHaMoedDay
+ * @param il true if Israel holiday scheme
+ * @param language language for summary (default 'en')
  */
 export function getLeyningForHolidayKey(
   key?: string,
   cholHaMoedDay?: number,
-  il?: boolean
+  il?: boolean,
+  language: string = 'en'
 ): Leyning | undefined {
   if (typeof key !== 'string') {
     return undefined;
@@ -98,7 +107,7 @@ export function getLeyningForHolidayKey(
   if (src.note) {
     leyning.note = src.note;
   }
-  return leyning as Leyning;
+  return translateLeyning(leyning as Leyning, language);
 }
 
 /**
@@ -106,11 +115,13 @@ export function getLeyningForHolidayKey(
  * of full kriyah aliyot, special Maftir, special Haftarah
  * @param ev the Hebcal event associated with this leyning
  * @param [il] true if Israel holiday scheme
+ * @param [language] language for summary (default 'en')
  * @returns map of aliyot
  */
 export function getLeyningForHoliday(
   ev: Event,
-  il = false
+  il = false,
+  language: string = 'en'
 ): Leyning | undefined {
   if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
     throw new TypeError(`Bad event argument: ${JSON.stringify(ev)}`);
@@ -124,7 +135,12 @@ export function getLeyningForHoliday(
     return undefined;
   }
   const key = getLeyningKeyForEvent(ev, il);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const leyning = getLeyningForHolidayKey(key, (ev as any).cholHaMoedDay, il);
+
+  const leyning = getLeyningForHolidayKey(
+    key,
+    (ev as any).cholHaMoedDay, // eslint-disable-line @typescript-eslint/no-explicit-any
+    il,
+    language
+  );
   return leyning;
 }
