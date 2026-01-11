@@ -162,35 +162,54 @@ describe('formatVerseToHebrew', () => {
 });
 
 describe('formatAliyahShort', () => {
+  const testCases = [
+    {
+      desc: 'with book name, same chapter',
+      aliyah: {k: 'Numbers', b: '28:9', e: '28:15'},
+      includeBook: true,
+      expectedEn: 'Numbers 28:9-15',
+      expectedHe: 'בְּמִדְבַּר כח:ט-טו',
+    },
+    {
+      desc: 'without book name, same chapter',
+      aliyah: {k: 'Numbers', b: '28:9', e: '28:15'},
+      includeBook: false,
+      expectedEn: '28:9-15',
+      expectedHe: 'כח:ט-טו',
+    },
+    {
+      desc: 'with book name, different chapters',
+      aliyah: {k: 'Genesis', b: '1:1', e: '2:3'},
+      includeBook: true,
+      expectedEn: 'Genesis 1:1-2:3',
+      expectedHe: 'בְּרֵאשִׁית א:א-ב:ג',
+    },
+    {
+      desc: 'without book name, different chapters',
+      aliyah: {k: 'Genesis', b: '1:1', e: '2:3'},
+      includeBook: false,
+      expectedEn: '1:1-2:3',
+      expectedHe: 'א:א-ב:ג',
+    },
+    {
+      desc: 'with book name, single verse',
+      aliyah: {k: 'Exodus', b: '12:21', e: '12:21'},
+      includeBook: true,
+      expectedEn: 'Exodus 12:21',
+      expectedHe: 'שְׁמוֹת יב:כא',
+    },
+    {
+      desc: 'without book name, single verse',
+      aliyah: {k: 'Exodus', b: '12:21', e: '12:21'},
+      includeBook: false,
+      expectedEn: '12:21',
+      expectedHe: 'יב:כא',
+    },
+  ];
+
   describe('English formatting', () => {
-    test('with book name, same chapter', () => {
-      const aliyah = {k: 'Numbers', b: '28:9', e: '28:15'};
-      expect(formatAliyahShort(aliyah, true, 'en')).toBe('Numbers 28:9-15');
-    });
-
-    test('without book name, same chapter', () => {
-      const aliyah = {k: 'Numbers', b: '28:9', e: '28:15'};
-      expect(formatAliyahShort(aliyah, false, 'en')).toBe('28:9-15');
-    });
-
-    test('with book name, different chapters', () => {
-      const aliyah = {k: 'Genesis', b: '1:1', e: '2:3'};
-      expect(formatAliyahShort(aliyah, true, 'en')).toBe('Genesis 1:1-2:3');
-    });
-
-    test('without book name, different chapters', () => {
-      const aliyah = {k: 'Genesis', b: '1:1', e: '2:3'};
-      expect(formatAliyahShort(aliyah, false, 'en')).toBe('1:1-2:3');
-    });
-
-    test('with book name, single verse', () => {
-      const aliyah = {k: 'Exodus', b: '12:21', e: '12:21'};
-      expect(formatAliyahShort(aliyah, true, 'en')).toBe('Exodus 12:21');
-    });
-
-    test('without book name, single verse', () => {
-      const aliyah = {k: 'Exodus', b: '12:21', e: '12:21'};
-      expect(formatAliyahShort(aliyah, false, 'en')).toBe('12:21');
+    test.each(testCases)('$desc', ({aliyah, includeBook, expectedEn}) => {
+      expect(formatAliyahShort(aliyah, includeBook, 'en')).toBe(expectedEn);
     });
 
     test('default language is English', () => {
@@ -207,34 +226,8 @@ describe('formatAliyahShort', () => {
   });
 
   describe('Hebrew formatting', () => {
-    test('with book name, same chapter', () => {
-      const aliyah = {k: 'Numbers', b: '28:9', e: '28:15'};
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('בְּמִדְבַּר כח:ט-טו');
-    });
-
-    test('without book name, same chapter', () => {
-      const aliyah = {k: 'Numbers', b: '28:9', e: '28:15'};
-      expect(formatAliyahShort(aliyah, false, 'he')).toBe('כח:ט-טו');
-    });
-
-    test('with book name, different chapters', () => {
-      const aliyah = {k: 'Genesis', b: '1:1', e: '2:3'};
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('בְּרֵאשִׁית א:א-ב:ג');
-    });
-
-    test('without book name, different chapters', () => {
-      const aliyah = {k: 'Genesis', b: '1:1', e: '2:3'};
-      expect(formatAliyahShort(aliyah, false, 'he')).toBe('א:א-ב:ג');
-    });
-
-    test('with book name, single verse', () => {
-      const aliyah = {k: 'Exodus', b: '12:21', e: '12:21'};
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('שְׁמוֹת יב:כא');
-    });
-
-    test('without book name, single verse', () => {
-      const aliyah = {k: 'Exodus', b: '12:21', e: '12:21'};
-      expect(formatAliyahShort(aliyah, false, 'he')).toBe('יב:כא');
+    test.each(testCases)('$desc', ({aliyah, includeBook, expectedHe}) => {
+      expect(formatAliyahShort(aliyah, includeBook, 'he')).toBe(expectedHe);
     });
 
     test('special cases for 15 and 16 (avoiding God\'s name)', () => {

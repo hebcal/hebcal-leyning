@@ -33,22 +33,32 @@ test('getLeyningOnDate-parsha', () => {
   expect(reading).toEqual(expected);
 
   const readingHe = getLeyningOnDate(hd, false, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Vaetchanan', he: 'וָאֶתְחַנַּן'});
-  expect(readingHe.summary).toBe('דְּבָרִים ג:כג-ז:יא');
-  expect(readingHe.fullkriyah['1'].k).toBe('דְּבָרִים');
-  expect(readingHe.fullkriyah['1'].k).toBe('דְּבָרִים');
-  expect(readingHe.fullkriyah['1'].b).toBe('ג:כג');
-  expect(readingHe.fullkriyah['1'].e).toBe('ד:ד');
-  expect(readingHe.fullkriyah['1'].v).toBe(11);
-  expect(readingHe.fullkriyah['M'].k).toBe('דְּבָרִים');
-  expect(readingHe.fullkriyah['M'].b).toBe('ז:ט');
-  expect(readingHe.fullkriyah['M'].e).toBe('ז:יא');
-  expect(readingHe.fullkriyah['M'].v).toBe(3);
-  expect(readingHe.haft.k).toBe('יְשַׁעְיָהוּ');
-  expect(readingHe.haft.b).toBe('מ:א');
-  expect(readingHe.haft.e).toBe('מ:כו');
-  expect(readingHe.haft.v).toBe(26);
-  expect(readingHe.haftara).toBe('יְשַׁעְיָהוּ מ:א-כו');
+  const expectedHe = {
+    name: {
+      en: 'Vaetchanan',
+      he: 'וָאֶתְחַנַּן',
+    },
+    type: 'shabbat',
+    parsha: [
+      'Vaetchanan',
+    ],
+    parshaNum: 45,
+    summary: 'דְּבָרִים ג:כג-ז:יא',
+    fullkriyah: {
+      '1': {k: 'דְּבָרִים', b: 'ג:כג', e: 'ד:ד', v: 11},
+      '2': {k: 'דְּבָרִים', b: 'ד:ה', e: 'ד:מ', v: 36},
+      '3': {k: 'דְּבָרִים', b: 'ד:מא', e: 'ד:מט', v: 9},
+      '4': {k: 'דְּבָרִים', b: 'ה:א', e: 'ה:יח', v: 18},
+      '5': {k: 'דְּבָרִים', b: 'ה:יט', e: 'ו:ג', v: 15},
+      '6': {k: 'דְּבָרִים', b: 'ו:ד', e: 'ו:כה', v: 22},
+      '7': {k: 'דְּבָרִים', b: 'ז:א', e: 'ז:יא', v: 11},
+      'M': {k: 'דְּבָרִים', b: 'ז:ט', e: 'ז:יא', v: 3},
+    },
+    haft: {k: 'יְשַׁעְיָהוּ', b: 'מ:א', e: 'מ:כו', v: 26},
+    haftara: 'יְשַׁעְיָהוּ מ:א-כו',
+    haftaraNumV: 26,
+  };
+  expect(readingHe).toEqual(expectedHe);
 });
 
 test('getLeyningOnDate-holiday1', () => {
@@ -79,30 +89,29 @@ test('getLeyningOnDate-holiday1', () => {
   expect(reading).toEqual(expected);
 
   const readingHe = getLeyningOnDate(hd, false, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Rosh Hashana II', he: 'רֹאשׁ הַשָּׁנָה יוֹם ב׳'});
-  expect(readingHe.summary).toBe('בְּרֵאשִׁית כב:א-כד; בְּמִדְבַּר כט:א-ו');
-  expect(readingHe.fullkriyah['1'].k).toBe('בְּרֵאשִׁית');
-  expect(readingHe.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.fullkriyah['1'].k).toBe('בְּרֵאשִׁית');
-  expect(readingHe.fullkriyah['1'].b).toBe('כב:א');
-  expect(readingHe.fullkriyah['1'].e).toBe('כב:ג');
-  expect(readingHe.fullkriyah['1'].v).toBe(3);
-  expect(readingHe.fullkriyah['5'].k).toBe('בְּרֵאשִׁית');
-  expect(readingHe.fullkriyah['5'].b).toBe('כב:כ');
-  expect(readingHe.fullkriyah['5'].e).toBe('כב:כד');
-  expect(readingHe.fullkriyah['5'].v).toBe(5);
-  expect(readingHe.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.fullkriyah['M'].b).toBe('כט:א');
-  expect(readingHe.fullkriyah['M'].e).toBe('כט:ו');
-  expect(readingHe.fullkriyah['M'].v).toBe(6);
-  expect(readingHe.summaryParts[0].k).toBe('בְּרֵאשִׁית');
-  expect(readingHe.summaryParts[0].b).toBe('כב:א');
-  expect(readingHe.summaryParts[0].e).toBe('כב:כד');
-  expect(readingHe.summaryParts[1].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.summaryParts[1].b).toBe('כט:א');
-  expect(readingHe.summaryParts[1].e).toBe('כט:ו');
-  expect(readingHe.haft.k).toBe('יִרְמְיָהוּ');
-  expect(readingHe.haftara).toBe('יִרְמְיָהוּ לא:ב-כ');
+  const expectedHe = {
+    name: {en: 'Rosh Hashana II', he: 'רֹאשׁ הַשָּׁנָה יוֹם ב׳'},
+    type: 'holiday',
+    fullkriyah: {
+      '1': {p: 4, k: 'בְּרֵאשִׁית', b: 'כב:א', e: 'כב:ג', v: 3},
+      '2': {p: 4, k: 'בְּרֵאשִׁית', b: 'כב:ד', e: 'כב:ח', v: 5},
+      '3': {p: 4, k: 'בְּרֵאשִׁית', b: 'כב:ט', e: 'כב:יד', v: 6},
+      '4': {p: 4, k: 'בְּרֵאשִׁית', b: 'כב:טו', e: 'כב:יט', v: 5},
+      '5': {p: 4, k: 'בְּרֵאשִׁית', b: 'כב:כ', e: 'כב:כד', v: 5},
+      'M': {p: 41, k: 'בְּמִדְבַּר', b: 'כט:א', e: 'כט:ו', v: 6},
+    },
+    summary: 'בְּרֵאשִׁית כב:א-כד; בְּמִדְבַּר כט:א-ו',
+    summaryParts: [
+      {k: 'בְּרֵאשִׁית', b: 'כב:א', e: 'כב:כד'},
+      {k: 'בְּמִדְבַּר', b: 'כט:א', e: 'כט:ו'},
+    ],
+    haft: {k: 'יִרְמְיָהוּ', b: 'לא:ב', e: 'לא:כ', v: 19,
+      "note": "labeled 31:1–19 in some books",
+    },
+    haftara: 'יִרְמְיָהוּ לא:ב-כ',
+    haftaraNumV: 19,
+  };
+  expect(readingHe).toEqual(expectedHe);
 });
 
 test('getLeyningOnDate-holiday2', () => {
@@ -123,30 +132,19 @@ test('getLeyningOnDate-holiday2', () => {
   expect(reading).toEqual(expected);
 
   const readingHe = getLeyningOnDate(hd, false, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Rosh Chodesh Cheshvan', he: 'רֹאשׁ חוֹדֶשׁ חֶשְׁוָן'});
-  expect(readingHe.summary).toBe('בְּמִדְבַּר כח:א-טו');
-  expect(readingHe.summaryParts.length).toBe(1);
-  expect(readingHe.summaryParts[0].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.summaryParts[0].b).toBe('כח:א');
-  expect(readingHe.summaryParts[0].e).toBe('כח:טו');
-  expect(readingHe.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.fullkriyah['1'].b).toBe('כח:א');
-  expect(readingHe.fullkriyah['1'].e).toBe('כח:ג');
-  expect(readingHe.fullkriyah['1'].v).toBe(3);
-  expect(readingHe.fullkriyah['2'].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.fullkriyah['2'].b).toBe('כח:ג');
-  expect(readingHe.fullkriyah['2'].e).toBe('כח:ה');
-  expect(readingHe.fullkriyah['2'].v).toBe(3);
-  expect(readingHe.fullkriyah['3'].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.fullkriyah['3'].b).toBe('כח:ו');
-  expect(readingHe.fullkriyah['3'].e).toBe('כח:י');
-  expect(readingHe.fullkriyah['3'].v).toBe(5);
-  expect(readingHe.fullkriyah['4'].k).toBe('בְּמִדְבַּר');
-  expect(readingHe.fullkriyah['4'].b).toBe('כח:יא');
-  expect(readingHe.fullkriyah['4'].e).toBe('כח:טו');
-  expect(readingHe.fullkriyah['4'].v).toBe(5);
-  expect(readingHe.fullkriyah['5']).toBeUndefined();
-  expect(readingHe.fullkriyah['M']).toBeUndefined();
+  const expectedHe = {
+    name: {en: 'Rosh Chodesh Cheshvan', he: 'רֹאשׁ חוֹדֶשׁ חֶשְׁוָן'},
+    type: 'holiday',
+    summary: 'בְּמִדְבַּר כח:א-טו',
+    summaryParts: [{k: 'בְּמִדְבַּר', b: 'כח:א', e: 'כח:טו'}],
+    fullkriyah: {
+      '1': {p: 41, k: 'בְּמִדְבַּר', b: 'כח:א', e: 'כח:ג', v: 3},
+      '2': {p: 41, k: 'בְּמִדְבַּר', b: 'כח:ג', e: 'כח:ה', v: 3},
+      '3': {p: 41, k: 'בְּמִדְבַּר', b: 'כח:ו', e: 'כח:י', v: 5},
+      '4': {p: 41, k: 'בְּמִדְבַּר', b: 'כח:יא', e: 'כח:טו', v: 5},
+    },
+  };
+  expect(readingHe).toEqual(expectedHe);
 });
 
 test('getLeyningOnDate-weekday1', () => {
@@ -167,21 +165,19 @@ test('getLeyningOnDate-weekday1', () => {
   expect(reading).toEqual(expected);
 
   const readingHe = getLeyningOnDate(hd, false, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Eikev', he: 'עֵקֶב'});
-  expect(readingHe.summary).toBe('דְּבָרִים ז:יב-ח:י');
-  expect(readingHe.type).toBe('weekday');
-  for (const key in readingHe.weekday) {
-    expect(readingHe.weekday[key].k).toBe('דְּבָרִים');
- }
-  expect(readingHe.weekday['1'].b).toBe('ז:יב');
-  expect(readingHe.weekday['1'].e).toBe('ז:כא');
-  expect(readingHe.weekday['1'].v).toBe(10);
-  expect(readingHe.weekday['2'].b).toBe('ז:כב');
-  expect(readingHe.weekday['2'].e).toBe('ח:ג');
-  expect(readingHe.weekday['2'].v).toBe(8);
-  expect(readingHe.weekday['3'].b).toBe('ח:ד');
-  expect(readingHe.weekday['3'].e).toBe('ח:י');
-  expect(readingHe.weekday['3'].v).toBe(7);
+  const expectedHe = {
+    name: {en: 'Eikev', he: 'עֵקֶב'},
+    type: 'weekday',
+    parsha: ['Eikev'],
+    parshaNum: 46,
+    summary: 'דְּבָרִים ז:יב-ח:י',
+    weekday: {
+      '1': {k: 'דְּבָרִים', b: 'ז:יב', e: 'ז:כא', v: 10},
+      '2': {k: 'דְּבָרִים', b: 'ז:כב', e: 'ח:ג', v: 8},
+      '3': {k: 'דְּבָרִים', b: 'ח:ד', e: 'ח:י', v: 7},
+    },
+  };
+  expect(readingHe).toEqual(expectedHe);
 
 });
 
@@ -202,21 +198,19 @@ test('getLeyningOnDate-weekday2', () => {
   };
   expect(reading).toEqual(expected);
   const readingHe = getLeyningOnDate(hd, false, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Vayakhel-Pekudei', he: 'וַיַּקְהֵל־פְקוּדֵי'});
-  expect(readingHe.summary).toBe('שְׁמוֹת לה:א-כ');
-  expect(readingHe.summaryParts).toBe(undefined);
-  for (const key in readingHe.weekday) {
-    expect(readingHe.weekday[key].k).toBe('שְׁמוֹת');
-  }
-  expect(readingHe.weekday['1'].b).toBe('לה:א');
-  expect(readingHe.weekday['1'].e).toBe('לה:ג');
-  expect(readingHe.weekday['1'].v).toBe(3);
-  expect(readingHe.weekday['2'].b).toBe('לה:ד');
-  expect(readingHe.weekday['2'].e).toBe('לה:י');
-  expect(readingHe.weekday['2'].v).toBe(7);
-  expect(readingHe.weekday['3'].b).toBe('לה:יא');
-  expect(readingHe.weekday['3'].e).toBe('לה:כ');
-  expect(readingHe.weekday['3'].v).toBe(10);
+  const expectedHe = {
+    name: {en: 'Vayakhel-Pekudei', he: 'וַיַּקְהֵל־פְקוּדֵי'},
+    type: 'weekday',
+    parsha: ['Vayakhel', 'Pekudei'],
+    parshaNum: [22, 23],
+    summary: 'שְׁמוֹת לה:א-כ',
+    weekday: {
+      '1': {k: 'שְׁמוֹת', b: 'לה:א', e: 'לה:ג', v: 3},
+      '2': {k: 'שְׁמוֹת', b: 'לה:ד', e: 'לה:י', v: 7},
+      '3': {k: 'שְׁמוֹת', b: 'לה:יא', e: 'לה:כ', v: 10},
+    },
+  };
+  expect(readingHe).toEqual(expectedHe);
 });
 
 test('getLeyningOnDate-weekday-search1', () => {
@@ -236,21 +230,19 @@ test('getLeyningOnDate-weekday-search1', () => {
   };
   expect(reading).toEqual(expected);
   const readingHe = getLeyningOnDate(hd, false, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Ha\'azinu', he: 'הַאֲזִינוּ'});
-  expect(readingHe.summary).toBe('דְּבָרִים לב:א-יב');
-  expect(readingHe.type).toBe('weekday');
-  for (const key in readingHe.weekday) {
-    expect(readingHe.weekday[key].k).toBe('דְּבָרִים');
-  }
-  expect(readingHe.weekday['1'].b).toBe('לב:א');
-  expect(readingHe.weekday['1'].e).toBe('לב:ג');
-  expect(readingHe.weekday['1'].v).toBe(3);
-  expect(readingHe.weekday['2'].b).toBe('לב:ד');
-  expect(readingHe.weekday['2'].e).toBe('לב:ו');
-  expect(readingHe.weekday['2'].v).toBe(3);
-  expect(readingHe.weekday['3'].b).toBe('לב:ז');
-  expect(readingHe.weekday['3'].e).toBe('לב:יב');
-  expect(readingHe.weekday['3'].v).toBe(6);
+  const expectedHe = {
+    name: {en: 'Ha\'azinu', he: 'הַאֲזִינוּ'},
+    type: 'weekday',
+    parsha: ['Ha\'azinu'],
+    parshaNum: 53,
+    summary: 'דְּבָרִים לב:א-יב',
+    weekday: {
+      '1': {k: 'דְּבָרִים', b: 'לב:א', e: 'לב:ג', v: 3},
+      '2': {k: 'דְּבָרִים', b: 'לב:ד', e: 'לב:ו', v: 3},
+      '3': {k: 'דְּבָרִים', b: 'לב:ז', e: 'לב:יב', v: 6},
+    },
+  };
+  expect(readingHe).toEqual(expectedHe);
 });
 
 test('getLeyningOnDate-weekday-erev-sukkot', () => {
@@ -276,21 +268,19 @@ test('getLeyningOnDate-weekday-search2', () => {
   };
   expect(reading).toEqual(expected);
   const readingHe = getLeyningOnDate(hd, true, false, 'he');
-  expect(readingHe.name).toEqual({en: 'Bereshit', he: 'בְּרֵאשִׁית'});
-  expect(readingHe.summary).toBe('בְּרֵאשִׁית א:א-יג');
-  expect(readingHe.type).toBe('weekday');
-  for (const key in readingHe.weekday) {
-    expect(readingHe.weekday[key].k).toBe('בְּרֵאשִׁית');
-  }
-  expect(readingHe.weekday['1'].b).toBe('א:א');
-  expect(readingHe.weekday['1'].e).toBe('א:ה');
-  expect(readingHe.weekday['1'].v).toBe(5);
-  expect(readingHe.weekday['2'].b).toBe('א:ו');
-  expect(readingHe.weekday['2'].e).toBe('א:ח');
-  expect(readingHe.weekday['2'].v).toBe(3);
-  expect(readingHe.weekday['3'].b).toBe('א:ט');
-  expect(readingHe.weekday['3'].e).toBe('א:יג');
-  expect(readingHe.weekday['3'].v).toBe(5);
+  const expectedHe = {
+    name: {en: 'Bereshit', he: 'בְּרֵאשִׁית'},
+    type: 'weekday',
+    parsha: ['Bereshit'],
+    parshaNum: 1,
+    summary: 'בְּרֵאשִׁית א:א-יג',
+    weekday: {
+      '1': {k: 'בְּרֵאשִׁית', b: 'א:א', e: 'א:ה', v: 5},
+      '2': {k: 'בְּרֵאשִׁית', b: 'א:ו', e: 'א:ח', v: 3},
+      '3': {k: 'בְּרֵאשִׁית', b: 'א:ט', e: 'א:יג', v: 5},
+    },
+  };
+  expect(readingHe).toEqual(expectedHe);
 });
 
 test('getLeyningOnDate-weekday-undefined', () => {
