@@ -197,28 +197,28 @@ test('getLeyningForParsha-Hebrew-single', () => {
   expect(reading.parshaNum).toBe(41);
 
   expect(reading.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['1'].b).toBe('כה:י');
-  expect(reading.fullkriyah['1'].e).toBe('כו:ד');
+  expect(reading.fullkriyah['1'].b).toBe('כ״ה:י׳');
+  expect(reading.fullkriyah['1'].e).toBe('כ״ו:ד׳');
   expect(reading.fullkriyah['1'].v).toBe(14);
 
   expect(reading.fullkriyah['2'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['2'].b).toBe('כו:ה');
-  expect(reading.fullkriyah['2'].e).toBe('כו:נא');
+  expect(reading.fullkriyah['2'].b).toBe('כ״ו:ה׳');
+  expect(reading.fullkriyah['2'].e).toBe('כ״ו:נ״א');
 
   expect(reading.fullkriyah['7'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['7'].b).toBe('כט:יב');
-  expect(reading.fullkriyah['7'].e).toBe('ל:א');
+  expect(reading.fullkriyah['7'].b).toBe('כ״ט:י״ב');
+  expect(reading.fullkriyah['7'].e).toBe('ל׳:א׳');
 
   expect(reading.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['M'].b).toBe('כט:לה');
-  expect(reading.fullkriyah['M'].e).toBe('ל:א');
+  expect(reading.fullkriyah['M'].b).toBe('כ״ט:ל״ה');
+  expect(reading.fullkriyah['M'].e).toBe('ל׳:א׳');
  
-  expect(reading.summary).toBe('בְּמִדְבַּר כה:י-ל:א');
+  expect(reading.summary).toBe('בְּמִדְבַּר כ״ה:י׳-ל׳:א׳');
 
   expect(reading.haft.k).toBe('מְלָכִים א');
-  expect(reading.haft.b).toBe('יח:מו');
-  expect(reading.haft.e).toBe('יט:כא');
-  expect(reading.haftara).toBe('מְלָכִים א יח:מו-יט:כא');
+  expect(reading.haft.b).toBe('י״ח:מ״ו');
+  expect(reading.haft.e).toBe('י״ט:כ״א');
+  expect(reading.haftara).toBe('מְלָכִים א י״ח:מ״ו-י״ט:כ״א');
   expect(reading.haftaraNumV).toBe(22);
 });
 
@@ -233,44 +233,44 @@ test('getLeyningForParsha-Hebrew-combined', () => {
   expect(reading.parshaNum).toEqual([42, 43]);
 
   expect(reading.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['1'].b).toBe('ל:ב');
-  expect(reading.fullkriyah['1'].e).toBe('לא:יב');
+  expect(reading.fullkriyah['1'].b).toBe('ל׳:ב׳');
+  expect(reading.fullkriyah['1'].e).toBe('ל״א:י״ב');
   expect(reading.fullkriyah['1'].v).toBe(28);
 
   expect(reading.fullkriyah['7'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['7'].b).toBe('לה:ט');
-  expect(reading.fullkriyah['7'].e).toBe('לו:יג');
+  expect(reading.fullkriyah['7'].b).toBe('ל״ה:ט׳');
+  expect(reading.fullkriyah['7'].e).toBe('ל״ו:י״ג');
   expect(reading.fullkriyah['7'].v).toBe(39);
 
   expect(reading.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['M'].b).toBe('לו:יא');
-  expect(reading.fullkriyah['M'].e).toBe('לו:יג');
+  expect(reading.fullkriyah['M'].b).toBe('ל״ו:י״א');
+  expect(reading.fullkriyah['M'].e).toBe('ל״ו:י״ג');
   expect(reading.fullkriyah['M'].v).toBe(3);
 
-  expect(reading.summary).toBe('בְּמִדְבַּר ל:ב-לו:יג');
+  expect(reading.summary).toBe('בְּמִדְבַּר ל׳:ב׳-ל״ו:י״ג');
 
   expect(reading.haft).toHaveLength(2);
   expect(reading.haft[0].k).toBe('יִרְמְיָהוּ');
-  expect(reading.haft[0].b).toBe('ב:ד');
-  expect(reading.haft[0].e).toBe('ב:כח');
+  expect(reading.haft[0].b).toBe('ב׳:ד׳');
+  expect(reading.haft[0].e).toBe('ב׳:כ״ח');
   expect(reading.haft[0].v).toBe(25);
   expect(reading.haft[1].k).toBe('יִרְמְיָהוּ');
-  expect(reading.haft[1].b).toBe('ג:ד');
-  expect(reading.haft[1].e).toBe('ג:ד');
+  expect(reading.haft[1].b).toBe('ג׳:ד׳');
+  expect(reading.haft[1].e).toBe('ג׳:ד׳');
   expect(reading.haft[1].v).toBe(1);
-  expect(reading.haftara).toBe('יִרְמְיָהוּ ב:ד-כח, ג:ד');
+  expect(reading.haftara).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ג׳:ד׳');
   expect(reading.haftaraNumV).toBe(26);
 
   expect(reading.seph).toHaveLength(2);
   expect(reading.seph[0].k).toBe('יִרְמְיָהוּ');
-  expect(reading.seph[0].b).toBe('ב:ד');
-  expect(reading.seph[0].e).toBe('ב:כח');
+  expect(reading.seph[0].b).toBe('ב׳:ד׳');
+  expect(reading.seph[0].e).toBe('ב׳:כ״ח');
   expect(reading.seph[0].v).toBe(25);
   expect(reading.seph[1].k).toBe('יִרְמְיָהוּ');
-  expect(reading.seph[1].b).toBe('ד:א');
-  expect(reading.seph[1].e).toBe('ד:ב');
+  expect(reading.seph[1].b).toBe('ד׳:א׳');
+  expect(reading.seph[1].e).toBe('ד׳:ב׳');
   expect(reading.seph[1].v).toBe(2);
-  expect(reading.sephardic).toBe('יִרְמְיָהוּ ב:ד-כח, ד:א-ב');
+  expect(reading.sephardic).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ד׳:א׳-ב׳');
   expect(reading.sephardicNumV).toBe(27);
 });
 
@@ -282,33 +282,33 @@ test('getLeyningForParsha-Hebrew-Genesis', () => {
   });
 
   expect(reading.fullkriyah['1'].k).toBe('בְּמִדְבַּר');
-  expect(reading.fullkriyah['1'].b).toBe('לג:א');
-  expect(reading.fullkriyah['1'].e).toBe('לג:י');
+  expect(reading.fullkriyah['1'].b).toBe('ל״ג:א׳');
+  expect(reading.fullkriyah['1'].e).toBe('ל״ג:י׳');
   expect(reading.fullkriyah['1'].v).toBe(10);
 
-  expect(reading.summary).toBe('בְּמִדְבַּר לג:א-לו:יג');
+  expect(reading.summary).toBe('בְּמִדְבַּר ל״ג:א׳-ל״ו:י״ג');
 
-  expect(reading.haftara).toBe('יִרְמְיָהוּ ב:ד-כח, ג:ד');
+  expect(reading.haftara).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ג׳:ד׳');
   expect(reading.haftaraNumV).toBe(26);
   expect(reading.haft[0].k).toBe('יִרְמְיָהוּ');
-  expect(reading.haft[0].b).toBe('ב:ד');
-  expect(reading.haft[0].e).toBe('ב:כח');
+  expect(reading.haft[0].b).toBe('ב׳:ד׳');
+  expect(reading.haft[0].e).toBe('ב׳:כ״ח');
   expect(reading.haft[0].v).toBe(25);
   expect(reading.haft[1].k).toBe('יִרְמְיָהוּ');
-  expect(reading.haft[1].b).toBe('ג:ד');
-  expect(reading.haft[1].e).toBe('ג:ד');
+  expect(reading.haft[1].b).toBe('ג׳:ד׳');
+  expect(reading.haft[1].e).toBe('ג׳:ד׳');
   expect(reading.haft[1].v).toBe(1);
   expect(reading.seph).toHaveLength(2);
   expect(reading.seph[0].k).toBe('יִרְמְיָהוּ');
-  expect(reading.seph[0].b).toBe('ב:ד');
-  expect(reading.seph[0].e).toBe('ב:כח');
+  expect(reading.seph[0].b).toBe('ב׳:ד׳');
+  expect(reading.seph[0].e).toBe('ב׳:כ״ח');
   expect(reading.seph[0].v).toBe(25);
   expect(reading.seph[1].k).toBe('יִרְמְיָהוּ');
-  expect(reading.seph[1].b).toBe('ד:א');
-  expect(reading.seph[1].e).toBe('ד:ב');
+  expect(reading.seph[1].b).toBe('ד׳:א׳');
+  expect(reading.seph[1].e).toBe('ד׳:ב׳');
   expect(reading.seph[1].v).toBe(2);
 
-  expect(reading.sephardic).toBe('יִרְמְיָהוּ ב:ד-כח, ד:א-ב');
+  expect(reading.sephardic).toBe('יִרְמְיָהוּ ב׳:ד׳-כ״ח, ד׳:א׳-ב׳');
   expect(reading.sephardicNumV).toBe(27);
 });
 
