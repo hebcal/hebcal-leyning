@@ -9,12 +9,14 @@ const {defineConfig} = require('rollup');
 const banner = '/*! ' + pkg.name + ' v' + pkg.version + ' */';
 
 const iifeGlobals = {
+  '@hebcal/hdate': 'hebcal',
   '@hebcal/core': 'hebcal',
   '@hebcal/core/dist/esm/locale': 'hebcal',
   '@hebcal/core/dist/esm/holidays': 'hebcal',
   '@hebcal/core/dist/esm/sedra': 'hebcal',
   '@hebcal/core/dist/esm/event': 'hebcal',
   '@hebcal/core/dist/esm/ParshaEvent': 'hebcal',
+  '@hebcal/core/dist/esm/HolidayEvent': 'hebcal',
 };
 
 // Override tsconfig.json, which includes ./size-demo.

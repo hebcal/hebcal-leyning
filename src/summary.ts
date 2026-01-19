@@ -1,4 +1,4 @@
-import {Locale} from '@hebcal/hdate/dist/esm/locale';
+import {Locale} from '@hebcal/core/dist/esm/locale';
 import {AliyotMap, Aliyah} from './types';
 import {formatAliyahShort} from './format';
 

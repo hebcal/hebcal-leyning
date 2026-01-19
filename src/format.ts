@@ -1,5 +1,5 @@
-import {gematriya} from '@hebcal/hdate/dist/esm/gematriya';
-import {Locale} from '@hebcal/hdate/dist/esm/locale';
+import {gematriya} from '@hebcal/hdate';
+import {Locale} from '@hebcal/core/dist/esm/locale';
 import {Aliyah} from './types';
 
 function gematriya2(num: number): string {
