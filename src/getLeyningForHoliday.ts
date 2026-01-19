@@ -1,12 +1,7 @@
 import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {Locale} from './locale';
-import {
-  calculateNumVerses,
-  makeLeyningParts,
-  makeSummaryFromParts,
-  NUM_VERSES,
-  translateLeyning,
-} from './common';
+import {calculateNumVerses, NUM_VERSES, translateLeyning} from './common';
+import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {clone, cloneHaftara, sumVerses} from './clone';
 import {lookupFestival} from './festival';
 import {

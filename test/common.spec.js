@@ -1,13 +1,11 @@
 import {expect, test, describe} from 'vitest';
+import {formatAliyahShort, formatVerseToHebrew} from '../src/format';
+import {makeLeyningParts, makeLeyningSummary} from '../src/summary';
 import {
   addVerses,
   calculateNumVerses,
-  formatAliyahShort,
-  formatVerseToHebrew,
   parshaToString,
   subtractVerses,
-  makeLeyningSummary,
-  makeLeyningParts,
 } from '../src/common';
 
 test('calculateNumVerses', () => {
