@@ -95,69 +95,69 @@ test('parshaToString-throws', () => {
 
 describe('formatVerseToHebrew', () => {
   test('single digit chapter and verse', () => {
-    expect(formatVerseToHebrew('1:1')).toBe('א׳:א׳');
-    expect(formatVerseToHebrew('2:3')).toBe('ב׳:ג׳');
-    expect(formatVerseToHebrew('5:7')).toBe('ה׳:ז׳');
-    expect(formatVerseToHebrew('9:9')).toBe('ט׳:ט׳');
+    expect(formatVerseToHebrew('1:1')).toBe('א:א');
+    expect(formatVerseToHebrew('2:3')).toBe('ב:ג');
+    expect(formatVerseToHebrew('5:7')).toBe('ה:ז');
+    expect(formatVerseToHebrew('9:9')).toBe('ט:ט');
   });
 
   test('double digit chapter, single digit verse', () => {
-    expect(formatVerseToHebrew('10:1')).toBe('י׳:א׳');
-    expect(formatVerseToHebrew('20:5')).toBe('כ׳:ה׳');
-    expect(formatVerseToHebrew('28:9')).toBe('כ״ח:ט׳');
-    expect(formatVerseToHebrew('30:1')).toBe('ל׳:א׳');
+    expect(formatVerseToHebrew('10:1')).toBe('י:א');
+    expect(formatVerseToHebrew('20:5')).toBe('כ:ה');
+    expect(formatVerseToHebrew('28:9')).toBe('כח:ט');
+    expect(formatVerseToHebrew('30:1')).toBe('ל:א');
   });
 
   test('single digit chapter, double digit verse', () => {
-    expect(formatVerseToHebrew('1:10')).toBe('א׳:י׳');
-    expect(formatVerseToHebrew('3:20')).toBe('ג׳:כ׳');
-    expect(formatVerseToHebrew('5:25')).toBe('ה׳:כ״ה');
+    expect(formatVerseToHebrew('1:10')).toBe('א:י');
+    expect(formatVerseToHebrew('3:20')).toBe('ג:כ');
+    expect(formatVerseToHebrew('5:25')).toBe('ה:כה');
   });
 
   test('double digit chapter and verse', () => {
-    expect(formatVerseToHebrew('12:21')).toBe('י״ב:כ״א');
-    expect(formatVerseToHebrew('28:15')).toBe('כ״ח:ט״ו');
-    expect(formatVerseToHebrew('22:22')).toBe('כ״ב:כ״ב');
-    expect(formatVerseToHebrew('50:26')).toBe('נ׳:כ״ו');
+    expect(formatVerseToHebrew('12:21')).toBe('יב:כא');
+    expect(formatVerseToHebrew('28:15')).toBe('כח:טו');
+    expect(formatVerseToHebrew('22:22')).toBe('כב:כב');
+    expect(formatVerseToHebrew('50:26')).toBe('נ:כו');
   });
 
   test('special case for 15 (avoiding God\'s name)', () => {
-    expect(formatVerseToHebrew('15:1')).toBe('ט״ו:א׳');
-    expect(formatVerseToHebrew('1:15')).toBe('א׳:ט״ו');
-    expect(formatVerseToHebrew('15:15')).toBe('ט״ו:ט״ו');
+    expect(formatVerseToHebrew('15:1')).toBe('טו:א');
+    expect(formatVerseToHebrew('1:15')).toBe('א:טו');
+    expect(formatVerseToHebrew('15:15')).toBe('טו:טו');
   });
 
   test('special case for 16 (avoiding God\'s name)', () => {
-    expect(formatVerseToHebrew('16:1')).toBe('ט״ז:א׳');
-    expect(formatVerseToHebrew('1:16')).toBe('א׳:ט״ז');
-    expect(formatVerseToHebrew('16:16')).toBe('ט״ז:ט״ז');
+    expect(formatVerseToHebrew('16:1')).toBe('טז:א');
+    expect(formatVerseToHebrew('1:16')).toBe('א:טז');
+    expect(formatVerseToHebrew('16:16')).toBe('טז:טז');
   });
 
   test('chapters with 15 or 16 in tens place', () => {
-    expect(formatVerseToHebrew('25:1')).toBe('כ״ה:א׳');
-    expect(formatVerseToHebrew('35:10')).toBe('ל״ה:י׳');
-    expect(formatVerseToHebrew('45:20')).toBe('מ״ה:כ׳');
+    expect(formatVerseToHebrew('25:1')).toBe('כה:א');
+    expect(formatVerseToHebrew('35:10')).toBe('לה:י');
+    expect(formatVerseToHebrew('45:20')).toBe('מה:כ');
   });
 
   test('larger chapter numbers (50-99)', () => {
-    expect(formatVerseToHebrew('54:1')).toBe('נ״ד:א׳');
-    expect(formatVerseToHebrew('55:5')).toBe('נ״ה:ה׳');
-    expect(formatVerseToHebrew('70:1')).toBe('ע׳:א׳');
-    expect(formatVerseToHebrew('80:5')).toBe('פ׳:ה׳');
-    expect(formatVerseToHebrew('90:1')).toBe('צ׳:א׳');
+    expect(formatVerseToHebrew('54:1')).toBe('נד:א');
+    expect(formatVerseToHebrew('55:5')).toBe('נה:ה');
+    expect(formatVerseToHebrew('70:1')).toBe('ע:א');
+    expect(formatVerseToHebrew('80:5')).toBe('פ:ה');
+    expect(formatVerseToHebrew('90:1')).toBe('צ:א');
   });
 
   test('real-world Torah examples', () => {
-    expect(formatVerseToHebrew('6:3')).toBe('ו׳:ג׳');
-    expect(formatVerseToHebrew('12:1')).toBe('י״ב:א׳');
-    expect(formatVerseToHebrew('20:14')).toBe('כ׳:י״ד');
-    expect(formatVerseToHebrew('33:29')).toBe('ל״ג:כ״ט');
+    expect(formatVerseToHebrew('6:3')).toBe('ו:ג');
+    expect(formatVerseToHebrew('12:1')).toBe('יב:א');
+    expect(formatVerseToHebrew('20:14')).toBe('כ:יד');
+    expect(formatVerseToHebrew('33:29')).toBe('לג:כט');
   });
 
   test('real-world Nevi\'im/Ketuvim examples', () => {
-    expect(formatVerseToHebrew('22:51')).toBe('כ״ב:נ״א');
-    expect(formatVerseToHebrew('46:18')).toBe('מ״ו:י״ח');
-    expect(formatVerseToHebrew('4:7')).toBe('ד׳:ז׳');
+    expect(formatVerseToHebrew('22:51')).toBe('כב:נא');
+    expect(formatVerseToHebrew('46:18')).toBe('מו:יח');
+    expect(formatVerseToHebrew('4:7')).toBe('ד:ז');
   });
 });
 
@@ -168,42 +168,42 @@ describe('formatAliyahShort', () => {
       aliyah: {k: 'Numbers', b: '28:9', e: '28:15'},
       includeBook: true,
       expectedEn: 'Numbers 28:9-15',
-      expectedHe: 'בְּמִדְבַּר כ״ח:ט׳-ט״ו',
+      expectedHe: 'בְּמִדְבַּר כח:ט-טו',
     },
     {
       desc: 'without book name, same chapter',
       aliyah: {k: 'Numbers', b: '28:9', e: '28:15'},
       includeBook: false,
       expectedEn: '28:9-15',
-      expectedHe: 'כ״ח:ט׳-ט״ו',
+      expectedHe: 'כח:ט-טו',
     },
     {
       desc: 'with book name, different chapters',
       aliyah: {k: 'Genesis', b: '1:1', e: '2:3'},
       includeBook: true,
       expectedEn: 'Genesis 1:1-2:3',
-      expectedHe: 'בְּרֵאשִׁית א׳:א׳-ב׳:ג׳',
+      expectedHe: 'בְּרֵאשִׁית א:א-ב:ג',
     },
     {
       desc: 'without book name, different chapters',
       aliyah: {k: 'Genesis', b: '1:1', e: '2:3'},
       includeBook: false,
       expectedEn: '1:1-2:3',
-      expectedHe: 'א׳:א׳-ב׳:ג׳',
+      expectedHe: 'א:א-ב:ג',
     },
     {
       desc: 'with book name, single verse',
       aliyah: {k: 'Exodus', b: '12:21', e: '12:21'},
       includeBook: true,
       expectedEn: 'Exodus 12:21',
-      expectedHe: 'שְׁמוֹת י״ב:כ״א',
+      expectedHe: 'שְׁמוֹת יב:כא',
     },
     {
       desc: 'without book name, single verse',
       aliyah: {k: 'Exodus', b: '12:21', e: '12:21'},
       includeBook: false,
       expectedEn: '12:21',
-      expectedHe: 'י״ב:כ״א',
+      expectedHe: 'יב:כא',
     },
   ];
 
@@ -232,15 +232,15 @@ describe('formatAliyahShort', () => {
 
     test('special cases for 15 and 16 (avoiding God\'s name)', () => {
       const aliyah15 = {k: 'Leviticus', b: '15:1', e: '15:15'};
-      expect(formatAliyahShort(aliyah15, false, 'he')).toBe('ט״ו:א׳-ט״ו');
+      expect(formatAliyahShort(aliyah15, false, 'he')).toBe('טו:א-טו');
 
       const aliyah16 = {k: 'Leviticus', b: '16:1', e: '16:16'};
-      expect(formatAliyahShort(aliyah16, false, 'he')).toBe('ט״ז:א׳-ט״ז');
+      expect(formatAliyahShort(aliyah16, false, 'he')).toBe('טז:א-טז');
     });
 
     test('with Nevi\'im books', () => {
       const aliyah = {k: 'Isaiah', b: '54:1', e: '55:5'};
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('יְשַׁעְיָהוּ נ״ד:א׳-נ״ה:ה׳');
+      expect(formatAliyahShort(aliyah, true, 'he')).toBe('יְשַׁעְיָהוּ נד:א-נה:ה');
     });
   });
 
@@ -248,19 +248,19 @@ describe('formatAliyahShort', () => {
     test('chapter 1, verse 1', () => {
       const aliyah = {k: 'Genesis', b: '1:1', e: '1:1'};
       expect(formatAliyahShort(aliyah, true, 'en')).toBe('Genesis 1:1');
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('בְּרֵאשִׁית א׳:א׳');
+      expect(formatAliyahShort(aliyah, true, 'he')).toBe('בְּרֵאשִׁית א:א');
     });
 
     test('II Samuel (Roman numerals)', () => {
       const aliyah = {k: 'II Samuel', b: '22:1', e: '22:51'};
       expect(formatAliyahShort(aliyah, true, 'en')).toBe('II Samuel 22:1-51');
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('שְׁמוּאֵל ב כ״ב:א׳-נ״א');
+      expect(formatAliyahShort(aliyah, true, 'he')).toBe('שְׁמוּאֵל ב כב:א-נא');
     });
 
     test('Song of Songs (multi-word book)', () => {
       const aliyah = {k: 'Song of Songs', b: '1:1', e: '1:4'};
       expect(formatAliyahShort(aliyah, true, 'en')).toBe('Song of Songs 1:1-4');
-      expect(formatAliyahShort(aliyah, true, 'he')).toBe('שִׁיר הַשִּׁירִים א׳:א׳-ד׳');
+      expect(formatAliyahShort(aliyah, true, 'he')).toBe('שִׁיר הַשִּׁירִים א:א-ד');
     });
   });
 });
