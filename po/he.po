@@ -17,9 +17,6 @@ msgstr "שַׁבָּת מָחָר חוֹדֶשׁ"
 msgid "Shabbat Rosh Chodesh"
 msgstr "שַׁבָּת רֹאשׁ חוֹדֶשׁ"
 
-msgid "Rosh Chodesh Tishrei"
-msgstr "רֹאשׁ חוֹדֶשׁ תִּשְׁרֵי"
-
 msgid "Pesach I (on Shabbat)"
 msgstr "פֶּסַח יוֹם א׳ (בְּשַׁבָּת)"
 
@@ -44,12 +41,6 @@ msgstr "פֶּסַח חוֹל הַמּוֹעֵד יוֹם ד׳"
 msgid "Pesach Chol ha-Moed Day 5"
 msgstr "פֶּסַח חוֹל הַמּוֹעֵד יוֹם ה׳"
 
-msgid "Pesach Shabbat Chol ha-Moed"
-msgstr "פֶּסַח שַׁבָּת חוֹל הַמּוֹעֵד"
-
-msgid "Pesach VII"
-msgstr "פֶּסַח יוֹם ז׳"
-
 msgid "Pesach VII (on Shabbat)"
 msgstr "פֶּסַח ז׳ (בְּשַׁבָּת)"
 
@@ -66,10 +57,7 @@ msgid "Fast Day (Afternoon)"
 msgstr "תַּעֲנִית (מִנְחָה)"
 
 msgid "Rosh Hashana I (on Shabbat)"
-msgstr "רֹאשׁ הַשָּׁנָה יוֹם א׳ (בְּשַׁבָּת)"
-
-msgid "Rosh Hashana II"
-msgstr "רֹאשׁ הַשָּׁנָה יוֹם ב׳"
+msgstr "רֹאשׁ הַשָּׁנָה א׳ (בְּשַׁבָּת)"
 
 msgid "Yom Kippur (on Shabbat)"
 msgstr "יוֹם כִּפּוּר (בְּשַׁבָּת)"
@@ -97,9 +85,6 @@ msgstr "סוּכּוֹת חוֹל הַמּוֹעֵד יוֹם ד׳"
 
 msgid "Sukkot Chol ha-Moed Day 5"
 msgstr "סוּכּוֹת חוֹל הַמּוֹעֵד יוֹם ה׳"
-
-msgid "Sukkot Shabbat Chol ha-Moed"
-msgstr "סוּכּוֹת שַׁבָּת חוֹל הַמּוֹעֵד"
 
 msgid "Sukkot Final Day (Hoshana Raba)"
 msgstr "סוּכּוֹת ז׳ (הוֹשַׁעְנָא רַבָּה)"
@@ -297,17 +282,8 @@ msgstr "מַטּוֹת־מַסְעֵי בְּשַׁבָּת רֹאשׁ חוֹד�
 msgid "Ki Teitzei with 3rd Haftarah of Consolation"
 msgstr "כִּי־תֵצֵא עם הַפְטָרָה שְׁלִישִׁית שֶׁל נֶחָמָה"
 
-msgid "Shabbat HaChodesh"
-msgstr "שַׁבָּת הַחוֹדֶשׁ"
-
 msgid "Shabbat HaChodesh (on Rosh Chodesh)"
 msgstr "שַׁבָּת הַחוֹדֶשׁ (בְּרֹאשׁ חוֹדֶשׁ)"
-
-msgid "Shabbat HaGadol"
-msgstr "שַׁבָּת הַגָּדוֹל"
-
-msgid "Shabbat Shekalim"
-msgstr "שַׁבָּת שְׁקָלִים"
 
 msgid "Shabbat Shekalim (on Rosh Chodesh)"
 msgstr "שַׁבָּת שְׁקָלִים (רֹאשׁ חוֹדֶשׁ)"
