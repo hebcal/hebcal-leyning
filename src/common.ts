@@ -240,16 +240,23 @@ export function formatAliyahShort(
   return `${prefix}${begin}-${end}`;
 }
 
-export function formatVerseToHebrew(verse: string): string {
-  if (verse === undefined || verse === null) {
+function gematriya2(num: number): string {
+  const str = gematriya(num);
+  return str.replaceAll(/[׳״]/g, '');
+}
+
+export function formatVerseToHebrew(chapVerse: string): string {
+  if (chapVerse === undefined || chapVerse === null) {
     return '';
   }
-  const cv = verse.split(':');
+  const cv = chapVerse.split(':');
+  const chapter = parseInt(cv[0], 10);
+  const verse = parseInt(cv[1], 10);
   // if not number return empty string
-  if (isNaN(parseInt(cv[0], 10)) || isNaN(parseInt(cv[1], 10))) {
-    return verse;
+  if (isNaN(chapter) || isNaN(verse)) {
+    return chapVerse;
   }
-  return `${gematriya(parseInt(cv[0], 10))}:${gematriya(parseInt(cv[1], 10))}`;
+  return `${gematriya2(chapter)}:${gematriya2(verse)}`;
 }
 
 /**
