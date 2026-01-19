@@ -31,12 +31,12 @@ export function lookupFestival(
   holiday: string
 ): JsonFestivalLeyning | undefined {
   let src = festivals[holiday];
-  if (typeof src === 'undefined') {
+  if (!src) {
     return undefined;
   }
   if (src.alias) {
     const tmp = festivals[src.key!];
-    if (typeof tmp === 'undefined') {
+    if (!tmp) {
       throw new Error(`Leyning alias ${holiday} => ${src.key} not found`);
     }
     src = tmp;

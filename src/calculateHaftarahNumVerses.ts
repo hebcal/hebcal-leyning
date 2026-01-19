@@ -8,13 +8,13 @@ export function calculateHaftarahNumVerses(
   let total = 0;
   let prevBook = '';
   for (const haft of sections) {
-    const matches = haft.trim().match(/^(([^\d]+)\s+)?(\d.+)$/);
+    const matches = new RegExp(/^(([^\d]+)\s+)?(\d.+)$/).exec(haft.trim());
     if (matches !== null) {
       const hbook = matches[2] ? matches[2].trim() : prevBook;
       const hverses = matches[3].trim();
-      const cv = hverses.match(/^(\d+:\d+)\s*-\s*(\d+(:\d+)?)$/);
+      const cv = new RegExp(/^(\d+:\d+)\s*-\s*(\d+(:\d+)?)$/).exec(hverses);
       if (cv) {
-        if (cv[2].indexOf(':') === -1) {
+        if (!cv[2].includes(':')) {
           const chap = cv[1].substring(0, cv[1].indexOf(':'));
           cv[2] = `${chap}:${cv[2]}`;
         }

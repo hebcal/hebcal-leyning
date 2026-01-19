@@ -168,7 +168,7 @@ function getFullKriyahLines(reading: Leyning): CsvLine[] {
   const lines: CsvLine[] = [];
   if (reading.fullkriyah) {
     for (const [num, aliyah] of Object.entries(reading.fullkriyah)) {
-      if (typeof aliyah !== 'undefined') {
+      if (aliyah) {
         const k = num === 'M' ? 'maf' : num;
         let str = formatAliyahWithBook(aliyah);
         if (aliyah.reason) {
@@ -205,7 +205,7 @@ function getFullKriyahLines(reading: Leyning): CsvLine[] {
   }
   if (reading.megillah) {
     for (const [num, a] of Object.entries(reading.megillah)) {
-      if (typeof a !== 'undefined') {
+      if (a) {
         const aliyah = formatAliyahWithBook(a);
         lines.push([`Megillah Ch. ${num}`, aliyah, a.v || '']);
       }

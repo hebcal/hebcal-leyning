@@ -6,7 +6,7 @@ import {JsonFestivalAliyah} from './internalTypes';
  * Makes a deep copy of the src object using JSON stringify and parse
  */
 export function clone<T>(src: T): T {
-  return JSON.parse(JSON.stringify(src));
+  return structuredClone(src);
 }
 
 export type Haftarah =

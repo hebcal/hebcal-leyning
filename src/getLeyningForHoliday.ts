@@ -29,7 +29,7 @@ export function getLeyningForHolidayKey(
     return undefined;
   }
   const src = lookupFestival(key);
-  if (typeof src === 'undefined') {
+  if (!src) {
     return undefined;
   }
   const israelOnly = src.il;
