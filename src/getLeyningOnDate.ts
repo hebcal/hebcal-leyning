@@ -15,7 +15,7 @@ import {getSedra, SedraResult} from '@hebcal/core/dist/esm/sedra';
 import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
 import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
 import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
-import {translateLeyning} from './common';
+import {translateLeyning} from './translate';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {

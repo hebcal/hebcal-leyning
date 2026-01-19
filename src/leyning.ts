@@ -2,13 +2,8 @@ import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
 import {Locale} from './locale';
 import parshiyotObj0 from './aliyot.json';
-import {
-  BOOK,
-  calculateNumVerses,
-  parshaToString,
-  translateAliyahOrArray,
-  translateLeyning,
-} from './common';
+import {BOOK, calculateNumVerses, parshaToString} from './common';
+import {translateAliyahOrArray, translateLeyning} from './translate';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {cloneHaftara, sumVerses} from './clone';
 import {specialReadings2} from './specialReadings';

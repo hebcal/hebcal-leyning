@@ -1,8 +1,9 @@
 import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {Locale} from './locale';
-import {calculateNumVerses, NUM_VERSES, translateLeyning} from './common';
+import {calculateNumVerses, NUM_VERSES} from './common';
+import {translateLeyning} from './translate';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
-import {clone, cloneHaftara, sumVerses} from './clone';
+import {cloneHaftara, sumVerses} from './clone';
 import {lookupFestival} from './festival';
 import {
   HOLIDAY_IGNORE_MASK,
@@ -48,7 +49,7 @@ export function getLeyningForHolidayKey(
     type: 'holiday',
   };
   if (src.fullkriyah) {
-    leyning.fullkriyah = clone(src.fullkriyah) as AliyotMap;
+    leyning.fullkriyah = structuredClone(src.fullkriyah) as AliyotMap;
     if (key === 'Sukkot Shabbat Chol ha-Moed' && cholHaMoedDay) {
       leyning.fullkriyah['M'] = leyning.fullkriyah[`M-day${cholHaMoedDay}`];
       for (let day = 1; day <= 5; day++) {
@@ -64,7 +65,7 @@ export function getLeyningForHolidayKey(
       calculateNumVerses(aliyah as Aliyah)
     );
     if (src.alt) {
-      leyning.alt = clone(src.alt) as AliyotMap;
+      leyning.alt = structuredClone(src.alt) as AliyotMap;
       for (const aliyah of Object.values(leyning.alt)) {
         calculateNumVerses(aliyah as Aliyah);
       }

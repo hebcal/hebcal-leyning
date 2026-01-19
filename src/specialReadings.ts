@@ -8,7 +8,7 @@ import {AliyotMap, SpecialReading, StringMap} from './types';
 import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
 
 function aliyotCombine67(aliyot: AliyotMap) {
-  const a6 = clone(aliyot['6']);
+  const a6 = structuredClone(aliyot['6']);
   const a7 = aliyot['7'];
   if (a6.k !== a7.k) {
     throw new Error(
@@ -29,11 +29,11 @@ function aliyotCombine67(aliyot: AliyotMap) {
 function mergeAliyotWithSpecial(aliyot: AliyotMap, special: AliyotMap) {
   if (special['7']) {
     aliyotCombine67(aliyot);
-    aliyot['7'] = clone(special['7']);
+    aliyot['7'] = structuredClone(special['7']);
     calculateNumVerses(aliyot['7']);
   }
   if (special['M']) {
-    aliyot['M'] = clone(special['M']);
+    aliyot['M'] = structuredClone(special['M']);
     calculateNumVerses(aliyot['M']);
   }
 }
@@ -79,7 +79,7 @@ export function specialReadings2(
       }
     }
     if (special.fullkriyah) {
-      const aliyotMap = clone(aliyot);
+      const aliyotMap = structuredClone(aliyot);
       mergeAliyotWithSpecial(aliyotMap, special.fullkriyah as AliyotMap);
       for (const num of Object.keys(special.fullkriyah)) {
         reason[num] = key;

@@ -1,5 +1,4 @@
 import {BOOK} from './common';
-import {clone} from './clone';
 import festivals0 from './holiday-readings.json';
 import {JsonFestivalAliyotMap, JsonFestivalLeyning} from './internalTypes';
 
@@ -41,7 +40,9 @@ export function lookupFestival(
     }
     src = tmp;
   }
-  const result: JsonFestivalLeyning = src.fullkriyah ? clone(src) : src;
+  const result: JsonFestivalLeyning = src.fullkriyah
+    ? structuredClone(src)
+    : src;
   aliyotBookNumToStr(result.fullkriyah);
   aliyotBookNumToStr(result.alt);
   if (src.note) {
