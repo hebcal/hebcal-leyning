@@ -5,12 +5,11 @@ import parshiyotObj0 from './aliyot.json';
 import {
   BOOK,
   calculateNumVerses,
-  makeLeyningParts,
-  makeSummaryFromParts,
   parshaToString,
   translateAliyahOrArray,
   translateLeyning,
 } from './common';
+import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {cloneHaftara, sumVerses} from './clone';
 import {specialReadings2} from './specialReadings';
 import {

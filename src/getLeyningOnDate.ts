@@ -11,18 +11,12 @@ import {
   makeLeyningNames,
 } from './leyning';
 import {Leyning, LeyningWeekday} from './types';
-import {
-  getSedra,
-  SedraResult,
-  getHolidaysOnDate,
-  ParshaEvent,
-  HolidayEvent,
-} from '@hebcal/core';
-import {
-  makeLeyningParts,
-  makeSummaryFromParts,
-  translateLeyning,
-} from './common';
+import {getSedra, SedraResult} from '@hebcal/core/dist/esm/sedra';
+import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
+import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
+import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
+import {translateLeyning} from './common';
+import {makeLeyningParts, makeSummaryFromParts} from './summary';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();
