@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import {po} from 'gettext-parser';
 
 for (const arg of process.argv.slice(2)) {
