@@ -41,8 +41,7 @@
   },
   "dependencies": {
     "@hebcal/core": "^6.0.8",
-    "@hebcal/hdate": "^0.21.1",
-    "tslib": "^2.8.1"
+    "@hebcal/hdate": "^0.21.1"
   },
   "scripts": {
     "po2json": "node ./po2json.js po/he.po po/ashkenazi.po",
@@ -64,15 +63,15 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.2.3",
     "gettext-parser": "^9.0.1",
     "gts": "^7.0.0",
     "pretty-bytes": "^7.1.0",
-    "rollup": "^4.56.0",
+    "rollup": "^4.57.1",
     "rollup-plugin-bundle-size": "^1.0.3",
     "rollup-plugin-visualizer": "^6.0.5",
-    "typedoc": "^0.28.16",
+    "typedoc": "^0.28.17",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.17"
+    "vitest": "^4.0.18"
   }
 }
