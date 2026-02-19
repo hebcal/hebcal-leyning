@@ -89,7 +89,7 @@ msgid "Asara B'Tevet (Mincha)"
 msgstr "Asara B’Teves (Mincha)"
 
 msgid "Ta'anit Bechorot (Mincha)"
-msgstr "Ta’anis Bechorot (Mincha)"
+msgstr "Ta’anis Bechoros (Mincha)"
 
 msgid "Ta'anit Esther (Mincha)"
 msgstr "Ta’anis Esther (Mincha)"
