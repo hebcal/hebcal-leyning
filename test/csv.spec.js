@@ -1,5 +1,5 @@
 import {expect, test} from 'vitest';
-import {Writable} from 'stream';
+import {Writable} from 'node:stream';
 import {
   HDate,
   HebrewCalendar,
@@ -9,7 +9,7 @@ import {
   flags,
   months,
 } from '@hebcal/core';
-import {writeFullKriyahEvent} from '../src/csv';
+import {writeFullKriyahEvent, writeFullKriyahCsv, getParshaDates} from '../src/csv';
 
 class StringWritable extends Writable {
   constructor(options) {
@@ -171,4 +171,102 @@ test('writeFullKriyahEvent-shekalim', () => {
     '09-Mar-2024,"Vayakhel","Haftara for Sephardim","II Kings 11:17-12:17 | Shabbat Shekalim",21',
     '', ''];
   expect(lines).toEqual(expected);
+});
+
+test('writeFullKriyahEvent-ignores-SPECIAL_SHABBAT', () => {
+  const ev = new HolidayEvent(
+    new HDate(25, months.ADAR_I, 5784),
+    'Shabbat Shekalim',
+    flags.SPECIAL_SHABBAT
+  );
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, false);
+  expect(stream.toString()).toBe('');
+});
+
+test('writeFullKriyahEvent-ignores-RoshChodesh-on-Shabbat', () => {
+  // 1 Adar I 5784 = Sat 10 Feb 2024
+  const hd = new HDate(1, months.ADAR_I, 5784);
+  expect(hd.getDay()).toBe(6); // verify it's Saturday
+  const ev = new RoshChodeshEvent(hd, 'Adar I');
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, false);
+  expect(stream.toString()).toBe('');
+});
+
+test('writeFullKriyahEvent-Purim', () => {
+  // Purim 5784 = Sun 24 Mar 2024 (leap year, so 14 Adar II)
+  const ev = new HolidayEvent(
+    new HDate(14, months.ADAR_II, 5784),
+    'Purim',
+    flags.MINOR_HOLIDAY
+  );
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, ev, false);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    '24-Mar-2024,"Purim",1,"Exodus 17:8-17:10",3',
+    '24-Mar-2024,"Purim",2,"Exodus 17:11-17:13",3',
+    '24-Mar-2024,"Purim",3,"Exodus 17:14-17:16",3',
+    '24-Mar-2024,"Purim","Megillah Ch. 1","Esther 1:1-1:22",22',
+    '24-Mar-2024,"Purim","Megillah Ch. 2","Esther 2:1-2:23",23',
+    '24-Mar-2024,"Purim","Megillah Ch. 3","Esther 3:1-3:15",15',
+    '24-Mar-2024,"Purim","Megillah Ch. 4","Esther 4:1-4:17",17',
+    '24-Mar-2024,"Purim","Megillah Ch. 5","Esther 5:1-5:14",14',
+    '24-Mar-2024,"Purim","Megillah Ch. 6","Esther 6:1-6:14",14',
+    '24-Mar-2024,"Purim","Megillah Ch. 7","Esther 7:1-7:10",10',
+    '24-Mar-2024,"Purim","Megillah Ch. 8","Esther 8:1-8:17",17',
+    '24-Mar-2024,"Purim","Megillah Ch. 9","Esther 9:1-9:32",32',
+    '24-Mar-2024,"Purim","Megillah Ch. 10","Esther 10:1-10:3",3',
+    '', ''];
+  expect(lines).toEqual(expected);
+});
+
+test('writeFullKriyahEvent-IL-HoshanaRaba', () => {
+  // In IL mode, Sukkot VII (Hoshana Raba) appends Erev Simchat Torah reading
+  const events = HebrewCalendar.calendar({
+    start: new HDate(21, months.TISHREI, 5783),
+    end: new HDate(21, months.TISHREI, 5783),
+    il: true,
+  });
+  expect(events.length).toBe(1);
+  const stream = new StringWritable();
+  writeFullKriyahEvent(stream, events[0], true);
+  const lines = stream.toString().split('\r\n');
+  const expected = [
+    '16-Oct-2022,"Sukkot Final Day (Hoshana Raba)",1,"Numbers 29:26-29:28",3',
+    '16-Oct-2022,"Sukkot Final Day (Hoshana Raba)",2,"Numbers 29:29-29:31",3',
+    '16-Oct-2022,"Sukkot Final Day (Hoshana Raba)",3,"Numbers 29:32-29:34",3',
+    '16-Oct-2022,"Sukkot Final Day (Hoshana Raba)",4,"Numbers 29:29-29:34",6',
+    '',
+    '16-Oct-2022,"Erev Simchat Torah",1,"Deuteronomy 33:1-33:7",7',
+    '16-Oct-2022,"Erev Simchat Torah",2,"Deuteronomy 33:8-33:12",5',
+    '16-Oct-2022,"Erev Simchat Torah",3,"Deuteronomy 33:13-33:17",5',
+    '', ''];
+  expect(lines).toEqual(expected);
+});
+
+test('getParshaDates', () => {
+  const ev1 = new ParshaEvent({hdate: new HDate(4, months.TISHREI, 5784), parsha: ["Ha'azinu"]});
+  const ev2 = new ParshaEvent({hdate: new HDate(11, months.TISHREI, 5784), parsha: ["Ha'azinu"]});
+  const holiday = new HolidayEvent(
+    new HDate(10, months.TISHREI, 5784),
+    'Yom Kippur',
+    flags.YOM_TOV_ENDS
+  );
+  const result = getParshaDates([ev1, ev2, holiday]);
+  expect(result).toEqual({
+    '4 Tishrei 5784': true,
+    '11 Tishrei 5784': true,
+  });
+});
+
+test('writeFullKriyahCsv-header', () => {
+  const stream = new StringWritable();
+  writeFullKriyahCsv(stream, 5784, false);
+  const output = stream.toString();
+  const firstLine = output.split('\r\n')[0];
+  expect(firstLine).toBe('"Date","Parashah","Aliyah","Reading","Verses"');
+  // Rosh Chodesh Tevet is always excluded
+  expect(output).not.toContain('Rosh Chodesh Tevet');
 });
