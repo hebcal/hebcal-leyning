@@ -1,6 +1,6 @@
 import {HDate, months} from '@hebcal/hdate';
 import {flags} from '@hebcal/core/dist/esm/event';
-import {clone, cloneHaftara} from './clone';
+import {cloneHaftara} from './clone';
 import {calculateNumVerses, parshaToString} from './common';
 import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';

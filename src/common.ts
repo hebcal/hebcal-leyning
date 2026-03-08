@@ -128,4 +128,3 @@ export function addVerses(book: TanakhBook, from: string, numVerses: number) {
 export function formatAliyahWithBook(a: Aliyah): string {
   return `${a.k} ${a.b}-${a.e}`;
 }
-

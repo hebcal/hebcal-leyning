@@ -45,8 +45,5 @@ export function lookupFestival(
     : src;
   aliyotBookNumToStr(result.fullkriyah);
   aliyotBookNumToStr(result.alt);
-  if (src.note) {
-    result.note = src.note;
-  }
   return result;
 }
