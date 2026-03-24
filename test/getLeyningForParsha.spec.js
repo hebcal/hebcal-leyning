@@ -93,6 +93,20 @@ test('getLeyningForParsha-2', () => {
     ],
     sephardic: 'Jeremiah 2:4-28, 4:1-2',
     sephardicNumV: 27,
+    chabad: [
+      {
+        b: '2:4',
+        e: '2:28',
+        k: 'Jeremiah',
+        v: 25,
+      },
+      {
+        b: '4:1',
+        e: '4:2',
+        k: 'Jeremiah',
+        v: 2,
+      },
+    ],
     haftara: 'Jeremiah 2:4-28, 3:4',
     haftaraNumV: 26,
     weekday: {
@@ -156,6 +170,17 @@ test('getLeyningForParsha-3', () => {
     }],
     sephardic: 'Jeremiah 2:4-28, 4:1-2',
     sephardicNumV: 27,
+    chabad: [{
+      b: '2:4',
+      e: '2:28',
+      k: 'Jeremiah',
+      v: 25,
+    }, {
+      b: '4:1',
+      e: '4:2',
+      k: 'Jeremiah',
+      v: 2,
+    }],
     weekday: {
       '1': {k: 'Numbers', b: '33:1', e: '33:3', v: 3},
       '2': {k: 'Numbers', b: '33:4', e: '33:6', v: 3},

@@ -9,6 +9,7 @@ test('lookupParsha', () => {
     'book': 1,
     'haft': {'k': 'Isaiah', 'b': '42:5', 'e': '43:10'},
     'seph': {'k': 'Isaiah', 'b': '42:5', 'e': '42:21'},
+    'chabad': {'k': 'Isaiah', 'b': '42:5', 'e': '42:21'},
     'fullkriyah': {
       '1': ['1:1', '2:3'],
       '2': ['2:4', '2:19'],

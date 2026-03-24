@@ -91,6 +91,8 @@ export type ParshaMeta = {
   haft: Aliyah | Aliyah[];
   /** Haftarah object(s) for Sephardim */
   seph?: Aliyah | Aliyah[];
+  /** Haftarah object(s) for Chabad */
+  chabad?: Aliyah | Aliyah[];
   /** Map of Shabbat aliyot `1` through `7` plus `M` for maftir */
   fullkriyah: Record<string, string[]>;
   /**
@@ -117,6 +119,8 @@ export type SpecialReading = {
   haft?: Aliyah | Aliyah[];
   /** Haftarah object(s) for Sephardim */
   seph?: Aliyah | Aliyah[];
+  /** Haftarah object(s) for Chabad */
+  chabad?: Aliyah | Aliyah[];
 };
 
 /**
@@ -174,6 +178,8 @@ export type LeyningShabbatHoliday = LeyningBase &
     sephardic?: string;
     /** Number of verses in the Haftarah for Sephardim */
     sephardicNumV?: number;
+    /** Haftarah object for Chabad */
+    chabad?: Aliyah | Aliyah[];
     /** Explanations for special readings, keyed by aliyah number, `M` for maftir or `haftara` for Haftarah */
     reason?: StringMap;
     /** Song of Songs is read on the sabbath of Passover week, the Book of Ruth on Shavuot, Lamentations on Tisha be-Av, Ecclesiastes on the sabbath of the week of Sukkoth, and the Book of Esther on Purim */

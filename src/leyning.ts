@@ -24,6 +24,8 @@ type JsonAliyah = {
   p?: number;
 };
 
+type JsonChabadRef = {sameas: 'haft' | 'seph'};
+
 type JsonParshaMap = Record<string, string[]>;
 
 type JsonParsha = {
@@ -32,6 +34,7 @@ type JsonParsha = {
   book: number;
   haft?: JsonAliyah | JsonAliyah[];
   seph?: JsonAliyah | JsonAliyah[];
+  chabad?: JsonAliyah | JsonAliyah[] | JsonChabadRef;
   fullkriyah: JsonParshaMap;
   weekday?: JsonParshaMap;
   combined?: boolean;
@@ -125,6 +128,10 @@ function getLeyningForParshaShabbatOnly(
     result.sephardic = makeSummaryFromParts(seph);
     result.sephardicNumV = sumVerses(seph);
   }
+  const chabad0 = parshiyotObj[hkey].chabad;
+  if (chabad0) {
+    result.chabad = cloneHaftara(chabad0 as Aliyah | Aliyah[]);
+  }
   return translateLeyning(result, language);
 }
 
@@ -204,6 +211,11 @@ export function getLeyningForParshaHaShavua(
       delete result.sephardic;
       delete result.sephardicNumV;
     }
+    if (special.chabad) {
+      result.chabad = cloneHaftara(special.chabad);
+    } else {
+      delete result.chabad;
+    }
   }
   if (reason['7'] || reason['M']) {
     result.fullkriyah = special.aliyot;
@@ -265,6 +277,14 @@ export function lookupParsha(
   raw.haft = translateAliyahOrArray(raw.haft as Aliyah | Aliyah[], language);
   if (raw.seph) {
     raw.seph = translateAliyahOrArray(raw.seph as Aliyah | Aliyah[], language);
+  }
+  if (raw.chabad) {
+    const chabad = raw.chabad as JsonAliyah | JsonAliyah[] | JsonChabadRef;
+    if (!Array.isArray(chabad) && 'sameas' in chabad) {
+      raw.chabad = chabad.sameas === 'seph' ? raw.seph : (raw.haft as Aliyah | Aliyah[]);
+    } else {
+      raw.chabad = translateAliyahOrArray(raw.chabad as Aliyah | Aliyah[], language);
+    }
   }
   return raw as ParshaMeta;
 }

@@ -58,6 +58,7 @@ export function specialReadings2(
 ): SpecialReading {
   let haft;
   let seph;
+  let chabad;
   let specialHaft = false;
   const reason: StringMap = {};
 
@@ -76,6 +77,9 @@ export function specialReadings2(
       if (special.seph) {
         seph = cloneHaftara(special.seph);
         reason.sephardic = key;
+      }
+      if (special.chabad) {
+        chabad = cloneHaftara(special.chabad as Parameters<typeof cloneHaftara>[0]);
       }
     }
     if (special.fullkriyah) {
@@ -145,5 +149,5 @@ export function specialReadings2(
       }
     }
   }
-  return {aliyot, reason, haft, seph};
+  return {aliyot, reason, haft, seph, chabad};
 }

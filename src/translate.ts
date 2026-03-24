@@ -79,6 +79,9 @@ export function translateLeyning(leyning: Leyning, language: string): Leyning {
     leyning.sephardic = makeSummaryFromParts(leyning.seph, language);
     leyning.seph = translateAliyahOrArray(leyning.seph, language);
   }
+  if (leyning.chabad) {
+    leyning.chabad = translateAliyahOrArray(leyning.chabad, language);
+  }
   if (leyning.haft) {
     leyning.haftara = makeSummaryFromParts(leyning.haft, language);
     leyning.haft = translateAliyahOrArray(leyning.haft, language);

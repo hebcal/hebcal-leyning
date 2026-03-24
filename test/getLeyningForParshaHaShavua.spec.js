@@ -586,6 +586,10 @@ test('Shabbat Shuva - Ha\'azinu', () => {
     ],
     sephardic: 'Hosea 14:2-10; Micah 7:18-20',
     sephardicNumV: 12,
+    chabad: [
+      {k: 'Hosea', b: '14:2', e: '14:10', v: 9},
+      {k: 'Micah', b: '7:18', e: '7:20', v: 3},
+    ],
     reason: {
       haftara: 'Shabbat Shuva (with Ha\'azinu)',
       sephardic: 'Shabbat Shuva (with Ha\'azinu)',

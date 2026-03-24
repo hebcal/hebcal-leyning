@@ -45,5 +45,9 @@ export function lookupFestival(
     : src;
   aliyotBookNumToStr(result.fullkriyah);
   aliyotBookNumToStr(result.alt);
+  if (result.chabad && !Array.isArray(result.chabad) && 'sameas' in result.chabad) {
+    const sameas = result.chabad.sameas;
+    result.chabad = sameas === 'seph' ? result.seph : result.haft;
+  }
   return result;
 }
