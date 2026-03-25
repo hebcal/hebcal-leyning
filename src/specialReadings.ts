@@ -6,6 +6,7 @@ import {lookupFestival} from './festival';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
 import {AliyotMap, SpecialReading, StringMap} from './types';
 import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
+import {JsonFestivalAliyah} from './internalTypes';
 
 function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = structuredClone(aliyot['6']);
@@ -58,6 +59,7 @@ export function specialReadings2(
 ): SpecialReading {
   let haft;
   let seph;
+  let chabad;
   let specialHaft = false;
   const reason: StringMap = {};
 
@@ -76,6 +78,9 @@ export function specialReadings2(
       if (special.seph) {
         seph = cloneHaftara(special.seph);
         reason.sephardic = key;
+      }
+      if (special.chabad) {
+        chabad = cloneHaftara(special.chabad as JsonFestivalAliyah);
       }
     }
     if (special.fullkriyah) {
@@ -145,5 +150,5 @@ export function specialReadings2(
       }
     }
   }
-  return {aliyot, reason, haft, seph};
+  return {aliyot, reason, haft, seph, chabad};
 }

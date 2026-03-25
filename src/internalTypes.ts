@@ -13,6 +13,7 @@ export type JsonFestivalAliyotMap = Record<string, JsonFestivalAliyah>;
 export type JsonFestivalLeyning = {
   haft?: JsonFestivalAliyah | JsonFestivalAliyah[];
   seph?: JsonFestivalAliyah | JsonFestivalAliyah[];
+  chabad?: JsonFestivalAliyah | JsonFestivalAliyah[] | {sameas: 'haft'};
   fullkriyah?: JsonFestivalAliyotMap;
   alt?: JsonFestivalAliyotMap;
   megillah?: string;

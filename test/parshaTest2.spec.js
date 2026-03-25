@@ -47,6 +47,12 @@ test('Shabbat Zachor', () => {
     },
     sephardic: 'I Samuel 15:1-34',
     sephardicNumV: 34,
+    chabad: {
+      b: '15:2',
+      e: '15:34',
+      k: 'I Samuel',
+      v: 33,
+    },
     summaryParts: [
       {k: 'Leviticus', b: '1:1', e: '5:26'},
       {k: 'Deuteronomy', b: '25:17', e: '25:19'},

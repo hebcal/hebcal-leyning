@@ -81,6 +81,13 @@ export function getLeyningForHolidayKey(
     leyning.sephardic = makeSummaryFromParts(seph);
     leyning.sephardicNumV = sumVerses(seph);
   }
+  if (src.chabad) {
+    if ('sameas' in src.chabad) {
+      leyning.chabad = leyning.haft;
+    } else {
+      leyning.chabad = cloneHaftara(src.chabad);
+    }
+  }
   let megillah = src.megillah as KetuvimBook;
   if (il && key === 'Pesach I (on Shabbat)') megillah = 'Song of Songs';
   if (megillah) {

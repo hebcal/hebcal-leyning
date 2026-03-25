@@ -32,6 +32,7 @@ type JsonParsha = {
   book: number;
   haft?: JsonAliyah | JsonAliyah[];
   seph?: JsonAliyah | JsonAliyah[];
+  chabad?: JsonAliyah | JsonAliyah[] | {sameas: 'haft'};
   fullkriyah: JsonParshaMap;
   weekday?: JsonParshaMap;
   combined?: boolean;
@@ -204,6 +205,9 @@ export function getLeyningForParshaHaShavua(
       delete result.sephardic;
       delete result.sephardicNumV;
     }
+    if (special.chabad) {
+      result.chabad = cloneHaftara(special.chabad);
+    }
   }
   if (reason['7'] || reason['M']) {
     result.fullkriyah = special.aliyot;
@@ -265,6 +269,15 @@ export function lookupParsha(
   raw.haft = translateAliyahOrArray(raw.haft as Aliyah | Aliyah[], language);
   if (raw.seph) {
     raw.seph = translateAliyahOrArray(raw.seph as Aliyah | Aliyah[], language);
+  }
+  if (raw.chabad && 'sameas' in raw.chabad) {
+    raw.chabad = raw.haft;
+  }
+  if (raw.chabad) {
+    raw.chabad = translateAliyahOrArray(
+      raw.chabad as Aliyah | Aliyah[],
+      language
+    );
   }
   return raw as ParshaMeta;
 }

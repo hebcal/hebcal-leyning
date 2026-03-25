@@ -91,6 +91,8 @@ export type ParshaMeta = {
   haft: Aliyah | Aliyah[];
   /** Haftarah object(s) for Sephardim */
   seph?: Aliyah | Aliyah[];
+  /** Haftarah object(s) for Chabad */
+  chabad?: Aliyah | Aliyah[];
   /** Map of Shabbat aliyot `1` through `7` plus `M` for maftir */
   fullkriyah: Record<string, string[]>;
   /**
@@ -117,6 +119,8 @@ export type SpecialReading = {
   haft?: Aliyah | Aliyah[];
   /** Haftarah object(s) for Sephardim */
   seph?: Aliyah | Aliyah[];
+  /** Haftarah object(s) for Chabad */
+  chabad?: Aliyah | Aliyah[];
 };
 
 /**
@@ -170,6 +174,8 @@ export type LeyningShabbatHoliday = LeyningBase &
     alt?: AliyotMap;
     /** Haftarah object for Sephardim */
     seph?: Aliyah | Aliyah[];
+    /** Haftarah object(s) for Chabad */
+    chabad?: Aliyah | Aliyah[];
     /** Haftarah for Sephardim, such as `Isaiah 42:5 - 42:21` */
     sephardic?: string;
     /** Number of verses in the Haftarah for Sephardim */
