@@ -126,6 +126,14 @@ function getLeyningForParshaShabbatOnly(
     result.sephardic = makeSummaryFromParts(seph);
     result.sephardicNumV = sumVerses(seph);
   }
+  const chabad = parshiyotObj[hkey].chabad;
+  if (chabad) {
+    if ('sameas' in chabad) {
+      result.chabad = result.haft;
+    } else {
+      result.chabad = cloneHaftara(chabad);
+    }
+  }
   return translateLeyning(result, language);
 }
 

@@ -898,3 +898,18 @@ test('Kedoshim on Rosh Chodesh', () => {
   expect(h1.reason.haftara).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
   expect(h1.sephardic).toBe(undefined);
 });
+
+test('chabad follows Ashkenaz for Vayera', () => {
+  const hd = new HDate(20, 'Cheshvan', 5787);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Vayera'],
+    il: false});
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  expect(reading.haft).toBeDefined();
+  expect(reading.seph).toBeDefined();
+  expect(reading.chabad).toBeDefined();
+  expect(reading.haft).not.toEqual(reading.seph);
+  expect(reading.haft).toEqual(reading.chabad);
+  expect(reading.seph).not.toEqual(reading.chabad);
+});
