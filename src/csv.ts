@@ -179,7 +179,7 @@ function getFullKriyahLines(reading: Leyning): CsvLine[] {
     }
   }
   if (reading.haftara) {
-    let haftara = reading.haftara.replace(/,/g, ';');
+    let haftara = reading.haftara.replaceAll(',', ';');
     const note = reading.reason?.haftara;
     if (note) {
       haftara += ' | ' + note;
@@ -188,7 +188,7 @@ function getFullKriyahLines(reading: Leyning): CsvLine[] {
     lines.push([title, haftara, reading.haftaraNumV || '']);
   }
   if (reading.sephardic) {
-    let sephardic = reading.sephardic.replace(/,/g, ';');
+    let sephardic = reading.sephardic.replaceAll(',', ';');
     const note = reading.reason?.sephardic;
     if (note) {
       sephardic += ' | ' + note;
@@ -200,7 +200,7 @@ function getFullKriyahLines(reading: Leyning): CsvLine[] {
     ]);
   }
   if (reading.triHaftara) {
-    const haftara = reading.triHaftara.replace(/,/g, ';');
+    const haftara = reading.triHaftara.replaceAll(',', ';');
     lines.push(['Alternate Haftara', haftara, reading.triHaftaraNumV || '']);
   }
   if (reading.megillah) {

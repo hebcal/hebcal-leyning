@@ -201,6 +201,10 @@ export function getLeyningForParshaHaShavua(
   const special = specialReadings2(parsha, hd, il, result.fullkriyah);
   const reason = special.reason;
   if (special.haft) {
+    delete result.chabad;
+    delete result.seph;
+    delete result.sephardic;
+    delete result.sephardicNumV;
     const haft = (result.haft = cloneHaftara(special.haft));
     result.haftara = makeSummaryFromParts(haft);
     result.haftaraNumV = sumVerses(haft);
@@ -208,10 +212,6 @@ export function getLeyningForParshaHaShavua(
       const seph = (result.seph = cloneHaftara(special.seph));
       result.sephardic = makeSummaryFromParts(seph);
       result.sephardicNumV = sumVerses(seph);
-    } else if (result.seph) {
-      delete result.seph;
-      delete result.sephardic;
-      delete result.sephardicNumV;
     }
     if (special.chabad) {
       result.chabad = cloneHaftara(special.chabad);

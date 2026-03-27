@@ -676,8 +676,8 @@ test('pesach-diaspora-chm-day2-sunday', () => {
 
 test('Shavuot Israel', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: true});
-  const events = events0.filter((ev) => ev.getDesc() === 'Shavuot');
-  const actual = getLeyningForHoliday(events[0], true);
+  const ev = events0.find((ev) => ev.getDesc() === 'Shavuot');
+  const actual = getLeyningForHoliday(ev, true);
   const expected = {
     '1': {k: 'Ruth', b: '1:1', e: '1:22', v: 22},
     '2': {k: 'Ruth', b: '2:1', e: '2:23', v: 23},
@@ -705,8 +705,8 @@ test('Shavuot Diaspora', () => {
 
 test('Erev Purim', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
-  const events = events0.filter((ev) => ev.getDesc() === 'Erev Purim');
-  const actual = getLeyningForHoliday(events[0]);
+  const ev = events0.find((ev) => ev.getDesc() === 'Erev Purim');
+  const actual = getLeyningForHoliday(ev);
   const expected = {
     name: {en: 'Erev Purim', he: 'עֶרֶב פּוּרִים'},
     type: 'holiday',
@@ -726,7 +726,7 @@ test('Erev Purim', () => {
   };
   expect(actual).toEqual(expected);
 
-  const actualHe = getLeyningForHoliday(events[0], false, 'he');
+  const actualHe = getLeyningForHoliday(ev, false, 'he');
   expect(actualHe.name).toEqual({en: 'Erev Purim', he: 'עֶרֶב פּוּרִים'});
   expect(actualHe.summary).toBe('אֶסְתֵּר א:א-י:ג');
   expect(actualHe.megillah['1'].k).toBe('אֶסְתֵּר');

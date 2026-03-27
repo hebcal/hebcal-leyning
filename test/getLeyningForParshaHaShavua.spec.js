@@ -1,7 +1,7 @@
-import {expect, test, describe} from 'vitest';
+import {expect, test} from 'vitest';
 import {HDate, HebrewCalendar, ParshaEvent} from '@hebcal/core';
 import {getLeyningForParshaHaShavua} from '../src/leyning';
-import {formatAliyahWithBook, formatAliyahShort} from '../src/common';
+import {formatAliyahWithBook} from '../src/common';
 
 /*
 7/18/1981 16th of Tamuz, 5741
@@ -912,4 +912,25 @@ test('chabad follows Ashkenaz for Vayera', () => {
   expect(reading.haft).not.toEqual(reading.seph);
   expect(reading.haft).toEqual(reading.chabad);
   expect(reading.seph).not.toEqual(reading.chabad);
+});
+
+test('Tzav on regular Shabbat has Chabad haftarah != Ashkenaz nor Sephardic', () => {
+  const hd = new HDate(16, 'Adar II', 5803);
+  const ev = new ParshaEvent({
+    hdate: hd,
+    parsha: ['Tzav'],
+    il: false});
+  const reading = getLeyningForParshaHaShavua(ev, false);
+  expect(reading.haft).toBeDefined();
+  expect(reading.seph).not.toBeDefined();
+  expect(reading.chabad).toBeDefined();
+  expect(reading.haft).not.toEqual(reading.chabad);
+  expect(reading.haft).toEqual([
+    {k:"Jeremiah",b:"7:21",e:"8:3",v:17},
+    {k:"Jeremiah",b:"9:22",e:"9:23",v:2}
+  ]);
+  expect(reading.chabad).toEqual([
+    {k:"Jeremiah",b:"7:21",e:"7:28",v:8},
+    {k:"Jeremiah",b:"9:22",e:"9:23",v:2}
+  ]);
 });

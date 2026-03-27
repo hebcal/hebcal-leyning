@@ -9,7 +9,7 @@ import {
   HOLIDAY_IGNORE_MASK,
   getLeyningKeyForEvent,
 } from './getLeyningKeyForEvent';
-import {Aliyah, AliyotMap, KetuvimBook, Leyning} from './types';
+import {AliyotMap, KetuvimBook, Leyning} from './types';
 
 /**
  * Looks up leyning for a given holiday key. Key should be an
@@ -62,12 +62,12 @@ export function getLeyningForHolidayKey(
       leyning.summaryParts = parts;
     }
     Object.values(leyning.fullkriyah).forEach(aliyah =>
-      calculateNumVerses(aliyah as Aliyah)
+      calculateNumVerses(aliyah)
     );
     if (src.alt) {
       leyning.alt = structuredClone(src.alt) as AliyotMap;
       for (const aliyah of Object.values(leyning.alt)) {
-        calculateNumVerses(aliyah as Aliyah);
+        calculateNumVerses(aliyah);
       }
     }
   }
