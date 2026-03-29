@@ -176,6 +176,12 @@ export function getLeyningForParsha(
   return result;
 }
 
+const reasonHaftKey: Record<string, 'haft' | 'seph' | 'chabad'> = {
+  haftara: 'haft',
+  sephardic: 'seph',
+  chabad: 'chabad',
+} as const;
+
 /**
  * Looks up leyning for a regular Shabbat parsha, including any special
  * maftir or Haftara.
@@ -232,8 +238,9 @@ export function getLeyningForParshaHaShavua(
     }
     result.reason = translatedReason;
     for (const num of reasons) {
-      if (num === 'haftara' || num === 'sephardic') {
-        const haftObj = result[num === 'haftara' ? 'haft' : 'seph'];
+      if (reasonHaftKey[num]) {
+        const haftKey = reasonHaftKey[num];
+        const haftObj = result[haftKey];
         const hafts: Aliyah[] = Array.isArray(haftObj) ? haftObj : [haftObj!];
         for (const haft of hafts) {
           haft.reason = translatedReason[num];

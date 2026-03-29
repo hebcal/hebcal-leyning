@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "9.5.0",
+  "version": "9.5.1",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -65,7 +65,7 @@
     "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/node": "^25.5.0",
-    "@vitest/coverage-v8": "^4.1.1",
+    "@vitest/coverage-v8": "^4.1.2",
     "gettext-parser": "^9.0.2",
     "gts": "^7.0.0",
     "pretty-bytes": "^7.1.0",
@@ -74,6 +74,6 @@
     "rollup-plugin-visualizer": "^7.0.1",
     "typedoc": "^0.28.18",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.1"
+    "vitest": "^4.1.2"
   }
 }

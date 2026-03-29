@@ -52,6 +52,7 @@ test('Shabbat Zachor', () => {
       e: '15:34',
       k: 'I Samuel',
       v: 33,
+      reason: 'Shabbat Zachor',
     },
     summaryParts: [
       {k: 'Leviticus', b: '1:1', e: '5:26'},
@@ -60,6 +61,7 @@ test('Shabbat Zachor', () => {
     reason: {
       haftara: 'Shabbat Zachor',
       sephardic: 'Shabbat Zachor',
+      chabad: 'Shabbat Zachor',
       M: 'Shabbat Zachor',
     },
   };

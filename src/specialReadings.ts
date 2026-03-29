@@ -81,6 +81,7 @@ export function specialReadings2(
       }
       if (special.chabad) {
         chabad = cloneHaftara(special.chabad as JsonFestivalAliyah);
+        reason.chabad = key;
       }
     }
     if (special.fullkriyah) {
