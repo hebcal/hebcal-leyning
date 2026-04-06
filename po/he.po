@@ -33,7 +33,7 @@ msgid "Pesach Chol ha-Moed Day 3"
 msgstr "פֶּסַח חוֹל הַמּוֹעֵד יוֹם ג׳"
 
 msgid "Pesach Chol ha-Moed Day 3 on Monday"
-msgstr "פֶּסַח  הַמּוֹעֵד יוֹם ג׳ (בְּיוֹם שֵׁנִי)"
+msgstr "פֶּסַח חוֹל הַמּוֹעֵד יוֹם ג׳ (בְּיוֹם שֵׁנִי)"
 
 msgid "Pesach Chol ha-Moed Day 4"
 msgstr "פֶּסַח חוֹל הַמּוֹעֵד יוֹם ד׳"
