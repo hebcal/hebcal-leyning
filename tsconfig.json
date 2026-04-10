@@ -1,22 +1,17 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "composite": false,
-    "module": "es6",
-    "declaration": true,
-    "rootDir": "./",
-    "target": "ES2017",
-    "sourceMap": false,
-    "outDir": "dist",
-    "lib": ["ESNext"],
-    "moduleResolution": "Node",
+    "types": ["node"],
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "target": "es2023",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "strict": true,
-    "paths": {
-      "*": ["./types/*"]
-    }
+    "skipLibCheck": true,
+    "declaration": true,
+    "rootDir": "./src",
+    "outDir": "./dist"
   },
-  "include": ["src/**/*.ts", "src/**/*.json"],
-  "exclude": ["dist"]
+  "include": ["src/**/*"]
 }
