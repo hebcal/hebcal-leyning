@@ -41,3 +41,21 @@ msgstr "סוכות חול המועד יום ד׳"
 
 msgid "Sukkot Chol ha-Moed Day 5"
 msgstr "סוכות חול המועד יום ה׳"
+
+msgid "Sukkot I (on Shabbat)"
+msgstr "סוכות יום א׳ (בשבת)"
+
+msgid "Sukkot Final Day (Hoshana Raba)"
+msgstr "סוכות ז׳ (הושענא רבה)"
+
+msgid "Yom Kippur (on Shabbat)"
+msgstr "יום כיפור (בשבת)"
+
+msgid "Yom Kippur (Mincha, Traditional)"
+msgstr "יום כיפור מנחה"
+
+msgid "Yom Kippur (Mincha, Alternate)"
+msgstr "יום כיפור מנחה"
+
+msgid "Yom Kippur (Mincha)"
+msgstr "יום כיפור (מנחה)"

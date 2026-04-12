@@ -132,7 +132,7 @@ test('getLeyningForHoliday-il', () => {
   expect(sukkot1a.summary).toBe('Leviticus 22:26-23:44; Numbers 29:12-16');
 
   const sukkot1He = getLeyningForHoliday(sukkot1, true, 'he');
-  expect(sukkot1He.name.he).toBe('סוּכּוֹת יוֹם א׳ (בְּשַׁבָּת)');
+  expect(sukkot1He.name.he).toBe('סֻכּוֹת יוֹם א׳ (בְּשַׁבָּת)');
   expect(sukkot1He.summary).toBe('וַיִּקְרָא כב:כו-כג:מד; בְּמִדְבַּר כט:יב-טז');
   expect(sukkot1He.fullkriyah['1'].k).toBe('וַיִּקְרָא');
   expect(sukkot1He.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
@@ -461,7 +461,7 @@ test('israel-sukkot-chm-day5', () => {
   expect(sukkotChmDay5).toEqual({
     name: {
       en: 'Sukkot Chol ha-Moed Day 5',
-      he: 'סוּכּוֹת חֹל הַמּוֹעֵד יוֹם ה׳',
+      he: 'סֻכּוֹת חֹל הַמּוֹעֵד יוֹם ה׳',
     },
     type: 'holiday',
     summary: 'Numbers 29:29-37, 29:29-34',

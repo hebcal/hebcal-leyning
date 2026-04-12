@@ -69,25 +69,25 @@ msgid "Yom Kippur (Mincha, Alternate)"
 msgstr "יוֹם כִּפּוּר מִנְחָה"
 
 msgid "Sukkot I (on Shabbat)"
-msgstr "סוּכּוֹת יוֹם א׳ (בְּשַׁבָּת)"
+msgstr "סֻכּוֹת יוֹם א׳ (בְּשַׁבָּת)"
 
 msgid "Sukkot Chol ha-Moed Day 1"
-msgstr "סוּכּוֹת חֹל הַמּוֹעֵד יוֹם א׳"
+msgstr "סֻכּוֹת חֹל הַמּוֹעֵד יוֹם א׳"
 
 msgid "Sukkot Chol ha-Moed Day 2"
-msgstr "סוּכּוֹת חֹל הַמּוֹעֵד יוֹם ב׳"
+msgstr "סֻכּוֹת חֹל הַמּוֹעֵד יוֹם ב׳"
 
 msgid "Sukkot Chol ha-Moed Day 3"
-msgstr "סוּכּוֹת חֹל הַמּוֹעֵד יוֹם ג׳"
+msgstr "סֻכּוֹת חֹל הַמּוֹעֵד יוֹם ג׳"
 
 msgid "Sukkot Chol ha-Moed Day 4"
-msgstr "סוּכּוֹת חֹל הַמּוֹעֵד יוֹם ד׳"
+msgstr "סֻכּוֹת חֹל הַמּוֹעֵד יוֹם ד׳"
 
 msgid "Sukkot Chol ha-Moed Day 5"
-msgstr "סוּכּוֹת חֹל הַמּוֹעֵד יוֹם ה׳"
+msgstr "סֻכּוֹת חֹל הַמּוֹעֵד יוֹם ה׳"
 
 msgid "Sukkot Final Day (Hoshana Raba)"
-msgstr "סוּכּוֹת ז׳ (הוֹשַׁעְנָא רַבָּה)"
+msgstr "סֻכּוֹת ז׳ (הוֹשַׁעְנָא רַבָּה)"
 
 msgid "Shmini Atzeret (on Shabbat)"
 msgstr "שְׁמִינִי עֲצֶרֶת (בְּשַׁבָּת)"
