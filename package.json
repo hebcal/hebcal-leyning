@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "9.5.2",
+  "version": "9.5.3",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -40,11 +40,11 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^6.1.0",
+    "@hebcal/core": "^6.2.0",
     "@hebcal/hdate": "^0.22.0"
   },
   "scripts": {
-    "po2json": "node ./po2json.js po/he.po po/ashkenazi.po",
+    "po2json": "node ./po2json.js po/he.po po/he-x-NoNikud.po po/ashkenazi.po",
     "size-demo:rollup": "rollup -c size-demo/rollup.config.ts --configPlugin typescript",
     "size-demo": "npm run build && npm run size-demo:rollup",
     "build:rollup": "rollup -c",
@@ -73,7 +73,7 @@
     "rollup-plugin-bundle-size": "^1.0.3",
     "rollup-plugin-visualizer": "^7.0.1",
     "tslib": "^2.8.1",
-    "typedoc": "^0.28.18",
+    "typedoc": "^0.28.19",
     "typescript": "^6.0.2",
     "vitest": "^4.1.4"
   }

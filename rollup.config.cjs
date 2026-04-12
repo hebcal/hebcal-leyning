@@ -63,7 +63,7 @@ module.exports = defineConfig([
     ],
     external: [/@hebcal\/core/],
     plugins: [
-      typescript({...tsOptions, target: 'es2021'}),
+      typescript({...tsOptions, target: 'es2021', declaration: false}),
       json({compact: true, preferConst: true}),
       nodeResolve(),
       bundleSize(),

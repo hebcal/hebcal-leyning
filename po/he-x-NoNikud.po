@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he-x-NoNikud\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Pesach Chol ha-Moed Day 1"
+msgstr "פסח חול המועד יום א׳"
+
+msgid "Pesach Chol ha-Moed Day 2"
+msgstr "פסח חול המועד יום ב׳"
+
+msgid "Pesach Chol ha-Moed Day 2 on Sunday"
+msgstr "פסח חול המועד יום ב׳ (ביום ראשון)"
+
+msgid "Pesach Chol ha-Moed Day 3"
+msgstr "פסח חול המועד יום ג׳"
+
+msgid "Pesach Chol ha-Moed Day 3 on Monday"
+msgstr "פסח חול המועד יום ג׳ (ביום שני)"
+
+msgid "Pesach Chol ha-Moed Day 4"
+msgstr "פסח חול המועד יום ד׳"
+
+msgid "Pesach Chol ha-Moed Day 5"
+msgstr "פסח חול המועד יום ה׳"
+
+msgid "Sukkot Chol ha-Moed Day 1"
+msgstr "סוכות חול המועד יום א׳"
+
+msgid "Sukkot Chol ha-Moed Day 2"
+msgstr "סוכות חול המועד יום ב׳"
+
+msgid "Sukkot Chol ha-Moed Day 3"
+msgstr "סוכות חול המועד יום ג׳"
+
+msgid "Sukkot Chol ha-Moed Day 4"
+msgstr "סוכות חול המועד יום ד׳"
+
+msgid "Sukkot Chol ha-Moed Day 5"
+msgstr "סוכות חול המועד יום ה׳"

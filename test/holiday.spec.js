@@ -387,7 +387,7 @@ test('pesach-days-567', () => {
   const expected = [{
     name: {
       en: 'Pesach Chol ha-Moed Day 3',
-      he: 'פֶּסַח חוֹל הַמּוֹעֵד יוֹם ג׳',
+      he: 'פֶּסַח חֹל הַמּוֹעֵד יוֹם ג׳',
     },
     type: 'holiday',
     summary: 'Exodus 34:1-26; Numbers 28:19-25',
@@ -405,7 +405,7 @@ test('pesach-days-567', () => {
   {
     name: {
       en: 'Pesach Chol ha-Moed Day 4',
-      he: 'פֶּסַח חוֹל הַמּוֹעֵד יוֹם ד׳',
+      he: 'פֶּסַח חֹל הַמּוֹעֵד יוֹם ד׳',
     },
     type: 'holiday',
     summary: 'Numbers 9:1-14, 28:19-25',
@@ -461,7 +461,7 @@ test('israel-sukkot-chm-day5', () => {
   expect(sukkotChmDay5).toEqual({
     name: {
       en: 'Sukkot Chol ha-Moed Day 5',
-      he: 'סוּכּוֹת חוֹל הַמּוֹעֵד יוֹם ה׳',
+      he: 'סוּכּוֹת חֹל הַמּוֹעֵד יוֹם ה׳',
     },
     type: 'holiday',
     summary: 'Numbers 29:29-37, 29:29-34',
@@ -508,7 +508,7 @@ test('Sukkot Shabbat Chol ha-Moed', () => {
   const expected = {
     name: {
       en: 'Sukkot Shabbat Chol ha-Moed',
-      he: 'סוּכּוֹת שַׁבָּת חוֹל הַמּוֹעֵד',
+      he: 'סוּכּוֹת שַׁבָּת חֹל הַמּוֹעֵד',
     },
     type: 'holiday',
     fullkriyah: {
