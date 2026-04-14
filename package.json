@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "9.5.3",
+  "version": "9.5.4",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -40,7 +40,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^6.2.0",
+    "@hebcal/core": "^6.3.0",
     "@hebcal/hdate": "^0.22.0"
   },
   "scripts": {
