@@ -83,7 +83,7 @@ test('getLeyningKeyForEvent', () => {
     {d: '1997-05-07', h: 'Rosh Chodesh Iyyar', k: 'Rosh Chodesh Iyyar'},
     {d: '1997-05-08', h: 'Rosh Chodesh Iyyar', k: 'Rosh Chodesh Iyyar'},
     {d: '1997-05-11', h: 'Yom HaZikaron', k: undefined},
-    {d: '1997-05-12', h: 'Yom HaAtzma\'ut', k: undefined},
+    {d: '1997-05-12', h: 'Yom HaAtzma\'ut', k: 'Yom HaAtzma\'ut'},
     {d: '1997-05-21', h: 'Pesach Sheni', k: undefined},
     {d: '1997-05-25', h: 'Lag BaOmer', k: undefined},
     {d: '1997-06-04', h: 'Yom Yerushalayim', k: undefined},
