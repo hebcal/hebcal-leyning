@@ -29,6 +29,12 @@ export function getLeyningKeyForEvent(
   }
   const mask = ev.getFlags();
   if (mask & HOLIDAY_IGNORE_MASK) {
+    if (mask & flags.MODERN_HOLIDAY) {
+      const d = ev.getDesc();
+      if (hasFestival(d)) {
+        return d;
+      }
+    }
     return undefined;
   }
   // Skip all Erevs except for Simchat Torah
