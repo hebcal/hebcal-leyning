@@ -13,10 +13,10 @@
    "6":["4:23","5:24"],
    "7":["5:25","6:8"],
    "M":["6:5","6:8"]},
- "fullkriyahSrc":"Koren, Etz Hayyim, USCJ Luach",
+ "fullkriyahSrc":[{"title":"Koren"},{"title":"Etz Hayyim"},{"title":"USCJ Luach"}],
  "alt":{
    "chabad":{
-     "source":"Chabad",
+     "sources":[{"title":"Chabad"}],
      "fullkriyah":{
        "5":["4:19","4:26"],
        "6":["5:1","5:24"]}}},
@@ -204,10 +204,10 @@
    "6":["46:28","47:10"],
    "7":["47:11","47:27"],
    "M":["47:25","47:27"]},
- "fullkriyahSrc":"Koren, Etz Hayyim, USCJ Luach",
+ "fullkriyahSrc":[{"title":"Koren"},{"title":"Etz Hayyim"},{"title":"USCJ Luach"}],
  "alt":{
    "chabad":{
-     "source":"Chabad, Torah Temimah",
+     "sources":[{"title":"Chabad"},{"title":"Torah Temimah"}],
      "fullkriyah":{
        "3":["45:8","45:27"],
        "4":["45:28","46:7"],
@@ -360,10 +360,10 @@
    "6":["27:1","27:8"],
    "7":["27:9","27:19"],
    "M":["27:17","27:19"]},
- "fullkriyahSrc":"Koren, Etz Hayyim, USCJ Luach",
+ "fullkriyahSrc":[{"title":"Koren"},{"title":"Etz Hayyim"},{"title":"USCJ Luach"}],
  "alt":{
    "chabad":{
-     "source":"Chabad, Torah Temimah, Tikkun Yissachar, Sefaria",
+     "sources":[{"title":"Chabad"},{"title":"Torah Temimah"},{"title":"Tikkun Yissachar"},{"title":"Sefaria"}],
      "fullkriyah":{
        "2":["25:17","25:30"],
        "3":["25:31","26:14"]}}},
@@ -665,10 +665,10 @@
    "6":["7:42","7:71"],
    "7":["7:72","7:89"],
    "M":["7:87","7:89"]},
- "fullkriyahSrc":"Koren, Etz Hayyim, USCJ Luach",
+ "fullkriyahSrc":[{"title":"Koren"},{"title":"Etz Hayyim"},{"title":"USCJ Luach"}],
  "alt":{
    "chabad":{
-     "source":"Chabad",
+     "sources":[{"title":"Chabad"},{"title":"Torah Temimah"}],
      "fullkriyah":{
        "1":["4:21","4:28"],
        "2":["4:29","4:49"],
@@ -819,10 +819,10 @@
    "6":["35:9","35:34"],
    "7":["36:1","36:13"],
    "M":["36:11","36:13"]},
- "fullkriyahSrc":"Koren, Etz Hayyim, USCJ Luach",
+ "fullkriyahSrc":[{"title":"Koren"},{"title":"Etz Hayyim"},{"title":"USCJ Luach"}],
  "alt":{
    "chabad":{
-     "source":"Chabad",
+     "sources":[{"title":"Chabad"},{"title":"Torah Temimah"}],
      "fullkriyah":{
        "1":["33:1","33:49"],
        "2":["33:50","33:53"],
@@ -845,10 +845,10 @@
    "6":["2:31","3:14"],
    "7":["3:15","3:22"],
    "M":["3:20","3:22"]},
- "fullkriyahSrc":"Koren, Etz Hayyim, USCJ Luach",
+ "fullkriyahSrc":[{"title":"Koren"},{"title":"Etz Hayyim"},{"title":"USCJ Luach"}],
  "alt":{
    "chabad":{
-     "source":"Chabad",
+     "sources":[{"title":"Chabad"},{"title":"Torah Temimah"}],
      "fullkriyah":{
        "1":["1:1","1:11"],
        "2":["1:12","1:21"]}}},

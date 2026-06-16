@@ -823,6 +823,16 @@ test('alt', () => {
     summaryParts: [ { k: 'Numbers', b: '7:1', e: '7:17' } ],
     alt: {
       sephardic: {
+        sources: [
+          {
+            title: 'Shulchan Aruch HaRav, ch. 17',
+            url: 'https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/'
+          },
+          {
+            title: 'OU – Torah Reading for Chanukah',
+            url: 'https://www.ou.org/holidays/information-torah-readings-chanukah/'
+          }
+        ],
         fullkriyah: {
           '1': { p: 35, k: 'Numbers', b: '7:1', e: '7:3', v: 3 },
           '2': { p: 35, k: 'Numbers', b: '7:4', e: '7:11', v: 8 },

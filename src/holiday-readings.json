@@ -365,7 +365,7 @@
   "5":{"p":47,"k":5,"b":"16:9","e":"16:17"},
   "M":{"p":41,"k":4,"b":"29:35","e":"30:1"}},
  "alt":
-  {"sephardic":{"fullkriyah":
+  {"sephardic":{"sources":[{"title":"unspecified"}],"fullkriyah":
    {"1":{"p":47,"k":5,"b":"14:22","e":"15:23"},
    "2":{"p":47,"k":5,"b":"16:1","e":"16:3"},
    "3":{"p":47,"k":5,"b":"16:4","e":"16:8"},
@@ -423,7 +423,7 @@
   {"1":{"p":35,"k":4,"b":"7:1","e":"7:11"},
   "2":{"p":35,"k":4,"b":"7:12","e":"7:14"},
   "3":{"p":35,"k":4,"b":"7:15","e":"7:17"}},
- "alt":{"sephardic":{"fullkriyah":
+ "alt":{"sephardic":{"sources":[{"title":"Shulchan Aruch HaRav, ch. 17","url":"https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/"},{"title":"OU – Torah Reading for Chanukah","url":"https://www.ou.org/holidays/information-torah-readings-chanukah/"}],"fullkriyah":
   {"1":{"p":35,"k":4,"b":"7:1","e":"7:3"},
   "2":{"p":35,"k":4,"b":"7:4","e":"7:11"},
   "3":{"p":35,"k":4,"b":"7:12","e":"7:17"}}}}},
@@ -435,7 +435,7 @@
   {"1":{"p":35,"k":4,"b":"7:18","e":"7:20"},
   "2":{"p":35,"k":4,"b":"7:21","e":"7:23"},
   "3":{"p":35,"k":4,"b":"7:24","e":"7:29"}},
- "alt":{"sephardic":{"fullkriyah":
+ "alt":{"sephardic":{"sources":[{"title":"Shulchan Aruch HaRav, ch. 17","url":"https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/"},{"title":"OU – Torah Reading for Chanukah","url":"https://www.ou.org/holidays/information-torah-readings-chanukah/"}],"fullkriyah":
   {"1":{"p":35,"k":4,"b":"7:18","e":"7:20"},
   "2":{"p":35,"k":4,"b":"7:21","e":"7:23"},
   "3":{"p":35,"k":4,"b":"7:18","e":"7:23"}}}}},
@@ -447,7 +447,7 @@
   {"1":{"p":35,"k":4,"b":"7:24","e":"7:26"},
   "2":{"p":35,"k":4,"b":"7:27","e":"7:29"},
   "3":{"p":35,"k":4,"b":"7:30","e":"7:35"}},
- "alt":{"sephardic":{"fullkriyah":
+ "alt":{"sephardic":{"sources":[{"title":"Shulchan Aruch HaRav, ch. 17","url":"https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/"},{"title":"OU – Torah Reading for Chanukah","url":"https://www.ou.org/holidays/information-torah-readings-chanukah/"}],"fullkriyah":
   {"1":{"p":35,"k":4,"b":"7:24","e":"7:26"},
   "2":{"p":35,"k":4,"b":"7:27","e":"7:29"},
   "3":{"p":35,"k":4,"b":"7:24","e":"7:29"}}}}},
@@ -459,7 +459,7 @@
   {"1":{"p":35,"k":4,"b":"7:30","e":"7:32"},
   "2":{"p":35,"k":4,"b":"7:33","e":"7:35"},
   "3":{"p":35,"k":4,"b":"7:36","e":"7:41"}},
- "alt":{"sephardic":{"fullkriyah":
+ "alt":{"sephardic":{"sources":[{"title":"Shulchan Aruch HaRav, ch. 17","url":"https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/"},{"title":"OU – Torah Reading for Chanukah","url":"https://www.ou.org/holidays/information-torah-readings-chanukah/"}],"fullkriyah":
   {"1":{"p":35,"k":4,"b":"7:30","e":"7:32"},
   "2":{"p":35,"k":4,"b":"7:33","e":"7:35"},
   "3":{"p":35,"k":4,"b":"7:30","e":"7:35"}}}}},
@@ -471,7 +471,7 @@
   {"1":{"p":35,"k":4,"b":"7:36","e":"7:38"},
   "2":{"p":35,"k":4,"b":"7:39","e":"7:41"},
   "3":{"p":35,"k":4,"b":"7:42","e":"7:47"}},
- "alt":{"sephardic":{"fullkriyah":
+ "alt":{"sephardic":{"sources":[{"title":"Shulchan Aruch HaRav, ch. 17","url":"https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/"},{"title":"OU – Torah Reading for Chanukah","url":"https://www.ou.org/holidays/information-torah-readings-chanukah/"}],"fullkriyah":
   {"1":{"p":35,"k":4,"b":"7:36","e":"7:38"},
   "2":{"p":35,"k":4,"b":"7:39","e":"7:41"},
   "3":{"p":35,"k":4,"b":"7:36","e":"7:41"}}}}},
@@ -489,7 +489,7 @@
   {"1":{"p":35,"k":4,"b":"7:48","e":"7:50"},
   "2":{"p":35,"k":4,"b":"7:51","e":"7:53"},
   "3":{"p":35,"k":4,"b":"7:54","e":"7:59"}},
- "alt":{"sephardic":{"fullkriyah":
+ "alt":{"sephardic":{"sources":[{"title":"Shulchan Aruch HaRav, ch. 17","url":"https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/"},{"title":"OU – Torah Reading for Chanukah","url":"https://www.ou.org/holidays/information-torah-readings-chanukah/"}],"fullkriyah":
   {"1":{"p":35,"k":4,"b":"7:48","e":"7:50"},
   "2":{"p":35,"k":4,"b":"7:51","e":"7:53"},
   "3":{"p":35,"k":4,"b":"7:48","e":"7:53"}}}}},

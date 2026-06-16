@@ -130,10 +130,14 @@ test('getLeyningForParsha-3', () => {
       '7': {k: 'Numbers', b: '36:1', e: '36:13', v: 13},
       'M': {k: 'Numbers', b: '36:11', e: '36:13', v: 3},
     },
-    fullkriyahSrc: 'Koren, Etz Hayyim, USCJ Luach',
+    fullkriyahSrc: [
+      {title: 'Koren'},
+      {title: 'Etz Hayyim'},
+      {title: 'USCJ Luach'},
+    ],
     alt: {
       chabad: {
-        source: 'Chabad',
+        sources: [{title: 'Chabad'}, {title: 'Torah Temimah'}],
         fullkriyah: {
           '1': {k: 'Numbers', b: '33:1', e: '33:49', v: 49},
           '2': {k: 'Numbers', b: '33:50', e: '33:53', v: 4},

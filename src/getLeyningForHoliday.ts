@@ -71,8 +71,8 @@ export function getLeyningForHolidayKey(
         for (const aliyah of Object.values(fullkriyah)) {
           calculateNumVerses(aliyah);
         }
-        leyning.alt[tradition] = division.source
-          ? {source: division.source, fullkriyah}
+        leyning.alt[tradition] = division.sources
+          ? {sources: division.sources, fullkriyah}
           : {fullkriyah};
       }
     }

@@ -18,10 +18,14 @@ test('lookupParsha', () => {
       '6': ['4:23', '5:24'],
       '7': ['5:25', '6:8'],
       'M': ['6:5', '6:8']},
-    'fullkriyahSrc': 'Koren, Etz Hayyim, USCJ Luach',
+    'fullkriyahSrc': [
+      {'title': 'Koren'},
+      {'title': 'Etz Hayyim'},
+      {'title': 'USCJ Luach'},
+    ],
     'alt': {
       'chabad': {
-        'source': 'Chabad',
+        'sources': [{'title': 'Chabad'}],
         'fullkriyah': {
           '5': ['4:19', '4:26'],
           '6': ['5:1', '5:24'],

@@ -10,6 +10,7 @@ import {specialReadings2} from './specialReadings';
 import {
   Aliyah,
   AliyotMap,
+  AliyotSource,
   AltAliyot,
   Leyning,
   LeyningNames,
@@ -35,8 +36,8 @@ type JsonParsha = {
   seph?: JsonAliyah | JsonAliyah[];
   chabad?: JsonAliyah | JsonAliyah[] | {sameas: 'haft'};
   fullkriyah: JsonParshaMap;
-  fullkriyahSrc?: string;
-  alt?: Record<string, {source?: string; fullkriyah: JsonParshaMap}>;
+  fullkriyahSrc?: AliyotSource[];
+  alt?: Record<string, {sources?: AliyotSource[]; fullkriyah: JsonParshaMap}>;
   weekday?: JsonParshaMap;
   combined?: boolean;
   p1?: string;
@@ -106,8 +107,8 @@ function getLeyningForParshaShabbatOnly(
         calculateNumVerses(aliyah);
         altFullkriyah[num] = aliyah;
       }
-      alt[tradition] = division.source
-        ? {source: division.source, fullkriyah: altFullkriyah}
+      alt[tradition] = division.sources
+        ? {sources: division.sources, fullkriyah: altFullkriyah}
         : {fullkriyah: altFullkriyah};
     }
   }

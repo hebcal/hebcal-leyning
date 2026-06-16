@@ -7,11 +7,20 @@ test('parsha-alt-chabad-Terumah', () => {
   // default (Koren) division is unchanged
   expect(reading.fullkriyah['2']).toEqual({k: 'Exodus', b: '25:17', e: '25:40', v: 24});
   expect(reading.fullkriyah['3']).toEqual({k: 'Exodus', b: '26:1', e: '26:14', v: 14});
-  expect(reading.fullkriyahSrc).toBe('Koren, Etz Hayyim, USCJ Luach');
+  expect(reading.fullkriyahSrc).toEqual([
+    {title: 'Koren'},
+    {title: 'Etz Hayyim'},
+    {title: 'USCJ Luach'},
+  ]);
   // Chabad alternate division lists only the aliyot that differ
   expect(reading.alt).toEqual({
     chabad: {
-      source: 'Chabad, Torah Temimah, Tikkun Yissachar, Sefaria',
+      sources: [
+        {title: 'Chabad'},
+        {title: 'Torah Temimah'},
+        {title: 'Tikkun Yissachar'},
+        {title: 'Sefaria'},
+      ],
       fullkriyah: {
         '2': {k: 'Exodus', b: '25:17', e: '25:30', v: 14},
         '3': {k: 'Exodus', b: '25:31', e: '26:14', v: 24},
@@ -50,7 +59,12 @@ test('parsha-alt-chabad-divisions', () => {
   for (const [parsha, fullkriyah] of Object.entries(cases)) {
     const reading = getLeyningForParsha(parsha);
     expect(reading.alt.chabad.fullkriyah, parsha).toEqual(fullkriyah);
-    expect(reading.fullkriyahSrc, parsha).toBe('Koren, Etz Hayyim, USCJ Luach');
+    expect(reading.fullkriyahSrc, parsha).toEqual([
+      {title: 'Koren'},
+      {title: 'Etz Hayyim'},
+      {title: 'USCJ Luach'},
+    ]);
+    expect(reading.alt.chabad.sources[0], parsha).toEqual({title: 'Chabad'});
   }
 });
 
@@ -62,10 +76,19 @@ test('parsha-without-alt-has-no-alt', () => {
 
 test('lookupParsha-alt-reflects-json', () => {
   const meta = lookupParsha('Terumah');
-  expect(meta.fullkriyahSrc).toBe('Koren, Etz Hayyim, USCJ Luach');
+  expect(meta.fullkriyahSrc).toEqual([
+    {title: 'Koren'},
+    {title: 'Etz Hayyim'},
+    {title: 'USCJ Luach'},
+  ]);
   expect(meta.alt).toEqual({
     chabad: {
-      source: 'Chabad, Torah Temimah, Tikkun Yissachar, Sefaria',
+      sources: [
+        {title: 'Chabad'},
+        {title: 'Torah Temimah'},
+        {title: 'Tikkun Yissachar'},
+        {title: 'Sefaria'},
+      ],
       fullkriyah: {
         '2': ['25:17', '25:30'],
         '3': ['25:31', '26:14'],
@@ -85,6 +108,16 @@ test('holiday-alt-sephardic-Chanukah', () => {
   const reading = getLeyningForHolidayKey('Chanukah Day 2');
   expect(reading.alt).toEqual({
     sephardic: {
+      sources: [
+        {
+          title: 'Shulchan Aruch HaRav, ch. 17',
+          url: 'https://shulchanaruchharav.com/halacha/chapter-17-the-torah-reading-of-chanukah-purim/',
+        },
+        {
+          title: 'OU – Torah Reading for Chanukah',
+          url: 'https://www.ou.org/holidays/information-torah-readings-chanukah/',
+        },
+      ],
       fullkriyah: {
         '1': {p: 35, k: 'Numbers', b: '7:18', e: '7:20', v: 3},
         '2': {p: 35, k: 'Numbers', b: '7:21', e: '7:23', v: 3},
@@ -96,6 +129,7 @@ test('holiday-alt-sephardic-Chanukah', () => {
 
 test('holiday-alt-sephardic-Shmini-Atzeret', () => {
   const reading = getLeyningForHolidayKey('Shmini Atzeret');
+  expect(reading.alt.sephardic.sources).toEqual([{title: 'unspecified'}]);
   expect(reading.alt.sephardic.fullkriyah['1']).toEqual({
     p: 47, k: 'Deuteronomy', b: '14:22', e: '15:23', v: 31,
   });

@@ -79,6 +79,22 @@ export type AliyotMap = Record<string, Aliyah>;
 export type AliyotTradition = 'chabad' | 'sephardic' | (string & {});
 
 /**
+ * A citation for an aliyah-division tradition (minhag).
+ *
+ * The special title `unspecified` denotes a division whose attribution
+ * is not yet documented.
+ */
+export type AliyotSource = {
+  /**
+   * Title or name of the source,
+   *  e.g. `"Koren"`, `"Torah Temimah"` or `"Shulchan Aruch HaRav, ch. 17"`
+   */
+  title: string;
+  /** Optional URL where the reader can find more detail */
+  url?: string;
+};
+
+/**
  * An alternate division of the aliyot according to a particular
  * tradition (minhag) or source.
  *
@@ -87,11 +103,8 @@ export type AliyotTradition = 'chabad' | 'sephardic' | (string & {});
  * the complete alternate division.
  */
 export type AltAliyot = {
-  /**
-   * Human-readable attribution for this division,
-   *  e.g. `"Chabad, Torah Temimah, Tikkun Yissachar, Sefaria"`
-   */
-  source?: string;
+  /** Attribution(s) for this division */
+  sources?: AliyotSource[];
   /** Map of aliyot `1` through `7` plus `M` for maftir */
   fullkriyah: AliyotMap;
 };
@@ -122,14 +135,17 @@ export type ParshaMeta = {
   chabad?: Aliyah | Aliyah[];
   /** Map of Shabbat aliyot `1` through `7` plus `M` for maftir */
   fullkriyah: Record<string, string[]>;
-  /** Source attribution for the default `fullkriyah` division, e.g. `"Koren, Etz Hayyim, USCJ Luach"` */
-  fullkriyahSrc?: string;
+  /** Source attribution for the default `fullkriyah` division, e.g. Koren, Etz Hayyim, USCJ Luach */
+  fullkriyahSrc?: AliyotSource[];
   /**
    * Alternate aliyah divisions keyed by tradition (minhag) identifier
    *  such as `chabad`. Each division lists only the aliyot that differ
    *  from the default `fullkriyah`.
    */
-  alt?: Record<string, {source?: string; fullkriyah: Record<string, string[]>}>;
+  alt?: Record<
+    string,
+    {sources?: AliyotSource[]; fullkriyah: Record<string, string[]>}
+  >;
   /**
    * Map of weekday Torah Readings
    *  aliyot `1` through `3` for Monday and Thursday
@@ -205,8 +221,8 @@ export type LeyningShabbatHoliday = LeyningBase &
   HaftarahProps & {
     /** Map of aliyot `1` through `7` plus `M` for maftir */
     fullkriyah: AliyotMap;
-    /** Source attribution for the default `fullkriyah` division, e.g. `"Koren, Etz Hayyim, USCJ Luach"` */
-    fullkriyahSrc?: string;
+    /** Source attribution for the default `fullkriyah` division, e.g. Koren, Etz Hayyim, USCJ Luach */
+    fullkriyahSrc?: AliyotSource[];
     /**
      * Alternate aliyah divisions keyed by tradition (minhag) identifier.
      *

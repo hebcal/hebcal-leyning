@@ -447,7 +447,12 @@ test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Shekalim', () => {
   });
   expect(readings[0].alt).toEqual({
     "chabad": {
-      "source": "Chabad, Torah Temimah, Tikkun Yissachar, Sefaria",
+      "sources": [
+        {"title": "Chabad"},
+        {"title": "Torah Temimah"},
+        {"title": "Tikkun Yissachar"},
+        {"title": "Sefaria"},
+      ],
       "fullkriyah": {
         "2": {"k": "Exodus", "b": "25:17", "e": "25:30", "v": 14},
         "3": {"k": "Exodus", "b": "25:31", "e": "26:14", "v": 24},
