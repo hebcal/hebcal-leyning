@@ -65,9 +65,15 @@ export function getLeyningForHolidayKey(
       calculateNumVerses(aliyah)
     );
     if (src.alt) {
-      leyning.alt = structuredClone(src.alt) as AliyotMap;
-      for (const aliyah of Object.values(leyning.alt)) {
-        calculateNumVerses(aliyah);
+      leyning.alt = {};
+      for (const [tradition, division] of Object.entries(src.alt)) {
+        const fullkriyah = structuredClone(division.fullkriyah) as AliyotMap;
+        for (const aliyah of Object.values(fullkriyah)) {
+          calculateNumVerses(aliyah);
+        }
+        leyning.alt[tradition] = division.source
+          ? {source: division.source, fullkriyah}
+          : {fullkriyah};
       }
     }
   }

@@ -444,7 +444,15 @@ test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Shekalim', () => {
     "e": "25:40",
     "k": "Exodus",
     "v": 24,
-    "reason": "some sources use 25:17-30",
+  });
+  expect(readings[0].alt).toEqual({
+    "chabad": {
+      "source": "Chabad, Torah Temimah, Tikkun Yissachar, Sefaria",
+      "fullkriyah": {
+        "2": {"k": "Exodus", "b": "25:17", "e": "25:30", "v": 14},
+        "3": {"k": "Exodus", "b": "25:31", "e": "26:14", "v": 24},
+      },
+    },
   });
   const readingsHe = getLeyningOnDate(hd, false, true, 'he');
   expect(readingsHe.length).toBe(1);
@@ -460,7 +468,12 @@ test('getLeyningOnDate-Shabbat-Rosh-Chodesh-Shekalim', () => {
     "b": "כה:יז",
     "e": "כה:מ",
     "v": 24,
-    "reason": "some sources use 25:17-30",
+  });
+  expect(readingsHe[0].alt.chabad.fullkriyah[2]).toEqual({
+    "k": "שְׁמוֹת",
+    "b": "כה:יז",
+    "e": "כה:ל",
+    "v": 14,
   });
 });
 

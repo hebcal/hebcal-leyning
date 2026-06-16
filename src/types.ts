@@ -69,6 +69,33 @@ export type StringMap = Record<string, string>;
 
 export type AliyotMap = Record<string, Aliyah>;
 
+/**
+ * Identifier for an alternate aliyah-division tradition (minhag).
+ *
+ * Well-known values are `chabad` and `sephardic`, but the set is
+ * open-ended so additional traditions can be added without a breaking
+ * type change.
+ */
+export type AliyotTradition = 'chabad' | 'sephardic' | (string & {});
+
+/**
+ * An alternate division of the aliyot according to a particular
+ * tradition (minhag) or source.
+ *
+ * For a weekly parsha, `fullkriyah` contains only the aliyot that
+ * differ from the default division; for a holiday reading it contains
+ * the complete alternate division.
+ */
+export type AltAliyot = {
+  /**
+   * Human-readable attribution for this division,
+   *  e.g. `"Chabad, Torah Temimah, Tikkun Yissachar, Sefaria"`
+   */
+  source?: string;
+  /** Map of aliyot `1` through `7` plus `M` for maftir */
+  fullkriyah: AliyotMap;
+};
+
 /** Name of the parsha hashavua or holiday */
 export type LeyningNames = {
   /** English */
@@ -95,6 +122,14 @@ export type ParshaMeta = {
   chabad?: Aliyah | Aliyah[];
   /** Map of Shabbat aliyot `1` through `7` plus `M` for maftir */
   fullkriyah: Record<string, string[]>;
+  /** Source attribution for the default `fullkriyah` division, e.g. `"Koren, Etz Hayyim, USCJ Luach"` */
+  fullkriyahSrc?: string;
+  /**
+   * Alternate aliyah divisions keyed by tradition (minhag) identifier
+   *  such as `chabad`. Each division lists only the aliyot that differ
+   *  from the default `fullkriyah`.
+   */
+  alt?: Record<string, {source?: string; fullkriyah: Record<string, string[]>}>;
   /**
    * Map of weekday Torah Readings
    *  aliyot `1` through `3` for Monday and Thursday
@@ -170,8 +205,18 @@ export type LeyningShabbatHoliday = LeyningBase &
   HaftarahProps & {
     /** Map of aliyot `1` through `7` plus `M` for maftir */
     fullkriyah: AliyotMap;
-    /** Alternate full kriyah */
-    alt?: AliyotMap;
+    /** Source attribution for the default `fullkriyah` division, e.g. `"Koren, Etz Hayyim, USCJ Luach"` */
+    fullkriyahSrc?: string;
+    /**
+     * Alternate aliyah divisions keyed by tradition (minhag) identifier.
+     *
+     * For example `alt.chabad` holds the Chabad division of a weekly
+     * parsha and `alt.sephardic` holds the Sephardi division of a
+     * holiday reading. For a weekly parsha each division's `fullkriyah`
+     * lists only the aliyot that differ from the default; for a holiday
+     * reading it lists the complete alternate division.
+     */
+    alt?: Record<string, AltAliyot>;
     /** Haftarah object for Sephardim */
     seph?: Aliyah | Aliyah[];
     /** Haftarah object(s) for Chabad */

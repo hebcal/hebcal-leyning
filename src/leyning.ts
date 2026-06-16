@@ -10,6 +10,7 @@ import {specialReadings2} from './specialReadings';
 import {
   Aliyah,
   AliyotMap,
+  AltAliyot,
   Leyning,
   LeyningNames,
   ParshaMeta,
@@ -34,6 +35,8 @@ type JsonParsha = {
   seph?: JsonAliyah | JsonAliyah[];
   chabad?: JsonAliyah | JsonAliyah[] | {sameas: 'haft'};
   fullkriyah: JsonParshaMap;
+  fullkriyahSrc?: string;
+  alt?: Record<string, {source?: string; fullkriyah: JsonParshaMap}>;
   weekday?: JsonParshaMap;
   combined?: boolean;
   p1?: string;
@@ -90,11 +93,23 @@ function getLeyningForParshaShabbatOnly(
   const book = BOOK[raw.book];
   for (const [num, src] of Object.entries(raw.fullkriyah)) {
     const aliyah: Aliyah = {k: book, b: src[0], e: src[1]};
-    if (src.length === 3) {
-      aliyah.reason = src[2];
-    }
     calculateNumVerses(aliyah);
     fullkriyah[num] = aliyah;
+  }
+  let alt: Record<string, AltAliyot> | undefined;
+  if (raw.alt) {
+    alt = {};
+    for (const [tradition, division] of Object.entries(raw.alt)) {
+      const altFullkriyah: AliyotMap = {};
+      for (const [num, src] of Object.entries(division.fullkriyah)) {
+        const aliyah: Aliyah = {k: book, b: src[0], e: src[1]};
+        calculateNumVerses(aliyah);
+        altFullkriyah[num] = aliyah;
+      }
+      alt[tradition] = division.source
+        ? {source: division.source, fullkriyah: altFullkriyah}
+        : {fullkriyah: altFullkriyah};
+    }
   }
   const name = parshaToString(parsha);
   const parshaNameArray: string[] = raw.combined ? [raw.p1!, raw.p2!] : [name];
@@ -110,6 +125,12 @@ function getLeyningForParshaShabbatOnly(
     haftara: '',
     haft: [],
   };
+  if (raw.fullkriyahSrc) {
+    result.fullkriyahSrc = raw.fullkriyahSrc;
+  }
+  if (alt) {
+    result.alt = alt;
+  }
   if (parts.length > 1) {
     result.summaryParts = parts;
   }

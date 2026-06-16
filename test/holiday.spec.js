@@ -822,9 +822,13 @@ test('alt', () => {
     summary: 'Numbers 7:1-17',
     summaryParts: [ { k: 'Numbers', b: '7:1', e: '7:17' } ],
     alt: {
-      '1': { p: 35, k: 'Numbers', b: '7:1', e: '7:3', v: 3 },
-      '2': { p: 35, k: 'Numbers', b: '7:4', e: '7:11', v: 8 },
-      '3': { p: 35, k: 'Numbers', b: '7:12', e: '7:17', v: 6 }
+      sephardic: {
+        fullkriyah: {
+          '1': { p: 35, k: 'Numbers', b: '7:1', e: '7:3', v: 3 },
+          '2': { p: 35, k: 'Numbers', b: '7:4', e: '7:11', v: 8 },
+          '3': { p: 35, k: 'Numbers', b: '7:12', e: '7:17', v: 6 }
+        }
+      }
     }
   };
   expect(reading).toEqual(expected);

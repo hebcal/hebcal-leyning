@@ -109,5 +109,13 @@ export function translateLeyning(leyning: Leyning, language: string): Leyning {
     leyning.weekday = translateAliyahOrArray(leyning.weekday, language);
     leyning.summary = makeSummaryFromParts(parts, language);
   }
+  if (leyning.alt) {
+    for (const division of Object.values(leyning.alt)) {
+      division.fullkriyah = translateAliyahOrArray(
+        division.fullkriyah,
+        language
+      );
+    }
+  }
   return leyning;
 }

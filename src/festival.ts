@@ -44,7 +44,11 @@ export function lookupFestival(
     ? structuredClone(src)
     : src;
   aliyotBookNumToStr(result.fullkriyah);
-  aliyotBookNumToStr(result.alt);
+  if (result.alt) {
+    for (const division of Object.values(result.alt)) {
+      aliyotBookNumToStr(division.fullkriyah);
+    }
+  }
   if (src.chabad && 'sameas' in src.chabad) {
     result.chabad = result.haft;
   }
