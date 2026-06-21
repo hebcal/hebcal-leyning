@@ -9,35 +9,28 @@ const {defineConfig} = require('rollup');
 const banner = '/*! ' + pkg.name + ' v' + pkg.version + ' */';
 
 const iifeGlobals = {
-  '@hebcal/hdate': 'hebcal',
-  '@hebcal/core': 'hebcal',
-  '@hebcal/core/dist/esm/locale': 'hebcal',
-  '@hebcal/core/dist/esm/holidays': 'hebcal',
-  '@hebcal/core/dist/esm/sedra': 'hebcal',
   '@hebcal/core/dist/esm/event': 'hebcal',
+  '@hebcal/core/dist/esm/locale': 'hebcal',
+  '@hebcal/core/dist/esm/sedra': 'hebcal',
+  '@hebcal/core/dist/esm/holidays': 'hebcal',
   '@hebcal/core/dist/esm/ParshaEvent': 'hebcal',
   '@hebcal/core/dist/esm/HolidayEvent': 'hebcal',
 };
 
-// Override tsconfig.json, which includes ./size-demo.
-const tsOptions = {rootDir: './src'};
 module.exports = defineConfig([
   {
     input: ['src/index.ts', 'src/csv.ts'],
-    output: [
-      {
-        dir: 'dist/esm',
-        format: 'es',
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        name: pkg.name,
-        banner,
-        sourcemap: true,
-      },
-    ],
+    output: {
+      dir: 'dist/esm',
+      format: 'es',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+      banner,
+      sourcemap: true,
+    },
     external: [/node_modules/, /@hebcal/],
     plugins: [
-      typescript({...tsOptions, outDir: 'dist/esm', sourceMap: true}),
+      typescript({outDir: 'dist/esm', sourceMap: true}),
       json({compact: true, preferConst: true}),
     ],
   },
@@ -63,7 +56,7 @@ module.exports = defineConfig([
     ],
     external: [/@hebcal\/core/],
     plugins: [
-      typescript({...tsOptions, target: 'es2021', declaration: false}),
+      typescript({target: 'es2021', declaration: false}),
       json({compact: true, preferConst: true}),
       nodeResolve(),
       bundleSize(),
