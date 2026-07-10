@@ -53,11 +53,13 @@
     "prepublish": "npm run build",
     "docs": "typedoc",
     "pretest": "npm run build",
-    "lint": "gts lint",
+    "lint": "oxlint .",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "clean": "gts clean",
-    "fix": "gts fix"
+    "clean": "rm -rf dist coverage",
+    "fix": "oxlint . --fix && npm run format:fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write"
   },
   "license": "BSD-2-Clause",
   "devDependencies": {
@@ -68,7 +70,6 @@
     "@types/node": "^26.0.0",
     "@vitest/coverage-v8": "^4.1.9",
     "gettext-parser": "^9.0.2",
-    "gts": "^7.0.0",
     "pretty-bytes": "^7.1.0",
     "rollup": "^4.62.2",
     "rollup-plugin-bundle-size": "^1.0.3",
@@ -76,9 +77,8 @@
     "tslib": "^2.8.1",
     "typedoc": "^0.28.19",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.9"
-  },
-  "overrides": {
-    "tmp": "^0.2.6"
+    "vitest": "^4.1.9",
+    "oxlint": "^1.73.0",
+    "prettier": "^3.8.2"
   }
 }
