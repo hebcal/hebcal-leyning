@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "node": true,
+    "vitest": true
+  },
+  "ignorePatterns": ["dist/", "coverage/", "size-demo/", "test/", "src/*.po.ts"]
+}
