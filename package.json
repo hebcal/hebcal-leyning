@@ -41,7 +41,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^6.8.1",
+    "@hebcal/core": "^6.8.2",
     "@hebcal/hdate": "^0.22.5"
   },
   "scripts": {
@@ -70,6 +70,8 @@
     "@types/node": "^26.1.1",
     "@vitest/coverage-v8": "^4.1.10",
     "gettext-parser": "^9.1.1",
+    "oxlint": "^1.74.0",
+    "prettier": "^3.9.6",
     "pretty-bytes": "^7.1.1",
     "rollup": "^4.62.2",
     "rollup-plugin-bundle-size": "^1.0.3",
@@ -77,8 +79,6 @@
     "tslib": "^2.8.1",
     "typedoc": "^0.28.20",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.10",
-    "oxlint": "^1.74.0",
-    "prettier": "^3.9.6"
+    "vitest": "^4.1.10"
   }
 }

@@ -7,7 +7,7 @@ test('locale', () => {
   expect(Locale.lookupTranslation(enStr, 'ashkenazi'))
     .toBe('Sukkos Shabbos Chol ha-Moed');
   expect(Locale.lookupTranslation(enStr, 'he'))
-    .toBe('שַׁבַּת חוֹל הַמּוֹעֵד סֻכּוֹת');
+    .toBe('שַׁבַּת חֹל הַמּוֹעֵד סֻכּוֹת');
   expect(Locale.lookupTranslation(enStr, 'he-x-NoNikud'))
     .toBe('שבת חול המועד סוכות');
   });
