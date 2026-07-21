@@ -508,7 +508,7 @@ test('Sukkot Shabbat Chol ha-Moed', () => {
   const expected = {
     name: {
       en: 'Sukkot Shabbat Chol ha-Moed',
-      he: 'סֻכּוֹת שַׁבָּת חֹל הַמּוֹעֵד',
+      he: 'שַׁבַּת חוֹל הַמּוֹעֵד סֻכּוֹת',
     },
     type: 'holiday',
     fullkriyah: {
