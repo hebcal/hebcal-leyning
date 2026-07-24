@@ -14,6 +14,17 @@ export const HOLIDAY_IGNORE_MASK =
   flags.YERUSHALMI_YOMI;
 
 /**
+ * Most modern holidays have no Torah reading, but a few (such as
+ * Yom HaAtzma'ut) do have an entry in `holiday-readings.json`
+ * @param ev event
+ * @returns true if this is a modern holiday that has a reading
+ */
+export function isModernHolidayWithReading(ev: Event): boolean {
+  const mask = ev.getFlags();
+  return Boolean(mask & flags.MODERN_HOLIDAY) && hasFestival(ev.getDesc());
+}
+
+/**
  * Based on the event date, type and title, finds the relevant leyning key
  * @param ev event
  * @param [il] true if Israel holiday scheme
@@ -29,13 +40,7 @@ export function getLeyningKeyForEvent(
   }
   const mask = ev.getFlags();
   if (mask & HOLIDAY_IGNORE_MASK) {
-    if (mask & flags.MODERN_HOLIDAY) {
-      const d = ev.getDesc();
-      if (hasFestival(d)) {
-        return d;
-      }
-    }
-    return undefined;
+    return isModernHolidayWithReading(ev) ? ev.getDesc() : undefined;
   }
   // Skip all Erevs except for Simchat Torah
   const desc = ev.getDesc();

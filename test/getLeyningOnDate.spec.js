@@ -615,6 +615,32 @@ test('no duplicates on Shabbat Rosh Chodesh Chanukah', () => {
   expect(result.length).toBe(1);
 });
 
+test('getLeyningOnDate-yom-haatzmaut', () => {
+  // in 5788, Yom HaAtzma'ut is postponed from 5 Iyyar to 6 Iyyar (Tuesday)
+  const hd = new HDate(6, 'Iyyar', 5788);
+  const reading = getLeyningOnDate(hd, true);
+  const expected = {
+    name: {
+      en: 'Yom HaAtzma\'ut',
+      he: 'יוֹם הָעַצְמָאוּת',
+    },
+    type: 'holiday',
+    summary: 'Deuteronomy 7:12-8:18',
+    summaryParts: [
+      {k: 'Deuteronomy', b: '7:12', e: '8:18'},
+    ],
+    fullkriyah: {
+      '1': {p: 46, k: 'Deuteronomy', b: '7:12', e: '7:21', v: 10},
+      '2': {p: 46, k: 'Deuteronomy', b: '7:22', e: '8:3', v: 8},
+      '3': {p: 46, k: 'Deuteronomy', b: '8:4', e: '8:18', v: 15},
+    },
+    haft: {k: 'Isaiah', b: '10:32', e: '12:6', v: 25},
+    haftara: 'Isaiah 10:32-12:6',
+    haftaraNumV: 25,
+  };
+  expect(reading).toEqual(expected);
+});
+
 test('Yom Kippur Mincha on Shabbat', () => {
   const hd = new HDate(10, 'Tishrei', 5785);
   const readings = getLeyningOnDate(hd, false, true);

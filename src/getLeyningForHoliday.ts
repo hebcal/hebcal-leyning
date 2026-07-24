@@ -8,6 +8,7 @@ import {lookupFestival} from './festival';
 import {
   HOLIDAY_IGNORE_MASK,
   getLeyningKeyForEvent,
+  isModernHolidayWithReading,
 } from './getLeyningKeyForEvent';
 import {AliyotMap, KetuvimBook, Leyning} from './types';
 
@@ -134,7 +135,10 @@ export function getLeyningForHoliday(
     return undefined;
   } else if (ev.getFlags() & flags.PARSHA_HASHAVUA) {
     throw new TypeError(`Event should be a holiday: ${ev.getDesc()}`);
-  } else if (ev.getFlags() & HOLIDAY_IGNORE_MASK) {
+  } else if (
+    ev.getFlags() & HOLIDAY_IGNORE_MASK &&
+    !isModernHolidayWithReading(ev)
+  ) {
     return undefined;
   }
   const key = getLeyningKeyForEvent(ev, il);

@@ -42,5 +42,5 @@ test('hasFestival', () => {
 test('lookupFestival-hebrew', () => {
   const src = lookupFestival('פסח');
   // TODO: add support for hebrew festival names
-  expect(src).toEqual(undefined);
+  expect(src).toBeUndefined();
 });
