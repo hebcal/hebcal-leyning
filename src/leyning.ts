@@ -67,8 +67,10 @@ function getHaftaraKey(parsha: string[]): string {
 }
 
 /**
- * Transliterated English and Hebrew names of this parsha
- * @param parsha untranslated name like ['Pinchas'] or ['Matot','Masei']
+ * Builds the transliterated English and Hebrew names for a parsha.
+ * @param parsha untranslated parsha name(s), e.g. `['Pinchas']` or
+ *   `['Matot', 'Masei']` for a doubled parsha
+ * @returns object with the `en` name and `he` name (Hebrew with nikud)
  */
 export function makeLeyningNames(parsha: string[]): LeyningNames {
   const name = parshaToString(parsha);
@@ -141,8 +143,14 @@ function getLeyningForParshaShabbatOnly(
 }
 
 /**
- * Looks up Monday/Thursday aliyot for a regular parsha
- * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * Looks up the weekday (Monday & Thursday) Torah reading for a regular parsha.
+ *
+ * These are the abbreviated three-aliyah readings chanted on weekday
+ * mornings, drawn from the beginning of the upcoming Shabbat parsha.
+ * @param parsha untranslated name, e.g. `'Pinchas'`, `['Pinchas']`, or
+ *   `['Matot', 'Masei']` for a doubled parsha
+ * @param [language] language for book names (default `'en'`)
+ * @returns map of aliyot keyed by `'1'` through `'3'`
  */
 export function getWeekdayReading(
   parsha: string | string[],
@@ -167,8 +175,16 @@ export function getWeekdayReading(
 }
 
 /**
- * Looks up regular leyning for a weekly parsha with no special readings
- * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * Looks up the leyning for a regular parsha, ignoring any special occasion.
+ *
+ * Unlike {@link getLeyningForParshaHaShavua}, this takes a bare parsha name
+ * rather than a dated event and applies no special maftir/Haftarah overrides,
+ * so it is date-independent. The result includes both the Shabbat
+ * `fullkriyah` and the `weekday` reading.
+ * @param parsha untranslated name, e.g. `'Pinchas'`, `['Pinchas']`, or
+ *   `['Matot', 'Masei']` for a doubled parsha
+ * @param [language] language for names and summary (default `'en'`)
+ * @returns the complete leyning for this parsha
  */
 export function getLeyningForParsha(
   parsha: string | string[],
@@ -210,11 +226,16 @@ function getHaftarahTheme(
 }
 
 /**
- * Looks up leyning for a regular Shabbat parsha, including any special
- * maftir or Haftara.
- * @param ev the Hebcal event associated with this leyning
- * @param [il] in Israel
- * @returns map of aliyot
+ * Looks up the leyning for a regular Shabbat parsha, applying any special
+ * maftir or Haftarah that a coinciding occasion requires — Shabbat Rosh
+ * Chodesh, Shabbat Chanukah, one of the four special Shabbatot, a Haftarah of
+ * Admonition or Consolation, and so on.
+ * @param ev the `ParshaEvent` for this Shabbat
+ * @param [il] `true` for the Israel reading schedule (default `false`)
+ * @param [language] language for names and summary (default `'en'`)
+ * @returns the complete leyning, including `fullkriyah`, `haftara`, and any
+ *   `reason` explanations for overrides
+ * @throws {TypeError} if `ev` is not a parsha hashavua event
  */
 export function getLeyningForParshaHaShavua(
   ev: Event,
@@ -288,8 +309,15 @@ export function getLeyningForParshaHaShavua(
 }
 
 /**
- * Returns the parsha metadata
- * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * Returns the raw metadata for a parsha from `aliyot.json`.
+ *
+ * This is the underlying data (verse tuples, book number, Haftarah theme,
+ * etc.), not a computed reading — use {@link getLeyningForParsha} for that.
+ * @param parsha untranslated name, e.g. `'Pinchas'`, `['Pinchas']`, or
+ *   `['Matot', 'Masei']` for a doubled parsha
+ * @param [language] language for the Hebrew name and Haftarah (default `'en'`)
+ * @returns the parsha metadata (see {@link ParshaMeta})
+ * @throws {TypeError} if `parsha` is not a known parsha name
  */
 export function lookupParsha(
   parsha: string | string[],

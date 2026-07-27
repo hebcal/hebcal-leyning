@@ -4,11 +4,12 @@ import {Locale} from './locale';
 import {formatVerseToHebrew} from './format';
 
 /**
- * Translates an aliyah's book name and verse numbers to the target language.
- * Modifies the aliyah object in place.
- * @param aliyah - The aliyah object to translate
- * @param language - The target language code (e.g., 'he' for Hebrew)
- * @param translateBook - Whether to translate the book name (default true)
+ * Translates an aliyah's book name and verse numbers into the target
+ * language, in place. Only Hebrew (`'he'`) currently transforms the object;
+ * any other language leaves it unchanged.
+ * @param aliyah the aliyah to translate (mutated in place)
+ * @param language target language code, e.g. `'he'` for Hebrew
+ * @returns the same `aliyah` object, translated
  */
 export function translateAliyah(aliyah: Aliyah, language: string): Aliyah {
   if (language === 'he') {
@@ -23,10 +24,9 @@ export function translateAliyah(aliyah: Aliyah, language: string): Aliyah {
  * Translates aliyah(s) - handles single Aliyah, arrays, and AliyotMap.
  * For non-English languages, translates book names and converts verse numbers to Hebrew numerals.
  * Returns a new translated copy, leaving the original unchanged.
- * @param aliyahOrArray - Single Aliyah, array of Aliyah objects, AliyotMap, or undefined
- * @param language - The target language code (e.g., 'he' for Hebrew)
- * @param translateBook - Whether to translate the book name (default true)
- * @returns Translated copy of the input, or undefined if input was undefined
+ * @param aliyahOrArray a single Aliyah, an array of Aliyah, or an AliyotMap
+ * @param [language] target language code, e.g. `'he'` for Hebrew (default `'en'`)
+ * @returns a translated copy in the same shape as the input
  */
 export function translateAliyahOrArray<T extends Aliyah | Aliyah[] | AliyotMap>(
   aliyahOrArray: T,

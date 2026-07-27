@@ -12,11 +12,14 @@ function isChapVerseBefore(a: string, b: string): boolean {
 }
 
 /**
- * Returns a string representation of the leyning parts.
- * Separate verse ranges read from the same book are separated
- * by commas, e.g. `Isaiah 6:1-7:6, 9:5-6`.
- * Verse ranges from different books are separated by semicolons,
- * e.g. `Genesis 21:1-34; Numbers 29:1-6`.
+ * Formats one or more passages into a human-readable citation.
+ *
+ * Ranges from the same book are joined with commas
+ * (`Isaiah 6:1-7:6, 9:5-6`); ranges from different books are joined with
+ * semicolons (`Genesis 21:1-34; Numbers 29:1-6`).
+ * @param parts a single passage or an array of passages
+ * @param [language] language for book names (default `'en'`)
+ * @returns the formatted citation
  */
 export function makeSummaryFromParts(
   parts: Aliyah | Aliyah[],
@@ -41,8 +44,13 @@ export function makeSummaryFromParts(
 }
 
 /**
- * Summarizes an `AliyotMap` by collapsing all adjacent aliyot.
- * Finds any non-overlapping parts (e.g. special 7th aliyah or maftir)
+ * Collapses an `AliyotMap` into the minimal set of contiguous passages.
+ *
+ * Adjacent aliyot from the same book are merged; a non-contiguous passage
+ * (such as a special 7th aliyah or maftir from another book) becomes its own
+ * part. Useful for building a compact summary.
+ * @param aliyot map of aliyot keyed by `'1'`–`'7'` plus `'M'`
+ * @returns the contiguous passages, in reading order
  */
 export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
   const nums = Object.keys(aliyot).filter(x => {
@@ -82,7 +90,11 @@ export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
 }
 
 /**
- * Makes a summary of the leyning, like "Genesis 6:9-11:32"
+ * Builds a one-line summary of a Torah reading, e.g. `"Genesis 6:9-11:32"`.
+ * Equivalent to {@link makeSummaryFromParts} applied to the output of
+ * {@link makeLeyningParts}.
+ * @param aliyot map of aliyot keyed by `'1'`–`'7'` plus `'M'`
+ * @returns the formatted summary
  */
 export function makeLeyningSummary(aliyot: AliyotMap): string {
   const parts = makeLeyningParts(aliyot);

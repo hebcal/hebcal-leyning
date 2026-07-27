@@ -31,8 +31,11 @@ export const BOOK: TorahBook[] = [
 export const NUM_VERSES: Record<string, readonly number[]> = numverses;
 
 /**
- * Formats parsha as a string
- * @param parsha untranslated name like 'Pinchas' or ['Pinchas'] or ['Matot','Masei']
+ * Joins a parsha name into a single string, using a hyphen for a doubled
+ * parsha (e.g. `['Matot', 'Masei']` becomes `'Matot-Masei'`).
+ * @param parsha a parsha name, or an array of one or two names
+ * @returns the parsha name as a single string
+ * @throws {TypeError} if `parsha` is an array of zero or more than two names
  */
 export function parshaToString(parsha: string | string[]): string {
   if (typeof parsha === 'string') {
@@ -52,9 +55,11 @@ export function parshaToString(parsha: string | string[]): string {
 }
 
 /**
- * Calculates the number of verses in an aliyah or haftara based on
- * the `b` (begin verse), `e` (end verse) and `k` (book).
- * Modifies `aliyah` by setting the `v` field.
+ * Calculates the number of verses in an aliyah or Haftarah from its `b`
+ * (begin verse), `e` (end verse) and `k` (book), caching the result on the
+ * object's `v` field. If `v` is already set, returns it unchanged.
+ * @param aliyah the passage to measure; mutated in place to set `v`
+ * @returns the number of verses in the passage
  */
 export function calculateNumVerses(aliyah: Aliyah): number {
   if (aliyah.v) {
@@ -123,7 +128,10 @@ export function addVerses(book: TanakhBook, from: string, numVerses: number) {
 }
 
 /**
- * Formats an aliyah object like "Numbers 28:9-28:15"
+ * Formats an aliyah with its full begin and end citation, e.g.
+ * `"Numbers 28:9-28:15"`. See {@link formatAliyahShort} for a shorter form.
+ * @param a the passage to format
+ * @returns the formatted English citation
  */
 export function formatAliyahWithBook(a: Aliyah): string {
   return `${a.k} ${a.b}-${a.e}`;

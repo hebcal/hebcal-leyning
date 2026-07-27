@@ -7,7 +7,9 @@ type Festivals = Record<string, JsonFestivalLeyning>;
 const festivals: Festivals = festivals0 as Festivals;
 
 /**
- * Is there a special festival Torah Reading for `holiday`?
+ * Tests whether `holiday-readings.json` has a reading for the given key.
+ * @param holiday an (untranslated) reading key, e.g. `'Purim'`
+ * @returns `true` if a reading exists for this key
  */
 export function hasFestival(holiday: string): boolean {
   return typeof festivals[holiday] === 'object';
@@ -24,7 +26,14 @@ function aliyotBookNumToStr(aliyot?: JsonFestivalAliyotMap) {
 }
 
 /**
- * Returns the raw metadata for festival reading for `holiday`
+ * Returns the raw reading metadata for a holiday key from
+ * `holiday-readings.json`, resolving any `alias` entry and normalizing book
+ * numbers to English names.
+ *
+ * This is the underlying data; most callers want
+ * {@link getLeyningForHolidayKey}, which builds a complete {@link Leyning}.
+ * @param holiday an (untranslated) reading key, e.g. `'Purim'`
+ * @returns the raw festival metadata, or `undefined` if the key is unknown
  */
 export function lookupFestival(
   holiday: string

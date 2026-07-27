@@ -2,6 +2,13 @@ import {HDate, months} from '@hebcal/hdate';
 import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {hasFestival} from './festival';
 
+/**
+ * Bitmask of event flags that never have their own Torah reading (Daf Yomi,
+ * Omer count, molad, Shabbat Mevarchim, etc.), used to skip such events when
+ * finding a leyning key. {@link flags.MODERN_HOLIDAY} is included here, but a
+ * few modern holidays do have readings — see {@link isModernHolidayWithReading}.
+ * @readonly
+ */
 export const HOLIDAY_IGNORE_MASK =
   flags.DAF_YOMI |
   flags.OMER_COUNT |
@@ -25,10 +32,13 @@ export function isModernHolidayWithReading(ev: Event): boolean {
 }
 
 /**
- * Based on the event date, type and title, finds the relevant leyning key
- * @param ev event
- * @param [il] true if Israel holiday scheme
- * @returns key to look up in holiday-reading.json
+ * From an event's date, type and title, derives the key used to look up its
+ * reading in `holiday-readings.json` (accounting for Shabbat, Rosh Chodesh,
+ * Chol ha-Moed, and the Israel vs. Diaspora schedule).
+ * @param ev the holiday event
+ * @param [il] `true` for the Israel schedule (default `false`)
+ * @returns the reading key for `holiday-readings.json`, or `undefined` if the
+ *   event has no reading
  */
 export function getLeyningKeyForEvent(
   ev: Event,

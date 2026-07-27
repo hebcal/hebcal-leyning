@@ -27,6 +27,12 @@ export interface StringToBoolMap {
   [key: string]: boolean;
 }
 
+/**
+ * Builds a set of the dates (as strings) on which a parashat hashavua is
+ * read, so holiday readings falling on those Shabbatot can be de-duplicated.
+ * @param events a list of Hebcal events
+ * @returns a map whose keys are the parsha dates, each set to `true`
+ */
 export function getParshaDates(events: Event[]): StringToBoolMap {
   const parshaEvents = events.filter(ev => ev.getFlags() === PARSHA_HASHAVUA);
   const emptyMap: StringToBoolMap = {};
@@ -47,6 +53,13 @@ function getParshaAndHolidayEvents(year: number, il: boolean): Event[] {
 
 const PARSHA_HASHAVUA = flags.PARSHA_HASHAVUA;
 
+/**
+ * Writes a full-year Full Kriyah CSV (all parshiyot and holidays) to a
+ * stream, including the header row.
+ * @param stream destination writable stream
+ * @param hyear Hebrew year
+ * @param il `true` for the Israel schedule
+ */
 export function writeFullKriyahCsv(
   stream: WriteStream,
   hyear: number,
@@ -79,6 +92,13 @@ function ignore(ev: Event): boolean {
   return ev.getDate().getDay() === 6;
 }
 
+/**
+ * Writes the CSV line(s) for a single parsha or holiday event, including any
+ * Mincha reading and the Erev Simchat Torah special case.
+ * @param stream destination writable stream
+ * @param ev the parsha or holiday event
+ * @param il `true` for the Israel schedule
+ */
 export function writeFullKriyahEvent(
   stream: WriteStream,
   ev: Event,
@@ -112,6 +132,12 @@ export function writeFullKriyahEvent(
   }
 }
 
+/**
+ * Writes the CSV line(s) for a holiday's Mincha (afternoon) reading, if any.
+ * @param stream destination writable stream
+ * @param ev the holiday event
+ * @param il `true` for the Israel schedule
+ */
 export function writeHolidayMincha(
   stream: WriteStream,
   ev: HolidayEvent,
@@ -138,7 +164,14 @@ export function writeHolidayMincha(
 }
 
 /**
- * Formats reading for CSV
+ * Writes the CSV rows for one reading: one row per aliyah, plus rows for the
+ * Haftarah, any Sephardic/alternate Haftarah, and any megillah, followed by a
+ * blank line separating readings.
+ * @param stream destination writable stream
+ * @param ev the event this reading belongs to
+ * @param reading the computed leyning to format
+ * @param il `true` for the Israel schedule
+ * @param isParsha `true` if `ev` is a parashat hashavua (vs. a holiday)
  */
 export function writeCsvLines(
   stream: WriteStream,

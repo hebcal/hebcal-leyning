@@ -70,9 +70,12 @@ function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
  * Otherwise, returns `undefined`.
  *
  * @param {HDate} hdate Hebrew Date
- * @param {boolean} il in Israel
- * @param {boolean} [wantarray] to return an array of 0 or more readings
- * @param {string} [language] language for summary (default 'en')
+ * @param {boolean} il `true` for the Israel schedule
+ * @param {boolean} [wantarray] return an array of 0 or more readings instead
+ *   of a single reading (default `false`)
+ * @param {string} [language] language for names and summary (default `'en'`)
+ * @returns a single reading (or `undefined`) by default; when `wantarray` is
+ *   `true`, an array of 0 or more readings for the date
  */
 export function getLeyningOnDate(
   hdate: HDate,

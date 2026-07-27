@@ -16,6 +16,12 @@ export type Haftarah =
   | JsonFestivalAliyah
   | JsonFestivalAliyah[];
 
+/**
+ * Deep-clones a Haftarah (a single passage or an array) and fills in the
+ * verse count `v` on each passage via {@link calculateNumVerses}.
+ * @param haft the Haftarah to clone
+ * @returns a new Haftarah with verse counts populated
+ */
 export function cloneHaftara(haft: Haftarah): Aliyah | Aliyah[] {
   if (!haft) {
     return haft;
@@ -30,7 +36,10 @@ export function cloneHaftara(haft: Haftarah): Aliyah | Aliyah[] {
 }
 
 /**
- * Returns the total number of verses in an array of Aliyah (or haftarah) objects
+ * Sums the verse counts (`v`) of a Haftarah's passages. Each passage must
+ * already have its `v` populated (e.g. by {@link cloneHaftara}).
+ * @param aliyot a single passage or an array of passages
+ * @returns the total number of verses
  */
 export function sumVerses(aliyot: Haftarah): number {
   return Array.isArray(aliyot)

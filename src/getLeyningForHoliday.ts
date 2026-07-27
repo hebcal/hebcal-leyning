@@ -13,13 +13,19 @@ import {
 import {AliyotMap, KetuvimBook, Leyning} from './types';
 
 /**
- * Looks up leyning for a given holiday key. Key should be an
- * (untranslated) string used in holiday-readings.json. Returns some
- * of full kriyah aliyot, special Maftir, special Haftarah
- * @param key name from `holiday-readings.json` to find
- * @param cholHaMoedDay
- * @param il true if Israel holiday scheme
- * @param language language for summary (default 'en')
+ * Looks up the leyning for a holiday by its (untranslated) reading key —
+ * one of the keys in `holiday-readings.json`.
+ *
+ * Most callers should use {@link getLeyningForHoliday}, which derives the key
+ * from an event; use this directly only when you already know the key.
+ * @param [key] reading name from `holiday-readings.json`, e.g.
+ *   `'Yom Kippur (Morning)'`. Returns `undefined` if omitted or unknown.
+ * @param [cholHaMoedDay] day within Chol ha-Moed, used to pick the correct
+ *   maftir for `'Sukkot Shabbat Chol ha-Moed'`
+ * @param [il] `true` for the Israel schedule; filters out readings that apply
+ *   only to the other schedule
+ * @param [language] language for names and summary (default `'en'`)
+ * @returns the holiday leyning, or `undefined` if there is no such reading
  */
 export function getLeyningForHolidayKey(
   key?: string,
@@ -115,12 +121,15 @@ export function getLeyningForHolidayKey(
 }
 
 /**
- * Looks up leyning for a given holiday. Returns some
- * of full kriyah aliyot, special Maftir, special Haftarah
- * @param ev the Hebcal event associated with this leyning
- * @param [il] true if Israel holiday scheme
- * @param [language] language for summary (default 'en')
- * @returns map of aliyot
+ * Looks up the leyning for a holiday event.
+ *
+ * Depending on the holiday, the result may include the full kriyah, a special
+ * maftir, one or more Haftarot, and/or a megillah.
+ * @param ev a Hebcal holiday event (not a parsha hashavua event)
+ * @param [il] `true` for the Israel schedule (default `false`)
+ * @param [language] language for names and summary (default `'en'`)
+ * @returns the holiday leyning, or `undefined` if this event has no reading
+ * @throws {TypeError} if `ev` is not a valid event or is a parsha event
  */
 export function getLeyningForHoliday(
   ev: Event,

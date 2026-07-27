@@ -7,6 +7,13 @@ function gematriya2(num: number): string {
   return str.replaceAll(/[׳״]/g, '');
 }
 
+/**
+ * Converts a `chapter:verse` string to Hebrew numerals (gematriya), e.g.
+ * `'28:9'` becomes `'כח:ט'`. Returns the input unchanged if it is not a valid
+ * `chapter:verse`, or `''` for `null`/`undefined`.
+ * @param chapVerse a `chapter:verse` string
+ * @returns the verse with chapter and verse in Hebrew numerals
+ */
 export function formatVerseToHebrew(chapVerse: string): string {
   if (chapVerse === undefined || chapVerse === null) {
     return '';
@@ -22,7 +29,12 @@ export function formatVerseToHebrew(chapVerse: string): string {
 }
 
 /**
- * Formats an aliyah object like "Numbers 28:9-15"
+ * Formats a passage compactly, omitting a repeated chapter number in the end
+ * verse, e.g. `"Numbers 28:9-15"` (versus `"Numbers 28:9-28:15"`).
+ * @param aliyah the passage to format
+ * @param showBook whether to prefix the book name
+ * @param [language] language for the book name and numerals (default `'en'`)
+ * @returns the formatted citation
  */
 export function formatAliyahShort(
   aliyah: Aliyah,

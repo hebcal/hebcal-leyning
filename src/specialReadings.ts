@@ -50,6 +50,11 @@ function mergeAliyotWithSpecial(aliyot: AliyotMap, special: AliyotMap) {
  *
  * If a special Haftarah applies, the result will have a `haft` property
  * pointing to Haftarah object and sets `reason.haftara`.
+ * @param parsha untranslated parsha name(s), e.g. `['Pinchas']`
+ * @param hd the Hebrew date of this Shabbat
+ * @param il `true` for the Israel schedule
+ * @param aliyot the parsha's regular Shabbat aliyot (not modified)
+ * @returns the special-reading overrides (see {@link SpecialReading})
  */
 export function specialReadings2(
   parsha: string[],
