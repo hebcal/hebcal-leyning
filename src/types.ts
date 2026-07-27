@@ -57,7 +57,7 @@ export type TanakhBook = TorahBook | NeviimBook | KetuvimBook;
  *
  * Used to represent a single aliyah of the Torah reading, a maftir, or all
  * or part of a Haftarah. A multi-part Haftarah is represented as an array of
- * `Aliyah` objects (see {@link HaftarahProps.haft}).
+ * `Aliyah` objects (see {@link HaftarahProps}).
  */
 export type Aliyah = {
   /** Book, e.g. `"Numbers"` */
