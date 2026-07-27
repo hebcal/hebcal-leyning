@@ -93,6 +93,8 @@ export type ParshaMeta = {
   seph?: Aliyah | Aliyah[];
   /** Haftarah object(s) for Chabad */
   chabad?: Aliyah | Aliyah[];
+  /** Theme of the Haftarah (Admonition or Consolation), if applicable */
+  haftTheme?: HaftTheme;
   /** Map of Shabbat aliyot `1` through `7` plus `M` for maftir */
   fullkriyah: Record<string, string[]>;
   /**

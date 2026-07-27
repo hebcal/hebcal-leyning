@@ -104,3 +104,16 @@ test('lookupParsha-Hebrew-with-sephardic', () => {
   expect(meta.seph.b).toBe('ז:יג');
   expect(meta.seph.e).toBe('ז:כו');
 });
+
+test('lookupParsha-haftTheme', () => {
+  // Haftarah of Admonition
+  expect(lookupParsha('Matot').haftTheme).toEqual({admonition: 1});
+  expect(lookupParsha('Masei').haftTheme).toEqual({admonition: 2});
+  expect(lookupParsha('Devarim').haftTheme).toEqual({admonition: 3});
+  // Haftarah of Consolation
+  expect(lookupParsha('Vaetchanan').haftTheme).toEqual({consolation: 1});
+  expect(lookupParsha("Re'eh").haftTheme).toEqual({consolation: 3});
+  expect(lookupParsha('Nitzavim').haftTheme).toEqual({consolation: 7});
+  // Regular parsha has no haftTheme
+  expect(lookupParsha('Bereshit').haftTheme).toBe(undefined);
+});
