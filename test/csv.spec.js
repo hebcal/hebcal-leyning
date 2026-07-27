@@ -121,7 +121,7 @@ test('writeFullKriyahEvent-SimchatTorah', () => {
     end: new HDate(23, months.TISHREI, 5783),
     il: false,
   });
-  expect(events.length).toBe(2);
+  expect(events).toHaveLength(2);
   const stream = new StringWritable();
   events.forEach((ev) => writeFullKriyahEvent(stream, ev, false));
   const lines = stream.toString().split('\r\n');
@@ -229,7 +229,7 @@ test('writeFullKriyahEvent-IL-HoshanaRaba', () => {
     end: new HDate(21, months.TISHREI, 5783),
     il: true,
   });
-  expect(events.length).toBe(1);
+  expect(events).toHaveLength(1);
   const stream = new StringWritable();
   writeFullKriyahEvent(stream, events[0], true);
   const lines = stream.toString().split('\r\n');

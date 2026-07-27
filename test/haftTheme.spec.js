@@ -82,14 +82,14 @@ test('haftTheme - plain Ki Teitzei is consolation 5', () => {
 
 test('haftTheme - Re\'eh on Rosh Chodesh defers 3rd Haftarah to Ki Teitzei (2022)', () => {
   // Re'eh reads the Shabbat Rosh Chodesh haftarah (Isaiah 66), so no theme
-  expect(haftThemeFor(2022, "Re'eh", false)).toBe(undefined);
+  expect(haftThemeFor(2022, "Re'eh", false)).toBeUndefined();
   // Ki Teitzei chants both the displaced 3rd and its own 5th
   expect(haftThemeFor(2022, 'Ki Teitzei', false)).toEqual(
     {admonition: undefined, consolation: '3,5'});
 });
 
 test('haftTheme - Ki Teitzei with 3rd Haftarah of Consolation in Israel too (2022)', () => {
-  expect(haftThemeFor(2022, "Re'eh", true)).toBe(undefined);
+  expect(haftThemeFor(2022, "Re'eh", true)).toBeUndefined();
   expect(haftThemeFor(2022, 'Ki Teitzei', true)).toEqual(
     {admonition: undefined, consolation: '3,5'});
 });
@@ -99,8 +99,8 @@ test('haftTheme - Pinchas before 17 Tammuz has no theme (1981)', () => {
     {year: 1981, month: 7, isHebrewYear: false, sedrot: true, noHolidays: true});
   const ev = events.find((e) => e.getDesc() === 'Parashat Pinchas');
   const reading = getLeyningForParshaHaShavua(ev, false);
-  expect(reading.admonition).toBe(undefined);
-  expect(reading.consolation).toBe(undefined);
+  expect(reading.admonition).toBeUndefined();
+  expect(reading.consolation).toBeUndefined();
   expect(reading.haftara).toBe('I Kings 18:46-19:21');
 });
 
@@ -110,7 +110,7 @@ test('haftTheme - Pinchas after 17 Tammuz is admonition 1 (1982)', () => {
   const ev = events.find((e) => e.getDesc() === 'Parashat Pinchas');
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.admonition).toBe(1);
-  expect(reading.consolation).toBe(undefined);
+  expect(reading.consolation).toBeUndefined();
   expect(reading.haftara).toBe('Jeremiah 1:1-2:3');
 });
 
@@ -119,7 +119,7 @@ test('haftTheme - Vaetchanan (Shabbat Nachamu) carries consolation 1', () => {
     hdate: new HDate(16, 'Av', 5782), parsha: ['Vaetchanan'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.consolation).toBe(1);
-  expect(reading.admonition).toBe(undefined);
+  expect(reading.admonition).toBeUndefined();
   expect(reading.haftara).toBe('Isaiah 40:1-26');
 });
 
@@ -127,8 +127,8 @@ test('haftTheme - regular Shabbat parsha has no theme', () => {
   const ev = new ParshaEvent({
     hdate: new HDate(23, 'Cheshvan', 5783), parsha: ['Chayei Sara'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
-  expect(reading.admonition).toBe(undefined);
-  expect(reading.consolation).toBe(undefined);
+  expect(reading.admonition).toBeUndefined();
+  expect(reading.consolation).toBeUndefined();
 });
 
 test('haftTheme - invariant: exactly 3 admonition and 7 consolation each year', () => {

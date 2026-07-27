@@ -115,5 +115,5 @@ test('lookupParsha-haftTheme', () => {
   expect(lookupParsha("Re'eh").haftTheme).toEqual({consolation: 3});
   expect(lookupParsha('Nitzavim').haftTheme).toEqual({consolation: 7});
   // Regular parsha has no haftTheme
-  expect(lookupParsha('Bereshit').haftTheme).toBe(undefined);
+  expect(lookupParsha('Bereshit').haftTheme).toBeUndefined();
 });

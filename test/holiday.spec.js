@@ -370,13 +370,13 @@ test('no-leyning-on-holiday', () => {
   const events = HebrewCalendar.calendar(options);
   const tuBiShvat = events.find((e) => e.getDesc() == 'Tu BiShvat');
   const a = getLeyningForHoliday(tuBiShvat);
-  expect(a).toBe(undefined);
+  expect(a).toBeUndefined();
 });
 
 test('ignoreUserEvent-getLeyningForHoliday', () => {
   const ev = new Event(new HDate(20, months.TISHREI, 5780), 'Birthday', flags.USER_EVENT);
   const a = getLeyningForHoliday(ev);
-  expect(a).toBe(undefined);
+  expect(a).toBeUndefined();
 });
 
 test('pesach-days-567', () => {
@@ -691,9 +691,9 @@ test('Shavuot Diaspora', () => {
   const events0 = HebrewCalendar.calendar({year: 5783, isHebrewYear: true, il: false});
   const events = events0.filter((ev) => ev.basename() === 'Shavuot');
   expect(events[0].getDesc()).toBe('Erev Shavuot');
-  expect(getLeyningForHoliday(events[0])).toBe(undefined);
+  expect(getLeyningForHoliday(events[0])).toBeUndefined();
   expect(events[1].getDesc()).toBe('Shavuot I');
-  expect(getLeyningForHoliday(events[1]).megillah).toBe(undefined);
+  expect(getLeyningForHoliday(events[1]).megillah).toBeUndefined();
   expect(events[2].getDesc()).toBe('Shavuot II');
   expect(getLeyningForHoliday(events[2]).megillah).toEqual({
     '1': {k: 'Ruth', b: '1:1', e: '1:22', v: 22},

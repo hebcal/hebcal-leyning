@@ -15,12 +15,12 @@ test('pinchas17Tamuz', () => {
   let events = HebrewCalendar.calendar(options);
   let ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   let a = getLeyningForParshaHaShavua(ev, false);
-  expect(a.reason).toBe(undefined);
+  expect(a.reason).toBeUndefined();
   expect(a.haftara).toBe('I Kings 18:46-19:21');
   expect(a.summary).toBe('Numbers 25:10-30:1');
 
   let h = getLeyningForParshaHaShavua(ev, false, "he");
-  expect(h.reason).toBe(undefined);
+  expect(h.reason).toBeUndefined();
   expect(h.haftara).toBe('מְלָכִים א יח:מו-יט:כא');
   expect(h.summary).toBe('בְּמִדְבַּר כה:י-ל:א');
 
@@ -42,11 +42,11 @@ test('pinchas17Tamuz', () => {
   events = HebrewCalendar.calendar(options);
   ev = events.find((e) => e.getDesc() == 'Parashat Pinchas');
   a = getLeyningForParshaHaShavua(ev, false);
-  expect(a.reason).toBe(undefined);
+  expect(a.reason).toBeUndefined();
   expect(a.haftara).toBe('I Kings 18:46-19:21');
   h = getLeyningForParshaHaShavua(ev, false, "he");
   expect(h.haftara).toBe('מְלָכִים א יח:מו-יט:כא');
-  expect(h.reason).toBe(undefined);
+  expect(h.reason).toBeUndefined();
 
   options.year = 2023;
   options.il = true;
@@ -445,12 +445,12 @@ test('masei-rosh-chodesh', () => {
     parsha: ['Matot', 'Masei'], il: false});
   const obj2 = getLeyningForParshaHaShavua(ev2);
   expect(obj2.haftara).toBe('Jeremiah 2:4-28, 3:4');
-  expect(obj2.reason).toBe(undefined);
+  expect(obj2.reason).toBeUndefined();
   expect(obj2.summary).toBe('Numbers 30:2-36:13');
 
   const obj2he = getLeyningForParshaHaShavua(ev2, false, 'he');
   expect(obj2he.summary).toBe('בְּמִדְבַּר ל:ב-לו:יג');
-  expect(obj2he.reason).toBe(undefined);
+  expect(obj2he.reason).toBeUndefined();
   expect(obj2he.summary).toBe('בְּמִדְבַּר ל:ב-לו:יג');
 
   const ev3 = new ParshaEvent({
@@ -479,12 +479,12 @@ test('masei-rosh-chodesh', () => {
   const obj4 = getLeyningForParshaHaShavua(ev4);
   expect(obj4.haftara).toBe('Jeremiah 2:4-28, 3:4');
   expect(obj4.haftaraNumV).toBe(26);
-  expect(obj4.reason).toBe(undefined);
+  expect(obj4.reason).toBeUndefined();
   expect(obj4.summary).toBe('Numbers 33:1-36:13');
 
   const obj4he = getLeyningForParshaHaShavua(ev4, false, 'he');
   expect(obj4he.summary).toBe('בְּמִדְבַּר לג:א-לו:יג');
-  expect(obj4he.reason).toBe(undefined);
+  expect(obj4he.reason).toBeUndefined();
   expect(obj4he.summary).toBe('בְּמִדְבַּר לג:א-לו:יג');
 });
 
@@ -693,7 +693,7 @@ test('no-MacharChodesh-Reeh', () => {
     hdate: hd,
     parsha: ['Re\'eh'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
-  expect(reading.reason).toBe(undefined);
+  expect(reading.reason).toBeUndefined();
 });
 
 test('ShabbatRoshChodesh-Korach', () => {
@@ -743,15 +743,15 @@ test('special-deletes-seph', () => {
     parsha: ['Bereshit'], il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.reason.haftara).toBe('Shabbat Machar Chodesh');
-  expect(reading.reason.sephardic).toBe(undefined);
+  expect(reading.reason.sephardic).toBeUndefined();
   expect(reading.haftara).toBe('I Samuel 20:18-42');
-  expect(reading.sephardic).toBe(undefined);
+  expect(reading.sephardic).toBeUndefined();
 
   const h = getLeyningForParshaHaShavua(ev, false, 'he');
   expect(h.reason.haftara).toBe('שַׁבָּת מָחָר חוֹדֶשׁ');
-  expect(h.reason.sephardic).toBe(undefined);
+  expect(h.reason.sephardic).toBeUndefined();
   expect(h.haftara).toBe('שְׁמוּאֵל א כ:יח-מב');
-  expect(h.sephardic).toBe(undefined);
+  expect(h.sephardic).toBeUndefined();
 });
 
 test('Kedoshim following Shabbat HaGadol', () => {
@@ -762,12 +762,12 @@ test('Kedoshim following Shabbat HaGadol', () => {
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('Malachi 3:4-24');
   expect(reading1.reason.haftara).toBe('Shabbat HaGadol');
-  expect(reading1.sephardic).toBe(undefined);
+  expect(reading1.sephardic).toBeUndefined();
 
   const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
   expect(h1.haftara).toBe('מַלְאָכִי ג:ד-כד');
   expect(h1.reason.haftara).toBe('שַׁבַּת הַגָּדוֹל');
-  expect(h1.sephardic).toBe(undefined);
+  expect(h1.sephardic).toBeUndefined();
 
   const hd2 = new HDate(28, 'Nisan', 5714);
   const ev2 = new ParshaEvent({
@@ -790,12 +790,12 @@ test('Kedoshim following Shabbat HaGadol', () => {
   const reading3 = getLeyningForParshaHaShavua(ev3, false);
   expect(reading3.haftara).toBe('Malachi 3:4-24');
   expect(reading3.reason.haftara).toBe('Shabbat HaGadol');
-  expect(reading3.sephardic).toBe(undefined);
+  expect(reading3.sephardic).toBeUndefined();
 
   const h3 = getLeyningForParshaHaShavua(ev3, false, 'he');
   expect(h3.haftara).toBe('מַלְאָכִי ג:ד-כד');
   expect(h3.reason.haftara).toBe('שַׁבַּת הַגָּדוֹל');
-  expect(h3.sephardic).toBe(undefined);
+  expect(h3.sephardic).toBeUndefined();
 
   const hd4 = new HDate(26, 'Nisan', 5774);
   const ev4 = new ParshaEvent({
@@ -819,7 +819,7 @@ test('Kedoshim following Shabbat Machar Chodesh', () => {
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('I Samuel 20:18-42');
   expect(reading1.reason.haftara).toBe('Shabbat Machar Chodesh');
-  expect(reading1.sephardic).toBe(undefined);
+  expect(reading1.sephardic).toBeUndefined();
 
   const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
   expect(h1.reason.haftara).toBe('שַׁבָּת מָחָר חוֹדֶשׁ');
@@ -891,12 +891,12 @@ test('Kedoshim on Rosh Chodesh', () => {
   const reading1 = getLeyningForParshaHaShavua(ev1, false);
   expect(reading1.haftara).toBe('Isaiah 66:1-24');
   expect(reading1.reason.haftara).toBe('Shabbat Rosh Chodesh');
-  expect(reading1.sephardic).toBe(undefined);
+  expect(reading1.sephardic).toBeUndefined();
 
   const h1 = getLeyningForParshaHaShavua(ev1, false, 'he');
   expect(h1.haftara).toBe('יְשַׁעְיָהוּ סו:א-כד');
   expect(h1.reason.haftara).toBe('שַׁבָּת רֹאשׁ חוֹדֶשׁ');
-  expect(h1.sephardic).toBe(undefined);
+  expect(h1.sephardic).toBeUndefined();
 });
 
 test('chabad follows Ashkenaz for Vayera', () => {
@@ -922,7 +922,7 @@ test('Tzav on regular Shabbat has Chabad haftarah != Ashkenaz nor Sephardic', ()
     il: false});
   const reading = getLeyningForParshaHaShavua(ev, false);
   expect(reading.haft).toBeDefined();
-  expect(reading.seph).not.toBeDefined();
+  expect(reading.seph).toBeUndefined();
   expect(reading.chabad).toBeDefined();
   expect(reading.haft).not.toEqual(reading.chabad);
   expect(reading.haft).toEqual([
