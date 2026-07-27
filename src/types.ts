@@ -154,7 +154,26 @@ export type LeyningWeekday = LeyningParshaHaShavua & {
   weekday?: AliyotMap;
 };
 
-export type HaftarahProps = {
+/**
+ * Identifies a Haftarah tied to the weeks around Tish'a B'Av
+ */
+export type HaftTheme = {
+  /**
+   * For the three Haftarot of Admonition (תְּלָתָא דְּפוּרְעָנוּתָא) read on the
+   * three Shabbatot before Tish'a B'Av, `1`, `2` or `3`
+   */
+  admonition?: number;
+  /**
+   * For the seven Haftarot of Consolation (שֶׁבַע דְּנֶחָמְתָא) read on the seven
+   * Shabbatot after Tish'a B'Av, `1` through `7`. In the rare year when
+   * Parashat Re'eh coincides with Rosh Chodesh, the 3rd Haftarah of
+   * Consolation is displaced and later chanted together with the 5th on
+   * Parashat Ki Teitzei, in which case the value is the string `"3,5"`.
+   */
+  consolation?: number | string;
+};
+
+export type HaftarahProps = HaftTheme & {
   /** Haftarah object */
   haft: Aliyah | Aliyah[];
   /** Haftarah, such as `Isaiah 42:5 – 43:11` */

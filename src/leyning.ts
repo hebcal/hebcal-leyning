@@ -7,9 +7,11 @@ import {translateAliyahOrArray, translateLeyning} from './translate';
 import {makeLeyningParts, makeSummaryFromParts} from './summary';
 import {cloneHaftara, sumVerses} from './clone';
 import {specialReadings2} from './specialReadings';
+import {lookupFestival} from './festival';
 import {
   Aliyah,
   AliyotMap,
+  HaftTheme,
   Leyning,
   LeyningNames,
   ParshaMeta,
@@ -33,6 +35,7 @@ type JsonParsha = {
   haft?: JsonAliyah | JsonAliyah[];
   seph?: JsonAliyah | JsonAliyah[];
   chabad?: JsonAliyah | JsonAliyah[] | {sameas: 'haft'};
+  haftTheme?: HaftTheme;
   fullkriyah: JsonParshaMap;
   weekday?: JsonParshaMap;
   combined?: boolean;
@@ -183,6 +186,30 @@ const reasonHaftKey: Record<string, 'haft' | 'seph' | 'chabad'> = {
 } as const;
 
 /**
+ * Returns the theme of the Haftarah tied to the weeks around Tish'a B'Av:
+ * the number of the Haftarah of Admonition (תְּלָתָא דְּפוּרְעָנוּתָא, three
+ * Shabbatot before Tish'a B'Av) or of the Haftarah of Consolation
+ * (שֶׁבַע דְּנֶחָמְתָא, seven Shabbatot after Tish'a B'Av), if applicable.
+ *
+ * The number lives in the `haftTheme` data: on the base parsha in
+ * `aliyot.json`, or — when a special reading replaces the Haftarah — on the
+ * festival entry in `holiday-readings.json`. When a special reading displaces
+ * the Haftarah with an unthemed one (e.g. Re'eh on Shabbat Rosh Chodesh),
+ * neither has a `haftTheme` and `undefined` is returned.
+ * @private
+ * @param parsha untranslated name like `['Pinchas']` or `['Matot','Masei']`
+ * @param haftReason untranslated `reason.haftara` key from `specialReadings2()`
+ */
+function getHaftarahTheme(
+  parsha: string[],
+  haftReason: string | undefined
+): HaftTheme | undefined {
+  return haftReason
+    ? lookupFestival(haftReason)?.haftTheme
+    : parshiyotObj[getHaftaraKey(parsha)]?.haftTheme;
+}
+
+/**
  * Looks up leyning for a regular Shabbat parsha, including any special
  * maftir or Haftara.
  * @param ev the Hebcal event associated with this leyning
@@ -206,6 +233,10 @@ export function getLeyningForParshaHaShavua(
   // Now, check for special maftir or haftara on same date
   const special = specialReadings2(parsha, hd, il, result.fullkriyah);
   const reason = special.reason;
+  const haftTheme = getHaftarahTheme(parsha, reason.haftara);
+  if (haftTheme) {
+    Object.assign(result, haftTheme);
+  }
   if (special.haft) {
     delete result.chabad;
     delete result.seph;

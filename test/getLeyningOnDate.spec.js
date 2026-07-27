@@ -29,6 +29,7 @@ test('getLeyningOnDate-parsha', () => {
     haft: {k: 'Isaiah', b: '40:1', e: '40:26', v: 26},
     haftara: 'Isaiah 40:1-26',
     haftaraNumV: 26,
+    consolation: 1,
   };
   expect(reading).toEqual(expected);
 
@@ -57,6 +58,7 @@ test('getLeyningOnDate-parsha', () => {
     haft: {k: 'יְשַׁעְיָהוּ', b: 'מ:א', e: 'מ:כו', v: 26},
     haftara: 'יְשַׁעְיָהוּ מ:א-כו',
     haftaraNumV: 26,
+    consolation: 1,
   };
   expect(readingHe).toEqual(expectedHe);
 });

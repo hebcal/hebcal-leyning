@@ -760,6 +760,7 @@
  "num":42,
  "book":4,
  "haft":{"k":"Jeremiah","b":"1:1","e":"2:3"},
+ "haftTheme":{"admonition":1},
  "fullkriyah":{
    "1":["30:2","30:17"],
    "2":["31:1","31:12"],
@@ -778,6 +779,7 @@
  "num":43,
  "book":4,
  "haft":[{"k":"Jeremiah","b":"2:4","e":"2:28"},{"k":"Jeremiah","b":"3:4","e":"3:4"}],
+ "haftTheme":{"admonition":2},
  "seph":[{"k":"Jeremiah","b":"2:4","e":"2:28"},{"k":"Jeremiah","b":"4:1","e":"4:2"}],
  "fullkriyah":{
    "1":["33:1","33:10"],
@@ -797,6 +799,7 @@
  "num":44,
  "book":5,
  "haft":{"k":"Isaiah","b":"1:1","e":"1:27"},
+ "haftTheme":{"admonition":3},
  "fullkriyah":{
    "1":["1:1","1:10"],
    "2":["1:11","1:21"],
@@ -815,6 +818,7 @@
  "num":45,
  "book":5,
  "haft":{"k":"Isaiah","b":"40:1","e":"40:26"},
+ "haftTheme":{"consolation":1},
  "fullkriyah":{
    "1":["3:23","4:4"],
    "2":["4:5","4:40"],
@@ -833,6 +837,7 @@
  "num":46,
  "book":5,
  "haft":{"k":"Isaiah","b":"49:14","e":"51:3"},
+ "haftTheme":{"consolation":2},
  "fullkriyah":{
    "1":["7:12","8:10"],
    "2":["8:11","9:3"],
@@ -851,6 +856,7 @@
  "num":47,
  "book":5,
  "haft":{"k":"Isaiah","b":"54:11","e":"55:5"},
+ "haftTheme":{"consolation":3},
  "fullkriyah":{
    "1":["11:26","12:10"],
    "2":["12:11","12:28"],
@@ -869,6 +875,7 @@
  "num":48,
  "book":5,
  "haft":{"k":"Isaiah","b":"51:12","e":"52:12"},
+ "haftTheme":{"consolation":4},
  "fullkriyah":{
    "1":["16:18","17:13"],
    "2":["17:14","17:20"],
@@ -887,6 +894,7 @@
  "num":49,
  "book":5,
  "haft":{"k":"Isaiah","b":"54:1","e":"54:10"},
+ "haftTheme":{"consolation":5},
  "fullkriyah":{
    "1":["21:10","21:21"],
    "2":["21:22","22:7"],
@@ -905,6 +913,7 @@
  "num":50,
  "book":5,
  "haft":{"k":"Isaiah","b":"60:1","e":"60:22"},
+ "haftTheme":{"consolation":6},
  "fullkriyah":{
    "1":["26:1","26:11"],
    "2":["26:12","26:15"],
@@ -923,6 +932,7 @@
  "num":51,
  "book":5,
  "haft":{"k":"Isaiah","b":"61:10","e":"63:9"},
+ "haftTheme":{"consolation":7},
  "fullkriyah":{
    "1":["29:9","29:11"],
    "2":["29:12","29:14"],

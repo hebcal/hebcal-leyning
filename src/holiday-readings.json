@@ -570,7 +570,8 @@
  "fullkriyah":
   {"M":{"p":49,"k":5,"b":"25:17","e":"25:19"}}},
 "Pinchas occurring after 17 Tammuz":{
- "haft": {"k": "Jeremiah", "b": "1:1", "e": "2:3"}},
+ "haft": {"k": "Jeremiah", "b": "1:1", "e": "2:3"},
+ "haftTheme":{"admonition":1}},
 "Kedoshim following Special Shabbat":{
  "haft":{"k":"Amos","b":"9:7","e":"9:15"},
  "seph":{"k":"Ezekiel","b":"20:2","e":"20:20"}},
@@ -583,13 +584,15 @@
   {"k":"Jeremiah","b":"4:1","e":"4:2"},
   {"k":"Isaiah","b":"66:1","e":"66:1"},
   {"k":"Isaiah","b":"66:23","e":"66:23"}],
+ "haftTheme":{"admonition":2},
  "fullkriyah":
   {"M":{"p":41,"k":4,"b":"28:9","e":"28:15"}}},
 "Matot-Masei on Shabbat Rosh Chodesh":{"alias":true,"key":"Masei on Shabbat Rosh Chodesh"},
 "Ki Teitzei with 3rd Haftarah of Consolation":{
  "haft":[
   {"k":"Isaiah","b":"54:1","e":"54:10"},
-  {"k":"Isaiah","b":"54:11","e":"55:5"}]},
+  {"k":"Isaiah","b":"54:11","e":"55:5"}],
+ "haftTheme":{"consolation":"3,5"}},
 "Rosh Chodesh":{
  "fullkriyah":
   {"1":{"p":41,"k":4,"b":"28:1","e":"28:3"},

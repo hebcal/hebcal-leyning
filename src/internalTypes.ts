@@ -1,4 +1,4 @@
-import {TanakhBook} from './types';
+import {HaftTheme, TanakhBook} from './types';
 
 export type JsonFestivalAliyah = {
   k: number | TanakhBook;
@@ -16,6 +16,7 @@ export type JsonFestivalLeyning = {
   chabad?: JsonFestivalAliyah | JsonFestivalAliyah[] | {sameas: 'haft'};
   fullkriyah?: JsonFestivalAliyotMap;
   alt?: JsonFestivalAliyotMap;
+  haftTheme?: HaftTheme;
   megillah?: string;
   alias?: boolean;
   key?: string;
