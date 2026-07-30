@@ -3,10 +3,7 @@ import {calculateNumVerses} from './common.js';
 import {JsonFestivalAliyah} from './internalTypes.js';
 
 export type Haftarah =
-  | Aliyah
-  | Aliyah[]
-  | JsonFestivalAliyah
-  | JsonFestivalAliyah[];
+  Aliyah | Aliyah[] | JsonFestivalAliyah | JsonFestivalAliyah[];
 
 /**
  * Deep-clones a Haftarah (a single passage or an array) and fills in the

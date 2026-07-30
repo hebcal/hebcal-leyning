@@ -1,10 +1,6 @@
 /** English names of the five books of the Pentateuch (Torah) */
 export type TorahBook =
-  | 'Genesis'
-  | 'Exodus'
-  | 'Leviticus'
-  | 'Numbers'
-  | 'Deuteronomy';
+  'Genesis' | 'Exodus' | 'Leviticus' | 'Numbers' | 'Deuteronomy';
 
 /** English names of the books of the Prophets (Nevi'im) */
 export type NeviimBook =
