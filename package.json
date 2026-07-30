@@ -39,7 +39,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^6.9.0",
+    "@hebcal/core": "^6.9.1",
     "@hebcal/hdate": "^0.22.7"
   },
   "scripts": {
