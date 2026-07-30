@@ -1,14 +1,6 @@
-import {Aliyah} from './types';
-import {calculateNumVerses} from './common';
-import {JsonFestivalAliyah} from './internalTypes';
-
-/**
- * Makes a deep copy of the src object using JSON stringify and parse
- * @deprecated Use structuredClone instead
- */
-export function clone<T>(src: T): T {
-  return structuredClone(src);
-}
+import {Aliyah} from './types.js';
+import {calculateNumVerses} from './common.js';
+import {JsonFestivalAliyah} from './internalTypes.js';
 
 export type Haftarah =
   | Aliyah

@@ -1,6 +1,6 @@
-import {Locale} from './locale';
-import {AliyotMap, Aliyah} from './types';
-import {formatAliyahShort} from './format';
+import {Locale} from './locale.js';
+import {AliyotMap, Aliyah} from './types.js';
+import {formatAliyahShort} from './format.js';
 
 /**
  * @private

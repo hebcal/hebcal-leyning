@@ -1,6 +1,6 @@
 import {gematriya} from '@hebcal/hdate';
-import {Locale} from './locale';
-import {Aliyah} from './types';
+import {Locale} from './locale.js';
+import {Aliyah} from './types.js';
 
 function gematriya2(num: number): string {
   const str = gematriya(num);

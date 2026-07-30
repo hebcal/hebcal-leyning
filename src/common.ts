@@ -1,5 +1,5 @@
-import numverses from './numverses.json';
-import {Aliyah, TanakhBook, TorahBook} from './types';
+import numverses from './numverses.json.js';
+import {Aliyah, TanakhBook, TorahBook} from './types.js';
 
 /**
  * Names of the books of the Torah.

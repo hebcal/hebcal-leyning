@@ -1,12 +1,12 @@
 import {HDate, months} from '@hebcal/hdate';
 import {flags} from '@hebcal/core/dist/esm/event';
-import {cloneHaftara} from './clone';
-import {calculateNumVerses, parshaToString} from './common';
-import {lookupFestival} from './festival';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-import {AliyotMap, SpecialReading, StringMap} from './types';
+import {cloneHaftara} from './clone.js';
+import {calculateNumVerses, parshaToString} from './common.js';
+import {lookupFestival} from './festival.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import {AliyotMap, SpecialReading, StringMap} from './types.js';
 import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
-import {JsonFestivalAliyah} from './internalTypes';
+import {JsonFestivalAliyah} from './internalTypes.js';
 
 function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = structuredClone(aliyot['6']);

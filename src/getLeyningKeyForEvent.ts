@@ -1,6 +1,6 @@
 import {HDate, months} from '@hebcal/hdate';
 import {Event, flags} from '@hebcal/core/dist/esm/event';
-import {hasFestival} from './festival';
+import {hasFestival} from './festival.js';
 
 /**
  * Bitmask of event flags that never have their own Torah reading (Daf Yomi,

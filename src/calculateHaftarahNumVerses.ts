@@ -1,5 +1,5 @@
-import {calculateNumVerses} from './common';
-import {Aliyah, NeviimBook} from './types';
+import {calculateNumVerses} from './common.js';
+import {Aliyah, NeviimBook} from './types.js';
 
 /**
  * Counts the verses in a formatted Haftarah citation string such as

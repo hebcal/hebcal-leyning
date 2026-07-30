@@ -1,7 +1,7 @@
 import {Locale} from '@hebcal/core/dist/esm/locale';
-import poHe from './he.po';
-import poAshkenazi from './ashkenazi.po';
-import noNikudOverride from './he-x-NoNikud.po';
+import poHe from './he.po.js';
+import poAshkenazi from './ashkenazi.po.js';
+import noNikudOverride from './he-x-NoNikud.po.js';
 
 Locale.addTranslations('ashkenazi', poAshkenazi);
 

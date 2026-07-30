@@ -3,14 +3,14 @@ import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
 import {getHolidaysForYearArray} from '@hebcal/core/dist/esm/holidays';
 import {WriteStream} from 'node:fs';
-import {formatAliyahWithBook} from './common';
+import {formatAliyahWithBook} from './common.js';
 import {
   getLeyningForHoliday,
   getLeyningForHolidayKey,
-} from './getLeyningForHoliday';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
-import {getLeyningForParshaHaShavua} from './leyning';
-import {Leyning} from './types';
+} from './getLeyningForHoliday.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
+import {getLeyningForParshaHaShavua} from './leyning.js';
+import {Leyning} from './types.js';
 
 const fmt = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',

@@ -4,5 +4,5 @@
     "node": true,
     "vitest": true
   },
-  "ignorePatterns": ["dist/", "coverage/", "size-demo/", "test/", "src/*.po.ts"]
+  "ignorePatterns": ["dist/", "coverage/", "test/", "src/*.po.ts"]
 }

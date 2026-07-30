@@ -1,16 +1,16 @@
 import {Event, flags} from '@hebcal/core/dist/esm/event';
-import {Locale} from './locale';
-import {calculateNumVerses, NUM_VERSES} from './common';
-import {translateLeyning} from './translate';
-import {makeLeyningParts, makeSummaryFromParts} from './summary';
-import {cloneHaftara, sumVerses} from './clone';
-import {lookupFestival} from './festival';
+import {Locale} from './locale.js';
+import {calculateNumVerses, NUM_VERSES} from './common.js';
+import {translateLeyning} from './translate.js';
+import {makeLeyningParts, makeSummaryFromParts} from './summary.js';
+import {cloneHaftara, sumVerses} from './clone.js';
+import {lookupFestival} from './festival.js';
 import {
   HOLIDAY_IGNORE_MASK,
   getLeyningKeyForEvent,
   isModernHolidayWithReading,
-} from './getLeyningKeyForEvent';
-import {AliyotMap, KetuvimBook, Leyning} from './types';
+} from './getLeyningKeyForEvent.js';
+import {AliyotMap, KetuvimBook, Leyning} from './types.js';
 
 /**
  * Looks up the leyning for a holiday by its (untranslated) reading key —

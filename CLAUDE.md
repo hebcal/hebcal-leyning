@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run build       # po2json + rollup bundle (ESM + IIFE)
+npm run build       # po2json + tsc (ESM output in dist/esm)
 npm run test        # run all tests with Vitest
 npm run lint        # check style with gts (Google TypeScript Style)
 npm run fix         # auto-fix lint issues
@@ -68,8 +68,17 @@ PO files in `po/` are compiled to `src/he.po.ts` and `src/ashkenazi.po.ts` via `
 
 ### Build outputs
 
-- `dist/esm/` — ES modules (one file per source file, preserves tree-shaking)
-- `dist/bundle.js` / `dist/bundle.min.js` — IIFE bundles for browsers
+- `dist/esm/` — ES modules emitted by `tsc` (one file per source file, preserves
+  tree-shaking), plus `.d.ts` declarations and `.js.map` sourcemaps
+
+Relative imports in `src/` must carry an explicit `.js` extension so the emitted
+output runs unmodified under Node ESM.
+
+The `build:json2js` step wraps each `src/*.json` data file in a generated
+`src/*.json.ts` module (`export default` followed by the JSON), so the data is
+imported as a normal ES module rather than a JSON import. Source files import
+these as `./aliyot.json.js`. The generated `src/*.json.ts` and `src/*.po.ts`
+files are gitignored build artifacts — edit the `.json` and `.po` originals.
 
 ## Testing
 

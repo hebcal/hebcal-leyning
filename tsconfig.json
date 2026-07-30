@@ -9,8 +9,9 @@
     "strict": true,
     "skipLibCheck": true,
     "declaration": true,
+    "sourceMap": true,
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist/esm"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts"]
 }

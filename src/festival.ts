@@ -1,6 +1,6 @@
-import {BOOK} from './common';
-import festivals0 from './holiday-readings.json';
-import {JsonFestivalAliyotMap, JsonFestivalLeyning} from './internalTypes';
+import {BOOK} from './common.js';
+import festivals0 from './holiday-readings.json.js';
+import {JsonFestivalAliyotMap, JsonFestivalLeyning} from './internalTypes.js';
 
 type Festivals = Record<string, JsonFestivalLeyning>;
 

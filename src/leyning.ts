@@ -1,13 +1,13 @@
 import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
-import {Locale} from './locale';
-import parshiyotObj0 from './aliyot.json';
-import {BOOK, calculateNumVerses, parshaToString} from './common';
-import {translateAliyahOrArray, translateLeyning} from './translate';
-import {makeLeyningParts, makeSummaryFromParts} from './summary';
-import {cloneHaftara, sumVerses} from './clone';
-import {specialReadings2} from './specialReadings';
-import {lookupFestival} from './festival';
+import {Locale} from './locale.js';
+import parshiyotObj0 from './aliyot.json.js';
+import {BOOK, calculateNumVerses, parshaToString} from './common.js';
+import {translateAliyahOrArray, translateLeyning} from './translate.js';
+import {makeLeyningParts, makeSummaryFromParts} from './summary.js';
+import {cloneHaftara, sumVerses} from './clone.js';
+import {specialReadings2} from './specialReadings.js';
+import {lookupFestival} from './festival.js';
 import {
   Aliyah,
   AliyotMap,
@@ -16,7 +16,7 @@ import {
   LeyningNames,
   ParshaMeta,
   TanakhBook,
-} from './types';
+} from './types.js';
 
 type JsonAliyah = {
   k: number | TanakhBook;

@@ -1,4 +1,4 @@
-import {HaftTheme, TanakhBook} from './types';
+import {HaftTheme, TanakhBook} from './types.js';
 
 export type JsonFestivalAliyah = {
   k: number | TanakhBook;

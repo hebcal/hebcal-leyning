@@ -3,20 +3,20 @@ import {flags} from '@hebcal/core/dist/esm/event';
 import {
   getLeyningForHoliday,
   getLeyningForHolidayKey,
-} from './getLeyningForHoliday';
-import {getLeyningKeyForEvent} from './getLeyningKeyForEvent';
+} from './getLeyningForHoliday.js';
+import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
 import {
   getLeyningForParshaHaShavua,
   getWeekdayReading,
   makeLeyningNames,
-} from './leyning';
-import {Leyning, LeyningWeekday} from './types';
+} from './leyning.js';
+import {Leyning, LeyningWeekday} from './types.js';
 import {getSedra, SedraResult} from '@hebcal/core/dist/esm/sedra';
 import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
 import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
 import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
-import {translateLeyning} from './translate';
-import {makeLeyningParts, makeSummaryFromParts} from './summary';
+import {translateLeyning} from './translate.js';
+import {makeLeyningParts, makeSummaryFromParts} from './summary.js';
 
 function findParshaHaShavua(saturday: HDate, il: boolean): SedraResult {
   const hyear = saturday.getFullYear();

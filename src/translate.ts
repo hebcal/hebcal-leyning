@@ -1,7 +1,7 @@
-import {Aliyah, AliyotMap, Leyning, TanakhBook} from './types';
-import {makeSummaryFromParts, makeLeyningParts} from './summary';
-import {Locale} from './locale';
-import {formatVerseToHebrew} from './format';
+import {Aliyah, AliyotMap, Leyning, TanakhBook} from './types.js';
+import {makeSummaryFromParts, makeLeyningParts} from './summary.js';
+import {Locale} from './locale.js';
+import {formatVerseToHebrew} from './format.js';
 
 /**
  * Translates an aliyah's book name and verse numbers into the target
