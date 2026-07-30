@@ -2,12 +2,10 @@
   "compilerOptions": {
     "types": ["node"],
     "esModuleInterop": true,
-    "resolveJsonModule": true,
     "target": "es2023",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "strict": true,
-    "skipLibCheck": true,
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./src",
