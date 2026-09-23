@@ -39,8 +39,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^6.9.1",
-    "@hebcal/hdate": "^0.22.7"
+    "@hebcal/core": "^6.9.3",
+    "@hebcal/hdate": "^0.22.8"
   },
   "scripts": {
     "po2json": "node ./po2json.js po/he.po po/he-x-NoNikud.po po/ashkenazi.po",
@@ -59,12 +59,12 @@
   },
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/node": "^26.1.2",
-    "@vitest/coverage-v8": "^4.1.10",
+    "@types/node": "^26.6.2",
+    "@vitest/coverage-v8": "^5.0.1",
     "gettext-parser": "^9.1.1",
-    "oxlint": "^1.76.0",
-    "prettier": "^3.9.6",
+    "oxlint": "^1.85.0",
+    "prettier": "^3.9.9",
     "typescript": "^7.0.2",
-    "vitest": "^4.1.10"
+    "vitest": "^5.0.1"
   }
 }
