@@ -95,8 +95,18 @@ export function getLeyningForHolidayKey(
       leyning.chabad = cloneHaftara(src.chabad);
     }
   }
-  let megillah = src.megillah as KetuvimBook;
-  if (il && key === 'Pesach I (on Shabbat)') megillah = 'Song of Songs';
+  let megillah = src.megillah as KetuvimBook | undefined;
+  if (il) {
+    if (key === 'Pesach I (on Shabbat)') {
+      megillah = 'Song of Songs';
+    } else if (key === 'Sukkot I (on Shabbat)') {
+      megillah = 'Ecclesiastes';
+    } else if (
+      key === 'Shmini Atzeret (on Shabbat)'
+    ) {
+      megillah = undefined;
+    }
+  }
   if (megillah) {
     const chaps = NUM_VERSES[megillah];
     const m: AliyotMap = {};

@@ -133,9 +133,10 @@ test('getLeyningForHoliday-il', () => {
 
   const sukkot1He = getLeyningForHoliday(sukkot1, true, 'he');
   expect(sukkot1He.name.he).toBe('סֻכּוֹת יוֹם א׳ (בְּשַׁבָּת)');
-  expect(sukkot1He.summary).toBe('וַיִּקְרָא כב:כו-כג:מד; בְּמִדְבַּר כט:יב-טז');
+  expect(sukkot1He.summary).toBe('וַיִּקְרָא כב:כו-כג:מד; בְּמִדְבַּר כט:יב-טז; קֹהֶלֶת א:א-יב:יד');
   expect(sukkot1He.fullkriyah['1'].k).toBe('וַיִּקְרָא');
   expect(sukkot1He.fullkriyah['M'].k).toBe('בְּמִדְבַּר');
+  expect(sukkot1He.megillah['1'].k).toBe('קֹהֶלֶת');
 
   const sukkot2 = events.find((e) => e.getDesc() == 'Sukkot II (CH\'\'M)');
   expect(getLeyningForHoliday(sukkot2, true).fullkriyah['4'].p).toBe(41);
@@ -801,9 +802,15 @@ for (const testCase of megillahCases) {
         expect(megillahLeynings).toHaveLength(1);
         expect(megillahLeynings[0].name.en).toContain('Shabbat');
 
-        // Megillah is rarely leined on the first day.
-        if (!il || testCase.name !== 'Pesach')
+        // Megillah is never leined on the first day in the diaspora.
+        // In Israel, it is leined on the first day if and only if the first day is Shabbat.
+        if (!il) {
           expect(megillahLeynings[0]).not.toBe(leynings[0]);
+        } else if (leynings[0].name.en.includes('Shabbat')) {
+          expect(megillahLeynings[0]).toBe(leynings[0]);
+        } else {
+          expect(megillahLeynings[0]).not.toBe(leynings[0]);
+        }
       });
     }
   }
@@ -829,3 +836,33 @@ test('alt', () => {
   };
   expect(reading).toEqual(expected);
 });
+
+test('ecclesiastes-reading-israel-vs-diaspora', () => {
+  // Sukkot I (on Shabbat): Ecclesiastes in Israel, but not in Diaspora
+  const sukkot1IL = getLeyningForHolidayKey('Sukkot I (on Shabbat)', undefined, true);
+  expect(sukkot1IL?.megillah).toBeDefined();
+  expect(sukkot1IL?.summary).toContain('Ecclesiastes');
+
+  const sukkot1Diaspora = getLeyningForHolidayKey('Sukkot I (on Shabbat)', undefined, false);
+  expect(sukkot1Diaspora?.megillah).toBeUndefined();
+  expect(sukkot1Diaspora?.summary).not.toContain('Ecclesiastes');
+
+  // Shmini Atzeret (on Shabbat): Ecclesiastes in Diaspora, but not in Israel
+  const shminiIL = getLeyningForHolidayKey('Shmini Atzeret (on Shabbat)', undefined, true);
+  expect(shminiIL?.megillah).toBeUndefined();
+  expect(shminiIL?.summary).not.toContain('Ecclesiastes');
+
+  const shminiDiaspora = getLeyningForHolidayKey('Shmini Atzeret (on Shabbat)', undefined, false);
+  expect(shminiDiaspora?.megillah).toBeDefined();
+  expect(shminiDiaspora?.summary).toContain('Ecclesiastes');
+
+  // Simchat Torah (on Shabbat): Ecclesiastes should never be read
+  const simchatTorahIL = getLeyningForHolidayKey('Simchat Torah (on Shabbat)', undefined, true);
+  expect(simchatTorahIL?.megillah).toBeUndefined();
+  expect(simchatTorahIL?.summary).not.toContain('Ecclesiastes');
+
+  const simchatTorahDiaspora = getLeyningForHolidayKey('Simchat Torah (on Shabbat)', undefined, false);
+  expect(simchatTorahDiaspora?.megillah).toBeUndefined();
+  expect(simchatTorahDiaspora?.summary).not.toContain('Ecclesiastes');
+});
+
