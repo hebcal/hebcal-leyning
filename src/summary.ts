@@ -66,8 +66,15 @@ export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
   for (let i = 0; i < nums.length; i++) {
     const num = nums[i];
     const aliyah = aliyot[num];
-    if (i === nums.length - 1 && aliyah.k === end.k && aliyah.e === end.e) {
-      // short-circuit when final aliyah is within the previous (e.g. M inside of 7)
+    if (
+      i === nums.length - 1 &&
+      aliyah.k === start.k &&
+      !isChapVerseBefore(aliyah.b, start.b) &&
+      !isChapVerseBefore(end.e, aliyah.e)
+    ) {
+      // short-circuit when final aliyah is entirely contained within the
+      // accumulated range (e.g. M inside of 7, or a repeated Chol ha-Moed
+      // maftir that re-reads part of the preceding aliyot)
       continue;
     }
     const prevEndChap = +end.e.split(':')[0];

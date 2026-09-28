@@ -465,10 +465,9 @@ test('israel-sukkot-chm-day5', () => {
       he: 'סֻכּוֹת חֹל הַמּוֹעֵד יוֹם ה׳',
     },
     type: 'holiday',
-    summary: 'Numbers 29:29-37, 29:29-34',
+    summary: 'Numbers 29:29-37',
     summaryParts: [
       {k: 'Numbers', b: '29:29', e: '29:37'},
-      {k: 'Numbers', b: '29:29', e: '29:34'},
     ],
     fullkriyah: {
       '1': {p: 41, k: 'Numbers', b: '29:29', e: '29:31', v: 3},
@@ -477,6 +476,19 @@ test('israel-sukkot-chm-day5', () => {
       '4': {p: 41, k: 'Numbers', b: '29:29', e: '29:34', v: 6},
     },
   });
+});
+
+test('diaspora-sukkot-chm-day3-summary-not-nested', () => {
+  const events = HebrewCalendar.calendar({
+    year: 2026, isHebrewYear: false, il: false,
+  });
+  const ev = events.find(e => e.getDesc() === 'Sukkot V (CH\'\'M)');
+  expect(ev).toBeDefined();
+  const reading = getLeyningForHoliday(ev, false);
+  expect(reading.summary).toBe('Numbers 29:23-31');
+  expect(reading.summaryParts).toEqual([
+    {k: 'Numbers', b: '29:23', e: '29:31'},
+  ]);
 });
 
 test('longest-holiday-haftarah', () => {
