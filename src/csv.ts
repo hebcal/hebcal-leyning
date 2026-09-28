@@ -182,7 +182,7 @@ export function writeCsvLines(
   const date = fmtDate(ev.greg());
   const lines = getFullKriyahLines(reading);
   for (const s of lines) {
-    const code = s[0].charCodeAt(0);
+    const code = s[0].codePointAt(0) ?? 0;
     if (code < 48 || code > 57) {
       s[0] = `"${s[0]}"`;
     }

@@ -57,7 +57,7 @@ export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
     if (x.length === 1) {
       return true;
     }
-    const code = x.charCodeAt(0);
+    const code = x.codePointAt(0) ?? 0;
     return code >= 48 && code <= 57;
   });
   let start = aliyot[nums[0]];

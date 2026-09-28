@@ -19,10 +19,10 @@ export function formatVerseToHebrew(chapVerse: string): string {
     return '';
   }
   const cv = chapVerse.split(':');
-  const chapter = parseInt(cv[0], 10);
-  const verse = parseInt(cv[1], 10);
+  const chapter = Number.parseInt(cv[0], 10);
+  const verse = Number.parseInt(cv[1], 10);
   // if not number return empty string
-  if (isNaN(chapter) || isNaN(verse)) {
+  if (Number.isNaN(chapter) || Number.isNaN(verse)) {
     return chapVerse;
   }
   return `${gematriya2(chapter)}:${gematriya2(verse)}`;

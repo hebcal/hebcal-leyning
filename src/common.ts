@@ -79,10 +79,10 @@ export function calculateNumVerses(aliyah: Aliyah): number {
 export function subtractVerses(book: TanakhBook, from: string, to: string) {
   const chapVerseBegin = from.split(':');
   const chapVerseEnd = to.split(':');
-  const c1 = parseInt(chapVerseBegin[0], 10);
-  const c2 = parseInt(chapVerseEnd[0], 10);
-  const v1 = parseInt(chapVerseBegin[1], 10);
-  const v2 = parseInt(chapVerseEnd[1], 10);
+  const c1 = Number.parseInt(chapVerseBegin[0], 10);
+  const c2 = Number.parseInt(chapVerseEnd[0], 10);
+  const v1 = Number.parseInt(chapVerseBegin[1], 10);
+  const v2 = Number.parseInt(chapVerseEnd[1], 10);
   let result = 0;
   if (c1 === c2) {
     return v2 - v1;
@@ -111,8 +111,8 @@ export function subtractVerses(book: TanakhBook, from: string, to: string) {
  */
 export function addVerses(book: TanakhBook, from: string, numVerses: number) {
   const chapVerseBegin = from.split(':');
-  const c1 = parseInt(chapVerseBegin[0], 10);
-  const v1 = parseInt(chapVerseBegin[1], 10);
+  const c1 = Number.parseInt(chapVerseBegin[0], 10);
+  const v1 = Number.parseInt(chapVerseBegin[1], 10);
   const numv = NUM_VERSES[book];
   if (typeof numv !== 'object' || !numv.length) {
     throw new ReferenceError(`Can't find numverses for ${book}`);
