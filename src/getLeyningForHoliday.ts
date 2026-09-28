@@ -100,10 +100,15 @@ export function getLeyningForHolidayKey(
     if (key === 'Pesach I (on Shabbat)') {
       megillah = 'Song of Songs';
     } else if (key === 'Sukkot I (on Shabbat)') {
+      // When Sukkot I is on Shabbat there is no Shabbat Chol ha-Moed.
+      // The Diaspora reads Kohelet on Shmini Atzeret (22 Tishrei, also
+      // Shabbat); in Israel that day is Simchat Torah, so the widespread
+      // Ashkenazi custom is to read it on Sukkot I instead.
+      // https://he.wikipedia.org/wiki/יום_טוב_ראשון_של_סוכות
       megillah = 'Ecclesiastes';
-    } else if (
-      key === 'Shmini Atzeret (on Shabbat)'
-    ) {
+    } else if (key === 'Shmini Atzeret (on Shabbat)') {
+      // Israel's 22 Tishrei maps to 'Simchat Torah (on Shabbat)', so this
+      // only matters when the key is looked up directly with il=true
       megillah = undefined;
     }
   }

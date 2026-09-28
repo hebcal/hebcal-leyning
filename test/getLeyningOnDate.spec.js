@@ -657,3 +657,23 @@ test('Yom Kippur Mincha on Shabbat', () => {
   expect(readingsHe[0].fullkriyah['1'].k).toBe('וַיִּקְרָא');
   expect(readingsHe[1].fullkriyah['1'].k).toBe('וַיִּקְרָא');
 });
+
+test('getLeyningOnDate-ecclesiastes-sukkot-on-shabbat', () => {
+  // 5788: Sukkot I and 22 Tishrei are both Shabbat, so there is no
+  // Shabbat Chol ha-Moed. Returns the name of each day with a megillah.
+  const kohelet = (il) => {
+    const days = [];
+    for (let d = 15; d <= 23; d++) {
+      const readings = getLeyningOnDate(new HDate(d, months.TISHREI, 5788), il, true);
+      for (const reading of readings) {
+        if (reading.megillah) {
+          expect(reading.megillah['1'].k).toBe('Ecclesiastes');
+          days.push(`${d} ${reading.name.en}`);
+        }
+      }
+    }
+    return days;
+  };
+  expect(kohelet(true)).toEqual(['15 Sukkot I (on Shabbat)']);
+  expect(kohelet(false)).toEqual(['22 Shmini Atzeret (on Shabbat)']);
+});
