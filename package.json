@@ -1,6 +1,6 @@
 {
   "name": "@hebcal/leyning",
-  "version": "10.0.0",
+  "version": "10.0.1",
   "author": "Michael J. Radwin (https://github.com/mjradwin)",
   "keywords": [
     "hebcal",
@@ -39,7 +39,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hebcal/core": "^6.9.3",
+    "@hebcal/core": "^6.10.0",
     "@hebcal/hdate": "^0.22.8"
   },
   "scripts": {
@@ -50,7 +50,8 @@
     "docs": "npx -y typedoc",
     "pretest": "npm run build",
     "lint": "oxlint .",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "coverage": "vitest run --coverage",
     "clean": "rm -rf dist coverage",
     "fix": "oxlint . --fix && npm run format:fix",
@@ -59,12 +60,12 @@
   },
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/node": "^26.6.2",
-    "@vitest/coverage-v8": "^5.0.1",
+    "@types/node": "^26.6.3",
+    "@vitest/coverage-v8": "^5.0.2",
     "gettext-parser": "^9.1.1",
-    "oxlint": "^1.85.0",
+    "oxlint": "^1.86.0",
     "prettier": "^3.9.9",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.2"
   }
 }

@@ -1,5 +1,4 @@
 import {HDate, months} from '@hebcal/hdate';
-import {flags} from '@hebcal/core/dist/esm/event';
 import {
   getLeyningForHoliday,
   getLeyningForHolidayKey,
@@ -116,9 +115,7 @@ export function getLeyningOnDate(
   const events = getHolidaysOnDate(hdate, il) || [];
   let hasFullKriyah = false;
   for (const ev of events) {
-    const specialShabbat = Boolean(
-      ev.getFlags() & (flags.SPECIAL_SHABBAT | flags.ROSH_CHODESH)
-    );
+    const specialShabbat = ev.hasAnyFlag('SPECIAL_SHABBAT', 'ROSH_CHODESH');
     if (hasParshaHaShavua && specialShabbat) {
       continue;
     }

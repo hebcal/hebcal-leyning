@@ -1,5 +1,4 @@
 import {HDate, months} from '@hebcal/hdate';
-import {flags} from '@hebcal/core/dist/esm/event';
 import {cloneHaftara} from './clone.js';
 import {calculateNumVerses, parshaToString} from './common.js';
 import {lookupFestival} from './festival.js';
@@ -101,7 +100,7 @@ export function specialReadings2(
 
   const parshaName = parshaToString(parsha);
   const events0 = getHolidaysOnDate(hd, il) || [];
-  const events = events0.filter(ev => !(ev.getFlags() & flags.ROSH_CHODESH));
+  const events = events0.filter(ev => !ev.hasFlag('ROSH_CHODESH'));
   for (const ev of events) {
     if (ev.getDesc() === 'Shabbat Shuva') {
       handleSpecial(`Shabbat Shuva (with ${parshaName})`);

@@ -1,4 +1,4 @@
-import {Event, flags} from '@hebcal/core/dist/esm/event';
+import {Event} from '@hebcal/core/dist/esm/event';
 import {ParshaEvent} from '@hebcal/core/dist/esm/ParshaEvent';
 import {Locale} from './locale.js';
 import parshiyotObj0 from './aliyot.json.js';
@@ -242,9 +242,9 @@ export function getLeyningForParshaHaShavua(
   il = false,
   language: string = 'en'
 ): Leyning {
-  if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
+  if (typeof ev !== 'object' || typeof ev.hasFlag !== 'function') {
     throw new TypeError(`Bad event argument: ${ev}`);
-  } else if (ev.getFlags() !== flags.PARSHA_HASHAVUA) {
+  } else if (!ev.hasFlag('PARSHA_HASHAVUA')) {
     throw new TypeError(`Event must be parsha hashavua: ${ev.getDesc()}`);
   }
   // first, collect the default aliyot and haftara

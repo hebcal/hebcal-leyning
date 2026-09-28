@@ -1,4 +1,4 @@
-import {Event, flags} from '@hebcal/core/dist/esm/event';
+import {Event} from '@hebcal/core/dist/esm/event';
 import {Locale} from './locale.js';
 import {calculateNumVerses, NUM_VERSES} from './common.js';
 import {translateLeyning} from './translate.js';
@@ -6,7 +6,7 @@ import {makeLeyningParts, makeSummaryFromParts} from './summary.js';
 import {cloneHaftara, sumVerses} from './clone.js';
 import {lookupFestival} from './festival.js';
 import {
-  HOLIDAY_IGNORE_MASK,
+  HOLIDAY_IGNORE_FLAGS,
   getLeyningKeyForEvent,
   isModernHolidayWithReading,
 } from './getLeyningKeyForEvent.js';
@@ -136,16 +136,16 @@ export function getLeyningForHoliday(
   il = false,
   language: string = 'en'
 ): Leyning | undefined {
-  if (typeof ev !== 'object' || typeof ev.getFlags !== 'function') {
+  if (typeof ev !== 'object' || typeof ev.hasFlag !== 'function') {
     throw new TypeError(`Bad event argument: ${JSON.stringify(ev)}`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } else if ((ev as any).eventTime !== undefined) {
     // Events with eventTime are not supported for leyning lookup
     return undefined;
-  } else if (ev.getFlags() & flags.PARSHA_HASHAVUA) {
+  } else if (ev.hasFlag('PARSHA_HASHAVUA')) {
     throw new TypeError(`Event should be a holiday: ${ev.getDesc()}`);
   } else if (
-    ev.getFlags() & HOLIDAY_IGNORE_MASK &&
+    ev.hasAnyFlag(...HOLIDAY_IGNORE_FLAGS) &&
     !isModernHolidayWithReading(ev)
   ) {
     return undefined;

@@ -34,7 +34,7 @@ export interface StringToBoolMap {
  * @returns a map whose keys are the parsha dates, each set to `true`
  */
 export function getParshaDates(events: Event[]): StringToBoolMap {
-  const parshaEvents = events.filter(ev => ev.getFlags() === PARSHA_HASHAVUA);
+  const parshaEvents = events.filter(ev => ev.hasFlag('PARSHA_HASHAVUA'));
   const emptyMap: StringToBoolMap = {};
   const parshaDates = parshaEvents.reduce((set, ev) => {
     set[ev.getDate().toString()] = true;
@@ -50,8 +50,6 @@ function getParshaAndHolidayEvents(year: number, il: boolean): Event[] {
   events.sort((a, b) => a.getDate().abs() - b.getDate().abs());
   return events;
 }
-
-const PARSHA_HASHAVUA = flags.PARSHA_HASHAVUA;
 
 /**
  * Writes a full-year Full Kriyah CSV (all parshiyot and holidays) to a
@@ -73,7 +71,7 @@ export function writeFullKriyahCsv(
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
   for (const ev of events) {
     if (
-      ev.getFlags() === PARSHA_HASHAVUA ||
+      ev.hasFlag('PARSHA_HASHAVUA') ||
       !parshaDates[ev.getDate().toString()]
     ) {
       writeFullKriyahEvent(stream, ev, il);
@@ -82,11 +80,10 @@ export function writeFullKriyahCsv(
 }
 
 function ignore(ev: Event): boolean {
-  const mask = ev.getFlags();
-  if (mask === flags.SPECIAL_SHABBAT) {
+  if (ev.hasFlag('SPECIAL_SHABBAT')) {
     return true;
   }
-  if (mask !== flags.ROSH_CHODESH) {
+  if (!ev.hasFlag('ROSH_CHODESH')) {
     return false;
   }
   return ev.getDate().getDay() === 6;
@@ -107,8 +104,7 @@ export function writeFullKriyahEvent(
   if (ignore(ev)) {
     return;
   }
-  const mask = ev.getFlags();
-  const isParsha = mask === PARSHA_HASHAVUA;
+  const isParsha = ev.hasFlag('PARSHA_HASHAVUA');
   const reading = isParsha
     ? getLeyningForParshaHaShavua(ev, il)
     : getLeyningForHoliday(ev, il);

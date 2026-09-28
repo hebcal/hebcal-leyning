@@ -1,5 +1,5 @@
 import {expect, test} from 'vitest';
-import {HebrewCalendar, flags} from '@hebcal/core';
+import {HebrewCalendar} from '@hebcal/core';
 import {getLeyningForHoliday} from '../src/getLeyningForHoliday';
 import {getLeyningForParshaHaShavua} from '../src/leyning';
 
@@ -13,11 +13,11 @@ test('Chanukah', () => {
   const actual = [];
   let i = 0;
   for (const ev of events) {
-    const mask = ev.getFlags();
-    const reading = (mask & flags.PARSHA_HASHAVUA) ?
+    const isParshaHaShavua = ev.hasFlag('PARSHA_HASHAVUA');
+    const reading = isParshaHaShavua ?
       getLeyningForParshaHaShavua(ev, true) :
       getLeyningForHoliday(ev, true);
-    const readingHe = (mask & flags.PARSHA_HASHAVUA) ?
+    const readingHe = isParshaHaShavua ?
       getLeyningForParshaHaShavua(ev, true, 'he') :
       getLeyningForHoliday(ev, true, 'he');
     actual.push({

@@ -1,24 +1,25 @@
 import {HDate, months} from '@hebcal/hdate';
-import {Event, flags} from '@hebcal/core/dist/esm/event';
+import {Event, FlagName} from '@hebcal/core/dist/esm/event';
 import {hasFestival} from './festival.js';
 
 /**
- * Bitmask of event flags that never have their own Torah reading (Daf Yomi,
+ * Event flags that never have their own Torah reading (Daf Yomi,
  * Omer count, molad, Shabbat Mevarchim, etc.), used to skip such events when
- * finding a leyning key. {@link flags.MODERN_HOLIDAY} is included here, but a
+ * finding a leyning key. `MODERN_HOLIDAY` is included here, but a
  * few modern holidays do have readings — see {@link isModernHolidayWithReading}.
  * @readonly
  */
-export const HOLIDAY_IGNORE_MASK =
-  flags.DAF_YOMI |
-  flags.OMER_COUNT |
-  flags.SHABBAT_MEVARCHIM |
-  flags.MOLAD |
-  flags.USER_EVENT |
-  flags.HEBREW_DATE |
-  flags.MISHNA_YOMI |
-  flags.MODERN_HOLIDAY |
-  flags.YERUSHALMI_YOMI;
+export const HOLIDAY_IGNORE_FLAGS: FlagName[] = [
+  'DAF_YOMI',
+  'OMER_COUNT',
+  'SHABBAT_MEVARCHIM',
+  'MOLAD',
+  'USER_EVENT',
+  'HEBREW_DATE',
+  'MISHNA_YOMI',
+  'MODERN_HOLIDAY',
+  'YERUSHALMI_YOMI',
+];
 
 /**
  * Most modern holidays have no Torah reading, but a few (such as
@@ -27,8 +28,7 @@ export const HOLIDAY_IGNORE_MASK =
  * @returns true if this is a modern holiday that has a reading
  */
 export function isModernHolidayWithReading(ev: Event): boolean {
-  const mask = ev.getFlags();
-  return Boolean(mask & flags.MODERN_HOLIDAY) && hasFestival(ev.getDesc());
+  return ev.hasFlag('MODERN_HOLIDAY') && hasFestival(ev.getDesc());
 }
 
 /**
@@ -48,13 +48,12 @@ export function getLeyningKeyForEvent(
   if ((ev as any).eventTime !== undefined) {
     return undefined;
   }
-  const mask = ev.getFlags();
-  if (mask & HOLIDAY_IGNORE_MASK) {
+  if (ev.hasAnyFlag(...HOLIDAY_IGNORE_FLAGS)) {
     return isModernHolidayWithReading(ev) ? ev.getDesc() : undefined;
   }
   // Skip all Erevs except for Simchat Torah
   const desc = ev.getDesc();
-  if (mask & flags.EREV && !hasFestival(desc)) {
+  if (ev.hasFlag('EREV') && !hasFestival(desc)) {
     return undefined;
   }
   const hd = ev.getDate();
