@@ -62,7 +62,7 @@ export function makeLeyningParts(aliyot: AliyotMap): Aliyah[] {
   });
   let start = aliyot[nums[0]];
   let end = start;
-  const parts = [];
+  const parts: Aliyah[] = [];
   for (let i = 0; i < nums.length; i++) {
     const num = nums[i];
     const aliyah = aliyot[num];

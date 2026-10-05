@@ -83,3 +83,38 @@ files are gitignored build artifacts — edit the `.json` and `.po` originals.
 ## Testing
 
 Tests are in `test/*.spec.js` (plain JS, not TS). The largest test files are `getLeyningForParshaHaShavua.spec.js` and `holiday.spec.js`. Tests import directly from `src/index.ts` via Vitest's TypeScript support.
+
+## Breaking changes deferred to the next major version
+
+These would make the types more accurate or idiomatic, but each could break
+existing TypeScript callers, so they were deliberately left out of minor/patch
+releases. The package is consumed by both TS and JS callers; the public API
+includes everything reachable via the `./dist/esm/*` subpath export, not just
+`src/index.ts`.
+
+- **`type X = {…}` → `interface X {…}`** for exported object shapes (`Aliyah`,
+  `LeyningNames`, `ParshaMeta`, `SpecialReading`, `HaftTheme`, …). Interfaces
+  lack an implicit index signature, so callers passing these where
+  `Record<string, unknown>` is expected would stop compiling.
+- **`readonly` arrays for constants**: `BOOK` (`common.ts`) and
+  `HOLIDAY_IGNORE_FLAGS` (`getLeyningKeyForEvent.ts`) are documented
+  `@readonly` but typed mutable. Making them `readonly TorahBook[]` /
+  `readonly FlagName[]` breaks callers that pass them to mutable-array params.
+  `BOOK[0]` is also `'' as TorahBook`, a type lie — consider `TorahBook | ''`.
+- **`Leyning.fullkriyah` should be optional.** `Leyning` intersects
+  `LeyningShabbatHoliday`, which declares `fullkriyah` (and `haft`, `haftara`)
+  required, but weekday readings and some holiday readings (e.g. megillah-only)
+  have none. Code like `getLeyningOnDate.ts` reads `fk.M` on a possibly
+  undefined value without a compile error. A discriminated union on
+  `LeyningBase.type` (`'shabbat' | 'holiday' | 'weekday'`) would be the
+  idiomatic fix.
+- **`JsonFestivalLeyning.megillah: string` → `KetuvimBook`**, removing the cast
+  in `getLeyningForHoliday.ts`. `JsonFestivalLeyning` is exported from the index.
+- **`JsonFestivalLeyning.chabad`** still includes `{sameas: 'haft'}` even
+  though `lookupFestival()` always resolves it; a separate resolved return type
+  would remove the `'sameas' in …` checks in callers.
+- **`getParshaDates()` returns `StringToBoolMap`**; a `Set<string>` is the
+  idiomatic shape.
+- **`getLeyningOnDate()` overloads** return `Leyning | LeyningWeekday`, which
+  collapses to roughly `LeyningWeekday`; precise return types would follow
+  from the discriminated-union change above.

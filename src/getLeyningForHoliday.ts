@@ -1,4 +1,5 @@
 import {Event} from '@hebcal/core/dist/esm/event';
+import type {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
 import {Locale} from './locale.js';
 import {calculateNumVerses, NUM_VERSES} from './common.js';
 import {translateLeyning} from './translate.js';
@@ -9,6 +10,7 @@ import {
   HOLIDAY_IGNORE_FLAGS,
   getLeyningKeyForEvent,
   isModernHolidayWithReading,
+  isTimedEvent,
 } from './getLeyningKeyForEvent.js';
 import {AliyotMap, KetuvimBook, Leyning} from './types.js';
 
@@ -153,8 +155,7 @@ export function getLeyningForHoliday(
 ): Leyning | undefined {
   if (typeof ev !== 'object' || typeof ev.hasFlag !== 'function') {
     throw new TypeError(`Bad event argument: ${JSON.stringify(ev)}`);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } else if ((ev as any).eventTime !== undefined) {
+  } else if (isTimedEvent(ev)) {
     // Events with eventTime are not supported for leyning lookup
     return undefined;
   } else if (ev.hasFlag('PARSHA_HASHAVUA')) {
@@ -169,7 +170,7 @@ export function getLeyningForHoliday(
 
   const leyning = getLeyningForHolidayKey(
     key,
-    (ev as any).cholHaMoedDay, // eslint-disable-line @typescript-eslint/no-explicit-any
+    (ev as HolidayEvent).cholHaMoedDay,
     il,
     language
   );

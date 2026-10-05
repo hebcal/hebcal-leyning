@@ -1,5 +1,5 @@
 import {expect, test} from 'vitest';
-import {lookupParsha} from '../src/leyning';
+import {getLeyningForParsha, lookupParsha} from '../src/leyning';
 
 test('lookupParsha', () => {
   const meta = lookupParsha('Bereshit');
@@ -116,4 +116,17 @@ test('lookupParsha-haftTheme', () => {
   expect(lookupParsha('Nitzavim').haftTheme).toEqual({consolation: 7});
   // Regular parsha has no haftTheme
   expect(lookupParsha('Bereshit').haftTheme).toBeUndefined();
+});
+test('lookupParsha with language does not modify shared data', () => {
+  const meta = lookupParsha('Noach', 'he');
+  expect(meta.haft.k).toBe('יְשַׁעְיָהוּ');
+  // combined parsha borrowing a Haftarah, and a Chabad `sameas` Haftarah
+  lookupParsha('Matot-Masei', 'he');
+  lookupParsha('Vayakhel-Pekudei', 'he');
+  expect(lookupParsha('Noach').haft).toEqual({k: 'Isaiah', b: '54:1', e: '55:5'});
+  expect(lookupParsha('Masei').haft).toEqual(lookupParsha('Matot-Masei').haft);
+  expect(getLeyningForParsha('Noach').haftara).toBe('Isaiah 54:1-55:5');
+  expect(getLeyningForParsha('Matot-Masei').haftara).toBe(
+    getLeyningForParsha('Masei').haftara
+  );
 });

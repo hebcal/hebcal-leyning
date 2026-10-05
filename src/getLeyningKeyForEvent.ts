@@ -1,5 +1,9 @@
 import {HDate, months} from '@hebcal/hdate';
 import {Event, FlagName} from '@hebcal/core/dist/esm/event';
+import type {
+  ChanukahEvent,
+  HolidayEvent,
+} from '@hebcal/core/dist/esm/HolidayEvent';
 import {hasFestival} from './festival.js';
 
 /**
@@ -20,6 +24,15 @@ export const HOLIDAY_IGNORE_FLAGS: FlagName[] = [
   'MODERN_HOLIDAY',
   'YERUSHALMI_YOMI',
 ];
+
+/**
+ * Tests whether an event has a specific time of day (candle-lighting,
+ * havdalah, zmanim, etc.). Such events never have a Torah reading.
+ * @private
+ */
+export function isTimedEvent(ev: Event): boolean {
+  return (ev as {eventTime?: Date}).eventTime !== undefined;
+}
 
 /**
  * Most modern holidays have no Torah reading, but a few (such as
@@ -44,8 +57,7 @@ export function getLeyningKeyForEvent(
   ev: Event,
   il = false
 ): string | undefined {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if ((ev as any).eventTime !== undefined) {
+  if (isTimedEvent(ev)) {
     return undefined;
   }
   if (ev.hasAnyFlag(...HOLIDAY_IGNORE_FLAGS)) {
@@ -75,8 +87,7 @@ export function getLeyningKeyForEvent(
   if (day === 1 && month === months.TISHREI) {
     return isShabbat ? 'Rosh Hashana I (on Shabbat)' : 'Rosh Hashana I';
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const cholHaMoedDay = (ev as any).cholHaMoedDay as number | undefined;
+  const {cholHaMoedDay} = ev as HolidayEvent;
   if (typeof cholHaMoedDay === 'number') {
     // Sukkot or Pesach
     if (isShabbat) {
@@ -93,8 +104,7 @@ export function getLeyningKeyForEvent(
     }
     return `${holiday} Chol ha-Moed Day ${cholHaMoedDay}`;
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const chanukahDay = (ev as any).chanukahDay as number | undefined;
+  const {chanukahDay} = ev as ChanukahEvent;
   if (typeof chanukahDay === 'number') {
     if (isShabbat && isRoshChodesh) {
       return 'Shabbat Rosh Chodesh Chanukah';
@@ -122,7 +132,7 @@ export function getLeyningKeyForEvent(
     return undefined;
   }
 
-  if (isShabbat && 'Shabbat' !== desc.substring(0, 7)) {
+  if (isShabbat && !desc.startsWith('Shabbat')) {
     if (isRoshChodesh) {
       if (desc === 'Rosh Chodesh Tevet') {
         return 'Shabbat Rosh Chodesh Chanukah';

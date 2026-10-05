@@ -2,7 +2,6 @@ import {parshaYear} from '@hebcal/core/dist/esm/parshaYear';
 import {Event, flags} from '@hebcal/core/dist/esm/event';
 import {HolidayEvent} from '@hebcal/core/dist/esm/HolidayEvent';
 import {getHolidaysForYearArray} from '@hebcal/core/dist/esm/holidays';
-import {WriteStream} from 'node:fs';
 import {formatAliyahWithBook} from './common.js';
 import {
   getLeyningForHoliday,
@@ -28,25 +27,34 @@ export interface StringToBoolMap {
 }
 
 /**
+ * Minimal writable text sink accepted by the CSV writers, such as a
+ * `fs.WriteStream`, `process.stdout`, or any object with a `write` method
+ */
+export interface CsvWritable {
+  write(chunk: string): unknown;
+}
+
+/**
  * Builds a set of the dates (as strings) on which a parashat hashavua is
  * read, so holiday readings falling on those Shabbatot can be de-duplicated.
  * @param events a list of Hebcal events
  * @returns a map whose keys are the parsha dates, each set to `true`
  */
 export function getParshaDates(events: Event[]): StringToBoolMap {
-  const parshaEvents = events.filter(ev => ev.hasFlag('PARSHA_HASHAVUA'));
-  const emptyMap: StringToBoolMap = {};
-  const parshaDates = parshaEvents.reduce((set, ev) => {
-    set[ev.getDate().toString()] = true;
-    return set;
-  }, emptyMap);
+  const parshaDates: StringToBoolMap = {};
+  for (const ev of events) {
+    if (ev.hasFlag('PARSHA_HASHAVUA')) {
+      parshaDates[ev.getDate().toString()] = true;
+    }
+  }
   return parshaDates;
 }
 
 function getParshaAndHolidayEvents(year: number, il: boolean): Event[] {
-  let events: Event[] = parshaYear(year, il);
-  const holidays = getHolidaysForYearArray(year, il);
-  events = events.concat(holidays);
+  const events: Event[] = [
+    ...parshaYear(year, il),
+    ...getHolidaysForYearArray(year, il),
+  ];
   events.sort((a, b) => a.getDate().abs() - b.getDate().abs());
   return events;
 }
@@ -59,14 +67,12 @@ function getParshaAndHolidayEvents(year: number, il: boolean): Event[] {
  * @param il `true` for the Israel schedule
  */
 export function writeFullKriyahCsv(
-  stream: WriteStream,
+  stream: CsvWritable,
   hyear: number,
   il: boolean
 ) {
   const events0 = getParshaAndHolidayEvents(hyear, il);
-  const events = events0.filter(
-    (ev: Event) => ev.getDesc() !== 'Rosh Chodesh Tevet'
-  );
+  const events = events0.filter(ev => ev.getDesc() !== 'Rosh Chodesh Tevet');
   const parshaDates = getParshaDates(events);
   stream.write('"Date","Parashah","Aliyah","Reading","Verses"\r\n');
   for (const ev of events) {
@@ -97,7 +103,7 @@ function ignore(ev: Event): boolean {
  * @param il `true` for the Israel schedule
  */
 export function writeFullKriyahEvent(
-  stream: WriteStream,
+  stream: CsvWritable,
   ev: Event,
   il: boolean
 ) {
@@ -135,7 +141,7 @@ export function writeFullKriyahEvent(
  * @param il `true` for the Israel schedule
  */
 export function writeHolidayMincha(
-  stream: WriteStream,
+  stream: CsvWritable,
   ev: HolidayEvent,
   il: boolean
 ) {
@@ -170,7 +176,7 @@ export function writeHolidayMincha(
  * @param isParsha `true` if `ev` is a parashat hashavua (vs. a holiday)
  */
 export function writeCsvLines(
-  stream: WriteStream,
+  stream: CsvWritable,
   ev: Event,
   reading: Leyning,
   il: boolean,

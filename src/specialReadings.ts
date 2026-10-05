@@ -3,9 +3,8 @@ import {cloneHaftara} from './clone.js';
 import {calculateNumVerses, parshaToString} from './common.js';
 import {lookupFestival} from './festival.js';
 import {getLeyningKeyForEvent} from './getLeyningKeyForEvent.js';
-import {AliyotMap, SpecialReading, StringMap} from './types.js';
+import {Aliyah, AliyotMap, SpecialReading, StringMap} from './types.js';
 import {getHolidaysOnDate} from '@hebcal/core/dist/esm/holidays';
-import {JsonFestivalAliyah} from './internalTypes.js';
 
 function aliyotCombine67(aliyot: AliyotMap) {
   const a6 = structuredClone(aliyot['6']);
@@ -61,9 +60,9 @@ export function specialReadings2(
   il: boolean,
   aliyot: AliyotMap
 ): SpecialReading {
-  let haft;
-  let seph;
-  let chabad;
+  let haft: Aliyah | Aliyah[] | undefined;
+  let seph: Aliyah | Aliyah[] | undefined;
+  let chabad: Aliyah | Aliyah[] | undefined;
   let specialHaft = false;
   const reason: StringMap = {};
 
@@ -84,7 +83,8 @@ export function specialReadings2(
         reason.sephardic = key;
       }
       if (special.chabad) {
-        chabad = cloneHaftara(special.chabad as JsonFestivalAliyah);
+        chabad =
+          'sameas' in special.chabad ? haft : cloneHaftara(special.chabad);
         reason.chabad = key;
       }
     }

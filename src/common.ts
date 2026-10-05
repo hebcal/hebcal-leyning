@@ -14,7 +14,7 @@ export const BOOK: TorahBook[] = [
   'Leviticus',
   'Numbers',
   'Deuteronomy',
-] as const;
+];
 
 /**
  * The number of verses in each book of the Tanakh.
@@ -76,14 +76,17 @@ export function calculateNumVerses(aliyah: Aliyah): number {
  * @param to The ending verse (e.g. "28:15")
  * @returns The number of verses between the two locations, excluding the `to` verse.
  */
-export function subtractVerses(book: TanakhBook, from: string, to: string) {
+export function subtractVerses(
+  book: TanakhBook,
+  from: string,
+  to: string
+): number {
   const chapVerseBegin = from.split(':');
   const chapVerseEnd = to.split(':');
   const c1 = Number.parseInt(chapVerseBegin[0], 10);
   const c2 = Number.parseInt(chapVerseEnd[0], 10);
   const v1 = Number.parseInt(chapVerseBegin[1], 10);
   const v2 = Number.parseInt(chapVerseEnd[1], 10);
-  let result = 0;
   if (c1 === c2) {
     return v2 - v1;
   }
@@ -96,8 +99,7 @@ export function subtractVerses(book: TanakhBook, from: string, to: string) {
     total += numv[chap];
   }
   total += v2;
-  result = total;
-  return result;
+  return total;
 }
 
 /**
@@ -109,7 +111,11 @@ export function subtractVerses(book: TanakhBook, from: string, to: string) {
  *          or null if the resulting verse exceeds the number of verses
  *          in the book.
  */
-export function addVerses(book: TanakhBook, from: string, numVerses: number) {
+export function addVerses(
+  book: TanakhBook,
+  from: string,
+  numVerses: number
+): string | null {
   const chapVerseBegin = from.split(':');
   const c1 = Number.parseInt(chapVerseBegin[0], 10);
   const v1 = Number.parseInt(chapVerseBegin[1], 10);

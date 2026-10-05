@@ -15,26 +15,17 @@ import {
   Leyning,
   LeyningNames,
   ParshaMeta,
-  TanakhBook,
 } from './types.js';
-
-type JsonAliyah = {
-  k: number | TanakhBook;
-  b: string;
-  e: string;
-  v?: number;
-  p?: number;
-};
 
 type JsonParshaMap = Record<string, string[]>;
 
+/** Shape of a single entry in `aliyot.json` */
 type JsonParsha = {
   num: number | number[];
-  hebrew?: string;
   book: number;
-  haft?: JsonAliyah | JsonAliyah[];
-  seph?: JsonAliyah | JsonAliyah[];
-  chabad?: JsonAliyah | JsonAliyah[] | {sameas: 'haft'};
+  haft?: Aliyah | Aliyah[];
+  seph?: Aliyah | Aliyah[];
+  chabad?: Aliyah | Aliyah[] | {sameas: 'haft'};
   haftTheme?: HaftTheme;
   fullkriyah: JsonParshaMap;
   weekday?: JsonParshaMap;
@@ -47,7 +38,7 @@ type JsonParsha = {
 
 type Parshiyot = Record<string, JsonParsha>;
 
-const parshiyotObj: Parshiyot = parshiyotObj0 as Parshiyot;
+const parshiyotObj = parshiyotObj0 as Parshiyot;
 
 /**
  * on doubled parshiot, read only the second Haftarah
@@ -165,7 +156,7 @@ export function getWeekdayReading(
   const book = BOOK[raw.book];
   const weekday: AliyotMap = {};
   for (let i = 1; i <= 3; i++) {
-    const num = '' + i;
+    const num = String(i);
     const src = aliyot[num];
     const aliyah: Aliyah = {k: book, b: src[0], e: src[1]};
     calculateNumVerses(aliyah);
@@ -195,11 +186,11 @@ export function getLeyningForParsha(
   return result;
 }
 
-const reasonHaftKey: Record<string, 'haft' | 'seph' | 'chabad'> = {
+const reasonHaftKey: Partial<Record<string, 'haft' | 'seph' | 'chabad'>> = {
   haftara: 'haft',
   sephardic: 'seph',
   chabad: 'chabad',
-} as const;
+};
 
 /**
  * Returns the theme of the Haftarah tied to the weeks around Tish'a B'Av:
@@ -290,8 +281,8 @@ export function getLeyningForParshaHaShavua(
     }
     result.reason = translatedReason;
     for (const num of reasons) {
-      if (reasonHaftKey[num]) {
-        const haftKey = reasonHaftKey[num];
+      const haftKey = reasonHaftKey[num];
+      if (haftKey) {
         const haftObj = result[haftKey];
         const hafts: Aliyah[] = Array.isArray(haftObj) ? haftObj : [haftObj!];
         for (const haft of hafts) {
@@ -328,30 +319,31 @@ export function lookupParsha(
   if (typeof raw !== 'object') {
     throw new TypeError(`Bad parsha argument: ${parsha}`);
   }
+  // Build a new object rather than modifying `raw`, which is shared data
+  // from aliyot.json and must not be translated in place
+  let hebrew: string;
+  let haft = raw.haft;
   if (raw.combined) {
     const [p1, p2] = name.split('-');
-    if (!raw.hebrew) {
-      raw.hebrew = Locale.gettext(p1, 'he') + '־' + Locale.gettext(p2, 'he');
-    }
-    if (!raw.haft) {
-      const haftKey = p1 === 'Nitzavim' ? p1 : p2;
-      raw.haft = lookupParsha(haftKey, language).haft;
-    }
+    hebrew = Locale.gettext(p1, 'he') + '־' + Locale.gettext(p2, 'he');
+    haft ??= lookupParsha(p1 === 'Nitzavim' ? p1 : p2).haft;
   } else {
-    raw.hebrew = Locale.gettext(name, 'he');
+    hebrew = Locale.gettext(name, 'he');
   }
-  raw.haft = translateAliyahOrArray(raw.haft as Aliyah | Aliyah[], language);
+  const {chabad, ...rest} = raw;
+  const result: ParshaMeta = {
+    ...rest,
+    hebrew,
+    haft: translateAliyahOrArray(haft!, language),
+  };
   if (raw.seph) {
-    raw.seph = translateAliyahOrArray(raw.seph as Aliyah | Aliyah[], language);
+    result.seph = translateAliyahOrArray(raw.seph, language);
   }
-  if (raw.chabad && 'sameas' in raw.chabad) {
-    raw.chabad = raw.haft;
+  if (chabad) {
+    result.chabad =
+      'sameas' in chabad
+        ? result.haft
+        : translateAliyahOrArray(chabad, language);
   }
-  if (raw.chabad) {
-    raw.chabad = translateAliyahOrArray(
-      raw.chabad as Aliyah | Aliyah[],
-      language
-    );
-  }
-  return raw as ParshaMeta;
+  return result;
 }
